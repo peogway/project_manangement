@@ -3,7 +3,7 @@ const usersRouter = require("express").Router();
 const User = require("../models/user");
 
 usersRouter.post("/", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, name, password } = req.body;
 
     if (!req.body.password) {
         return res.status(400).json({ error: "password missing" });
@@ -19,6 +19,7 @@ usersRouter.post("/", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const user = new User({
+        name,
         username,
         passwordHash,
     });
