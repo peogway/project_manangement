@@ -1,11 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { setUserFn } from '../reducers/userReducer'
-
+import loginService from '../services/login'
 import { useField } from '../hooks/hook'
+import RegisterForm from './RegisterFrom'
+import { useState } from 'react'
 
 const LoginForm = () => {
 	const dispatch = useDispatch()
+	const [status, setStatus] = useState('login')
 
 	const { remove: rmUsername, ...username } = useField('text')
 	const { remove: rmPassword, ...password } = useField('password')
@@ -29,22 +32,26 @@ const LoginForm = () => {
 			dispatch(setError('Wrong Credentials', 5))
 		}
 	}
+	if (status === 'register') return <RegisterForm />
 	return (
 		<div>
 			<h2>Login</h2>
 			<form onSubmit={handleLogin}>
 				<div className='username'>
-					username:
-					<input data-testid='username' {...username} />
+					<label>Username: </label>
+					<input {...username} />
 				</div>
 				<div className='password'>
-					password:
-					<input data-testid='password' {...password} />
+					<label>Password: </label>
+					<input {...password} />
 				</div>
 				<button className='btn submitBtn' type='submit'>
-					login
+					Login
 				</button>
 			</form>
+			<p onClick={() => setStatus('register')} style={{ cursor: 'pointer' }}>
+				Create New Account
+			</p>
 		</div>
 	)
 }

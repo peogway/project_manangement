@@ -8,7 +8,28 @@ import { setNotification, setError } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
 
 const App = () => {
-	return <div>Hello world</div>
+	const dispatch = useDispatch()
+	const notification = useSelector((state) => state.notiReducer)
+	const user = useSelector((state) => state.user)
+	const loginForm = () => (
+		<div>
+			<LoginForm />
+		</div>
+	)
+	const handleLogout = () => {
+		window.localStorage.removeItem('loggedBlogAppUser')
+		dispatch(rmUserFn())
+	}
+	return (
+		<div>
+			<Notification message={notification.error} className='error' />
+
+			<Notification message={notification.noti} className='notification' />
+			<h1>Project Management</h1>
+
+			{user === null ? loginForm() : <div>logined</div>}
+		</div>
+	)
 }
 
 export default App
