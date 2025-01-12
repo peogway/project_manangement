@@ -1,10 +1,13 @@
-const bcrypt = require("bcrypt");
-const usersRouter = require("express").Router();
-const User = require("../models/user");
+// Import necessary modules
+const bcrypt = require("bcrypt"); // For hashing passwords
+const usersRouter = require("express").Router(); // Create a new router instance
+const User = require("../models/user"); // User model
 
+// Handle user creation
 usersRouter.post("/", async (req, res) => {
-    const { username, name, password } = req.body;
+    const { username, name, password } = req.body; // Extract user data from request body
 
+    // Validate password presence and length
     if (!req.body.password) {
         return res.status(400).json({ error: "password missing" });
     }
@@ -15,24 +18,30 @@ usersRouter.post("/", async (req, res) => {
         });
     }
 
+    // Hash the password with bcrypt
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
+    // Create a new user instance
     const user = new User({
         name,
         username,
         passwordHash,
     });
 
+    // Save the user to the database
     const savedUser = await user.save();
 
+    // Respond with the created user
     res.status(201).json(savedUser);
 });
 
+// Handle fetching all users
 usersRouter.get("/", async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}); // Fetch all users from the database
 
-    res.json(users);
+    res.json(users); // Respond with the list of users
 });
 
+// Export the router
 module.exports = usersRouter;
