@@ -20,6 +20,10 @@ const projectSchema = mongoose.Schema({
             ref: "Category",
         },
     ],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 projectSchema.set("toJSON", {
