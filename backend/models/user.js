@@ -13,6 +13,12 @@ const userSchema = mongoose.Schema({
     passwordHash: { // Corrected key name
         type: String,
     },
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Project",
+        },
+    ],
 });
 
 // Configure the JSON transformation of the schema
