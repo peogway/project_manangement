@@ -5,10 +5,17 @@ const Project = require("../models/project");
 const categoriesRouter = require("express").Router();
 
 categoriesRouter.get("/", async (req, res) => {
-    const categories = await Category.find({}).populate("projects", {
-        id: 1,
-        name: 1,
-    }).populate(
+    const userRequest = req.user;
+    if (!userRequest) return res.status(403).json({ error: "token invalid" });
+
+    const categories = await Category.find({ user: userRequest.id }).populate(
+        "projects",
+        {
+            id: 1,
+            name: 1,
+            status: 1,
+        },
+    ).populate(
         "user",
         {
             id: 1,
