@@ -62,7 +62,7 @@ const RegisterForm = () => {
 				</div>
 
 				<button className='btn submitBtn' type='submit'>
-					Register
+					Sign up
 				</button>
 			</form>
 			<p onClick={() => setStatus('login')} style={{ cursor: 'pointer' }}>

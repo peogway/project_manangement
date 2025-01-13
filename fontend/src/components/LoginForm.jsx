@@ -22,7 +22,7 @@ const LoginForm = () => {
 				password: password.value,
 			})
 
-			window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
+			window.localStorage.setItem('loggedPrjMnUser', JSON.stringify(user))
 
 			dispatch(setUserFn(user))
 			dispatch(setNotification('Login successfully', 5))
@@ -46,7 +46,7 @@ const LoginForm = () => {
 					<input {...password} />
 				</div>
 				<button className='btn submitBtn' type='submit'>
-					Login
+					Sign in
 				</button>
 			</form>
 			<p onClick={() => setStatus('register')} style={{ cursor: 'pointer' }}>
