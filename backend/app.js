@@ -8,6 +8,8 @@ const cors = require("cors"); // Enable Cross-Origin Resource Sharing
 // Import routers and utilities
 const usersRouter = require("./controllers/users"); // User-related routes
 const loginRouter = require("./controllers/login"); // Login-related routes
+const categoriesRouter = require("./controllers/category"); // Categories routes
+
 const middleware = require("./utils/middleware"); // Middleware functions
 const logger = require("./utils/logger"); // Logger utility
 const mongoose = require("mongoose"); // MongoDB ORM
@@ -29,11 +31,12 @@ mongoose.connect(config.MONGODB_URI)
 
 // Middleware setup
 app.use(cors()); // Allow cross-origin requests
-app.use(express.static("dist")); // Serve static files from "dist" directory
+// app.use(express.static("dist")); // Serve static files from "dist" directory
 app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
 // Route handlers
+app.use("/api/categories", middleware.userExtractor, categoriesRouter);
 app.use("/api/users", usersRouter); // Routes for user operations
 app.use("/login", loginRouter); // Routes for login operations
 
