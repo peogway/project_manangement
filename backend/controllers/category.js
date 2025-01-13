@@ -68,9 +68,43 @@ categoriesRouter.get("/:id", async (req, res) => {
 });
 
 categoriesRouter.delete("/:id", async (req, res) => {
+    const user = req.user;
+    if (!user) {
+        return res.status(401).json({ error: "token invalid" });
+    }
+
+    const category = await Category.findById(req.params.id);
+    if (!(category.user.toString() === user.id.toString())) {
+        return res.status(403).json({
+            error: "Only creator can delete category",
+        });
+    }
+
+    await Category.findByIdAndDelete(req.params.id);
+    res.status(204).end();
 });
 
 categoriesRouter.put("/:id", async (req, res) => {
+    const user = req.user;
+    if (!user) {
+        return res.status(401).json({ error: "token invalid" });
+    }
+
+    const category = await Category.findById(req.params.id);
+    if (!(category.user.toString() === user.id.toString())) {
+        return res.status(403).json({
+            error: "Only creator can edit category",
+        });
+    }
+
+    const editedCategory = {
+        name: req.body.name,
+    };
+
+    await Category.findByIdAndUpdate(req.params.id, editedCategory, {
+        new: true,
+    });
+    res.status(204).end();
 });
 
 module.exports = categoriesRouter;
