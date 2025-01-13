@@ -9,6 +9,12 @@ const categorySchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Project",
+        },
+    ],
 });
 
 categorySchema.set("toJSON", {
