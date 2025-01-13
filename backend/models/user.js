@@ -19,6 +19,12 @@ const userSchema = mongoose.Schema({
             ref: "Project",
         },
     ],
+    categories: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category",
+        },
+    ],
 });
 
 // Configure the JSON transformation of the schema
