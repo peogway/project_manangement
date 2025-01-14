@@ -10,16 +10,12 @@ projectsRouter.get("/", async (req, res) => {
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
     const projects = await Project.find({ user: userRequest.id }).populate(
         "tasks",
-        {
-            id: 1,
-            name: 1,
-        },
+        "id name",
     )
-        .populate("categories", { id: 1, name: 1 }).populate("user", {
-            id: 1,
-            name: 1,
-            useranme: 1,
-        });
+        .populate("categories", { id: 1, name: 1 }).populate(
+            "user",
+            "id name username",
+        );
 
     res.status(200).json(projects);
 });
@@ -49,14 +45,11 @@ projectsRouter.post("/", async (req, res) => {
     user.projects = user.projects.concat(savedProject.id);
     await user.save();
 
-    const populatedProject = await savedProject.populate("tasks", {
-        id: 1,
-        name: 1,
-    }).populate("categories", { id: 1, name: 1 }).populalte("user", {
-        id: 1,
-        name: 1,
-        username: 1,
-    });
+    const populatedProject = await savedProject.populate("tasks", "id name")
+        .populate("categories", { id: 1, name: 1 }).populalte(
+            "user",
+            "id name",
+        );
     return res.status(201).json(populatedProject);
 });
 

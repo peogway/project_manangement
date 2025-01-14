@@ -10,18 +10,10 @@ categoriesRouter.get("/", async (req, res) => {
 
     const categories = await Category.find({ user: userRequest.id }).populate(
         "projects",
-        {
-            id: 1,
-            name: 1,
-            status: 1,
-        },
+        "id name status",
     ).populate(
         "user",
-        {
-            id: 1,
-            name: 1,
-            username: 1,
-        },
+        "id name username",
     );
     res.status(200).json(categories);
 });
@@ -70,15 +62,8 @@ categoriesRouter.post("/", async (req, res) => {
 categoriesRouter.get("/:id", async (req, res) => {
     const category = await Category.findById(req.params.id).populate(
         "projects",
-        {
-            id: 1,
-            name: 1,
-        },
-    ).populate("user", {
-        id: 1,
-        name: 1,
-        username: 1,
-    });
+        "id name",
+    ).populate("user", "id name username");
     res.json(category);
 });
 
