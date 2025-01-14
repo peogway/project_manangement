@@ -6,7 +6,7 @@ const Category = require("../models/category");
 const projectsRouter = require("express").Router();
 
 projectsRouter.get("/", async (req, res) => {
-    const userRequest = req.userRequest;
+    const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
     const projects = await Project.find({ user: userRequest.id }).populate(
         "tasks",

@@ -13,6 +13,7 @@ const categoriesRouter = require("./controllers/category"); // Categories routes
 const middleware = require("./utils/middleware"); // Middleware functions
 const logger = require("./utils/logger"); // Logger utility
 const mongoose = require("mongoose"); // MongoDB ORM
+const projectsRouter = require("./controllers/projects");
 
 // Set Mongoose configuration
 mongoose.set("strictQuery", false);
@@ -36,6 +37,7 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
 // Route handlers
+app.use("/api/projects", middleware.userExtractor, projectsRouter);
 app.use("/api/categories", middleware.userExtractor, categoriesRouter);
 app.use("/api/users", usersRouter); // Routes for user operations
 app.use("/login", loginRouter); // Routes for login operations
