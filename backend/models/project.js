@@ -5,7 +5,6 @@ const projectSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    status: String,
     created: String,
     icon: String,
     tasks: [
