@@ -54,7 +54,7 @@ categoriesRouter.post("/", async (req, res) => {
     const populatedCategory = await savedCategory.populate(
         "user",
         "id name username",
-    ).populate("projects", "id name");
+    ).populate("projects", "id name status");
 
     res.status(201).json(populatedCategory);
 });
@@ -62,7 +62,7 @@ categoriesRouter.post("/", async (req, res) => {
 categoriesRouter.get("/:id", async (req, res) => {
     const category = await Category.findById(req.params.id).populate(
         "projects",
-        "id name",
+        "id name status",
     ).populate("user", "id name username");
     res.json(category);
 });
