@@ -37,7 +37,6 @@ projectsRouter.post("/", async (req, res) => {
     const project = new Project({
         ...body,
         created: now.toString(),
-        tasks: [],
         user: user.id,
     });
     const savedProject = await project.save();
@@ -45,11 +44,22 @@ projectsRouter.post("/", async (req, res) => {
     user.projects = user.projects.concat(savedProject.id);
     await user.save();
 
-    const populatedProject = await savedProject.populate("tasks", "id name")
-        .populate("categories", { id: 1, name: 1 }).populalte(
-            "user",
-            "id name",
-        );
+    const populatedProject = await savedProject.populate([
+        { path: "tasks", select: "id name" },
+        { path: "categories", select: "id name" },
+        { path: "user", select: "id name username" },
+    ]);
+
+    await Promise.all(
+        body.categories.map(async (category) => {
+            const foundCategory = await Category.findById(category);
+            foundCategory.projects = foundCategory.projects.concat(
+                savedProject.id,
+            );
+            await foundCategory.save();
+        }),
+    );
+
     return res.status(201).json(populatedProject);
 });
 
