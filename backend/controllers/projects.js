@@ -32,7 +32,7 @@ projectsRouter.post("/", async (req, res) => {
     }
 
     const now = new Date();
-    const user = await User.findOne({ id: userRequest.id });
+    const user = await User.findById(userRequest.id);
 
     const project = new Project({
         ...body,
