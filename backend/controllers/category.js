@@ -51,10 +51,10 @@ categoriesRouter.post("/", async (req, res) => {
     const savedCategory = await category.save();
     user.categories = user.categories.concat(savedCategory.id);
     await user.save();
-    const populatedCategory = await savedCategory.populate(
-        "user",
-        "id name username",
-    ).populate("projects", "id name status");
+    const populatedCategory = await savedCategory.populate([
+        { path: "user", select: "id name username" },
+        { path: "projects", select: "id name status" },
+    ]);
 
     res.status(201).json(populatedCategory);
 });
