@@ -68,8 +68,7 @@ categoriesRouter.get("/:id", async (req, res) => {
     ).populate("user", "id name username");
 
     if (!category) return res.status(400).json({ error: "invalid category" });
-
-    if (category.user !== userRequest.id) {
+    if (category.user.id.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "Only owner can access category",
         });
