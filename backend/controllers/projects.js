@@ -162,38 +162,32 @@ projectsRouter.put("/:id", async (req, res) => {
         !updatedCategories.includes(category.toString())
     );
 
-    for (const cateId of addedCategories) {
-        const category = await Category.findById(cateId);
-
-        if (!category) continue;
-        category.projects = category.projects.concat(project.id);
-        await category.save();
-    }
-
-    for (const cateId of removedCategories) {
-        const category = await Category.findById(cateId);
-        if (!category) continue;
-        category.projects = category.projects.filter((prjId) =>
-            prjId.toString() !== project.id.toString()
-        );
-        await category.save();
-    }
-
-    for (const taskId of addedTasks) {
-        const task = await Task.findById(taskId);
-        if (!task) continue;
-        task.projects = task.projects.concat(project.id);
-        await task.save();
-    }
-
-    for (const taskId of removedTasks) {
-        const task = await Task.findById(taskId);
-        if (!task) continue;
-        task.projects = task.projects.filter((prjId) =>
-            prjId.toString() !== project.id.toString()
-        );
-        await task.save();
-    }
+    await Promise.all(
+        removedTasks.map(async (taskId) => {
+            const task = await Task.findById(taskId);
+            task.projects = task.projects.filter((prjId) =>
+                prjId.toString() !== project.id.toString()
+            );
+            await task.save();
+        }),
+        addedTasks.map(async (taskId) => {
+            const task = await Task.findById(taskId);
+            task.projects = task.projects.concat(project.id);
+            await task.save();
+        }),
+        removedCategories.map(async (cateId) => {
+            const category = await Category.findById(cateId);
+            category.projects = category.projects.filter((prjId) =>
+                prjId.toString() !== project.id.toString()
+            );
+            await category.save();
+        }),
+        addedCategories.map(async (cateId) => {
+            const category = await Category.findById(cateId);
+            category.projects = category.projects.concat(project.id);
+            await category.save();
+        }),
+    );
     res.status(204).end();
 });
 
