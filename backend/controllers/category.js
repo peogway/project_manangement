@@ -60,10 +60,20 @@ categoriesRouter.post("/", async (req, res) => {
 });
 
 categoriesRouter.get("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) return res.status(401).json({ error: "invalid token" });
     const category = await Category.findById(req.params.id).populate(
         "projects",
         "id name status",
     ).populate("user", "id name username");
+
+    if (!category) return res.status(400).json({ error: "invalid category" });
+
+    if (category.user !== userRequest.id) {
+        return res.status(403).json({
+            error: "Only owner can access category",
+        });
+    }
     res.json(category);
 });
 
