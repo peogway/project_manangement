@@ -63,4 +63,25 @@ projectsRouter.post("/", async (req, res) => {
     return res.status(201).json(populatedProject);
 });
 
+projectsRouter.get("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) {
+        return res.status(401).json({ error: "token invalid" });
+    }
+
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(400).json({ errror: "invalid project" });
+
+    if (project.user !== userRequest.id) {
+        return res.status(403).json({ error: "Only owner can access project" });
+    }
+
+    const populatedProject = await project.populate([
+        { path: "tasks", select: "id name" },
+        { path: "categories", select: "id name" },
+        { path: "user", select: "id name username" },
+    ]);
+    return res.json(populatedProject);
+});
+
 module.exports = projectsRouter;
