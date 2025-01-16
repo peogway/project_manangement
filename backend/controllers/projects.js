@@ -72,7 +72,7 @@ projectsRouter.get("/:id", async (req, res) => {
     const project = await Project.findById(req.params.id);
     if (!project) return res.status(400).json({ errror: "invalid project" });
 
-    if (project.user !== userRequest.id) {
+    if (project.user.toString() !== userRequest.id) {
         return res.status(403).json({ error: "Only owner can access project" });
     }
 
