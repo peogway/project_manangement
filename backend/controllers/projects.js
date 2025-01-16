@@ -131,20 +131,65 @@ projectsRouter.put("/:id", async (req, res) => {
     }
 
     const body = req.body;
-    const filteredBody = {};
-    for (const key in body) {
-        if (body[key] && body[key].length !== 0) {
-            filteredBody[key] = body[key];
-        }
+
+    const updatedProject = await Project.findByIdAndUpdate(
+        req.params.id,
+        body,
+        {
+            new: true,
+        },
+    );
+
+    const originalTasks = project.tasks;
+    const updatedTasks = updatedProject.tasks;
+    const addedTasks = updatedTasks.filter((task) =>
+        !originalTasks.includes(task.toString())
+    );
+    const removedTasks = originalTasks.filter((task) =>
+        !updatedTasks.includes(task.toString())
+    );
+
+    const originalCategories = project.categories;
+    const updatedCategories = updatedProject.categories;
+    const addedCategories = updatedCategories.filter((category) =>
+        !originalCategories.includes(category.toString())
+    );
+    const removedCategories = originalCategories.filter((category) =>
+        !updatedCategories.includes(category.toString())
+    );
+
+    for (const cateId of addedCategories) {
+        const category = await Category.findById(cateId);
+
+        if (!category) continue;
+        category.projects = category.projects.concat(project.id);
+        await category.save();
     }
 
-    const editedProject = {
-        ...filteredBody,
-    };
+    for (const cateId of removedCategories) {
+        const category = await Category.findById(cateId);
+        if (!category) continue;
+        category.projects = category.projects.filter((prjId) =>
+            prjId.toString() !== project.id.toString()
+        );
+        await category.save();
+    }
 
-    await Project.findByIdAndUpdate(req.params.id, editedProject, {
-        new: true,
-    });
+    for (const taskId of addedTasks) {
+        const task = await Task.findById(taskId);
+        if (!task) continue;
+        task.projects = task.projects.concat(project.id);
+        await task.save();
+    }
+
+    for (const taskId of removedTasks) {
+        const task = await Task.findById(taskId);
+        if (!task) continue;
+        task.projects = task.projects.filter((prjId) =>
+            prjId.toString() !== project.id.toString()
+        );
+        await task.save();
+    }
     res.status(204).end();
 });
 
