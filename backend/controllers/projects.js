@@ -84,4 +84,37 @@ projectsRouter.get("/:id", async (req, res) => {
     return res.json(populatedProject);
 });
 
+projectsRouter.delete("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) {
+        return res.status(401).json({ error: "token invalid" });
+    }
+
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(400).json({ errror: "invalid project" });
+
+    if (project.user.toString() !== userRequest.id) {
+        return res.status(403).json({ error: "Only owner can delete project" });
+    }
+
+    await Project.findByIdAndDelete(req.params.id);
+
+    const user = await User.findById(userRequest.id);
+    user.projects = user.projects.filter((prj) =>
+        prj.toString() !== req.params.id.toString()
+    );
+
+    for (const cateId of project.categories) {
+        const category = await Category.findById(cateId);
+        if (!category) continue;
+        category.projects = category.projects.filter((prjId) =>
+            prjId.toString() !== project.id.toString()
+        );
+        await category.save();
+    }
+    await user.save();
+
+    return res.status(204).end();
+});
+
 module.exports = projectsRouter;
