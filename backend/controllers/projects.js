@@ -117,4 +117,35 @@ projectsRouter.delete("/:id", async (req, res) => {
     return res.status(204).end();
 });
 
+projectsRouter.put("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) {
+        return res.status(401).json({ error: "token invalid" });
+    }
+
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(400).json({ errror: "invalid project" });
+
+    if (project.user.toString() !== userRequest.id) {
+        return res.status(403).json({ error: "Only owner can edit project" });
+    }
+
+    const body = req.body;
+    const filteredBody = {};
+    for (const key in body) {
+        if (body[key] && body[key].length !== 0) {
+            filteredBody[key] = body[key];
+        }
+    }
+
+    const editedProject = {
+        ...filteredBody,
+    };
+
+    await Project.findByIdAndUpdate(req.params.id, editedProject, {
+        new: true,
+    });
+    res.status(204).end();
+});
+
 module.exports = projectsRouter;
