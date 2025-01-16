@@ -104,14 +104,18 @@ projectsRouter.delete("/:id", async (req, res) => {
         prj.toString() !== req.params.id.toString()
     );
 
-    for (const cateId of project.categories) {
-        const category = await Category.findById(cateId);
-        if (!category) continue;
-        category.projects = category.projects.filter((prjId) =>
-            prjId.toString() !== project.id.toString()
-        );
-        await category.save();
-    }
+    await Promise.all(
+        project.tasks.map(async (taskId) => {
+            await Task.findByIdAndDelete(taskId);
+        }),
+        project.categories.map(async (cateId) => {
+            const category = await Category.findById(cateId);
+            category.projects = category.projects.filter((prjId) =>
+                prjId.toString() !== project.id.toString()
+            );
+            await category.save();
+        }),
+    );
     await user.save();
 
     return res.status(204).end();
