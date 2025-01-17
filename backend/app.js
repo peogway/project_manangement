@@ -9,6 +9,7 @@ const cors = require("cors"); // Enable Cross-Origin Resource Sharing
 const usersRouter = require("./controllers/users"); // User-related routes
 const loginRouter = require("./controllers/login"); // Login-related routes
 const categoriesRouter = require("./controllers/category"); // Categories routes
+const tasksRouter = require("./controllers/tasks"); //Tasks routes
 
 const middleware = require("./utils/middleware"); // Middleware functions
 const logger = require("./utils/logger"); // Logger utility
@@ -39,6 +40,7 @@ app.use(middleware.tokenExtractor); // Extract token from requests
 // Route handlers
 app.use("/api/projects", middleware.userExtractor, projectsRouter);
 app.use("/api/categories", middleware.userExtractor, categoriesRouter);
+app.use("/api/tasks", middleware.userExtractor, tasksRouter);
 app.use("/api/users", usersRouter); // Routes for user operations
 app.use("/login", loginRouter); // Routes for login operations
 
