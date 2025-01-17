@@ -4,14 +4,21 @@ const taskSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim: true,
+    },
+    description: {
+        type: String,
+        trim: true,
     },
     status: String,
-    created: String,
     priority: String,
-    completed: String,
+    completed: Boolean,
+    creatAt: Date,
+    dueDate: Date,
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Project",
+        require: true,
     },
 });
 

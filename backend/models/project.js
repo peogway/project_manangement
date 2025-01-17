@@ -4,8 +4,9 @@ const projectSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim: true,
     },
-    created: String,
+    creatAt: Date,
     icon: String,
     tasks: [
         {
@@ -22,6 +23,7 @@ const projectSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        require: true,
     },
 });
 
