@@ -33,7 +33,7 @@ projectsRouter.post("/", async (req, res) => {
 
     const project = new Project({
         ...body,
-        created: now.toString(),
+        createAt: now,
         user: user.id,
     });
     const savedProject = await project.save();
