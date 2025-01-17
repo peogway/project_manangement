@@ -12,7 +12,7 @@ tasksRouter.get("/", async (req, res) => {
         "project",
         "id name categories user",
     );
-    if (tasks.length() > 0) {
+    if (tasks.length > 0) {
         if (tasks[0].project.user !== userRequest.id.toString()) {
             return res.status(403).json({
                 error: "only owner can access tasks",
