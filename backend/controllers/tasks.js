@@ -55,7 +55,7 @@ tasksRouter.post("/", async (req, res) => {
     res.status(201).json(populatedTask);
 });
 
-tasksRouter("/:id", async (req, res) => {
+tasksRouter.get("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
@@ -64,13 +64,31 @@ tasksRouter("/:id", async (req, res) => {
         "id name categories user",
     );
     if (!task) return res.status(400).json({ error: "invalid task" });
-    if (task.project.user !== userRequest.id.toStrign()) {
+    if (task.project.user !== userRequest.id.toString()) {
         return res.status(403).json({
             error: "only project owner can access task",
         });
     }
 
     res.status(200).json(task);
+});
+
+tasksRouter.delete("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) return res.status(401).json({ error: "invalid token" });
+
+    const { projectId } = req.query;
+    const project = await Project.findById(projectId);
+    if (project && project.user !== userRequest.id.toString()) {
+        return res.status(403).json({
+            error: "only project owner can delete task",
+        });
+    }
+
+    await Task.findByIdAndDelete(req.params.id);
+    project.tasks = project.tasks.filter((task) => task.id !== req.params.id);
+    await project.save();
+    res.status(204).end();
 });
 
 module.exports = tasksRouter;
