@@ -13,7 +13,7 @@ tasksRouter.get("/", async (req, res) => {
         "id name categories user",
     );
     if (tasks.length > 0) {
-        if (tasks[0].project.user !== userRequest.id.toString()) {
+        if (tasks[0].project.user.toString() !== userRequest.id) {
             return res.status(403).json({
                 error: "only owner can access tasks",
             });
@@ -33,7 +33,7 @@ tasksRouter.post("/", async (req, res) => {
     const project = await Project.findById(projectId);
     if (!project) return res.status(400).json({ error: "invalid project id" });
 
-    if (project.user !== userRequest.id.toString()) {
+    if (project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can add task",
         });
@@ -68,7 +68,7 @@ tasksRouter.get("/:id", async (req, res) => {
         "id name categories user",
     );
     if (!task) return res.status(400).json({ error: "invalid task" });
-    if (task.project.user !== userRequest.id.toString()) {
+    if (task.project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can access task",
         });
@@ -81,17 +81,26 @@ tasksRouter.delete("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
-    const { projectId } = req.query;
-    const project = await Project.findById(projectId);
-    if (project && project.user !== userRequest.id.toString()) {
+    const task = Task.findById(req.params.id);
+    if (!task) {
+        return res.status(400).json({ error: "invalid task id" });
+    }
+    const project = await Project.findById(task.project);
+    if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can delete task",
         });
     }
 
     await Task.findByIdAndDelete(req.params.id);
-    project.tasks = project.tasks.filter((task) => task.id !== req.params.id);
-    await project.save();
+    console.log(project);
+
+    if (project) {
+        project.tasks = project.tasks.filter((task) =>
+            task.id !== req.params.id
+        );
+        await project.save();
+    }
     res.status(204).end();
 });
 
@@ -99,15 +108,19 @@ tasksRouter.put("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
-    const { projectId } = req.query;
-    const project = await Project.findById(projectId);
-    if (project && project.user !== userRequest.id.toString()) {
+    const task = Task.findById(req.params.id);
+    if (!task) {
+        return res.status(400).json({ error: "invalid task id" });
+    }
+    const project = await Project.findById(task.project);
+    if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can edit task",
         });
     }
 
     await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(204).end();
 });
 
 module.exports = tasksRouter;
