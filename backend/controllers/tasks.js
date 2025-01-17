@@ -91,4 +91,19 @@ tasksRouter.delete("/:id", async (req, res) => {
     res.status(204).end();
 });
 
+tasksRouter.put("/:id", async (req, res) => {
+    const userRequest = req.user;
+    if (!userRequest) return res.status(401).json({ error: "invalid token" });
+
+    const { projectId } = req.query;
+    const project = await Project.findById(projectId);
+    if (project && project.user !== userRequest.id.toString()) {
+        return res.status(403).json({
+            error: "only project owner can edit task",
+        });
+    }
+
+    await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+});
+
 module.exports = tasksRouter;
