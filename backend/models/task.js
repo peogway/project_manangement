@@ -13,7 +13,7 @@ const taskSchema = mongoose.Schema({
     status: String,
     priority: String,
     completed: Boolean,
-    creatAt: Date,
+    createAt: Date,
     dueDate: Date,
     project: {
         type: mongoose.Schema.Types.ObjectId,

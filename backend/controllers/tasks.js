@@ -45,6 +45,10 @@ tasksRouter.post("/", async (req, res) => {
         completed: false,
         createAt: new Date(),
         project: project.id,
+        description: body.description === "" ? null : body.description,
+        dueDate: body.dueDate && !isNaN(new Date(body.dueDate))
+            ? new Date(body.dueDate)
+            : null,
     });
 
     const savedTask = await task.save();

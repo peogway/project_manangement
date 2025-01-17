@@ -6,7 +6,7 @@ const projectSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    creatAt: Date,
+    createAt: Date,
     icon: String,
     tasks: [
         {
