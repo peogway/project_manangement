@@ -8,13 +8,10 @@ categoriesRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
 
-    const categories = await Category.find({ user: userRequest.id }).populate(
-        "projects",
-        "id name status",
-    ).populate(
-        "user",
-        "id name username",
-    );
+    const categories = await Category.find({ user: userRequest.id }).populate([
+        { path: "user", select: "id name username" },
+        { path: "projects", select: "id name status" },
+    ]);
     res.status(200).json(categories);
 });
 
@@ -62,10 +59,10 @@ categoriesRouter.post("/", async (req, res) => {
 categoriesRouter.get("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
-    const category = await Category.findById(req.params.id).populate(
-        "projects",
-        "id name status",
-    ).populate("user", "id name username");
+    const category = await Category.findById(req.params.id).populate([
+        { path: "user", select: "id name username" },
+        { path: "projects", select: "id name status" },
+    ]);
 
     if (!category) return res.status(400).json({ error: "invalid category" });
     if (category.user.id.toString() !== userRequest.id) {

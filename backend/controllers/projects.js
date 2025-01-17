@@ -8,14 +8,11 @@ const projectsRouter = require("express").Router();
 projectsRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
-    const projects = await Project.find({ user: userRequest.id }).populate(
-        "tasks",
-        "id name",
-    )
-        .populate("categories", { id: 1, name: 1 }).populate(
-            "user",
-            "id name username",
-        );
+    const projects = await Project.find({ user: userRequest.id }).populate([
+        { path: "tasks", select: "id name" },
+        { path: "categories", select: "id name" },
+        { path: "user", select: "id name username" },
+    ]);
 
     res.status(200).json(projects);
 });
