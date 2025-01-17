@@ -52,6 +52,10 @@ tasksRouter.post("/", async (req, res) => {
         "project",
         "id name categories",
     );
+
+    project.tasks = project.tasks.concat(savedTask.id);
+    await project.save();
+
     res.status(201).json(populatedTask);
 });
 
