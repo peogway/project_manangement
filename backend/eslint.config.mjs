@@ -19,7 +19,7 @@ export default [
     rules: {
       "@stylistic/js/indent": [
         "error",
-        2,
+        4,
       ],
       "@stylistic/js/linebreak-style": [
         "error",
@@ -27,11 +27,11 @@ export default [
       ],
       "@stylistic/js/quotes": [
         "error",
-        "single",
+        "double",
       ],
       "@stylistic/js/semi": [
         "error",
-        "never",
+        "always",
       ],
       "eqeqeq": "error",
       "no-trailing-spaces": "error",
