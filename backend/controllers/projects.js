@@ -1,13 +1,17 @@
+// Import required models
 const User = require("../models/user");
 const Task = require("../models/task");
 const Project = require("../models/project");
 const Category = require("../models/category");
 
+// Create a new router instance
 const projectsRouter = require("express").Router();
 
+// GET all projects for a user
 projectsRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
+
     const projects = await Project.find({ user: userRequest.id }).populate([
         { path: "tasks", select: "id name" },
         { path: "categories", select: "id name" },
@@ -17,11 +21,10 @@ projectsRouter.get("/", async (req, res) => {
     res.status(200).json(projects);
 });
 
+// POST a new project
 projectsRouter.post("/", async (req, res) => {
     const userRequest = req.user;
-    if (!userRequest) {
-        return res.status(401).json({ error: "token invalid" });
-    }
+    if (!userRequest) return res.status(401).json({ error: "token invalid" });
 
     const body = req.body;
     if (!("name" in body)) {
@@ -57,17 +60,16 @@ projectsRouter.post("/", async (req, res) => {
         }),
     );
 
-    return res.status(201).json(populatedProject);
+    res.status(201).json(populatedProject);
 });
 
+// GET a specific project by ID
 projectsRouter.get("/:id", async (req, res) => {
     const userRequest = req.user;
-    if (!userRequest) {
-        return res.status(401).json({ error: "token invalid" });
-    }
+    if (!userRequest) return res.status(401).json({ error: "token invalid" });
 
     const project = await Project.findById(req.params.id);
-    if (!project) return res.status(400).json({ errror: "invalid project" });
+    if (!project) return res.status(400).json({ error: "invalid project" });
 
     if (project.user.toString() !== userRequest.id) {
         return res.status(403).json({ error: "Only owner can access project" });
@@ -78,17 +80,17 @@ projectsRouter.get("/:id", async (req, res) => {
         { path: "categories", select: "id name" },
         { path: "user", select: "id name username" },
     ]);
-    return res.json(populatedProject);
+
+    res.json(populatedProject);
 });
 
+// DELETE a project by ID
 projectsRouter.delete("/:id", async (req, res) => {
     const userRequest = req.user;
-    if (!userRequest) {
-        return res.status(401).json({ error: "token invalid" });
-    }
+    if (!userRequest) return res.status(401).json({ error: "token invalid" });
 
     const project = await Project.findById(req.params.id);
-    if (!project) return res.status(400).json({ errror: "invalid project" });
+    if (!project) return res.status(400).json({ error: "invalid project" });
 
     if (project.user.toString() !== userRequest.id) {
         return res.status(403).json({ error: "Only owner can delete project" });
@@ -97,8 +99,8 @@ projectsRouter.delete("/:id", async (req, res) => {
     await Project.findByIdAndDelete(req.params.id);
 
     const user = await User.findById(userRequest.id);
-    user.projects = user.projects.filter((prj) =>
-        prj.toString() !== req.params.id.toString()
+    user.projects = user.projects.filter(
+        (prj) => prj.toString() !== req.params.id.toString(),
     );
 
     await Promise.all(
@@ -107,25 +109,24 @@ projectsRouter.delete("/:id", async (req, res) => {
         }),
         project.categories.map(async (cateId) => {
             const category = await Category.findById(cateId);
-            category.projects = category.projects.filter((prjId) =>
-                prjId.toString() !== project.id.toString()
+            category.projects = category.projects.filter(
+                (prjId) => prjId.toString() !== project.id.toString(),
             );
             await category.save();
         }),
     );
-    await user.save();
 
-    return res.status(204).end();
+    await user.save();
+    res.status(204).end();
 });
 
+// PUT (update) a project by ID
 projectsRouter.put("/:id", async (req, res) => {
     const userRequest = req.user;
-    if (!userRequest) {
-        return res.status(401).json({ error: "token invalid" });
-    }
+    if (!userRequest) return res.status(401).json({ error: "token invalid" });
 
     const project = await Project.findById(req.params.id);
-    if (!project) return res.status(400).json({ errror: "invalid project" });
+    if (!project) return res.status(400).json({ error: "invalid project" });
 
     if (project.user.toString() !== userRequest.id) {
         return res.status(403).json({ error: "Only owner can edit project" });
@@ -136,34 +137,32 @@ projectsRouter.put("/:id", async (req, res) => {
     const updatedProject = await Project.findByIdAndUpdate(
         req.params.id,
         body,
-        {
-            new: true,
-        },
+        { new: true },
     );
 
     const originalTasks = project.tasks;
     const updatedTasks = updatedProject.tasks;
-    const addedTasks = updatedTasks.filter((task) =>
-        !originalTasks.includes(task.toString())
+    const addedTasks = updatedTasks.filter(
+        (task) => !originalTasks.includes(task.toString()),
     );
-    const removedTasks = originalTasks.filter((task) =>
-        !updatedTasks.includes(task.toString())
+    const removedTasks = originalTasks.filter(
+        (task) => !updatedTasks.includes(task.toString()),
     );
 
     const originalCategories = project.categories;
     const updatedCategories = updatedProject.categories;
-    const addedCategories = updatedCategories.filter((category) =>
-        !originalCategories.includes(category.toString())
+    const addedCategories = updatedCategories.filter(
+        (category) => !originalCategories.includes(category.toString()),
     );
-    const removedCategories = originalCategories.filter((category) =>
-        !updatedCategories.includes(category.toString())
+    const removedCategories = originalCategories.filter(
+        (category) => !updatedCategories.includes(category.toString()),
     );
 
     await Promise.all(
         removedTasks.map(async (taskId) => {
             const task = await Task.findById(taskId);
-            task.projects = task.projects.filter((prjId) =>
-                prjId.toString() !== project.id.toString()
+            task.projects = task.projects.filter(
+                (prjId) => prjId.toString() !== project.id.toString(),
             );
             await task.save();
         }),
@@ -174,8 +173,8 @@ projectsRouter.put("/:id", async (req, res) => {
         }),
         removedCategories.map(async (cateId) => {
             const category = await Category.findById(cateId);
-            category.projects = category.projects.filter((prjId) =>
-                prjId.toString() !== project.id.toString()
+            category.projects = category.projects.filter(
+                (prjId) => prjId.toString() !== project.id.toString(),
             );
             await category.save();
         }),
@@ -185,7 +184,9 @@ projectsRouter.put("/:id", async (req, res) => {
             await category.save();
         }),
     );
+
     res.status(204).end();
 });
 
+// Export the router
 module.exports = projectsRouter;

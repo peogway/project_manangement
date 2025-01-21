@@ -1,8 +1,11 @@
+// Import required models
 const Project = require("../models/project");
 const Task = require("../models/task");
 
+// Create a new router instance
 const tasksRouter = require("express").Router();
 
+// GET all tasks for a specific project
 tasksRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
@@ -12,17 +15,19 @@ tasksRouter.get("/", async (req, res) => {
         "project",
         "id name categories user",
     );
-    if (tasks.length > 0) {
-        if (tasks[0].project.user.toString() !== userRequest.id) {
-            return res.status(403).json({
-                error: "only owner can access tasks",
-            });
-        }
+
+    if (
+        tasks.length > 0 && tasks[0].project.user.toString() !== userRequest.id
+    ) {
+        return res.status(403).json({
+            error: "only owner can access tasks",
+        });
     }
 
     res.status(200).json(tasks);
 });
 
+// POST a new task to a specific project
 tasksRouter.post("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
@@ -63,6 +68,7 @@ tasksRouter.post("/", async (req, res) => {
     res.status(201).json(populatedTask);
 });
 
+// GET a specific task by ID
 tasksRouter.get("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
@@ -72,6 +78,7 @@ tasksRouter.get("/:id", async (req, res) => {
         "id name categories user",
     );
     if (!task) return res.status(400).json({ error: "invalid task" });
+
     if (task.project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can access task",
@@ -81,14 +88,14 @@ tasksRouter.get("/:id", async (req, res) => {
     res.status(200).json(task);
 });
 
+// DELETE a specific task by ID
 tasksRouter.delete("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
-    const task = Task.findById(req.params.id);
-    if (!task) {
-        return res.status(400).json({ error: "invalid task id" });
-    }
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(400).json({ error: "invalid task id" });
+
     const project = await Project.findById(task.project);
     if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
@@ -97,25 +104,25 @@ tasksRouter.delete("/:id", async (req, res) => {
     }
 
     await Task.findByIdAndDelete(req.params.id);
-    console.log(project);
 
     if (project) {
-        project.tasks = project.tasks.filter((task) =>
-            task.id !== req.params.id
+        project.tasks = project.tasks.filter(
+            (task) => task.toString() !== req.params.id,
         );
         await project.save();
     }
+
     res.status(204).end();
 });
 
+// UPDATE a specific task by ID
 tasksRouter.put("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
-    const task = Task.findById(req.params.id);
-    if (!task) {
-        return res.status(400).json({ error: "invalid task id" });
-    }
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(400).json({ error: "invalid task id" });
+
     const project = await Project.findById(task.project);
     if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
@@ -123,8 +130,12 @@ tasksRouter.put("/:id", async (req, res) => {
         });
     }
 
-    await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.status(204).end();
+    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    });
+
+    res.status(200).json(updatedTask);
 });
 
+// Export the router
 module.exports = tasksRouter;

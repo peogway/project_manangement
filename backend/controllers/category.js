@@ -1,9 +1,12 @@
+// Import necessary models
 const User = require("../models/user");
 const Category = require("../models/category");
 const Project = require("../models/project");
 
+// Create a new router instance
 const categoriesRouter = require("express").Router();
 
+// GET all categories for a user
 categoriesRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "token invalid" });
@@ -15,13 +18,14 @@ categoriesRouter.get("/", async (req, res) => {
     res.status(200).json(categories);
 });
 
+// POST a new category
 categoriesRouter.post("/", async (req, res) => {
     const body = req.body;
 
     if (!("name" in body)) {
-        res.status(400).json({ error: "category's name must not be empty" })
-            .end();
-        return;
+        return res.status(400).json({
+            error: "category's name must not be empty",
+        });
     }
 
     const userRequest = req.user;
@@ -56,9 +60,11 @@ categoriesRouter.post("/", async (req, res) => {
     res.status(201).json(populatedCategory);
 });
 
+// GET a specific category by ID
 categoriesRouter.get("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
+
     const category = await Category.findById(req.params.id).populate([
         { path: "user", select: "id name username" },
         { path: "projects", select: "id name status" },
@@ -73,6 +79,7 @@ categoriesRouter.get("/:id", async (req, res) => {
     res.json(category);
 });
 
+// DELETE a category by ID
 categoriesRouter.delete("/:id", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) {
@@ -83,7 +90,7 @@ categoriesRouter.delete("/:id", async (req, res) => {
     if (!category) {
         return res.status(400).json({ error: "category does not exist" });
     }
-    if (!(category.user.toString() === userRequest.id.toString())) {
+    if (category.user.toString() !== userRequest.id.toString()) {
         return res.status(403).json({
             error: "Only creator can delete category",
         });
@@ -92,8 +99,8 @@ categoriesRouter.delete("/:id", async (req, res) => {
     await Category.findByIdAndDelete(req.params.id);
 
     const user = await User.findById(userRequest.id);
-    user.categories = user.categories.filter((cate) =>
-        cate.toString() !== req.params.id.toString()
+    user.categories = user.categories.filter(
+        (cate) => cate.toString() !== req.params.id.toString(),
     );
 
     await user.save();
@@ -101,6 +108,7 @@ categoriesRouter.delete("/:id", async (req, res) => {
     res.status(204).end();
 });
 
+// PUT (update) a category by ID
 categoriesRouter.put("/:id", async (req, res) => {
     const user = req.user;
     if (!user) {
@@ -108,7 +116,7 @@ categoriesRouter.put("/:id", async (req, res) => {
     }
 
     const category = await Category.findById(req.params.id);
-    if (!(category.user.toString() === user.id.toString())) {
+    if (category.user.toString() !== user.id.toString()) {
         return res.status(403).json({
             error: "Only creator can edit category",
         });
@@ -124,4 +132,5 @@ categoriesRouter.put("/:id", async (req, res) => {
     res.status(204).end();
 });
 
+// Export the router
 module.exports = categoriesRouter;
