@@ -53,37 +53,43 @@ const App = () => {
 
 			<Router>
 				<div>
-					{/* Navigation links */}
-					<Link style={{ padding: 5 }} to='/'>
-						Home
-					</Link>
+					<nav>
+						{/* Navigation links */}
+						<Link style={{ padding: 5 }} to='/'>
+							Home
+						</Link>
 
-					{user === null ? ( // Show different links based on authentication state
-						<div>
-							<Link style={{ padding: 5 }} to='/login'>
-								Sign in
-							</Link>
-							<Link style={{ padding: 5 }} to='/register'>
-								Sign up
-							</Link>
-						</div>
-					) : (
-						<div>
-							<Link style={{ padding: 5 }} to='/dashboard'>
-								Dashboard
-							</Link>
-							<Link style={{ padding: 5 }} to='projects'>
-								Project
-							</Link>
-							<Link style={{ padding: 5 }} to='categories'>
-								Category
-							</Link>
+						{user === null ? ( // Show different links based on authentication state
 							<div>
-								{/* Logout button */}
-								<button onClick={handleLogout}>Sign out</button>
+								<nav>
+									<Link style={{ padding: 5 }} to='/login'>
+										Sign in
+									</Link>
+									<Link style={{ padding: 5 }} to='/register'>
+										Sign up
+									</Link>
+								</nav>
 							</div>
-						</div>
-					)}
+						) : (
+							<div>
+								<nav>
+									<Link style={{ padding: 5 }} to='/dashboard'>
+										Dashboard
+									</Link>
+									<Link style={{ padding: 5 }} to='/projects'>
+										Project
+									</Link>
+									<Link style={{ padding: 5 }} to='/categories'>
+										Category
+									</Link>
+									<div>
+										{/* Logout button */}
+										<button onClick={handleLogout}>Sign out</button>
+									</div>
+								</nav>
+							</div>
+						)}
+					</nav>
 				</div>
 
 				{/* Define routes */}
