@@ -23,6 +23,7 @@ const App = () => {
 	const dispatch = useDispatch()
 	const notification = useSelector((state) => state.notiReducer)
 	const user = useSelector((state) => state.user)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const loggedUserJSON = window.localStorage.getItem('loggedPrjMnUser')
@@ -30,12 +31,14 @@ const App = () => {
 			const user = JSON.parse(loggedUserJSON)
 			dispatch(setUserFn(user))
 		}
-	}, [])
+		setLoading(false)
+	}, [dispatch])
 
 	const handleLogout = () => {
 		window.localStorage.removeItem('loggedPrjMnUser')
 		dispatch(rmUserFn())
 	}
+	if (loading) return <div>Loading...</div>
 
 	return (
 		<div>
@@ -78,6 +81,8 @@ const App = () => {
 				</div>
 
 				<Routes>
+					<Route path='/login' element={<LoginForm />} />
+					<Route path='/register' element={<RegisterForm />} />
 					<Route
 						path='/'
 						element={user ? <Navigate replace to='/dashboard' /> : <Home />}
@@ -86,6 +91,7 @@ const App = () => {
 						path='/dashboard'
 						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
 					/>
+
 					<Route
 						path='/projects'
 						element={user ? <Project /> : <Navigate replace to='/login' />}
@@ -94,8 +100,6 @@ const App = () => {
 						path='/categories'
 						element={user ? <Category /> : <Navigate replace to='/login' />}
 					/>
-					<Route path='/login' element={<LoginForm />} />
-					<Route path='/register' element={<RegisterForm />} />
 				</Routes>
 			</Router>
 		</div>
