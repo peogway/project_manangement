@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import registerService from '../services/register'
 import { useField } from '../hooks/hook'
-
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
@@ -13,7 +13,9 @@ const RegisterForm = () => {
 	const { remove: rmUsername, ...username } = useField('text')
 	const { remove: rmPassword, ...password } = useField('password')
 	const { remove: rmCfPassword, ...cfPassword } = useField('password')
-
+	useEffect(() => {
+		document.title = 'Registration'
+	}, [])
 	const handleRegister = async (event) => {
 		event.preventDefault()
 

@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Categories = () => {
+	useEffect(() => {
+		document.title = 'Categories'
+	}, [])
 	return <div>Categories here</div>
 }
 

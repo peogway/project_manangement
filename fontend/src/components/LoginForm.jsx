@@ -3,14 +3,16 @@ import { setError, setNotification } from '../reducers/notiReducer'
 import { setUserFn } from '../reducers/userReducer'
 import loginService from '../services/login'
 import { useField } from '../hooks/hook'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-
+	useEffect(() => {
+		document.title = 'Sign In'
+	}, [])
 	const { remove: rmUsername, ...username } = useField('text')
 	const { remove: rmPassword, ...password } = useField('password')
 
