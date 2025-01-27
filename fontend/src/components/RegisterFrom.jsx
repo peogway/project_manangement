@@ -1,14 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
-import { setUserFn } from '../reducers/userReducer'
 import registerService from '../services/register'
 import { useField } from '../hooks/hook'
-import LoginForm from './LoginForm'
-import { useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
 	const dispatch = useDispatch()
-	const [status, setStatus] = useState('register')
+	const navigate = useNavigate()
 
 	const { remove: rmName, ...name } = useField('text')
 	const { remove: rmUsername, ...username } = useField('text')
@@ -32,14 +31,13 @@ const RegisterForm = () => {
 			rmUsername()
 			rmPassword()
 			rmCfPassword()
-			setStatus('login')
+			navigate('/login')
 		} catch (exception) {
 			rmPassword()
 			rmCfPassword()
 			dispatch(setError('Something went wrong', 5))
 		}
 	}
-	if (status === 'login') return <LoginForm />
 	return (
 		<div>
 			<h2>Registration</h2>
@@ -65,7 +63,7 @@ const RegisterForm = () => {
 					Sign up
 				</button>
 			</form>
-			<p onClick={() => setStatus('login')} style={{ cursor: 'pointer' }}>
+			<p onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>
 				I already had an account
 			</p>
 		</div>
