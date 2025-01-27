@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import Notification from './components/Notification'
 import Dashboard from './components/Dashboard'
-import Project from './components/Project'
-import Category from './components/Category'
+import Tasks from './components/Tasks'
+import Categories from './components/Categories'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import RegisterForm from './components/RegisterFrom'
@@ -76,11 +76,11 @@ const App = () => {
 									<Link style={{ padding: 5 }} to='/dashboard'>
 										Dashboard
 									</Link>
-									<Link style={{ padding: 5 }} to='/projects'>
-										Project
+									<Link style={{ padding: 5 }} to='/tasks'>
+										Tasks
 									</Link>
 									<Link style={{ padding: 5 }} to='/categories'>
-										Category
+										Categories
 									</Link>
 									<div>
 										{/* Logout button */}
@@ -108,12 +108,12 @@ const App = () => {
 						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
 					/>
 					<Route
-						path='/projects'
-						element={user ? <Project /> : <Navigate replace to='/login' />}
+						path='/tasks'
+						element={user ? <Tasks /> : <Navigate replace to='/login' />}
 					/>
 					<Route
 						path='/categories'
-						element={user ? <Category /> : <Navigate replace to='/login' />}
+						element={user ? <Categories /> : <Navigate replace to='/login' />}
 					/>
 				</Routes>
 			</Router>
