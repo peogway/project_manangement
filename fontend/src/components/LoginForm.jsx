@@ -3,12 +3,13 @@ import { setError, setNotification } from '../reducers/notiReducer'
 import { setUserFn } from '../reducers/userReducer'
 import loginService from '../services/login'
 import { useField } from '../hooks/hook'
-import RegisterForm from './RegisterFrom'
 import { useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
 	const dispatch = useDispatch()
-	const [status, setStatus] = useState('login')
+	const navigate = useNavigate()
 
 	const { remove: rmUsername, ...username } = useField('text')
 	const { remove: rmPassword, ...password } = useField('password')
@@ -28,11 +29,11 @@ const LoginForm = () => {
 			dispatch(setNotification('Login successfully', 5))
 			rmUsername()
 			rmPassword()
+			navigate('/dashboard')
 		} catch (exception) {
 			dispatch(setError('Wrong Credentials', 5))
 		}
 	}
-	if (status === 'register') return <RegisterForm />
 	return (
 		<div>
 			<h2>Login</h2>
@@ -49,7 +50,7 @@ const LoginForm = () => {
 					Sign in
 				</button>
 			</form>
-			<p onClick={() => setStatus('register')} style={{ cursor: 'pointer' }}>
+			<p onClick={() => navigate('/register')} style={{ cursor: 'pointer' }}>
 				Create New Account
 			</p>
 		</div>
