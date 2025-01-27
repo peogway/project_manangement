@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import Notification from './components/Notification'
 import Dashboard from './components/Dashboard'
+import Project from './components/Project'
+import Category from './components/Category'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 
@@ -30,11 +32,6 @@ const App = () => {
 		}
 	}, [])
 
-	const loginForm = () => (
-		<div>
-			<LoginForm />
-		</div>
-	)
 	const handleLogout = () => {
 		window.localStorage.removeItem('loggedPrjMnUser')
 		dispatch(rmUserFn())
@@ -67,10 +64,10 @@ const App = () => {
 							<Link style={{ padding: 5 }} to='/dashboard'>
 								Dashboard
 							</Link>
-							<Link style={{ padding: 5 }} to='project'>
+							<Link style={{ padding: 5 }} to='projects'>
 								Project
 							</Link>
-							<Link style={{ padding: 5 }} to='category'>
+							<Link style={{ padding: 5 }} to='categories'>
 								Category
 							</Link>
 							<div>
@@ -89,17 +86,18 @@ const App = () => {
 						path='/dashboard'
 						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
 					/>
+					<Route
+						path='/projects'
+						element={user ? <Project /> : <Navigate replace to='/login' />}
+					/>
+					<Route
+						path='/categories'
+						element={user ? <Category /> : <Navigate replace to='/login' />}
+					/>
 					<Route path='/login' element={<LoginForm />} />
 					<Route path='/register' element={<RegisterForm />} />
 				</Routes>
 			</Router>
-			{/* {user === null ? (
-				loginForm()
-			) : (
-				<div>
-					<button onClick={handleLogout}>Sign out</button>
-				</div>
-			)} */}
 		</div>
 	)
 }
