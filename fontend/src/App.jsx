@@ -5,6 +5,7 @@ import Project from './components/Project'
 import Category from './components/Category'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
+import RegisterForm from './components/RegisterFrom'
 
 import {
 	BrowserRouter as Router,
@@ -17,43 +18,47 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification, setError } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
-import RegisterForm from './components/RegisterFrom'
 
 const App = () => {
 	const dispatch = useDispatch()
-	const notification = useSelector((state) => state.notiReducer)
-	const user = useSelector((state) => state.user)
-	const [loading, setLoading] = useState(true)
+	const notification = useSelector((state) => state.notiReducer) // Notification state from Redux
+	const user = useSelector((state) => state.user) // User state from Redux
+	const [loading, setLoading] = useState(true) // Loading state for initial app load
 
 	useEffect(() => {
+		// Check for logged-in user in localStorage on initial load
 		const loggedUserJSON = window.localStorage.getItem('loggedPrjMnUser')
 		if (loggedUserJSON) {
-			const user = JSON.parse(loggedUserJSON)
-			dispatch(setUserFn(user))
+			const user = JSON.parse(loggedUserJSON) // Parse user data
+			dispatch(setUserFn(user)) // Dispatch user data to Redux
 		}
-		setLoading(false)
+		setLoading(false) // Mark loading as complete
 	}, [dispatch])
 
 	const handleLogout = () => {
-		window.localStorage.removeItem('loggedPrjMnUser')
-		dispatch(rmUserFn())
+		// Logout logic
+		window.localStorage.removeItem('loggedPrjMnUser') // Remove user from localStorage
+		dispatch(rmUserFn()) // Dispatch action to remove user from Redux
 	}
+
+	// Display loading spinner or message until initial load completes
 	if (loading) return <div>Loading...</div>
 
 	return (
 		<div>
+			{/* Display notifications */}
 			<Notification message={notification.error} className='error' />
-
 			<Notification message={notification.noti} className='notification' />
 			<h1>Project Management</h1>
 
 			<Router>
 				<div>
+					{/* Navigation links */}
 					<Link style={{ padding: 5 }} to='/'>
 						Home
 					</Link>
 
-					{user === null ? (
+					{user === null ? ( // Show different links based on authentication state
 						<div>
 							<Link style={{ padding: 5 }} to='/login'>
 								Sign in
@@ -74,24 +79,28 @@ const App = () => {
 								Category
 							</Link>
 							<div>
+								{/* Logout button */}
 								<button onClick={handleLogout}>Sign out</button>
 							</div>
 						</div>
 					)}
 				</div>
 
+				{/* Define routes */}
 				<Routes>
+					{/* Public routes */}
 					<Route path='/login' element={<LoginForm />} />
 					<Route path='/register' element={<RegisterForm />} />
 					<Route
 						path='/'
 						element={user ? <Navigate replace to='/dashboard' /> : <Home />}
 					/>
+
+					{/* Private routes, redirect to login if not authenticated */}
 					<Route
 						path='/dashboard'
 						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
 					/>
-
 					<Route
 						path='/projects'
 						element={user ? <Project /> : <Navigate replace to='/login' />}
