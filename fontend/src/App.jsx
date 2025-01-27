@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 import Notification from './components/Notification'
-
+import Dashboard from './components/Dashboard'
 import LoginForm from './components/LoginForm'
+import Home from './components/Home'
+
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Link,
+	Navigate,
+} from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification, setError } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
+import RegisterForm from './components/RegisterFrom'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -37,13 +47,59 @@ const App = () => {
 			<Notification message={notification.noti} className='notification' />
 			<h1>Project Management</h1>
 
-			{user === null ? (
+			<Router>
+				<div>
+					<Link style={{ padding: 5 }} to='/'>
+						Home
+					</Link>
+
+					{user === null ? (
+						<div>
+							<Link style={{ padding: 5 }} to='/login'>
+								Sign in
+							</Link>
+							<Link style={{ padding: 5 }} to='/register'>
+								Sign up
+							</Link>
+						</div>
+					) : (
+						<div>
+							<Link style={{ padding: 5 }} to='/dashboard'>
+								Dashboard
+							</Link>
+							<Link style={{ padding: 5 }} to='project'>
+								Project
+							</Link>
+							<Link style={{ padding: 5 }} to='category'>
+								Category
+							</Link>
+							<div>
+								<button onClick={handleLogout}>Sign out</button>
+							</div>
+						</div>
+					)}
+				</div>
+
+				<Routes>
+					<Route
+						path='/'
+						element={user ? <Navigate replace to='/dashboard' /> : <Home />}
+					/>
+					<Route
+						path='/dashboard'
+						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
+					/>
+					<Route path='/login' element={<LoginForm />} />
+					<Route path='/register' element={<RegisterForm />} />
+				</Routes>
+			</Router>
+			{/* {user === null ? (
 				loginForm()
 			) : (
 				<div>
 					<button onClick={handleLogout}>Sign out</button>
 				</div>
-			)}
+			)} */}
 		</div>
 	)
 }
