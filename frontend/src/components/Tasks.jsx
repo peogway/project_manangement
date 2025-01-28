@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
 import { setAllTasks, updateTask, deleteTask } from '../reducers/taskReducer'
 
-const Tasks = () => {
+const Tasks = (props) => {
 	const location = useLocation()
 	const dispatch = useDispatch()
 	useEffect(() => {
@@ -13,6 +13,7 @@ const Tasks = () => {
 	}, [])
 
 	const tasks = useSelector((state) => state.tasks)
+	console.log(tasks)
 
 	const { prj } = location.state || {}
 	return <div>Tasks here</div>

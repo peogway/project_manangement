@@ -10,8 +10,7 @@ tasksRouter.get("/", async (req, res) => {
     const userRequest = req.user;
     if (!userRequest) return res.status(401).json({ error: "invalid token" });
 
-    const { projectId } = req.query;
-    const tasks = await Task.find({ project: projectId }).populate(
+    const tasks = await Task.find({ user: userRequest.id }).populate(
         "project",
         "id name categories user",
     );
@@ -54,6 +53,7 @@ tasksRouter.post("/", async (req, res) => {
         dueDate: body.dueDate && !isNaN(new Date(body.dueDate))
             ? new Date(body.dueDate)
             : null,
+        user: userRequest.id,
     });
 
     const savedTask = await task.save();

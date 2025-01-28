@@ -21,6 +21,11 @@ const taskSchema = mongoose.Schema({
         ref: "Project", // Reference to the Project model
         required: true, // Task must belong to a project
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
 });
 
 // Configure how to return Task data in JSON format

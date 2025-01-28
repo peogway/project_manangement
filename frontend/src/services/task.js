@@ -6,9 +6,6 @@ import { token } from "./login";
 const getAll = async (prjId) => {
     const config = {
         headers: { Authorization: token },
-        params: {
-            projectId: prjId,
-        },
     };
 
     const response = await axios.get(baseUrl, config);
