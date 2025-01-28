@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { setUserFn } from '../reducers/userReducer'
-import loginService from '../services/login'
+import loginService, { setToken } from '../services/login'
 import { useField } from '../hooks/hook'
 import { useState, useEffect } from 'react'
 
@@ -26,7 +26,7 @@ const LoginForm = () => {
 			})
 
 			window.localStorage.setItem('loggedPrjMnUser', JSON.stringify(user))
-
+			setToken(user.token)
 			dispatch(setUserFn(user))
 			dispatch(setNotification('Login successfully', 5))
 			rmUsername()

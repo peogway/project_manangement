@@ -6,6 +6,7 @@ import Categories from './components/Categories'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import RegisterForm from './components/RegisterFrom'
+import { setToken } from './services/login'
 
 import {
 	BrowserRouter as Router,
@@ -33,6 +34,7 @@ const App = () => {
 		if (loggedUserJSON) {
 			const user = JSON.parse(loggedUserJSON) // Parse user data
 			dispatch(setUserFn(user)) // Dispatch user data to Redux
+			setToken(user.token)
 		}
 		setLoading(false) // Mark loading as complete
 	}, [dispatch])
