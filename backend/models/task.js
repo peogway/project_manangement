@@ -23,8 +23,8 @@ const taskSchema = mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
+        ref: "User", // Reference to the User model
+        required: true, // Task must belong to a user
     },
 });
 
