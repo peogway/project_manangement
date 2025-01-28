@@ -9,8 +9,8 @@ export default configureStore({
     reducer: {
         notiReducer,
         user: userReducer,
-        prjReducer,
-        taskReducer,
-        categoryReducer,
+        projects: prjReducer,
+        tasks: taskReducer,
+        categories: categoryReducer,
     },
 });
