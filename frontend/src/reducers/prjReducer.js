@@ -19,7 +19,7 @@ const projectSlice = createSlice({
             const id = action.payload.id;
 
             return state.map((project) =>
-                project.id !== id ? project : action.payload
+                project.id !== id ? project : { ...project, ...action.payload }
             );
         },
         dltProject(state, action) {

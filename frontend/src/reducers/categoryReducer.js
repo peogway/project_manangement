@@ -21,7 +21,9 @@ const categorySlice = createSlice({
         editCategory(state, action) {
             const id = action.payload.id;
             return state.map((cagtegory) =>
-                category.id !== id ? category : action.payload
+                category.id !== id
+                    ? category
+                    : { ...category, ...action.payload }
             );
         },
     },
