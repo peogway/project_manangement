@@ -1,11 +1,11 @@
-import axios from "react";
+import axios from "axios";
 const baseUrl = "http://localhost:3001/api/projects";
 
-import { token } from "./login";
+import { getToken } from "./login";
 
 const getAll = async () => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.get(baseUrl, config);
@@ -14,7 +14,7 @@ const getAll = async () => {
 
 const addProject = async (project) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.post(baseUrl, project, config);
@@ -23,7 +23,7 @@ const addProject = async (project) => {
 
 const deleteProject = async (projectId) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.delete(`${baseUrl}/${projectId}`, config);
@@ -32,7 +32,7 @@ const deleteProject = async (projectId) => {
 
 const editProject = async (project) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.put(`${baseUrl}/${project.id}`, project, config);

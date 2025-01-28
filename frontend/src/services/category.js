@@ -1,11 +1,11 @@
-import axios from "react";
+import axios from "axios";
 const baseUrl = "http://localhost:3001/api/categories";
 
-import { token } from "./login";
+import { getToken } from "./login";
 
 const getAll = async () => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.get(baseUrl, config);
@@ -14,7 +14,7 @@ const getAll = async () => {
 
 const addCategory = async (category) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.post(baseUrl, category, config);
@@ -23,7 +23,7 @@ const addCategory = async (category) => {
 
 const deleteCategory = async (cateId) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.delete(`${baseUrl}/${cateId}`, config);
@@ -32,7 +32,7 @@ const deleteCategory = async (cateId) => {
 
 const editCategory = async (category) => {
     const config = {
-        headers: { Authorization: token },
+        headers: { Authorization: getToken() },
     };
 
     const res = await axios.put(`${baseUrl}/${category.id}`, category, config);

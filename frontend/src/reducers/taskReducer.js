@@ -38,7 +38,7 @@ export const createNewTask = (body) => {
 export const setAllTasks = () => {
     return async (dispatch) => {
         const tasks = await taskService.getAll();
-        dispatch(setTasks(newTask));
+        dispatch(setTasks(tasks));
     };
 };
 
