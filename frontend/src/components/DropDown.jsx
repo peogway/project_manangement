@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const Dropdown = ({ options, onSelect, title }) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const [selectedOption, setSelectedOption] = useState(null)
+	const [selectedOption, setSelectedOption] = useState(title)
 
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen)
@@ -20,7 +20,7 @@ const Dropdown = ({ options, onSelect, title }) => {
 			style={{ position: 'relative', display: 'inline-block' }}
 		>
 			<button onClick={toggleDropdown} style={{ cursor: 'pointer' }}>
-				{selectedOption || title} <span>{isOpen ? '▲' : '▼'}</span>
+				{selectedOption} <span>{isOpen ? '▲' : '▼'}</span>
 			</button>
 			{isOpen && (
 				<ul
