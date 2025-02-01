@@ -1,50 +1,25 @@
 import React, { useState } from 'react'
 
-const Dropdown = ({ options, onSelect, title }) => {
-	const [isOpen, setIsOpen] = useState(false)
-	const [selectedOption, setSelectedOption] = useState(title)
+const Dropdown = ({ options, onSelect }) => {
+	const [selectedOption, setSelectedOption] = useState(options[0])
 
-	const toggleDropdown = () => {
-		setIsOpen(!isOpen)
-	}
-
-	const handleSelectOption = (option) => {
-		setSelectedOption(option)
-		onSelect(option) // Pass selected option back to parent
-		setIsOpen(false) // Close dropdown after selection
+	const handleSelectOption = (e) => {
+		setSelectedOption(e.target.value)
+		onSelect(e.target.value) // Pass selected option back to parent
 	}
 
 	return (
-		<div
+		<select
 			className='dropdown'
-			style={{ position: 'relative', display: 'inline-block' }}
+			value={selectedOption}
+			onChange={handleSelectOption}
 		>
-			<button onClick={toggleDropdown} style={{ cursor: 'pointer' }}>
-				{selectedOption} <span>{isOpen ? '▲' : '▼'}</span>
-			</button>
-			{isOpen && (
-				<ul
-					style={{
-						position: 'absolute',
-						listStyle: 'none',
-						padding: 0,
-						margin: 0,
-						border: '1px solid #ccc',
-						background: '#fff',
-					}}
-				>
-					{options.map((option) => (
-						<li
-							key={option}
-							onClick={() => handleSelectOption(option)}
-							style={{ padding: '5px', cursor: 'pointer' }}
-						>
-							{option}
-						</li>
-					))}
-				</ul>
-			)}
-		</div>
+			{options.map((option) => (
+				<option key={option} value={option}>
+					{option}
+				</option>
+			))}
+		</select>
 	)
 }
 
