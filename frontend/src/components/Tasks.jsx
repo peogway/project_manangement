@@ -39,7 +39,7 @@ const Tasks = () => {
 		selectedProject === 'All Projects'
 			? tasks
 			: tasks.filter((task) => task.project.name === selectedProject)
-	const priorityOrder = { hard: 1, medium: 2, low: 3 }
+	const priorityOrder = { high: 3, medium: 2, low: 1 }
 	let sortedTasks
 	if (sortValue === 'A-Z') {
 		sortedTasks = [...tasksToShow].sort((a, b) => a.name.localeCompare(b.name))
@@ -55,13 +55,14 @@ const Tasks = () => {
 		)
 	} else if (sortValue === 'increasing') {
 		sortedTasks = [...tasksToShow].sort(
-			(a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
+			(a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
 		)
 	} else {
 		sortedTasks = [...tasksToShow].sort(
-			(a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+			(a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
 		)
 	}
+	// console.log(sortedTasks)
 
 	const completedTasks = sortedTasks.filter((task) => task.completed === true)
 	const uncompletedTasks = sortedTasks.filter(
