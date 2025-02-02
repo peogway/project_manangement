@@ -5,6 +5,9 @@
 .dropdown.default {
 	color: gray;
 }
+.task-project label {
+	color: initial; /* or your desired color */
+}
 
 /* .task-name-project {
 	display: flex;
