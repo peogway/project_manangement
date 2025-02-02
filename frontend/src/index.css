@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.dropdown.default {
+	color: gray;
+}
+
