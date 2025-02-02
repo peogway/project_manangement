@@ -72,7 +72,7 @@ const Tasks = () => {
 
 	// console.log(completedTasks)
 	// console.log(uncompletedTasks)
-	console.log(showTasks)
+	// console.log(showTasks)
 
 	// const { prj } = location.state || {}
 
