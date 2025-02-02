@@ -6,3 +6,107 @@
 	color: gray;
 }
 
+/* .task-name-project {
+	display: flex;
+	flex-direction: column;
+}
+
+.task-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+} */
+
+/* .edit-task-btn,
+.delete-task-btn {
+	position: absolute;
+	right: 0;
+} */
+
+.task-container {
+	display: flex;
+	align-items: center; /* Vertically align */
+	padding: 10px;
+	border-bottom: 1px solid #eee; /* Separator line */
+	justify-content: space-between; /* Distribute space between left and right */
+	/* width: 100%; */
+}
+
+.task-container .left-content {
+	width: 5%;
+}
+.task-container .right-content {
+	flex: 1;
+}
+.left-content {
+	display: flex;
+	align-items: center;
+	/* width: 20px; */
+}
+
+.task-checkbox {
+	margin-right: 10px;
+}
+
+.task-name {
+	font-size: 16px;
+	margin: 0;
+}
+
+.task-project {
+	font-size: 14px;
+	color: #777;
+	margin: 0;
+}
+
+.right-content {
+	display: flex;
+	align-items: center;
+}
+
+.status,
+.priority {
+	display: flex;
+	margin-right: 10px;
+	align-items: center;
+}
+
+.status {
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 12px;
+	margin-right: 5px;
+	/* Removed color styling */
+	border: 1px solid #ccc; /* Add border if needed */
+}
+
+.priority {
+	font-size: 14px;
+	/* Removed color styling */
+}
+
+.task-buttons {
+	display: flex;
+}
+
+.edit-task-btn,
+.delete-task-btn {
+	padding: 5px 10px;
+	margin-left: 5px;
+	border: none;
+	cursor: pointer;
+	font-size: 12px;
+	/* Removed color styling */
+	border: 1px solid #ccc; /* Add border if needed */
+}
+
+/* Optional: Add some spacing between elements in right content */
+.right-content > * {
+	margin-left: 10px; /* Space between status/priority and buttons */
+}
+
+.right-content > *:first-child {
+	margin-left: 0; /* Remove left margin on the first element */
+}
+
