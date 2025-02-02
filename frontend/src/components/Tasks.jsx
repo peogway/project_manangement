@@ -88,7 +88,13 @@ const Tasks = () => {
 			<br />
 			<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
 			<button onClick={() => setTaskStatus(true)}>Completed Tasks</button>
-			<div>Tasks here</div>
+			<div>
+				{showTasks.map((task) => (
+					<div key={task.id}>
+						<Task {...task} />
+					</div>
+				))}
+			</div>
 			{showAddTask && (
 				<TaskForm
 					onClose={() => setShowAddTask(false)}
