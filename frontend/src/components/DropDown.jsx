@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
-const Dropdown = ({ options, onSelect }) => {
-	const [selectedOption, setSelectedOption] = useState(options[0])
+const Dropdown = ({ options, onSelect, description }) => {
+	const [selectedOption, setSelectedOption] = useState(
+		description !== undefined ? '' : options[0]
+	)
 
 	const handleSelectOption = (e) => {
 		setSelectedOption(e.target.value)
@@ -10,10 +12,15 @@ const Dropdown = ({ options, onSelect }) => {
 
 	return (
 		<select
-			className='dropdown'
+			className={`dropdown ${selectedOption === '' ? 'default' : ''}`}
 			value={selectedOption}
 			onChange={handleSelectOption}
 		>
+			{description && (
+				<option value='' disabled>
+					{description}
+				</option>
+			)}
 			{options.map((option) => (
 				<option key={option} value={option}>
 					{option}

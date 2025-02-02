@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SortDropdown = ({ setSortValue }) => {
+const SortDropdown = ({ setSortValue, sortTasks }) => {
 	const [selectedSort, setSelectedSort] = useState('A-Z')
 
 	const handleChange = (e) => {
@@ -17,6 +17,12 @@ const SortDropdown = ({ setSortValue }) => {
 				<option value='newest'>Newest</option>
 				<option value='oldest'>Oldest</option>
 			</optgroup>
+			{sortTasks === true && (
+				<optgroup label='Priority'>
+					<option value='increasing'>Increasing</option>
+					<option value='decreasing'>Decreasing</option>
+				</optgroup>
+			)}
 		</select>
 	)
 }
