@@ -91,7 +91,11 @@ const Tasks = () => {
 			<div>
 				{showTasks.map((task) => (
 					<div key={task.id}>
-						<Task {...task} />
+						<Task
+							{...task}
+							projects={projects}
+							selectedProject={selectedProject}
+						/>
 					</div>
 				))}
 			</div>
