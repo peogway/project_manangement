@@ -19,8 +19,8 @@ const SortDropdown = ({ setSortValue, sortTasks }) => {
 			</optgroup>
 			{sortTasks === true && (
 				<optgroup label='Priority'>
-					<option value='increasing'>Increasing</option>
-					<option value='decreasing'>Decreasing</option>
+					<option value='increasing'>Priority &#x2191;</option>
+					<option value='decreasing'>Priority &#x2193;</option>
 				</optgroup>
 			)}
 		</select>

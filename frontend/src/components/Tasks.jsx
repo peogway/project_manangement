@@ -85,6 +85,7 @@ const Tasks = () => {
 			<button onClick={toggleAddTask}>+ New Task</button>
 			<br />
 			<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
+			<label style={{ color: 'gray' }}>Sort By:</label>
 			<SortDropdown setSortValue={setSortValue} sortTasks={true} />
 			<br />
 			<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
