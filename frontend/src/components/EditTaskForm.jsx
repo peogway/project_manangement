@@ -30,14 +30,11 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	const handleAddTask = (e) => {
 		e.preventDefault()
 
-		// console.log("what");
-
 		if (taskName.value === '') {
 			dispatch(setError('Please enter a task name', 2))
 			return
 		}
 
-		// console.log("the");
 		const taskToUpdate = {
 			name: taskName.value,
 			priority: priority,
