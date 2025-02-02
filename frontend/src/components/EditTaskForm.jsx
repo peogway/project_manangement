@@ -27,7 +27,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	const dropdownProjects = [chosenProject].concat(
 		projects.filter((prj) => prj.name !== chosenProject).map((prj) => prj.name)
 	)
-	const handleAddTask = (e) => {
+	const handleEdit = (e) => {
 		e.preventDefault()
 
 		if (taskName.value === '') {
@@ -69,7 +69,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 				<Dropdown options={dropdownProjects} onSelect={setChosenProject} />
 			</div>
 			<button onClick={onClose}>Cancel</button>
-			<button onClick={handleAddTask}>Edit Task</button>
+			<button onClick={handleEdit}>Edit Task</button>
 		</div>
 	)
 }
