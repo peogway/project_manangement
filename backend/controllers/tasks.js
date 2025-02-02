@@ -132,7 +132,7 @@ tasksRouter.put("/:id", async (req, res) => {
 
     const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
-    });
+    }).populate("project");
 
     res.status(200).json(updatedTask);
 });
