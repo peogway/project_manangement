@@ -51,6 +51,7 @@ const TaskForm = ({ onClose, projects, selectedProject }) => {
 		}
 		try {
 			dispatch(createNewTask(taskToCreate))
+			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))
 		}
