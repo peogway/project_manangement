@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { updateTask } from '../reducers/taskReducer'
+import { updateTask, deleteTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
 import EditTaskForm from './EditTaskForm'
 
@@ -17,6 +17,12 @@ const Task = ({ ...props }) => {
 		}
 
 		dispatch(updateTask(taskToUpdate))
+	}
+
+	const handleDelete = () => {
+		if (window.confirm(`Are you sure you want to delete task ${props.name}?`)) {
+			dispatch(deleteTask(props.id))
+		}
 	}
 	return (
 		<div>
@@ -46,10 +52,7 @@ const Task = ({ ...props }) => {
 					>
 						Edit
 					</button>
-					<button
-						onClick={() => props.deleteTask(props.id, props.project.id)}
-						className='delete-task-btn'
-					>
+					<button onClick={handleDelete} className='delete-task-btn'>
 						Delete
 					</button>
 				</div>
