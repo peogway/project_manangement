@@ -10,17 +10,14 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	const [priority, setPriority] = useState(task.priority)
 	const [chosenProject, setChosenProject] = useState(task.project.name)
 	const formRef = useRef(null)
+	const overlayRef = useRef(null)
 	const dispatch = useDispatch()
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (formRef.current && !formRef.current.contains(event.target)) {
-				onClose()
-			}
+	const handleClickOutside = (event) => {
+		if (formRef.current && !formRef.current.contains(event.target)) {
+			onClose()
 		}
+	}
 
-		document.addEventListener('mousedown', handleClickOutside)
-		return () => document.removeEventListener('mousedown', handleClickOutside)
-	}, [onClose])
 	const priorities = [priority].concat(
 		['low', 'medium', 'high'].filter((pri) => pri !== priority)
 	)
@@ -50,26 +47,53 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	}
 
 	return (
-		<div ref={formRef}>
-			<h1>Edit Task</h1>
-			<button onClick={onClose}>X</button>
-			<div className='task-name'>
-				<label>Task Name</label>
-				<br />
-				<input {...taskName} />
+		<div>
+			<div
+				ref={overlayRef}
+				onClick={handleClickOutside}
+				style={{
+					position: 'fixed',
+					top: 0,
+					left: 0,
+					width: '100%',
+					height: '100%',
+					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					zIndex: 999,
+					pointerEvents: 'auto',
+				}}
+			/>
+			<div
+				ref={formRef}
+				style={{
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					background: 'white',
+					padding: 20,
+					zIndex: 1000,
+				}}
+			>
+				<h1>Edit Task</h1>
+				<button onClick={onClose}>X</button>
+				<div className='task-name'>
+					<label>Task Name</label>
+					<br />
+					<input {...taskName} />
+				</div>
+				<div className='task-priority'>
+					<label>Task Priority</label>
+					<br />
+					<Dropdown options={priorities} onSelect={setPriority} />
+				</div>
+				<div className='task-project'>
+					<label>Project</label>
+					<br />
+					<Dropdown options={dropdownProjects} onSelect={setChosenProject} />
+				</div>
+				<button onClick={onClose}>Cancel</button>
+				<button onClick={handleEdit}>Edit Task</button>
 			</div>
-			<div className='task-priority'>
-				<label>Task Priority</label>
-				<br />
-				<Dropdown options={priorities} onSelect={setPriority} />
-			</div>
-			<div className='task-project'>
-				<label>Project</label>
-				<br />
-				<Dropdown options={dropdownProjects} onSelect={setChosenProject} />
-			</div>
-			<button onClick={onClose}>Cancel</button>
-			<button onClick={handleEdit}>Edit Task</button>
 		</div>
 	)
 }
