@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
+import Category from './Category'
 
 const CategoryForm = ({ onClose, categories }) => {
 	const formRef = useRef(null)
@@ -120,7 +121,18 @@ const Categories = () => {
 					<p>No categories available</p>
 				</div>
 			) : (
-				<div></div>
+				<div>
+					{categories.map((category) => (
+						<div key={category.id}>
+							<Category
+								name={category.name}
+								id={category.id}
+								categories={categories}
+								projects={category.projects}
+							/>
+						</div>
+					))}
+				</div>
 			)}
 			{showAddCategory && (
 				<CategoryForm
