@@ -18,7 +18,7 @@ const categorySlice = createSlice({
         },
         editCategory(state, action) {
             const id = action.payload.id;
-            return state.map((cagtegory) =>
+            return state.map((category) =>
                 category.id !== id
                     ? category
                     : { ...category, ...action.payload }
