@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import categoryService from "../services/category";
-import category from "../services/category";
-import { createContext } from "react";
 
 const initialState = [];
 
