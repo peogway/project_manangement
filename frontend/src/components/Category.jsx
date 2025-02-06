@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { updateCategory, deleteCategory } from '../reducers/categoryReducer'
 import { useDispatch } from 'react-redux'
 import { useField } from '../hooks/hook'
+import { setError, setNotification } from '../reducers/notiReducer'
 
 const EditCategoryForm = ({ onClose, name, categories, id }) => {
 	const formRef = useRef(null)
