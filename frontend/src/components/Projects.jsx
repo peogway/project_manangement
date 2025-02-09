@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllProject } from '../reducers/prjReducer'
 import { setAllCategories } from '../reducers/categoryReducer'
 import ProjectForm from './ProjectForm'
+import CertainProject from './CertainProject'
 import ProjectLabel from './ProjectLabel'
 
 const Projects = () => {
 	const dispatch = useDispatch()
 	const [showAddProject, setShowAddProject] = useState(false)
+	const [selectedProject, setSelectedProject] = useState(null)
 
 	useEffect(() => {
 		document.title = 'Projects'
@@ -29,9 +31,16 @@ const Projects = () => {
 					onClose={() => setShowAddProject(false)}
 				/>
 			)}
+			{selectedProject && (
+				<CertainProject
+					project={selectedProject}
+					categories={categories}
+					onClose={() => setSelectedProject(null)}
+				/>
+			)}
 
 			{projects.map((project) => (
-				<div key={project.id}>
+				<div key={project.id} onClick={() => setSelectedProject(project)}>
 					<ProjectLabel project={project} categories={categories} />
 				</div>
 			))}
