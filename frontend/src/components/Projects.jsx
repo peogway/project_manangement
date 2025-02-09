@@ -1,7 +1,42 @@
 import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAllProject } from '../reducers/prjReducer'
+import { setAllCategories } from '../reducers/categoryReducer'
+import ProjectForm from './ProjectForm'
+import ProjectLabel from './ProjectLabel'
 
 const Projects = () => {
-	return <div></div>
+	const dispatch = useDispatch()
+	const [showAddProject, setShowAddProject] = useState(false)
+
+	useEffect(() => {
+		document.title = 'Projects'
+		dispatch(setAllProject())
+		dispatch(setAllCategories())
+	}, [])
+
+	const projects = useSelector((state) => state.projects)
+	const categories = useSelector((state) => state.categories)
+	return (
+		<div>
+			<h1>Projects</h1>
+			<p>{projects.length} Projects</p>
+
+			<button onClick={() => setShowAddProject(true)}>+ Add New</button>
+			{showAddProject && (
+				<ProjectForm
+					categories={categories}
+					onClose={() => setShowAddProject(false)}
+				/>
+			)}
+
+			{projects.map((project) => (
+				<div key={project.id}>
+					<ProjectLabel project={project} categories={categories} />
+				</div>
+			))}
+		</div>
+	)
 }
 
 export default Projects
