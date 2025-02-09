@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Notification from './components/Notification'
 import Dashboard from './components/Dashboard'
 import Tasks from './components/Tasks'
+import Projects from './components/Projects'
 import Categories from './components/Categories'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
@@ -80,6 +81,9 @@ const App = () => {
 								<Link style={{ padding: 5 }} to='/dashboard'>
 									Dashboard
 								</Link>
+								<Link style={{ padding: 5 }} to='/projects'>
+									Projects
+								</Link>
 								<Link style={{ padding: 5 }} to='/tasks'>
 									Tasks
 								</Link>
@@ -110,6 +114,10 @@ const App = () => {
 				<Route
 					path='/dashboard'
 					element={user ? <Dashboard /> : <Navigate replace to='/login' />}
+				/>
+				<Route
+					path='/projects'
+					element={user ? <Projects /> : <Navigate replace to='/login' />}
 				/>
 				<Route
 					path='/tasks'
