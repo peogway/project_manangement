@@ -101,7 +101,7 @@ const ProjectForm = ({ categories, onClose }) => {
 				/>
 
 				<button onClick={onClose}>Cancel</button>
-				<button onClick={handleAddPrj}>Add Category</button>
+				<button onClick={handleAddPrj}>Add Project</button>
 			</div>
 		</div>
 	)
