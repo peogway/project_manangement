@@ -10,7 +10,7 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 	const overlayRef = useRef(null)
 	const [cateName, setCateName] = useState(null)
 	const [resCates, setResCates] = useState([])
-	const { remove: rmProjectName, prjName } = useField('text', project.name)
+	const { remove: rmProjectName, ...prjName } = useField('text', project.name)
 	const categoryNames = categories.map((category) => category.name)
 	const dispatch = useDispatch()
 
@@ -35,6 +35,8 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 			categories: resCates,
 			id: project.id,
 		}
+		// console.log(prjToUpdate)
+
 		try {
 			dispatch(updateProject(prjToUpdate))
 			onClose()
@@ -43,10 +45,12 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 		}
 	}
 
-	const handleSelectCategory = () => {
-		const foundCate = categories.filter((cate) => cate.name === cateName)[0]
+	const handleSelectCategory = (name) => {
+		const foundCate = categories.filter((cate) => cate.name === name)[0]
 		setCateName(null)
-		setResCates(resCates.concat(foundCate))
+		if (!resCates.includes(foundCate)) {
+			setResCates(resCates.concat(foundCate))
+		}
 	}
 	return (
 		<div className='edit-form'>
@@ -103,6 +107,7 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 					options={categoryNames}
 					onSelect={handleSelectCategory}
 					description='Choose a Category'
+					value={true}
 				/>
 
 				<button onClick={onClose}>Cancel</button>
