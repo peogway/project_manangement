@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllTasks, updateTask } from '../reducers/taskReducer'
+import SortDropdown from './sortDropDown'
+import task from '../services/task'
 
 const CertainProject = ({ project, categories, onClose }) => {
 	const dispatch = useDispatch()
@@ -13,13 +15,14 @@ const CertainProject = ({ project, categories, onClose }) => {
 	}, [])
 
 	const allTasks = useSelector((state) => state.tasks)
-	const tasks = allTasks.filter((task) => task.project === project.id)
+	const tasks = allTasks.filter((task) => task.project.id === project.id)
 	const handleClickOutside = (event) => {
 		if (formRef.current && !formRef.current.contains(event.target)) {
 			onClose()
 		}
 	}
-
+	// console.log(allTasks)
+	const priorityOrder = { high: 3, medium: 2, low: 1 }
 	let sortedTasks
 	if (sortValue === 'A-Z') {
 		sortedTasks = [...tasks].sort((a, b) => a.name.localeCompare(b.name))
@@ -55,7 +58,7 @@ const CertainProject = ({ project, categories, onClose }) => {
 	}
 
 	const showTasks = taskMap[taskStatusToShow]
-	// console.log(showTasks);
+	// console.log(showTasks)
 
 	return (
 		<div>
