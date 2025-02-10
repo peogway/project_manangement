@@ -92,6 +92,25 @@ const CertainProject = ({ project, categories, onClose }) => {
 			>
 				<h2>{project.name}</h2>
 				<SortDropdown setSortValue={setSortValue} sortTasks={true} />
+				<br />
+				<button
+					onClick={() => setTaskStatusToSHow(null)}
+					className={taskStatusToShow === null ? 'active' : 'faded'}
+				>
+					All
+				</button>
+				<button
+					onClick={() => setTaskStatusToSHow(true)}
+					className={taskStatusToShow === true ? 'active' : 'faded'}
+				>
+					Completed
+				</button>
+				<button
+					onClick={() => setTaskStatusToSHow(false)}
+					className={taskStatusToShow === false ? 'active' : 'faded'}
+				>
+					Uncompleted
+				</button>
 
 				{showTasks.map((task) => (
 					<div key={task.id} className={task.completed ? 'completed-task' : ''}>
