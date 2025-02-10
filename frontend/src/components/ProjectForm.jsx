@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux'
 import { setError } from '../reducers/notiReducer'
 
 const ProjectForm = ({ categories, onClose }) => {
-	const formRef = null
-	const overlayRef = null
-	const [cateName, setCateName] = useRef(null)
-	const [resCates, setResCates] = useRef([])
+	const formRef = useRef(null)
+	const overlayRef = useRef(null)
+	const [cateName, setCateName] = useState(null)
+	const [resCates, setResCates] = useState([])
 	const { remove: rmProjectName, prjName } = useField('text')
 	const categoryNames = categories.map((category) => category.name)
 	const dispatch = useDispatch()
