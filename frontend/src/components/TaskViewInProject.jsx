@@ -7,10 +7,40 @@ const TaskViewInProject = ({ task }) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const taskNameRef = useRef(null)
 	const priorityRef = useRef(null)
-	const [isChecked, setIsChecked] = useState(false)
-	const [showEditForm, setShowEditForm] = useState(false)
+
+	useEffect(() => {
+		if (!isEditing) return
+		const handleClickOutside = (event) => {
+			if (taskNameRef.current && !taskNameRef.current.contains(event.target)) {
+				if (window.confirm('Are you sure to discard all changes?')) {
+					taskNameRef.current.textContent = task.name
+					setIsEditing(false)
+				} else {
+					setTimeout(() => taskNameRef.current.focus(), 0)
+				}
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [isEditing])
+
+	const handleEditClick = () => {
+		setIsEditing(true)
+		setTimeout(() => taskNameRef.current.focus(), 0) // Focus after state update
+	}
+
+	const handleApplyClick = () => {
+		const taskToUpdate = {
+			name: taskNameRef.current.textContent,
+			id: task.id,
+		}
+
+		dispatch(updateTask(taskToUpdate))
+		setIsEditing(false)
+	}
+
 	const handleCheckboxChange = (task) => {
-		setIsChecked(!isChecked)
 		const { id } = task
 		const taskToUpdate = {
 			id,
@@ -39,17 +69,24 @@ const TaskViewInProject = ({ task }) => {
 				</div>
 				<div className='right-content'>
 					<div className='task-name-project'>
-						<h2 className='task-name'>{task.name}</h2>
+						<h2
+							className='task-name'
+							ref={taskNameRef}
+							contentEditable={isEditing}
+							suppressContentEditableWarning={true}
+						>
+							{task.name}
+						</h2>
 						<p className='task-project'>{task.project.name}</p>
 					</div>
 
 					<div className='priority'>{task.priority}</div>
 
 					<button
-						onClick={() => setShowEditForm(true)}
+						onClick={isEditing ? handleApplyClick : handleEditClick}
 						className='edit-task-btn'
 					>
-						Edit
+						{isEditing ? 'Apply' : 'Edit'}
 					</button>
 					<button
 						onClick={() => handleDelete(task)}
