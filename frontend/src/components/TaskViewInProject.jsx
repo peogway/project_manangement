@@ -1,19 +1,30 @@
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateTask, deleteTask } from '../reducers/taskReducer'
+import Dropdown from './DropDown'
 
 const TaskViewInProject = ({ task }) => {
 	const dispatch = useDispatch()
 	const [isEditing, setIsEditing] = useState(false)
 	const taskNameRef = useRef(null)
+	const [priority, setPriority] = useState(task.priority)
 	const priorityRef = useRef(null)
+	const applyButtonRef = useRef(null)
 
 	useEffect(() => {
 		if (!isEditing) return
 		const handleClickOutside = (event) => {
-			if (taskNameRef.current && !taskNameRef.current.contains(event.target)) {
+			if (
+				taskNameRef.current &&
+				!taskNameRef.current.contains(event.target) &&
+				priorityRef.current &&
+				!priorityRef.current.contains(event.target) &&
+				applyButtonRef.current &&
+				!applyButtonRef.current.contains(event.target)
+			) {
 				if (window.confirm('Are you sure to discard all changes?')) {
 					taskNameRef.current.textContent = task.name
+					setPriority(task.priority)
 					setIsEditing(false)
 				} else {
 					setTimeout(() => taskNameRef.current.focus(), 0)
@@ -33,8 +44,10 @@ const TaskViewInProject = ({ task }) => {
 	const handleApplyClick = () => {
 		const taskToUpdate = {
 			name: taskNameRef.current.textContent,
+			priority: priorityRef.current.value,
 			id: task.id,
 		}
+		console.log(priorityRef.current.value)
 
 		dispatch(updateTask(taskToUpdate))
 		setIsEditing(false)
@@ -56,6 +69,10 @@ const TaskViewInProject = ({ task }) => {
 			dispatch(deleteTask(task.id))
 		}
 	}
+
+	const priorities = [priority].concat(
+		['low', 'medium', 'high'].filter((pri) => pri !== priority)
+	)
 	return (
 		<div>
 			<div className='task-container'>
@@ -80,9 +97,20 @@ const TaskViewInProject = ({ task }) => {
 						<p className='task-project'>{task.project.name}</p>
 					</div>
 
-					<div className='priority'>{task.priority}</div>
+					<div className='priority'>
+						{isEditing ? (
+							<Dropdown
+								ref={priorityRef}
+								options={priorities}
+								onSelect={setPriority}
+							/>
+						) : (
+							task.priority
+						)}
+					</div>
 
 					<button
+						ref={applyButtonRef}
 						onClick={isEditing ? handleApplyClick : handleEditClick}
 						className='edit-task-btn'
 					>
