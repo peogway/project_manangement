@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux'
 import { setError } from '../reducers/notiReducer'
 
 const EditProjectForm = ({ project, categories, onClose }) => {
-	const formRef = useState(null)
-	const overlayRef = useState(null)
+	const formRef = useRef(null)
+	const overlayRef = useRef(null)
 	const [cateName, setCateName] = useState(null)
 	const [resCates, setResCates] = useState([])
 	const { remove: rmProjectName, prjName } = useField('text', project.name)
@@ -36,7 +36,7 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 			id: project.id,
 		}
 		try {
-			dispatch(updateTask(prjToUpdate))
+			dispatch(updateProject(prjToUpdate))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))
