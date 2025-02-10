@@ -141,3 +141,8 @@
 	z-index: -1;
 }
 
+.editing {
+	background: #d4d92f;
+	border: 2px black;
+}
+
