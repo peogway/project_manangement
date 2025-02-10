@@ -46,10 +46,8 @@ const Projects = () => {
 						if (
 							e.target.tagName !== 'BUTTON' &&
 							!e.target.closest('.edit-form')
-						) {
+						)
 							setSelectedProject(project)
-							console.log('hello')
-						}
 					}}
 				>
 					<ProjectLabel project={project} categories={categories} />
