@@ -49,7 +49,7 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 		setResCates(resCates.concat(foundCate))
 	}
 	return (
-		<div>
+		<div className='edit-form'>
 			<div
 				ref={overlayRef}
 				onClick={handleClickOutside}

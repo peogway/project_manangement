@@ -43,7 +43,13 @@ const Projects = () => {
 				<div
 					key={project.id}
 					onClick={(e) => {
-						if (e.target.tagName !== 'BUTTON') setSelectedProject(project)
+						if (
+							e.target.tagName !== 'BUTTON' &&
+							!e.target.closest('.edit-form')
+						) {
+							setSelectedProject(project)
+							console.log('hello')
+						}
 					}}
 				>
 					<ProjectLabel project={project} categories={categories} />
