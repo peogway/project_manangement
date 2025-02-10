@@ -42,7 +42,9 @@ const ProjectLabel = ({ project, categories }) => {
 	return (
 		<div>
 			<p>{project.name}</p>
-			<button onClick={() => setShowFeatures(true)}>...</button>
+			<button onClick={() => setShowFeatures(true)} disabled={showFeatures}>
+				...
+			</button>
 			{showFeatures && projectFeatures()}
 			{/* <p style={{ color: 'gray' }}>Projects</p> */}
 			<ProgressBar />
