@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
-const SortDropdown = ({ setSortValue, sortTasks }) => {
-	const [selectedSort, setSelectedSort] = useState('A-Z')
+const SortDropdown = ({ setSortValue, sortTasks, initlaValue }) => {
+	const [selectedSort, setSelectedSort] = useState(
+		initlaValue ? initlaValue : 'A-Z'
+	)
 
 	const handleChange = (e) => {
 		setSelectedSort(e.target.value)
