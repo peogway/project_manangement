@@ -114,5 +114,30 @@
 }
 
 .completed-task {
-	text-decoration: line-through;
+	position: relative;
+	color: rgba(0, 0, 0, 0.5); /* Makes text lighter */
 }
+
+.completed-task::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 90%;
+	height: 1px;
+	background-color: black; /* Adjust color as needed */
+	transform: translate(5%, 20%);
+}
+.completed-task::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(148, 143, 143, 0.5);
+	opacity: 0.9;
+	border-radius: 6%;
+	z-index: -1;
+}
+
