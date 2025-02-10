@@ -35,7 +35,10 @@ const editProject = async (project) => {
         headers: { Authorization: getToken() },
     };
 
-    const res = await axios.put(`${baseUrl}/${project.id}`, project, config);
+    const res = await axios.put(`${baseUrl}/${project.id}`, {
+        ...project,
+        categories: project.categories.map((cate) => cate.id),
+    }, config);
     return res.data;
 };
 

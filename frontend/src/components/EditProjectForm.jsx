@@ -32,7 +32,7 @@ const EditProjectForm = ({ project, categories, onClose }) => {
 		}
 		const prjToUpdate = {
 			name: prjName.value,
-			categories: resCates.map((cate) => cate.id),
+			categories: resCates,
 			id: project.id,
 		}
 		// console.log(prjToUpdate)
