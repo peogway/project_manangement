@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllTasks, updateTask } from '../reducers/taskReducer'
 import SortDropdown from './sortDropDown'
+import TaskViewInProject from './TaskViewInProject'
 import EditTaskForm from './EditTaskForm'
 
 const CertainProject = ({ project, categories, onClose }) => {
 	const dispatch = useDispatch()
 	const formRef = useRef(null)
 	const [sortValue, setSortValue] = useState('A-Z')
-	const [isChecked, setIsChecked] = useState(false)
-	const [showEditForm, setShowEditForm] = useState(false)
+
 	const [taskStatusToShow, setTaskStatusToSHow] = useState(null)
 	const overlayRef = useRef(null)
 	useEffect(() => {
@@ -61,23 +61,7 @@ const CertainProject = ({ project, categories, onClose }) => {
 
 	const showTasks = taskMap[taskStatusToShow]
 	// console.log(showTasks)
-	const handleCheckboxChange = (task) => {
-		setIsChecked(!isChecked)
-		const { id } = task
-		const taskToUpdate = {
-			id,
-			completed: !task.completed,
-			status: task.completed ? 'in-progress' : 'completed',
-		}
 
-		dispatch(updateTask(taskToUpdate))
-	}
-
-	const handleDelete = (task) => {
-		if (window.confirm(`Are you sure you want to delete task ${task.name}?`)) {
-			dispatch(deleteTask(task.id))
-		}
-	}
 	return (
 		<div>
 			<div
@@ -111,45 +95,7 @@ const CertainProject = ({ project, categories, onClose }) => {
 
 				{showTasks.map((task) => (
 					<div key={task.id} className={task.completed ? 'completed-task' : ''}>
-						<div>
-							<div className='task-container'>
-								<div className='left-content'>
-									<input
-										className='task-checkbox'
-										type='checkbox'
-										checked={task.completed}
-										onChange={() => handleCheckboxChange(task)}
-									/>
-								</div>
-								<div className='right-content'>
-									<div className='task-name-project'>
-										<h2 className='task-name'>{task.name}</h2>
-										<p className='task-project'>{task.project.name}</p>
-									</div>
-
-									<div className='priority'>{task.priority}</div>
-
-									<button
-										onClick={() => setShowEditForm(true)}
-										className='edit-task-btn'
-									>
-										Edit
-									</button>
-									<button
-										onClick={() => handleDelete(task)}
-										className='delete-task-btn'
-									>
-										Delete
-									</button>
-								</div>
-							</div>
-							{showEditForm && (
-								<EditTaskForm
-									onClose={() => setShowEditForm(false)}
-									{...task}
-								/>
-							)}
-						</div>
+						<TaskViewInProject task={task} />
 					</div>
 				))}
 			</div>
