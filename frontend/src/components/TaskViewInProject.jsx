@@ -13,6 +13,7 @@ const TaskViewInProject = ({ task }) => {
 
 	useEffect(() => {
 		if (!isEditing) return
+
 		const handleClickOutside = (event) => {
 			if (
 				taskNameRef.current &&
@@ -87,7 +88,7 @@ const TaskViewInProject = ({ task }) => {
 				<div className='right-content'>
 					<div className='task-name-project'>
 						<h2
-							className='task-name'
+							className={`task-name ${isEditing ? 'editing' : ''}`}
 							ref={taskNameRef}
 							contentEditable={isEditing}
 							suppressContentEditableWarning={true}
@@ -97,7 +98,7 @@ const TaskViewInProject = ({ task }) => {
 						<p className='task-project'>{task.project.name}</p>
 					</div>
 
-					<div className='priority'>
+					<div className={`priority ${isEditing ? 'editing' : ''}`}>
 						{isEditing ? (
 							<Dropdown
 								ref={priorityRef}
