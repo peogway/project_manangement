@@ -40,7 +40,12 @@ const Projects = () => {
 			)}
 
 			{projects.map((project) => (
-				<div key={project.id} onClick={() => setSelectedProject(project)}>
+				<div
+					key={project.id}
+					onClick={(e) => {
+						if (e.target.tagName !== 'BUTTON') setSelectedProject(project)
+					}}
+				>
 					<ProjectLabel project={project} categories={categories} />
 				</div>
 			))}
