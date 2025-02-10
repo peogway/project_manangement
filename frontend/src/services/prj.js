@@ -17,7 +17,10 @@ const addProject = async (project) => {
         headers: { Authorization: getToken() },
     };
 
-    const res = await axios.post(baseUrl, project, config);
+    const res = await axios.post(baseUrl, {
+        ...project,
+        categories: project.categories.map((cate) => cate.id),
+    }, config);
     return res.data;
 };
 

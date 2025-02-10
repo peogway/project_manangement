@@ -10,7 +10,7 @@ const ProjectForm = ({ categories, onClose }) => {
 	const overlayRef = useRef(null)
 	const [cateName, setCateName] = useState(null)
 	const [resCates, setResCates] = useState([])
-	const { remove: rmProjectName, prjName } = useField('text')
+	const { remove: rmProjectName, ...prjName } = useField('text')
 	const categoryNames = categories.map((category) => category.name)
 	const dispatch = useDispatch()
 
@@ -28,7 +28,7 @@ const ProjectForm = ({ categories, onClose }) => {
 		}
 		const prjToCreate = {
 			name: prjName.value,
-			categories: resCates.map((cate) => cate.id),
+			categories: resCates,
 		}
 		try {
 			dispatch(createNewProject(prjToCreate))
@@ -38,10 +38,12 @@ const ProjectForm = ({ categories, onClose }) => {
 		}
 	}
 
-	const handleSelectCategory = () => {
-		const foundCate = categories.filter((cate) => cate.name === cateName)[0]
+	const handleSelectCategory = (name) => {
+		const foundCate = categories.filter((cate) => cate.name === name)[0]
 		setCateName(null)
-		setResCates(resCates.concat(foundCate))
+		if (!resCates.includes(foundCate)) {
+			setResCates(resCates.concat(foundCate))
+		}
 	}
 	return (
 		<div>
@@ -98,6 +100,7 @@ const ProjectForm = ({ categories, onClose }) => {
 					options={categoryNames}
 					onSelect={handleSelectCategory}
 					description='Choose a Category'
+					value={true}
 				/>
 
 				<button onClick={onClose}>Cancel</button>
