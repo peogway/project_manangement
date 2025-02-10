@@ -113,3 +113,6 @@
 	margin-left: 0; /* Remove left margin on the first element */
 }
 
+.completed-task {
+	text-decoration: line-through;
+}
