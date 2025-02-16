@@ -4,6 +4,7 @@ import { setAllTasks, updateTask } from '../reducers/taskReducer'
 import SortDropdown from './sortDropDown'
 import TaskViewInProject from './TaskViewInProject'
 import EditTaskForm from './EditTaskForm'
+import CircularChart from './CircularChart'
 
 const CertainProject = ({ project, categories, onClose }) => {
 	const dispatch = useDispatch()
@@ -11,6 +12,7 @@ const CertainProject = ({ project, categories, onClose }) => {
 	const [sortValue, setSortValue] = useState('A-Z')
 
 	const [taskStatusToShow, setTaskStatusToSHow] = useState(null)
+	const [percent, setPercent] = useState({ initial: null, after: null })
 	const overlayRef = useRef(null)
 	useEffect(() => {
 		dispatch(setAllTasks())
@@ -23,6 +25,7 @@ const CertainProject = ({ project, categories, onClose }) => {
 			onClose()
 		}
 	}
+
 	// console.log(allTasks)
 	const priorityOrder = { high: 3, medium: 2, low: 1 }
 	let sortedTasks
@@ -52,6 +55,16 @@ const CertainProject = ({ project, categories, onClose }) => {
 	const uncompletedTasks = sortedTasks.filter(
 		(task) => task.completed === false
 	)
+
+	const completionPercentage =
+		tasks.length > 0 ? (completedTasks.length / tasks.length) * 100 : 0
+
+	useEffect(() => {
+		setPercent((prev) => ({
+			initial: prev.after ?? 0,
+			after: completionPercentage ?? 0,
+		}))
+	}, [completionPercentage])
 
 	const taskMap = {
 		true: completedTasks,
@@ -91,8 +104,13 @@ const CertainProject = ({ project, categories, onClose }) => {
 				}}
 			>
 				<h2>{project.name}</h2>
+				<CircularChart initial={percent.initial} after={percent.after} />
 				<SortDropdown setSortValue={setSortValue} sortTasks={true} />
-				<br />
+				<div className='flex justify-center flex-col gap-1 items-center'>
+					<p className=' text-[13px] text-slate-400'>
+						{completedTasks.length} Tasks done
+					</p>
+				</div>
 				<button
 					onClick={() => setTaskStatusToSHow(null)}
 					className={taskStatusToShow === null ? 'active' : 'faded'}
