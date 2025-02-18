@@ -57,46 +57,42 @@ const App = () => {
 	if (loading) return <div>Loading...</div>
 
 	return (
-		<div>
-			{/* Display notifications */}
-			<Notification message={notification.error} className='error' />
-			<Notification message={notification.noti} className='notification' />
-
-			<div>
-				<nav>
-					{/* Navigation links */}
-					{/* <Link style={{ padding: 5 }} to='/'>
+		<div className='flex w-full h-screen poppins'>
+			{/* <Link style={{ padding: 5 }} to='/'>
 						<HomeIcon></HomeIcon>
 					</Link> */}
 
-					{user !== null && (
-						<div>
-							<nav>
-								<Link style={{ padding: 5 }} to='/dashboard'>
-									<DashboardIcon></DashboardIcon>Dashboard
-								</Link>
-								<Link style={{ padding: 5 }} to='/projects'>
-									<StorageIcon></StorageIcon>
-									Projects
-								</Link>
-								<Link style={{ padding: 5 }} to='/tasks'>
-									<LayersIcon></LayersIcon>
-									Tasks
-								</Link>
-								<Link style={{ padding: 5 }} to='/categories'>
-									<CategoryIcon></CategoryIcon>Categories
-								</Link>
-								<div>
-									{/* Logout button */}
-									<div onClick={handleLogout}>
-										<LogoutIcon></LogoutIcon>
-									</div>
-								</div>
-							</nav>
-						</div>
-					)}
+			{/* Soft Layer */}
+			<div className='w-full h-full z-50 bg-slate-800 fixed opacity-30'></div>
+
+			{/* Sidebar and Navigation Links */}
+			{user !== null && (
+				<nav className='w-[97px] max-[940px]:hidden h-screen py-10 bg-white flex flex-col items-center justify-between z-[60] transition-all'>
+					<Link style={{ padding: 5 }} to='/dashboard'>
+						<DashboardIcon></DashboardIcon>Dashboard
+					</Link>
+					<Link style={{ padding: 5 }} to='/projects'>
+						<StorageIcon></StorageIcon>
+						Projects
+					</Link>
+					<Link style={{ padding: 5 }} to='/tasks'>
+						<LayersIcon></LayersIcon>
+						Tasks
+					</Link>
+					<Link style={{ padding: 5 }} to='/categories'>
+						<CategoryIcon></CategoryIcon>Categories
+					</Link>
+
+					{/* Logout button */}
+					<div onClick={handleLogout}>
+						<LogoutIcon></LogoutIcon>
+					</div>
 				</nav>
-			</div>
+			)}
+
+			{/* Display notifications */}
+			<Notification message={notification.error} className='error' />
+			<Notification message={notification.noti} className='notification' />
 
 			{/* Define routes */}
 			<Routes>
@@ -110,23 +106,27 @@ const App = () => {
 					}
 				/>
 
-				{/* Private routes, redirect to login if not authenticated */}
-				<Route
-					path='/dashboard'
-					element={user ? <Dashboard /> : <Navigate replace to='/login' />}
-				/>
-				<Route
-					path='/projects'
-					element={user ? <Projects /> : <Navigate replace to='/login' />}
-				/>
-				<Route
-					path='/tasks'
-					element={user ? <Tasks /> : <Navigate replace to='/login' />}
-				/>
-				<Route
-					path='/categories'
-					element={user ? <Categories /> : <Navigate replace to='/login' />}
-				/>
+				{/* Private routes (only for logged-in users) */}
+				{user && (
+					<>
+						<Route
+							path='/dashboard'
+							element={user ? <Dashboard /> : <Navigate replace to='/login' />}
+						/>
+						<Route
+							path='/projects'
+							element={user ? <Projects /> : <Navigate replace to='/login' />}
+						/>
+						<Route
+							path='/tasks'
+							element={user ? <Tasks /> : <Navigate replace to='/login' />}
+						/>
+						<Route
+							path='/categories'
+							element={user ? <Categories /> : <Navigate replace to='/login' />}
+						/>
+					</>
+				)}
 			</Routes>
 		</div>
 	)

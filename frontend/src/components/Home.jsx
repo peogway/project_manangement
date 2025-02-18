@@ -129,8 +129,7 @@ const Navbar = ({ user }) => {
 					<>
 						<Link to='/login'>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-white bg-orange-600 
- p-[8px] px-6 rounded-md `}
+								className={` max-sm:w-full text-sm border border-orange-600 text-white bg-orange-600 p-[8px] px-6 rounded-md `}
 							>
 								Sign In
 							</button>
@@ -138,8 +137,7 @@ const Navbar = ({ user }) => {
 
 						<Link to='/register'>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-orange-600 
-hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
+								className={` max-sm:w-full text-sm border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
 							>
 								Sign Up
 							</button>
