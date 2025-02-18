@@ -125,7 +125,7 @@ const Navbar = ({ user }) => {
 	const Buttons = ({ user }) => {
 		return (
 			<div className='flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8'>
-				{!user ? (
+				{!user && (
 					<>
 						<Link to='/login'>
 							<button
@@ -145,15 +145,6 @@ hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
 							</button>
 						</Link>
 					</>
-				) : (
-					<Link to='/dashboard'>
-						<button
-							className={` max-sm:w-full text-sm border bg-orange-600 text-white
-hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
-						>
-							Dashboard
-						</button>
-					</Link>
 				)}
 			</div>
 		)
