@@ -101,7 +101,7 @@ const Categories = () => {
 	const categories = useSelector((state) => state.categories)
 
 	return (
-		<div>
+		<div className='z-999'>
 			<h1>Categories</h1>
 			<p>{categories.length} categories</p>
 			<button onClick={() => setShowAddCategory(true)}>+ Add New</button>

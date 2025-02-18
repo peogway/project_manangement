@@ -39,7 +39,7 @@ const Projects = () => {
 	}
 
 	return (
-		<div>
+		<div className='z-999'>
 			<h1>Projects</h1>
 			<p>{sortedProjects.length} Projects</p>
 

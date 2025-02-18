@@ -4,8 +4,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		document.title = 'Dashboard'
 	}, [])
-	return <div>Dashboard here</div>
+	return <div className='z-999'>Dashboard here</div>
 }
 
 export default Dashboard
-

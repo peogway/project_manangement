@@ -81,7 +81,7 @@ const Tasks = () => {
 		setShowAddTask(!showAddTask)
 	}
 	return (
-		<div>
+		<div className='z-999'>
 			<button onClick={toggleAddTask}>+ New Task</button>
 			<br />
 			<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
