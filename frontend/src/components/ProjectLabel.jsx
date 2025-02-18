@@ -47,7 +47,14 @@ const ProjectLabel = ({ project, categories }) => {
 			</button>
 			{showFeatures && projectFeatures()}
 			{/* <p style={{ color: 'gray' }}>Projects</p> */}
-			<ProgressBar />
+			<ProgressBar
+				progress={
+					project.tasks.length === 0
+						? 0
+						: project.tasks.filter((task) => task.completed).length /
+						  project.tasks.length
+				}
+			/>
 			{project.categories.map((category) => (
 				<div key={category.id}>
 					<label>{category.name}</label>
