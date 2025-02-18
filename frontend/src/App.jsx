@@ -61,27 +61,15 @@ const App = () => {
 			{/* Display notifications */}
 			<Notification message={notification.error} className='error' />
 			<Notification message={notification.noti} className='notification' />
-			<h1>Project Management</h1>
 
 			<div>
 				<nav>
 					{/* Navigation links */}
-					<Link style={{ padding: 5 }} to='/'>
+					{/* <Link style={{ padding: 5 }} to='/'>
 						<HomeIcon></HomeIcon>
-					</Link>
+					</Link> */}
 
-					{user === null ? ( // Show different links based on authentication state
-						<div>
-							<nav>
-								<Link style={{ padding: 5 }} to='/login'>
-									Sign in
-								</Link>
-								<Link style={{ padding: 5 }} to='/register'>
-									Sign up
-								</Link>
-							</nav>
-						</div>
-					) : (
+					{user !== null && (
 						<div>
 							<nav>
 								<Link style={{ padding: 5 }} to='/dashboard'>
@@ -117,7 +105,9 @@ const App = () => {
 				<Route path='/register' element={<RegisterForm />} />
 				<Route
 					path='/'
-					element={user ? <Navigate replace to='/dashboard' /> : <Home />}
+					element={
+						user ? <Navigate replace to='/dashboard' /> : <Home user={user} />
+					}
 				/>
 
 				{/* Private routes, redirect to login if not authenticated */}
