@@ -8,6 +8,12 @@ import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import RegisterForm from './components/RegisterFrom'
 import { setToken } from './services/login'
+import LogoutIcon from '@mui/icons-material/Logout'
+import HomeIcon from '@mui/icons-material/Home'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import CategoryIcon from '@mui/icons-material/Category'
+import StorageIcon from '@mui/icons-material/Storage'
+import LayersIcon from '@mui/icons-material/Layers'
 
 import {
 	BrowserRouter as Router,
@@ -61,7 +67,7 @@ const App = () => {
 				<nav>
 					{/* Navigation links */}
 					<Link style={{ padding: 5 }} to='/'>
-						Home
+						<HomeIcon></HomeIcon>
 					</Link>
 
 					{user === null ? ( // Show different links based on authentication state
@@ -79,20 +85,24 @@ const App = () => {
 						<div>
 							<nav>
 								<Link style={{ padding: 5 }} to='/dashboard'>
-									Dashboard
+									<DashboardIcon></DashboardIcon>Dashboard
 								</Link>
 								<Link style={{ padding: 5 }} to='/projects'>
+									<StorageIcon></StorageIcon>
 									Projects
 								</Link>
 								<Link style={{ padding: 5 }} to='/tasks'>
+									<LayersIcon></LayersIcon>
 									Tasks
 								</Link>
 								<Link style={{ padding: 5 }} to='/categories'>
-									Categories
+									<CategoryIcon></CategoryIcon>Categories
 								</Link>
 								<div>
 									{/* Logout button */}
-									<button onClick={handleLogout}>Sign out</button>
+									<div onClick={handleLogout}>
+										<LogoutIcon></LogoutIcon>
+									</div>
 								</div>
 							</nav>
 						</div>
