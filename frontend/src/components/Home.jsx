@@ -3,7 +3,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded'
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Home = ({ user }) => {
 	useEffect(() => {
@@ -69,6 +69,7 @@ const Features = () => {
 }
 
 const CTASection = () => {
+	const navigate = useNavigate()
 	return (
 		<div className='flex flex-col mx-16 items-center mt-[120px] gap-6 '>
 			{/*  */}
@@ -85,6 +86,7 @@ const CTASection = () => {
 
 			<button
 				className={`block bg-orange-600 rounded-md  px-9 py-3 text-sm font-medium text-white hover:bg-orange-600    `}
+				onClick={() => navigate('/login')}
 				type='button'
 			>
 				{`Let's get started!`}
