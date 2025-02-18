@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
 const ProgressBar = ({ progress }) => {
-	console.log(progress)
-
 	return (
 		<div className='w-full max-w-md p-4'>
 			<div className='w-full bg-gray-200 rounded-full h-4'>
