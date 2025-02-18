@@ -62,11 +62,13 @@ const App = () => {
 						<HomeIcon></HomeIcon>
 					</Link> */}
 
-			{/* Soft Layer */}
-			<div className='w-full h-full z-50 bg-slate-800 fixed opacity-30'></div>
-
 			{/* Sidebar and Navigation Links */}
-			{user !== null && (
+			{/* Soft Layer */}
+
+			{user && (
+				<div className='w-full h-full z-50 bg-slate-800 fixed opacity-30'></div>
+			)}
+			{user && (
 				<nav className='w-[97px] max-[940px]:hidden h-screen py-10 bg-white flex flex-col items-center justify-between z-[60] transition-all'>
 					<Link style={{ padding: 5 }} to='/dashboard'>
 						<DashboardIcon></DashboardIcon>Dashboard
