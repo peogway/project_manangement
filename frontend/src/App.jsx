@@ -14,7 +14,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import CategoryIcon from '@mui/icons-material/Category'
 import StorageIcon from '@mui/icons-material/Storage'
 import LayersIcon from '@mui/icons-material/Layers'
-
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -22,6 +21,7 @@ import {
 	Link,
 	Navigate,
 	useNavigate,
+	useLocation,
 } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,6 +30,7 @@ import { setUserFn, rmUserFn } from './reducers/userReducer'
 
 const App = () => {
 	const dispatch = useDispatch()
+	const location = useLocation()
 	const notification = useSelector((state) => state.notiReducer) // Notification state from Redux
 	const user = useSelector((state) => state.user) // User state from Redux
 	const [loading, setLoading] = useState(true) // Loading state for initial app load
@@ -70,19 +71,53 @@ const App = () => {
 			)}
 			{user && (
 				<nav className='w-[97px] max-[940px]:hidden h-screen py-10 bg-white flex flex-col items-center justify-between z-[60] transition-all'>
-					<Link style={{ padding: 5 }} to='/dashboard'>
-						<DashboardIcon></DashboardIcon>Dashboard
+					<Link
+						style={{ padding: 5 }}
+						to='/dashboard'
+						className={`${
+							location.pathname === '/dashboard'
+								? 'text-orange-600'
+								: 'text-slate-300'
+						}`}
+					>
+						<DashboardIcon />
+						Dashboard
 					</Link>
-					<Link style={{ padding: 5 }} to='/projects'>
-						<StorageIcon></StorageIcon>
+					<Link
+						style={{ padding: 5 }}
+						to='/projects'
+						className={`${
+							location.pathname === '/projects'
+								? 'text-orange-600'
+								: 'text-slate-300'
+						}`}
+					>
+						<StorageIcon />
 						Projects
 					</Link>
-					<Link style={{ padding: 5 }} to='/tasks'>
-						<LayersIcon></LayersIcon>
+					<Link
+						style={{ padding: 5 }}
+						to='/tasks'
+						className={`${
+							location.pathname === '/tasks'
+								? 'text-orange-600'
+								: 'text-slate-300'
+						}`}
+					>
+						<LayersIcon />
 						Tasks
 					</Link>
-					<Link style={{ padding: 5 }} to='/categories'>
-						<CategoryIcon></CategoryIcon>Categories
+					<Link
+						style={{ padding: 5 }}
+						to='/categories'
+						className={`${
+							location.pathname === '/categories'
+								? 'text-orange-600'
+								: 'text-slate-300'
+						}`}
+					>
+						<CategoryIcon />
+						Categories
 					</Link>
 
 					{/* Logout button */}
