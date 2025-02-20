@@ -1,20 +1,22 @@
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = ({ user, displayButtons }) => {
 	const Logo = () => {
+		const navigate = useNavigate()
 		return (
 			<div className='flex gap-2 items-center'>
 				{/* Icon Container */}
 
-				{/* Icon */}
+				<div onClick={() => navigate('/')} className='flex cursor-pointer'>
+					{/* Icon */}
+					<TaskAltIcon sx={{ fontSize: 34 }} className='text-orange-600  ' />
 
-				<TaskAltIcon sx={{ fontSize: 34 }} className='text-orange-600  ' />
-
-				{/* App Name */}
-				<div className='flex gap-1 text-[22px] '>
-					<span className={`font-bold text-orange-600`}>Project</span>
-					<span className='text-slate-600'>Master</span>
+					{/* App Name */}
+					<div className='flex gap-1 text-[22px] '>
+						<span className={`font-bold text-orange-600`}>Project</span>
+						<span className='text-slate-600'>Master</span>
+					</div>
 				</div>
 			</div>
 		)
