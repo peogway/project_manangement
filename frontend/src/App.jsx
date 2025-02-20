@@ -15,6 +15,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import StorageIcon from '@mui/icons-material/Storage'
 import LayersIcon from '@mui/icons-material/Layers'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import { isTokenExpired } from './services/login'
 
 import {
 	BrowserRouter as Router,
@@ -44,8 +45,14 @@ const App = () => {
 		const loggedUserJSON = window.localStorage.getItem('loggedPrjMnUser')
 		if (loggedUserJSON) {
 			const user = JSON.parse(loggedUserJSON) // Parse user data
-			dispatch(setUserFn(user)) // Dispatch user data to Redux
-			setToken(user.token)
+			if (isTokenExpired(user.token)) {
+				window.localStorage.removeItem('loggedPrjMnUser')
+				dispatch(rmUserFn())
+				return
+			} else {
+				dispatch(setUserFn(user)) // Dispatch user data to Redux
+				setToken(user.token)
+			}
 		}
 		setLoading(false) // Mark loading as complete
 	}, [dispatch])
