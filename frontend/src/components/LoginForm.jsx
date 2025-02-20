@@ -42,11 +42,11 @@ const LoginForm = () => {
 			<form onSubmit={handleLogin}>
 				<div className='username'>
 					<label>Username: </label>
-					<input {...username} />
+					<input {...username} placeholder='Enter username' />
 				</div>
 				<div className='password'>
 					<label>Password: </label>
-					<input {...password} />
+					<input {...password} placeholder='Enter password' />
 				</div>
 				<button className='btn submitBtn' type='submit'>
 					Sign in
