@@ -101,45 +101,47 @@ const Categories = () => {
 	const categories = useSelector((state) => state.categories)
 
 	return (
-		<div className='z-999'>
-			<h1>Categories</h1>
-			<p>{categories.length} categories</p>
-			<button onClick={() => setShowAddCategory(true)}>+ Add New</button>
+		<div className='flex justify-center items-center flex-1 h-full'>
+			<div className='z-999 bg-white w-[95%] h-[90%] '>
+				<h1>Categories</h1>
+				<p>{categories.length} categories</p>
+				<button onClick={() => setShowAddCategory(true)}>+ Add New</button>
 
-			{categories.length === 0 ? (
-				<div
-					style={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-						background: 'white',
-						padding: 20,
-						zIndex: 1000,
-					}}
-				>
-					<p>No categories available</p>
-				</div>
-			) : (
-				<div>
-					{categories.map((category) => (
-						<div key={category.id}>
-							<Category
-								name={category.name}
-								id={category.id}
-								categories={categories}
-								projects={category.projects}
-							/>
-						</div>
-					))}
-				</div>
-			)}
-			{showAddCategory && (
-				<CategoryForm
-					onClose={() => setShowAddCategory(false)}
-					categories={categories}
-				/>
-			)}
+				{categories.length === 0 ? (
+					<div
+						style={{
+							position: 'absolute',
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+							background: 'white',
+							padding: 20,
+							zIndex: 1000,
+						}}
+					>
+						<p>No categories available</p>
+					</div>
+				) : (
+					<div>
+						{categories.map((category) => (
+							<div key={category.id}>
+								<Category
+									name={category.name}
+									id={category.id}
+									categories={categories}
+									projects={category.projects}
+								/>
+							</div>
+						))}
+					</div>
+				)}
+				{showAddCategory && (
+					<CategoryForm
+						onClose={() => setShowAddCategory(false)}
+						categories={categories}
+					/>
+				)}
+			</div>
 		</div>
 	)
 }

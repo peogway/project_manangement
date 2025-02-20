@@ -61,7 +61,7 @@ const App = () => {
 	if (loading) return <div>Loading...</div>
 
 	return (
-		<div className='flex w-full h-screen poppins'>
+		<div className='flex w-full h-screen poppins justify-start items-center relative'>
 			{/* <Link style={{ padding: 5 }} to='/'>
 						<HomeIcon></HomeIcon>
 					</Link> */}
