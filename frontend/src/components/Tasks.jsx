@@ -81,33 +81,35 @@ const Tasks = () => {
 		setShowAddTask(!showAddTask)
 	}
 	return (
-		<div className='z-999'>
-			<button onClick={toggleAddTask}>+ New Task</button>
-			<br />
-			<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
-			<label style={{ color: 'gray' }}>Sort By:</label>
-			<SortDropdown setSortValue={setSortValue} sortTasks={true} />
-			<br />
-			<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
-			<button onClick={() => setTaskStatus(true)}>Completed Tasks</button>
-			<div>
-				{showTasks.map((task) => (
-					<div key={task.id}>
-						<Task
-							{...task}
-							projects={projects}
-							selectedProject={selectedProject}
-						/>
-					</div>
-				))}
+		<div className='flex justify-center items-center flex-1 h-full'>
+			<div className='z-999 z-999 bg-white w-[95%] h-[90%]'>
+				<button onClick={toggleAddTask}>+ New Task</button>
+				<br />
+				<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
+				<label style={{ color: 'gray' }}>Sort By:</label>
+				<SortDropdown setSortValue={setSortValue} sortTasks={true} />
+				<br />
+				<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
+				<button onClick={() => setTaskStatus(true)}>Completed Tasks</button>
+				<div>
+					{showTasks.map((task) => (
+						<div key={task.id}>
+							<Task
+								{...task}
+								projects={projects}
+								selectedProject={selectedProject}
+							/>
+						</div>
+					))}
+				</div>
+				{showAddTask && (
+					<TaskForm
+						onClose={() => setShowAddTask(false)}
+						projects={projects}
+						selectedProject={selectedProject}
+					/>
+				)}
 			</div>
-			{showAddTask && (
-				<TaskForm
-					onClose={() => setShowAddTask(false)}
-					projects={projects}
-					selectedProject={selectedProject}
-				/>
-			)}
 		</div>
 	)
 }
