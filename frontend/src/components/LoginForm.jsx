@@ -4,6 +4,7 @@ import { setUserFn } from '../reducers/userReducer'
 import loginService, { setToken } from '../services/login'
 import { useField } from '../hooks/hook'
 import { useState, useEffect } from 'react'
+import Navbar from './Navbar'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -38,6 +39,7 @@ const LoginForm = () => {
 	}
 	return (
 		<div>
+			<Navbar />
 			<h2>Login</h2>
 			<form onSubmit={handleLogin}>
 				<div className='username'>

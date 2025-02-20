@@ -4,6 +4,7 @@ import registerService from '../services/register'
 import { useField } from '../hooks/hook'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Navbar from './Navbar'
 
 const RegisterForm = () => {
 	const dispatch = useDispatch()
@@ -42,6 +43,7 @@ const RegisterForm = () => {
 	}
 	return (
 		<div>
+			<Navbar />
 			<h2>Registration</h2>
 			<form onSubmit={handleRegister}>
 				<div className='name'>

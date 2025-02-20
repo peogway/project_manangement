@@ -4,6 +4,7 @@ import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded'
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import { Link, useNavigate } from 'react-router-dom'
+import Navbar from './Navbar'
 
 const Home = ({ user }) => {
 	useEffect(() => {
@@ -11,7 +12,7 @@ const Home = ({ user }) => {
 	}, [])
 	return (
 		<div className='poppins'>
-			<Navbar user={user} />
+			<Navbar user={user} displayButtons={true} />
 			<CTASection />
 			<Features />
 		</div>
@@ -100,58 +101,6 @@ const CTASection = () => {
 				className='shadow-xl mt-9 aspect-auto sm:w-auto w-[398px] rounded-lg max-w-full   sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl'
 			/> */}
 		</div>
-	)
-}
-
-const Navbar = ({ user }) => {
-	const Logo = () => {
-		return (
-			<div className='flex gap-2 items-center'>
-				{/* Icon Container */}
-
-				{/* Icon */}
-
-				<TaskAltIcon sx={{ fontSize: 34 }} className='text-orange-600  ' />
-
-				{/* App Name */}
-				<div className='flex gap-1 text-[22px] '>
-					<span className={`font-bold text-orange-600`}>Project</span>
-					<span className='text-slate-600'>Master</span>
-				</div>
-			</div>
-		)
-	}
-
-	const Buttons = ({ user }) => {
-		return (
-			<div className='flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8'>
-				{!user && (
-					<>
-						<Link to='/login'>
-							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-white bg-orange-600 p-[8px] px-6 rounded-md `}
-							>
-								Sign In
-							</button>
-						</Link>
-
-						<Link to='/register'>
-							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
-							>
-								Sign Up
-							</button>
-						</Link>
-					</>
-				)}
-			</div>
-		)
-	}
-	return (
-		<nav className='flex m-7 p-2 max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col  '>
-			<Logo />
-			<Buttons user={user} />
-		</nav>
 	)
 }
 
