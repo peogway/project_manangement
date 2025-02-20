@@ -101,7 +101,7 @@ const Categories = () => {
 	const categories = useSelector((state) => state.categories)
 
 	return (
-		<div className='flex justify-center items-center flex-1 h-full'>
+		<div className='flex justify-center items-center flex-1 h-screen'>
 			<div className='z-999 bg-white w-[95%] h-[90%]'>
 				<h1>Categories</h1>
 				<p>{categories.length} categories</p>

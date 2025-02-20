@@ -81,7 +81,7 @@ const Tasks = () => {
 		setShowAddTask(!showAddTask)
 	}
 	return (
-		<div className='flex justify-center items-center flex-1 h-full'>
+		<div className='flex justify-center items-center flex-1 h-full h-screen'>
 			<div className='z-999 z-999 bg-white w-[95%] h-[90%]'>
 				<button onClick={toggleAddTask}>+ New Task</button>
 				<br />
