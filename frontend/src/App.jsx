@@ -14,6 +14,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import CategoryIcon from '@mui/icons-material/Category'
 import StorageIcon from '@mui/icons-material/Storage'
 import LayersIcon from '@mui/icons-material/Layers'
+import TaskAltIcon from '@mui/icons-material/TaskAlt'
+
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -27,6 +29,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification, setError } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
+import Navbar from './components/Navbar'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -71,6 +74,12 @@ const App = () => {
 			)}
 			{user && (
 				<nav className='w-[120px] max-[940px]:hidden h-screen py-10 bg-white flex flex-col items-start justify-between z-[60] transition-all'>
+					<div className='  flex items-center gap-2 justify-center'>
+						<TaskAltIcon
+							className='text-orange-600 font-bold'
+							sx={{ fontSize: '41px' }}
+						/>
+					</div>
 					<Link
 						style={{ padding: 5 }}
 						to='/dashboard'
