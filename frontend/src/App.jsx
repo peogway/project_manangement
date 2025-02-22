@@ -48,7 +48,6 @@ const App = () => {
 			if (isTokenExpired(user.token)) {
 				window.localStorage.removeItem('loggedPrjMnUser')
 				dispatch(rmUserFn())
-				return
 			} else {
 				dispatch(setUserFn(user)) // Dispatch user data to Redux
 				setToken(user.token)
