@@ -16,14 +16,12 @@ const SortDropdown = ({ setSortValue, sortTasks, initlaValue, sortByDate }) => {
 				<option value='Z-A'>Z-A</option>
 			</optgroup>
 			{sortByDate && (
-				<div>
-					<optgroup label='Date'>
-						<option value='newest'>Newest</option>
-						<option value='oldest'>Oldest</option>
-					</optgroup>
-				</div>
+				<optgroup label='Date'>
+					<option value='newest'>Newest</option>
+					<option value='oldest'>Oldest</option>
+				</optgroup>
 			)}
-			{sortTasks === true && (
+			{sortTasks && (
 				<optgroup label='Priority'>
 					<option value='increasing'>Priority &#x2191;</option>
 					<option value='decreasing'>Priority &#x2193;</option>
