@@ -101,12 +101,21 @@ const Categories = () => {
 	const categories = useSelector((state) => state.categories)
 
 	return (
-		<div className='flex justify-center items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[95%] h-[90%]'>
-				<h1>Categories</h1>
-				<p>{categories.length} categories</p>
-				<button onClick={() => setShowAddCategory(true)}>+ Add New</button>
+		<div className='flex flex-col items-center flex-1 h-screen'>
+			<div className='z-999 bg-white w-[99%] flex items-center self-end'>
+				<div className='flex flex-col ml-2'>
+					<h1 className='font-bold text-2xl'>Categories</h1>
+					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
+				</div>
+				<button
+					className='w-25 h-7 ml-6 bg-orange-600 rounded-sm front text-white justify-center items-center'
+					onClick={() => setShowAddCategory(true)}
+				>
+					+ Add New
+				</button>
+			</div>
 
+			<div className='z-999 mt-7 bg-white w-[95%] h-[80%] '>
 				{categories.length === 0 ? (
 					<div
 						style={{
@@ -122,9 +131,16 @@ const Categories = () => {
 						<p>No categories available</p>
 					</div>
 				) : (
-					<div>
+					<div className='flex flex-col items-center gap-4 mt-4'>
 						{categories.map((category) => (
-							<div key={category.id}>
+							<div
+								key={category.id}
+								className=''
+								style={{
+									backgroundColor: 'rgba(241, 245, 249, 0.3)', // Light slate color with 30% opacity
+									width: '98%',
+								}}
+							>
 								<Category
 									name={category.name}
 									id={category.id}
