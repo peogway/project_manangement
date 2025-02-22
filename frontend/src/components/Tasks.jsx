@@ -87,7 +87,11 @@ const Tasks = () => {
 				<br />
 				<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
 				<label style={{ color: 'gray' }}>Sort By:</label>
-				<SortDropdown setSortValue={setSortValue} sortTasks={true} />
+				<SortDropdown
+					setSortValue={setSortValue}
+					sortByDate={true}
+					sortTasks={true}
+				/>
 				<br />
 				<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
 				<button onClick={() => setTaskStatus(true)}>Completed Tasks</button>
