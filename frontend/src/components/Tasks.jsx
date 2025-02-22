@@ -10,7 +10,7 @@ import {
 	updateProject,
 	deleteProject,
 } from '../reducers/prjReducer'
-import SortDropdown from './sortDropDown'
+import SortDropdown from './SortDropDown'
 
 const Tasks = () => {
 	// const location = useLocation()
