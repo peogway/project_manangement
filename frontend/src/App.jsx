@@ -73,12 +73,12 @@ const App = () => {
 						<HomeIcon></HomeIcon>
 					</Link> */}
 
-			{/* Sidebar and Navigation Links */}
 			{/* Soft Layer */}
-
 			{user && (
-				<div className='w-full h-full z-50 bg-slate-800 fixed opacity-30'></div>
+				<div className='w-full h-full z-50 bg-slate-300 fixed opacity-30'></div>
 			)}
+
+			{/* Sidebar and Navigation Links */}
 			{user && (
 				<nav className='w-[120px] max-[940px]:hidden h-screen py-10 bg-white flex flex-col items-start justify-between z-[60] transition-all'>
 					<div className='  flex items-center gap-2 justify-center'>
