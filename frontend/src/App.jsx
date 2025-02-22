@@ -160,24 +160,22 @@ const App = () => {
 				/>
 
 				{/* Private routes (only for logged-in users) */}
-				<>
-					<Route
-						path='/dashboard'
-						element={user ? <Dashboard /> : <Navigate replace to='/login' />}
-					/>
-					<Route
-						path='/projects'
-						element={user ? <Projects /> : <Navigate replace to='/login' />}
-					/>
-					<Route
-						path='/tasks'
-						element={user ? <Tasks /> : <Navigate replace to='/login' />}
-					/>
-					<Route
-						path='/categories'
-						element={user ? <Categories /> : <Navigate replace to='/login' />}
-					/>
-				</>
+				<Route
+					path='/dashboard'
+					element={user ? <Dashboard /> : <Navigate replace to='/login' />}
+				/>
+				<Route
+					path='/projects'
+					element={user ? <Projects /> : <Navigate replace to='/login' />}
+				/>
+				<Route
+					path='/tasks'
+					element={user ? <Tasks /> : <Navigate replace to='/login' />}
+				/>
+				<Route
+					path='/categories'
+					element={user ? <Categories /> : <Navigate replace to='/login' />}
+				/>
 			</Routes>
 		</div>
 	)
