@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SortDropdown = ({ setSortValue, sortTasks, initlaValue }) => {
+const SortDropdown = ({ setSortValue, sortTasks, initlaValue, sortByDate }) => {
 	const [selectedSort, setSelectedSort] = useState(
 		initlaValue ? initlaValue : 'A-Z'
 	)
@@ -15,10 +15,14 @@ const SortDropdown = ({ setSortValue, sortTasks, initlaValue }) => {
 				<option value='A-Z'>A-Z</option>
 				<option value='Z-A'>Z-A</option>
 			</optgroup>
-			<optgroup label='Date'>
-				<option value='newest'>Newest</option>
-				<option value='oldest'>Oldest</option>
-			</optgroup>
+			{sortByDate && (
+				<div>
+					<optgroup label='Date'>
+						<option value='newest'>Newest</option>
+						<option value='oldest'>Oldest</option>
+					</optgroup>
+				</div>
+			)}
 			{sortTasks === true && (
 				<optgroup label='Priority'>
 					<option value='increasing'>Priority &#x2191;</option>
@@ -30,4 +34,3 @@ const SortDropdown = ({ setSortValue, sortTasks, initlaValue }) => {
 }
 
 export default SortDropdown
-
