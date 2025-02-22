@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
 import Category from './Category'
-import SortDropDown from './SortDropDown'
+import SortDropdown from './sortDropDown'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const CategoryForm = ({ onClose, categories }) => {
@@ -93,15 +93,29 @@ const CategoryForm = ({ onClose, categories }) => {
 }
 
 const Categories = () => {
-	const [sortValue, setSortValue] = useState('newest')
 	const dispatch = useDispatch()
+	const [sortValue, setSortValue] = useState('newest')
 	const [showAddCategory, setShowAddCategory] = useState(false)
 	useEffect(() => {
 		document.title = 'Categories'
 		dispatch(setAllCategories())
 	}, [])
 
-	const categories = useSelector((state) => state.categories)
+	const initialCategories = useSelector((state) => state.categories)
+	let categories
+	if (sortValue === 'A-Z') {
+		categories = [...initialCategories].sort((a, b) =>
+			a.name.localeCompare(b.name)
+		)
+	} else if (sortValue === 'Z-A') {
+		categories = [...initialCategories].sort((a, b) =>
+			b.name.localeCompare(a.name)
+		)
+	} else if (sortValue === 'newest') {
+		categories = [...initialCategories].reverse()
+	} else {
+		categories = [...initialCategories]
+	}
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
@@ -116,10 +130,14 @@ const Categories = () => {
 				>
 					+ Add New
 				</button>
-				<div className='items-center ml-auto flex mr-5'>
-					<label className='font-bold'> Sort </label>
+				<div className='ml-auto items-center mr-5 flex'>
+					<p className='text-bold'>Sort</p>
 					<FilterAltIcon fontSize='small' />
-					<SortDropDown setSortValue={setSortValue} sortByDate={true} />
+					<SortDropdown
+						initlaValue='newest'
+						sortByDate={true}
+						setSortValue={setSortValue}
+					/>
 				</div>
 			</div>
 
@@ -171,4 +189,3 @@ const Categories = () => {
 }
 
 export default Categories
-
