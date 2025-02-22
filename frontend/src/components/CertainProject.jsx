@@ -105,7 +105,11 @@ const CertainProject = ({ project, categories, onClose }) => {
 			>
 				<h2>{project.name}</h2>
 				<CircularChart initial={percent.initial} after={percent.after} />
-				<SortDropdown setSortValue={setSortValue} sortTasks={true} />
+				<SortDropdown
+					setSortValue={setSortValue}
+					sortTasks={true}
+					sortByDate={true}
+				/>
 				<div className='flex justify-center flex-col gap-1 items-center'>
 					<p className=' text-[13px] text-slate-400'>
 						{completedTasks.length} Tasks done

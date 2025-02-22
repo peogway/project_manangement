@@ -44,7 +44,11 @@ const Projects = () => {
 			<p>{sortedProjects.length} Projects</p>
 
 			<button onClick={() => setShowAddProject(true)}>+ Add New</button>
-			<SortDropdown setSortValue={setSortValue} initlaValue='newest' />
+			<SortDropdown
+				setSortValue={setSortValue}
+				initlaValue='newest'
+				sortByDate={true}
+			/>
 			{showAddProject && (
 				<ProjectForm
 					categories={categories}
