@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllProject } from '../reducers/prjReducer'
 import { setAllCategories } from '../reducers/categoryReducer'
 
-import SortDropdown from './sortDropDown'
+import SortDropdown from './SortDropDown'
 import ProjectForm from './ProjectForm'
 import CertainProject from './CertainProject'
 import ProjectLabel from './ProjectLabel'

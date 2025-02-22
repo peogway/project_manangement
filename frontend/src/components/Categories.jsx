@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
 import Category from './Category'
+import SortDropDown from './SortDropDown'
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const CategoryForm = ({ onClose, categories }) => {
 	const formRef = useRef(null)
@@ -91,6 +93,7 @@ const CategoryForm = ({ onClose, categories }) => {
 }
 
 const Categories = () => {
+	const [sortValue, setSortValue] = useState('newest')
 	const dispatch = useDispatch()
 	const [showAddCategory, setShowAddCategory] = useState(false)
 	useEffect(() => {
@@ -113,6 +116,11 @@ const Categories = () => {
 				>
 					+ Add New
 				</button>
+				<div className='items-center ml-auto flex mr-5'>
+					<label className='font-bold'> Sort </label>
+					<FilterAltIcon fontSize='small' />
+					<SortDropDown setSortValue={setSortValue} sortByDate={true} />
+				</div>
 			</div>
 
 			<div className='z-999 mt-7 bg-white w-[95%] h-[80%] '>

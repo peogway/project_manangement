@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllTasks, updateTask } from '../reducers/taskReducer'
-import SortDropdown from './sortDropDown'
+import SortDropdown from './SortDropDown'
 import TaskViewInProject from './TaskViewInProject'
 import EditTaskForm from './EditTaskForm'
 import CircularChart from './CircularChart'
