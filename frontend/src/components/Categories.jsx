@@ -119,7 +119,7 @@ const Categories = () => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[99%] flex items-center self-end'>
+			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
@@ -131,7 +131,7 @@ const Categories = () => {
 					+ Add New
 				</button>
 				<div className='ml-auto items-center mr-5 flex'>
-					<p className='text-bold'>Sort</p>
+					<p className='font-bold'>Sort</p>
 					<FilterAltIcon fontSize='small' />
 					<SortDropdown
 						initlaValue='newest'
@@ -141,7 +141,7 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='z-999 mt-7 bg-white w-[95%] h-[80%] '>
+			<div className='z-999 mt-7 bg-white w-[95%] h-[80%] rounded'>
 				{categories.length === 0 ? (
 					<div
 						style={{
@@ -161,7 +161,7 @@ const Categories = () => {
 						{categories.map((category) => (
 							<div
 								key={category.id}
-								className=''
+								className='rounded'
 								style={{
 									backgroundColor: 'rgba(241, 245, 249, 0.3)', // Light slate color with 30% opacity
 									width: '98%',
