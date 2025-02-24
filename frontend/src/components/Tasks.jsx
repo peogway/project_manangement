@@ -115,7 +115,7 @@ const Tasks = () => {
 			</div>
 
 			<div className='ml-7 mt-10'>
-				<div className='flex flex-row gap-5 mb-5'>
+				<div className='flex flex-row gap-5'>
 					<div
 						className={`flex ${taskStatus && 'opacity-40 '} ${
 							!taskStatus && 'text-orange-600'
@@ -142,7 +142,7 @@ const Tasks = () => {
 						</div>
 					</div>
 				</div>
-				<div className='ml-5 mt-10'>
+				<div className='ml-5 mt-5 w-[95%]'>
 					{showTasks.map((task) => (
 						<div key={task.id}>
 							<Task
