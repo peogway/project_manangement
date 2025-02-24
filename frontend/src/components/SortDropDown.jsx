@@ -10,7 +10,11 @@ const SortDropdown = ({ setSortValue, sortTasks, initlaValue, sortByDate }) => {
 		setSortValue(e.target.value) // Pass value up
 	}
 	return (
-		<select value={selectedSort} onChange={handleChange}>
+		<select
+			value={selectedSort}
+			onChange={handleChange}
+			className='border-1 border-black'
+		>
 			<optgroup label='Order'>
 				<option value='A-Z'>A-Z</option>
 				<option value='Z-A'>Z-A</option>
