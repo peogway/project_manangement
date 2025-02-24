@@ -11,6 +11,10 @@ import {
 	deleteProject,
 } from '../reducers/prjReducer'
 import SortDropdown from './SortDropDown'
+import CachedIcon from '@mui/icons-material/Cached'
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
+import ProgressBar from './ProgressBar'
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const Tasks = () => {
 	// const location = useLocation()
@@ -81,21 +85,70 @@ const Tasks = () => {
 		setShowAddTask(!showAddTask)
 	}
 	return (
-		<div className='flex justify-center items-center flex-1 h-full h-screen'>
-			<div className='z-999 z-999 bg-white w-[95%] h-[90%]'>
-				<button onClick={toggleAddTask}>+ New Task</button>
-				<br />
-				<Dropdown options={dropdownProjects} onSelect={setSelectedProject} />
-				<label style={{ color: 'gray' }}>Sort By:</label>
-				<SortDropdown
-					setSortValue={setSortValue}
-					sortByDate={true}
-					sortTasks={true}
-				/>
-				<br />
-				<button onClick={() => setTaskStatus(false)}>On Going Tasks</button>
-				<button onClick={() => setTaskStatus(true)}>Completed Tasks</button>
-				<div>
+		<div className='flex flex-col w-full h-screen z-999'>
+			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded box'>
+				<div className='flex flex-row items-center'>
+					<div className='ml-4 mr-4'>label</div>
+					<div className='flex flex-col items-start'>
+						<Dropdown
+							options={dropdownProjects}
+							onSelect={setSelectedProject}
+						/>
+						<div className='flex felx-row items-center gap-2'>
+							<ProgressBar
+								progress={completedTasks.length / tasksToShow.length}
+								color='bg-orange-600'
+							/>
+							{((completedTasks.length / tasksToShow.length) * 100).toFixed(0)}%
+						</div>
+					</div>
+					<button
+						onClick={toggleAddTask}
+						className='w-25 h-7 ml-10 bg-orange-600 rounded-sm text-white'
+					>
+						+ New Task
+					</button>
+				</div>
+				<div className='ml-auto items-center mr-5 flex'>
+					<p className='font-bold'>Sort</p>
+					<FilterAltIcon fontSize='small' />
+					<SortDropdown
+						sortTasks={true}
+						sortByDate={true}
+						setSortValue={setSortValue}
+					/>
+				</div>
+			</div>
+
+			<div className='ml-7 mt-10'>
+				<div className='flex flex-row gap-5 mb-5'>
+					<div
+						className={`flex ${taskStatus && 'opacity-40 '} ${
+							!taskStatus && 'text-orange-600'
+						}`}
+					>
+						<button onClick={() => setTaskStatus(false)} className='font-bold'>
+							On Going Tasks
+						</button>
+						<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+							{uncompletedTasks.length}
+						</div>
+					</div>
+
+					<div
+						className={`flex ${!taskStatus && 'opacity-40 '} ${
+							taskStatus && 'text-orange-600'
+						}`}
+					>
+						<button onClick={() => setTaskStatus(true)} className='font-bold'>
+							Completed Tasks
+						</button>
+						<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+							{completedTasks.length}
+						</div>
+					</div>
+				</div>
+				<div className='ml-5 mt-10'>
 					{showTasks.map((task) => (
 						<div key={task.id}>
 							<Task
@@ -106,14 +159,14 @@ const Tasks = () => {
 						</div>
 					))}
 				</div>
-				{showAddTask && (
-					<TaskForm
-						onClose={() => setShowAddTask(false)}
-						projects={projects}
-						selectedProject={selectedProject}
-					/>
-				)}
 			</div>
+			{showAddTask && (
+				<TaskForm
+					onClose={() => setShowAddTask(false)}
+					projects={projects}
+					selectedProject={selectedProject}
+				/>
+			)}
 		</div>
 	)
 }
