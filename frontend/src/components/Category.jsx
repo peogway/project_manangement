@@ -54,7 +54,7 @@ const Category = (props) => {
 						<MoreHorizIcon />
 					</div>
 					{showFeature && (
-						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded'>
+						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded box'>
 							<div
 								onClick={() => setShowEditForm(true)}
 								className='edit-category-btn flex w-30 h-10  rounded gap-2 pl-2 pt-2 transition duration-200 ease-out hover:bg-blue-200'
