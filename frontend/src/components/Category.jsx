@@ -3,7 +3,7 @@ import { deleteCategory } from '../reducers/categoryReducer'
 import { useDispatch } from 'react-redux'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import EditCategoryForm from './EditCategoryForm'
 
 const Category = (props) => {
@@ -67,7 +67,7 @@ const Category = (props) => {
 								onClick={handleDelete}
 								className='delete-category-btn flex w-30 h-10  rounded gap-2 pl-2 pt-2 transition duration-200 ease-out hover:bg-blue-200'
 							>
-								<DeleteIcon />
+								<DeleteOutlineIcon />
 								<div>Delete</div>
 							</div>
 						</div>
