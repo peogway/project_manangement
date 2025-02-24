@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
 import Category from './Category'
-import SortDropdown from './sortDropDown'
+import SortDropdown from './SortDropDown'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const CategoryForm = ({ onClose, categories }) => {
