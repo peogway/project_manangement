@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import {} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
 import Dropdown from './DropDown'
 import TaskForm from './TaskForm'
-import { setAllTasks, updateTask, deleteTask } from '../reducers/taskReducer'
-import {
-	setAllProject,
-	updateProject,
-	deleteProject,
-} from '../reducers/prjReducer'
+import { setAllTasks } from '../reducers/taskReducer'
+import { setAllProject } from '../reducers/prjReducer'
 import SortDropdown from './SortDropDown'
-import CachedIcon from '@mui/icons-material/Cached'
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
 import ProgressBar from './ProgressBar'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
