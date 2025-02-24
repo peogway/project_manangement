@@ -1,0 +1,101 @@
+import { useDispatch } from 'react-redux'
+import { useRef } from 'react'
+import { setError } from '../reducers/notiReducer'
+import { useField } from '../hooks/hook'
+import CloseIcon from '@mui/icons-material/Close'
+import { updateCategory } from '../reducers/categoryReducer'
+
+const EditCategoryForm = ({ onClose, name, categories, id }) => {
+	const formRef = useRef(null)
+	const { remove: rmTask, ...categoryName } = useField('text', name)
+	const overlayRef = useRef(null)
+	const dispatch = useDispatch()
+	const handleClickOutside = (event) => {
+		if (formRef.current && !formRef.current.contains(event.target)) {
+			onClose()
+		}
+	}
+
+	const handleEditCategory = (e) => {
+		e.preventDefault()
+		if (categoryName.value === '') {
+			dispatch(setError('Please enter a category name', 2))
+
+			return
+		}
+
+		if (categories.some((category) => category.name === categoryName.value)) {
+			dispatch(setError('Categories must be unique', 2))
+			onClose()
+			return
+		}
+		const category = {
+			name: categoryName.value,
+			id: id,
+		}
+
+		try {
+			dispatch(updateCategory(category))
+
+			onClose()
+		} catch {
+			dispatch(setError('Something goes wrong', 5))
+		}
+	}
+	return (
+		<div>
+			<div
+				ref={overlayRef}
+				onClick={handleClickOutside}
+				style={{
+					position: 'fixed',
+					top: 0,
+					left: '120px',
+					width: '100%',
+					height: '100%',
+					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					zIndex: 999,
+					pointerEvents: 'auto',
+				}}
+			/>
+			<div
+				ref={formRef}
+				style={{
+					position: 'fixed',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					background: 'white',
+					padding: 20,
+					zIndex: 1000,
+				}}
+				className='flex flex-col items-center'
+			>
+				<div className='flex flex-row justify-between self-start w-full'>
+					<h1 className='font-bold text-xl'>Edit Category</h1>
+					<div onClick={onClose} className='text-gray-500'>
+						<CloseIcon />
+					</div>
+				</div>
+				<div className='category-name'>
+					<label className='text-gray-500 ml-1'>Cateory Name</label>
+					<br />
+					<input
+						{...categoryName}
+						className='text-gray-500 ml-2 border-1 border-gray-400 rounded'
+					/>
+				</div>
+
+				<button
+					onClick={handleEditCategory}
+					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+				>
+					Edit Category
+				</button>
+			</div>
+		</div>
+	)
+}
+
+export default EditCategoryForm
+
