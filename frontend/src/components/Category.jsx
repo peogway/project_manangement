@@ -138,7 +138,7 @@ const Category = (props) => {
 						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded'>
 							<div
 								onClick={() => setShowEditForm(true)}
-								className='edit-category-btn flex w-30 h-10  rounded gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200'
+								className='edit-category-btn flex w-30 h-10  rounded gap-2 pl-2 pt-2 transition duration-200 ease-out hover:bg-blue-200'
 							>
 								<EditIcon />
 								<p>Edit</p>
@@ -146,7 +146,7 @@ const Category = (props) => {
 
 							<div
 								onClick={handleDelete}
-								className='delete-category-btn flex w-30 h-10  rounded gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200'
+								className='delete-category-btn flex w-30 h-10  rounded gap-2 pl-2 pt-2 transition duration-200 ease-out hover:bg-blue-200'
 							>
 								<DeleteIcon />
 								<div>Delete</div>
