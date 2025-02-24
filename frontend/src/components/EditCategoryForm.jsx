@@ -53,7 +53,7 @@ const EditCategoryForm = ({ onClose, name, categories, id }) => {
 					left: '120px',
 					width: '100%',
 					height: '100%',
-					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					backgroundColor: 'rgba(104, 102, 102, 0.5)',
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
@@ -62,14 +62,15 @@ const EditCategoryForm = ({ onClose, name, categories, id }) => {
 				ref={formRef}
 				style={{
 					position: 'fixed',
-					top: '50%',
+					top: '30%',
 					left: '50%',
+					width: '40%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
 					zIndex: 1000,
 				}}
-				className='flex flex-col items-center'
+				className='flex flex-col items-center max-w-[600px] rounded'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
 					<h1 className='font-bold text-xl'>Edit Category</h1>
@@ -77,12 +78,12 @@ const EditCategoryForm = ({ onClose, name, categories, id }) => {
 						<CloseIcon />
 					</div>
 				</div>
-				<div className='category-name'>
-					<label className='text-gray-500 ml-1'>Cateory Name</label>
+				<div className='category-name w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px]'>Cateory Name</label>
 					<br />
 					<input
 						{...categoryName}
-						className='text-gray-500 ml-2 border-1 border-gray-400 rounded'
+						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 mb-10'
 					/>
 				</div>
 
