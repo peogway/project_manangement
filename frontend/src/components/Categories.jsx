@@ -132,7 +132,7 @@ const Categories = () => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded'>
+			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded box'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
@@ -174,7 +174,7 @@ const Categories = () => {
 						{categories.map((category) => (
 							<div
 								key={category.id}
-								className='rounded'
+								className='rounded box'
 								style={{
 									backgroundColor: 'rgba(241, 245, 249, 0.3)', // Light slate color with 30% opacity
 									width: '98%',

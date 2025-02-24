@@ -24,6 +24,14 @@
 	}
 }
 
+.navbar {
+	box-shadow: 1px 0 10px rgba(56, 55, 55, 0.3);
+}
+
+.box {
+	box-shadow: 1px 4px 10px rgba(56, 55, 55, 0.3);
+}
+
 .poppins {
 	font-family: var(--font-poppins);
 }
