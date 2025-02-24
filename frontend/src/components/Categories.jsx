@@ -11,6 +11,7 @@ import { useField } from '../hooks/hook'
 import Category from './Category'
 import SortDropdown from './SortDropDown'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import CloseIcon from '@mui/icons-material/Close'
 
 const CategoryForm = ({ onClose, categories }) => {
 	const formRef = useRef(null)
@@ -54,10 +55,10 @@ const CategoryForm = ({ onClose, categories }) => {
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: 0,
+					left: '120px',
 					width: '100%',
 					height: '100%',
-					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					backgroundColor: 'rgba(104, 102, 102, 0.5)',
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
@@ -65,28 +66,40 @@ const CategoryForm = ({ onClose, categories }) => {
 			<div
 				ref={formRef}
 				style={{
-					position: 'absolute',
-					top: '50%',
+					position: 'fixed',
+					top: '30%',
 					left: '50%',
+					width: '40%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
 					zIndex: 1000,
 				}}
+				className='flex flex-col items-center max-w-[600px] rounded'
 			>
-				<h1>Add a new Category</h1>
-				<button onClick={onClose}>X</button>
-				<div className='category-name'>
-					<label>Cateory Name</label>
+				<div className='flex flex-row justify-between self-start w-full'>
+					<h1 className='font-bold text-xl'>Add a new Category</h1>
+					<div onClick={onClose} className='text-gray-500'>
+						<CloseIcon />
+					</div>
+				</div>
+
+				<div className='category-name w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px]'>Cateory Name</label>
 					<br />
 					<input
 						{...categoryName}
+						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 mb-10'
 						placeholder='Type a name for the Category...'
 					/>
 				</div>
 
-				<button onClick={onClose}>Cancel</button>
-				<button onClick={handleAddCategory}>Add Category</button>
+				<button
+					onClick={handleAddCategory}
+					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+				>
+					Add Category
+				</button>
 			</div>
 		</div>
 	)
