@@ -79,7 +79,7 @@ const Tasks = () => {
 		setShowAddTask(!showAddTask)
 	}
 	return (
-		<div className='flex flex-col w-full h-screen z-999'>
+		<div className='flex flex-col w-full h-screen z-999 flex-1'>
 			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded box'>
 				<div className='flex flex-row items-center'>
 					<div className='ml-4 mr-4'>label</div>

@@ -61,10 +61,10 @@ const TaskForm = ({ onClose, projects, selectedProject }) => {
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: 0,
+					left: '120px',
 					width: '100%',
 					height: '100%',
-					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					backgroundColor: 'rgba(104, 102, 102, 0.5)',
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
@@ -73,7 +73,7 @@ const TaskForm = ({ onClose, projects, selectedProject }) => {
 				ref={formRef}
 				style={{
 					position: 'absolute',
-					top: '50%',
+					top: '30%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
