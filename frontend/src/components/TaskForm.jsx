@@ -5,8 +5,15 @@ import { setError, setNotification } from '../reducers/notiReducer'
 import { createNewTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close'
+import IconButton from './IconButton'
 
-const TaskForm = ({ onClose, projects, selectedProject }) => {
+const TaskForm = ({
+	onClose,
+	projects,
+	selectedProject,
+	setShowIconsMenu,
+	iconId,
+}) => {
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
 	const [chosenProject, setChosenProject] = useState(selectedProject)
@@ -95,11 +102,16 @@ const TaskForm = ({ onClose, projects, selectedProject }) => {
 						Task Name
 					</label>
 
-					<input
-						{...task}
-						placeholder='Enter Task Name...'
-						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2'
-					/>
+					<div className=' w-full mt-2 flex flex-row justify-between '>
+						<input
+							{...task}
+							placeholder='Enter Task Name...'
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%]'
+						/>
+						<div className=''>
+							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
+						</div>
+					</div>
 				</div>
 
 				<div className='task-priority w-[85%] mt-7 '>
