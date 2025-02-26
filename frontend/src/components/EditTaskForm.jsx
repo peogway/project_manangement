@@ -5,9 +5,13 @@ import { setError, setNotification } from '../reducers/notiReducer'
 import { updateTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close'
+import IconsWindow from './IconsWindow'
+import IconButton from './IconButton'
 
 const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	const { remove: rmTask, ...taskName } = useField('text', task.name)
+	const [showIconsMenu, setShowIconsMenu] = useState(false)
+	const [iconId, setIconId] = useState(parseInt(task.icon))
 	const [priority, setPriority] = useState(task.priority)
 	const [chosenProject, setChosenProject] = useState(task.project.name)
 	const formRef = useRef(null)
@@ -36,6 +40,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 		const taskToUpdate = {
 			name: taskName.value,
 			priority: priority,
+			icon: iconId.toString(),
 			project: projects.filter((prj) => prj.name === chosenProject)[0].id,
 			id: task.id,
 		}
@@ -88,10 +93,15 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 						Task Name
 					</label>
 
-					<input
-						{...taskName}
-						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2'
-					/>
+					<div className=' w-full mt-2 flex flex-row justify-between '>
+						<input
+							{...taskName}
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%]'
+						/>
+						<div className=''>
+							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
+						</div>
+					</div>
 				</div>
 
 				<div className='task-priority w-[85%] mt-7 '>
@@ -129,6 +139,12 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 					Edit Task
 				</button>
 			</div>
+			<IconsWindow
+				onClose={() => setShowIconsMenu(false)}
+				iconId={iconId}
+				setIconId={setIconId}
+				show={showIconsMenu}
+			/>
 		</div>
 	)
 }
