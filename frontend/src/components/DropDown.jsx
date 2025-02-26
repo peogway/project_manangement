@@ -1,7 +1,7 @@
 import React, { useState, forwardRef } from 'react'
 
 const Dropdown = forwardRef(
-	({ options, onSelect, description, value }, ref) => {
+	({ options, onSelect, description, value, width }, ref) => {
 		const [selectedOption, setSelectedOption] = useState(
 			description !== undefined ? '' : options[0]
 		)
@@ -16,7 +16,9 @@ const Dropdown = forwardRef(
 		return (
 			<select
 				ref={ref}
-				className={`dropdown ${selectedOption === '' ? 'default' : ''}`}
+				className={`dropdown ${
+					selectedOption === '' ? 'default' : ''
+				} text-gray-500 border-1 border-gray-400 rounded w-${width}`}
 				value={selectedOption}
 				onChange={handleSelectOption}
 			>
