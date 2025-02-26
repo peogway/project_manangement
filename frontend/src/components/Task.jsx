@@ -6,7 +6,7 @@ import CachedIcon from '@mui/icons-material/Cached'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import CircleIcon from '@mui/icons-material/Circle'
+import { allIconsArray } from './AllIcons'
 
 const Task = ({ ...props }) => {
 	const dispatch = useDispatch()
@@ -24,6 +24,9 @@ const Task = ({ ...props }) => {
 		dispatch(updateTask(taskToUpdate))
 	}
 
+	const icon = allIconsArray.filter(
+		(iconObj) => iconObj.id === parseInt(props.icon)
+	)[0].icon
 	const handleDelete = () => {
 		if (window.confirm(`Are you sure you want to delete task ${props.name}?`)) {
 			dispatch(deleteTask(props.id))
@@ -49,7 +52,9 @@ const Task = ({ ...props }) => {
 				</div>
 				<div className='flex-1 flex flex-row justify-between items-center bg-white rounded box'>
 					<div className='flex flex-row items-center w-[20%]'>
-						<div className='ml-4 mr-4'>label</div>
+						<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-600 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
+							{icon}
+						</div>
 						<div className='flex flex-col'>
 							<h2 className='font-bold text-lg'>{props.name}</h2>
 							<p className='text-gray-400 ml-1'>{props.project.name}</p>
