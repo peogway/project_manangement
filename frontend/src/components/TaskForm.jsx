@@ -13,6 +13,7 @@ const TaskForm = ({
 	selectedProject,
 	setShowIconsMenu,
 	iconId,
+	setIconId,
 }) => {
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
@@ -36,6 +37,7 @@ const TaskForm = ({
 			  )
 	const handleAddTask = (e) => {
 		e.preventDefault()
+		setIconId(1)
 		if (chosenProject === 'All Projects') {
 			dispatch(setError('Please select a project', 2))
 			return
@@ -50,6 +52,7 @@ const TaskForm = ({
 		// console.log("the");
 		const taskToCreate = {
 			name: task.value,
+			icon: iconId.toString(),
 			priority: priority,
 			projectId: projects.filter((prj) => prj.name === chosenProject)[0].id,
 		}
