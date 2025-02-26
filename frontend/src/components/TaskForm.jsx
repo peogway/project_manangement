@@ -4,6 +4,7 @@ import Dropdown from './DropDown'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { createNewTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
+import CloseIcon from '@mui/icons-material/Close'
 
 const TaskForm = ({ onClose, projects, selectedProject }) => {
 	const { remove: rmTask, ...task } = useField('text')
@@ -73,43 +74,72 @@ const TaskForm = ({ onClose, projects, selectedProject }) => {
 				ref={formRef}
 				style={{
 					position: 'absolute',
-					top: '30%',
+					top: '40%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
 					zIndex: 1000,
 				}}
+				className='flex flex-col items-center max-w-[600px] w-[550px] rounded'
 			>
-				<h1>Add New Task</h1>
-				<button onClick={onClose}>X</button>
-				<div className='task-name'>
-					<label>Task Name</label>
-					<br />
-					<input {...task} placeholder='Enter Task Name...' />
+				<div className='flex flex-row justify-between self-start w-full'>
+					<h1 className='font-bold text-xl'>Add New Task</h1>
+					<div onClick={onClose} className='text-gray-500'>
+						<CloseIcon />
+					</div>
 				</div>
-				<div className='task-priority'>
-					<label>Task Priority</label>
-					<br />
-					<Dropdown
-						options={priorities}
-						onSelect={setPriority}
-						description='Select Priority'
+
+				<div className='task-name  w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Task Name
+					</label>
+
+					<input
+						{...task}
+						placeholder='Enter Task Name...'
+						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2'
 					/>
 				</div>
-				<div className='task-project'>
-					<label>Project</label>
-					<br />
-					<Dropdown
-						options={dropdownProjects}
-						onSelect={setChosenProject}
-						description={
-							chosenProject === 'All Projects' ? 'Select a project' : undefined
-						}
-					/>
+
+				<div className='task-priority w-[85%] mt-7 '>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Task Priority
+					</label>
+
+					<div className='mt-2'>
+						<Dropdown
+							options={priorities}
+							onSelect={setPriority}
+							description='Select Priority'
+							width='full'
+						/>
+					</div>
 				</div>
-				<button onClick={onClose}>Cancel</button>
-				<button onClick={handleAddTask}>Add Task</button>
+				<div className='task-project w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px] font-bold w-full'>
+						Project
+					</label>
+					<br />
+					<div className='mb-10 mt-2 w-full'>
+						<Dropdown
+							options={dropdownProjects}
+							onSelect={setChosenProject}
+							description={
+								chosenProject === 'All Projects'
+									? 'Select a project'
+									: undefined
+							}
+							width='full'
+						/>
+					</div>
+				</div>
+				<button
+					onClick={handleAddTask}
+					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+				>
+					Add Task
+				</button>
 			</div>
 		</div>
 	)

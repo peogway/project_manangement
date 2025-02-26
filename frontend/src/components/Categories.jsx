@@ -85,7 +85,9 @@ const CategoryForm = ({ onClose, categories }) => {
 				</div>
 
 				<div className='category-name w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px]'>Cateory Name</label>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Cateory Name
+					</label>
 					<br />
 					<input
 						{...categoryName}
