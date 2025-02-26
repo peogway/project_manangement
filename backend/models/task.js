@@ -16,6 +16,7 @@ const taskSchema = mongoose.Schema({
     completed: Boolean, // Whether the task is completed or not
     createAt: Date, // The date when the task was created
     dueDate: Date, // The due date for the task
+    icon: String,
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Project", // Reference to the Project model
