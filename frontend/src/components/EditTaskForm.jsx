@@ -4,6 +4,7 @@ import Dropdown from './DropDown'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { updateTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
+import CloseIcon from '@mui/icons-material/Close'
 
 const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 	const { remove: rmTask, ...taskName } = useField('text', task.name)
@@ -54,10 +55,10 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: 0,
+					left: '120px',
 					width: '100%',
 					height: '100%',
-					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					backgroundColor: 'rgba(104, 102, 102, 0.5)',
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
@@ -66,33 +67,67 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 				ref={formRef}
 				style={{
 					position: 'absolute',
-					top: '50%',
+					top: '40%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
 					zIndex: 1000,
 				}}
+				className='flex flex-col items-center max-w-[600px] w-[550px] rounded'
 			>
-				<h1>Edit Task</h1>
-				<button onClick={onClose}>X</button>
-				<div className='task-name'>
-					<label>Task Name</label>
-					<br />
-					<input {...taskName} />
+				<div className='flex flex-row justify-between self-start w-full'>
+					<h1 className='font-bold text-xl'>Edit Task</h1>
+					<div onClick={onClose} className='text-gray-500'>
+						<CloseIcon />
+					</div>
 				</div>
-				<div className='task-priority'>
-					<label>Task Priority</label>
-					<br />
-					<Dropdown options={priorities} onSelect={setPriority} />
+
+				<div className='task-name  w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Task Name
+					</label>
+
+					<input
+						{...taskName}
+						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2'
+					/>
 				</div>
-				<div className='task-project'>
-					<label>Project</label>
-					<br />
-					<Dropdown options={dropdownProjects} onSelect={setChosenProject} />
+
+				<div className='task-priority w-[85%] mt-7 '>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Task Priority
+					</label>
+
+					<div className='mt-2'>
+						<Dropdown
+							options={priorities}
+							onSelect={setPriority}
+							width='full'
+						/>
+					</div>
 				</div>
-				<button onClick={onClose}>Cancel</button>
-				<button onClick={handleEdit}>Edit Task</button>
+
+				<div className='task-project w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px] font-bold w-full'>
+						Project
+					</label>
+					<br />
+					<div className='mb-10 mt-2 w-full'>
+						<Dropdown
+							options={dropdownProjects}
+							onSelect={setChosenProject}
+							width='full'
+						/>
+					</div>
+				</div>
+
+				<button
+					onClick={handleEdit}
+					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+				>
+					Edit Task
+				</button>
 			</div>
 		</div>
 	)
