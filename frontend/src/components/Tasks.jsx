@@ -162,6 +162,7 @@ const Tasks = () => {
 					onClose={() => setShowAddTask(false)}
 					projects={projects}
 					selectedProject={selectedProject}
+					setIconId={setIconId}
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
 				/>
