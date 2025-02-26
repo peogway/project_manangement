@@ -79,7 +79,7 @@ const App = () => {
 
 			{/* Sidebar and Navigation Links */}
 			{user && (
-				<nav className='navbar w-[120px] max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[60] transition-all rounded'>
+				<nav className='navbar w-[120px] max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[60] transition-all rounded-xl'>
 					<div className='  flex items-center gap-2 justify-center'>
 						<TaskAltIcon
 							className='text-orange-600 font-bold'

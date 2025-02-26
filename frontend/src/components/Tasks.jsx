@@ -84,9 +84,11 @@ const Tasks = () => {
 
 	return (
 		<div className='flex flex-col w-full h-screen z-999 flex-1'>
-			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded box'>
+			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded-2xl box'>
 				<div className='flex flex-row items-center'>
-					<div className='ml-4 mr-4'>label</div>
+					<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-600 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
+						label
+					</div>
 					<div className='flex flex-col items-start'>
 						<Dropdown
 							options={dropdownProjects}
@@ -102,9 +104,9 @@ const Tasks = () => {
 					</div>
 					<button
 						onClick={toggleAddTask}
-						className='w-25 h-7 ml-10 bg-orange-600 rounded-sm text-white'
+						className='w-25 h-7 ml-10 bg-orange-600 rounded-lg text-white'
 					>
-						+ New Task
+						+ Add New
 					</button>
 				</div>
 				<div className='ml-auto items-center mr-5 flex'>

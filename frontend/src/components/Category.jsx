@@ -54,12 +54,12 @@ const Category = (props) => {
 						<MoreHorizIcon />
 					</div>
 					{showFeature && (
-						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded box'>
+						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded-xl box'>
 							<div
 								onClick={() => setShowEditForm(true)}
-								className='edit-category-btn flex w-30 h-12  rounded gap-2 pl-2  transition duration-200 ease-out hover:bg-blue-200 items-center'
+								className='edit-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2  transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
-								<div className='text-orange-600 bg-orange-100 rounded self-center'>
+								<div className='text-orange-600 bg-orange-100 rounded-lg self-center'>
 									<EditIcon />
 								</div>
 								<p>Edit</p>
@@ -67,7 +67,7 @@ const Category = (props) => {
 
 							<div
 								onClick={handleDelete}
-								className='delete-category-btn flex w-30 h-12  rounded gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
+								className='delete-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
 								<DeleteOutlineIcon />
 								<div>Delete</div>

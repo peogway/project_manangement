@@ -74,7 +74,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 					padding: 20,
 					zIndex: 1000,
 				}}
-				className='flex flex-col items-center max-w-[600px] w-[550px] rounded'
+				className='flex flex-col items-center max-w-[600px] w-[550px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
 					<h1 className='font-bold text-xl'>Edit Task</h1>
@@ -124,7 +124,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 
 				<button
 					onClick={handleEdit}
-					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+					className='bg-orange-600 text-white rounded-xl p-2 w-[85%]'
 				>
 					Edit Task
 				</button>

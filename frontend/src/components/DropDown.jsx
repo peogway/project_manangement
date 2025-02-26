@@ -18,7 +18,7 @@ const Dropdown = forwardRef(
 				ref={ref}
 				className={`dropdown ${
 					selectedOption === '' ? 'default' : ''
-				} text-gray-500 border-1 border-gray-400 rounded w-${width}`}
+				} text-gray-500 border-1 border-gray-400 rounded-lg w-${width}`}
 				value={selectedOption}
 				onChange={handleSelectOption}
 			>

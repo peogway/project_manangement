@@ -75,7 +75,7 @@ const CategoryForm = ({ onClose, categories }) => {
 					padding: 20,
 					zIndex: 1000,
 				}}
-				className='flex flex-col items-center max-w-[600px] rounded'
+				className='flex flex-col items-center max-w-[600px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
 					<h1 className='font-bold text-xl'>Add a new Category</h1>
@@ -91,14 +91,14 @@ const CategoryForm = ({ onClose, categories }) => {
 					<br />
 					<input
 						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 mb-10'
+						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2 mb-10'
 						placeholder='Type a name for the Category...'
 					/>
 				</div>
 
 				<button
 					onClick={handleAddCategory}
-					className='bg-orange-600 text-white rounded p-2 w-[85%]'
+					className='bg-orange-600 text-white rounded-xl p-2 w-[85%]'
 				>
 					Add Category
 				</button>
@@ -134,13 +134,13 @@ const Categories = () => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded box'>
+			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded-2xl box'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
 				</div>
 				<button
-					className='w-25 h-7 ml-6 bg-orange-600 rounded-sm front text-white justify-center items-center'
+					className='w-25 h-7 ml-6 bg-orange-600 rounded-lg front text-white justify-center items-center'
 					onClick={() => setShowAddCategory(true)}
 				>
 					+ Add New
@@ -156,7 +156,7 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='z-999 mt-7 w-[95%] h-[80%] rounded'>
+			<div className='z-999 mt-7 w-[95%] h-[80%] '>
 				{categories.length === 0 ? (
 					<div
 						style={{
@@ -174,7 +174,10 @@ const Categories = () => {
 				) : (
 					<div className='flex flex-col items-center gap-4 mt-4'>
 						{categories.map((category) => (
-							<div key={category.id} className='rounded box w-[98%] bg-white'>
+							<div
+								key={category.id}
+								className='rounded-2xl box w-[98%] bg-white'
+							>
 								<Category
 									name={category.name}
 									id={category.id}
