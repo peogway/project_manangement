@@ -156,7 +156,7 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='z-999 mt-7 bg-white w-[95%] h-[80%] rounded'>
+			<div className='z-999 mt-7 w-[95%] h-[80%] rounded'>
 				{categories.length === 0 ? (
 					<div
 						style={{
@@ -174,14 +174,7 @@ const Categories = () => {
 				) : (
 					<div className='flex flex-col items-center gap-4 mt-4'>
 						{categories.map((category) => (
-							<div
-								key={category.id}
-								className='rounded box'
-								style={{
-									backgroundColor: 'rgba(241, 245, 249, 0.3)', // Light slate color with 30% opacity
-									width: '98%',
-								}}
-							>
+							<div key={category.id} className='rounded box w-[98%] bg-white'>
 								<Category
 									name={category.name}
 									id={category.id}
