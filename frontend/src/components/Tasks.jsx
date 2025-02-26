@@ -9,6 +9,7 @@ import { setAllProject } from '../reducers/prjReducer'
 import SortDropdown from './SortDropDown'
 import ProgressBar from './ProgressBar'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import IconsWindow from './IconsWindow'
 
 const Tasks = () => {
 	// const location = useLocation()
@@ -17,6 +18,8 @@ const Tasks = () => {
 	const [taskStatus, setTaskStatus] = useState(false)
 	const [sortValue, setSortValue] = useState('A-Z')
 	const [showAddTask, setShowAddTask] = useState(false)
+	const [showIconsMenu, setShowIconsMenu] = useState(false)
+	const [iconId, setIconId] = useState(1)
 
 	useEffect(() => {
 		document.title = 'Tasks'
@@ -78,6 +81,7 @@ const Tasks = () => {
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
 	}
+
 	return (
 		<div className='flex flex-col w-full h-screen z-999 flex-1'>
 			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded box'>
@@ -113,7 +117,6 @@ const Tasks = () => {
 					/>
 				</div>
 			</div>
-
 			<div className='ml-7 mt-10'>
 				<div className='flex flex-row gap-5'>
 					<div
@@ -159,8 +162,17 @@ const Tasks = () => {
 					onClose={() => setShowAddTask(false)}
 					projects={projects}
 					selectedProject={selectedProject}
+					iconId={iconId}
+					setShowIconsMenu={setShowIconsMenu}
 				/>
 			)}
+
+			<IconsWindow
+				onClose={() => setShowIconsMenu(false)}
+				iconId={iconId}
+				setIconId={setIconId}
+				show={showIconsMenu}
+			/>
 		</div>
 	)
 }
