@@ -12,6 +12,7 @@ import Category from './Category'
 import SortDropdown from './SortDropDown'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import CloseIcon from '@mui/icons-material/Close'
+import SearchIcon from '@mui/icons-material/Search'
 
 const CategoryForm = ({ onClose, categories }) => {
 	const formRef = useRef(null)
@@ -111,25 +112,38 @@ const Categories = () => {
 	const dispatch = useDispatch()
 	const [sortValue, setSortValue] = useState('newest')
 	const [showAddCategory, setShowAddCategory] = useState(false)
+	const { remove: rmSearch, ...search } = useField('text')
+
+	const [render, setRender] = useState(0)
 	useEffect(() => {
 		document.title = 'Categories'
 		dispatch(setAllCategories())
 	}, [])
 
+	useEffect(() => {
+		setRender(render + 1)
+	}, [search.value])
+
 	const initialCategories = useSelector((state) => state.categories)
 	let categories
 	if (sortValue === 'A-Z') {
-		categories = [...initialCategories].sort((a, b) =>
-			a.name.localeCompare(b.name)
-		)
+		categories = [...initialCategories]
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.filter((category) => category.name.includes(search.value))
 	} else if (sortValue === 'Z-A') {
 		categories = [...initialCategories].sort((a, b) =>
-			b.name.localeCompare(a.name)
+			b.name
+				.localeCompare(a.name)
+				.filter((category) => category.name.includes(search.value))
 		)
 	} else if (sortValue === 'newest') {
-		categories = [...initialCategories].reverse()
-	} else {
 		categories = [...initialCategories]
+			.reverse()
+			.filter((category) => category.name.includes(search.value))
+	} else {
+		categories = [...initialCategories].filter((category) =>
+			category.name.includes(search.value)
+		)
 	}
 
 	return (
@@ -156,6 +170,17 @@ const Categories = () => {
 				</div>
 			</div>
 
+			<div className='flex z-1000 rounded-lg gap-2 self-start ml-10 mt-5'>
+				<div className='border-b-2 border-orange-600 pl-1 pr-0.5'>
+					<SearchIcon />
+				</div>
+				<input
+					{...search}
+					placeholder='Search a category'
+					className='border-b-2 border-gray-200 pl-0.5'
+				/>
+			</div>
+
 			<div className='z-999 mt-7 w-[95%] h-[80%] '>
 				{categories.length === 0 ? (
 					<div
@@ -164,7 +189,6 @@ const Categories = () => {
 							top: '50%',
 							left: '50%',
 							transform: 'translate(-50%, -50%)',
-							background: 'white',
 							padding: 20,
 							zIndex: 1000,
 						}}

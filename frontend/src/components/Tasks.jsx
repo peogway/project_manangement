@@ -10,6 +10,8 @@ import SortDropdown from './SortDropDown'
 import ProgressBar from './ProgressBar'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import IconsWindow from './IconsWindow'
+import { useField } from '../hooks/hook'
+import SearchIcon from '@mui/icons-material/Search'
 
 const Tasks = () => {
 	// const location = useLocation()
@@ -20,6 +22,9 @@ const Tasks = () => {
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(1)
+	const { remove: rmSearch, ...search } = useField('text')
+
+	const [render, setRender] = useState(0)
 
 	useEffect(() => {
 		document.title = 'Tasks'
@@ -27,6 +32,9 @@ const Tasks = () => {
 		dispatch(setAllProject())
 	}, [])
 	useEffect(() => setTaskStatus(false), [selectedProject])
+	useEffect(() => {
+		setRender(render + 1)
+	}, [search.value])
 
 	const tasks = useSelector((state) => state.tasks)
 
@@ -70,7 +78,9 @@ const Tasks = () => {
 		(task) => task.completed === false
 	)
 
-	const showTasks = taskStatus ? completedTasks : uncompletedTasks
+	const showTasks = taskStatus
+		? completedTasks.filter((task) => task.name.includes(search.value))
+		: uncompletedTasks.filter((task) => task.name.includes(search.value))
 
 	// console.log(completedTasks)
 	// console.log(uncompletedTasks)
@@ -118,6 +128,17 @@ const Tasks = () => {
 						setSortValue={setSortValue}
 					/>
 				</div>
+			</div>
+
+			<div className='flex z-1000 rounded-lg  self-start ml-10 mt-5'>
+				<div className='border-b-2 border-orange-600 pl-1 pr-0.5'>
+					<SearchIcon />
+				</div>
+				<input
+					{...search}
+					placeholder='Search a task'
+					className='border-b-2 border-gray-200 pl-0.5'
+				/>
 			</div>
 			<div className='ml-7 mt-10'>
 				<div className='flex flex-row gap-5'>
