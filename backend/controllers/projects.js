@@ -109,6 +109,7 @@ projectsRouter.delete("/:id", async (req, res) => {
         }),
         project.categories.map(async (cateId) => {
             const category = await Category.findById(cateId);
+            if (!category) return;
             category.projects = category.projects.filter(
                 (prjId) => prjId.toString() !== project.id.toString(),
             );
