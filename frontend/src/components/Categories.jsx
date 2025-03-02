@@ -148,7 +148,7 @@ const Categories = () => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[99%] h-25 flex items-center self-end rounded-2xl box'>
+			<div className='z-999 bg-white w-[99%] min-h-[100px] flex items-center self-end rounded-2xl box'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
