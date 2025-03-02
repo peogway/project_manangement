@@ -38,34 +38,30 @@ const CircularChart = ({ initial, after }) => {
 				<div
 					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-160%] -translate-y-[-110%]'
 					style={{
-						content: `'${0}%'`,
+						content: `'0%'`,
 					}}
 				>
-					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+					0%
 				</div>
 			)}
 			{animatedPercentage > 0 && animatedPercentage < 100 && (
 				<div
 					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-110%] -translate-y-[-110%]'
 					style={{
-						content: `'${
-							animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)
-						}%'`,
+						content: `'${animatedPercentage.toFixed(0)}%'`,
 					}}
 				>
-					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+					{animatedPercentage.toFixed(0)}%
 				</div>
 			)}
 			{animatedPercentage === 100 && (
 				<div
 					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-70%] -translate-y-[-110%]'
 					style={{
-						content: `'${
-							animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)
-						}%'`,
+						content: '100%',
 					}}
 				>
-					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+					100%
 				</div>
 			)}
 			<CircularProgressbar
