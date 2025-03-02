@@ -23,8 +23,12 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 		}
 	}
 
-	const priorities = [priority].concat(
-		['low', 'medium', 'high'].filter((pri) => pri !== priority)
+	const priorities = [
+		priority.charAt(0).toUpperCase() + priority.slice(1),
+	].concat(
+		['Low', 'Medium', 'High'].filter(
+			(pri) => pri.toLowerCase() !== priority.toLowerCase()
+		)
 	)
 	const dropdownProjects = [chosenProject].concat(
 		projects.filter((prj) => prj.name !== chosenProject).map((prj) => prj.name)
@@ -39,7 +43,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 
 		const taskToUpdate = {
 			name: taskName.value,
-			priority: priority,
+			priority: priority.toLowerCase(),
 			icon: iconId.toString(),
 			project: projects.filter((prj) => prj.name === chosenProject)[0].id,
 			id: task.id,
