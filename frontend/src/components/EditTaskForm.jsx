@@ -64,16 +64,16 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 					width: '100%',
 					height: '100%',
 					backgroundColor: 'rgba(104, 102, 102, 0.5)',
-					zIndex: 999,
+					zIndex: 1000,
 					pointerEvents: 'auto',
 				}}
 			/>
 			<div
 				ref={formRef}
 				style={{
-					position: 'absolute',
-					top: '40%',
-					left: '50%',
+					position: 'fixed',
+					top: '50vh',
+					left: '50vw',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,

@@ -83,9 +83,9 @@ const TaskForm = ({
 			<div
 				ref={formRef}
 				style={{
-					position: 'absolute',
-					top: '40%',
-					left: '50%',
+					position: 'fixed',
+					top: '50vh',
+					left: '50vw',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
