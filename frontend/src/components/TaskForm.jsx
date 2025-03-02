@@ -26,7 +26,7 @@ const TaskForm = ({
 			onClose()
 		}
 	}
-	const priorities = ['low', 'medium', 'high']
+	const priorities = ['Low', 'Medium', 'High']
 	const dropdownProjects =
 		chosenProject === 'All Projects'
 			? projects.map((prj) => prj.name)
@@ -53,7 +53,7 @@ const TaskForm = ({
 		const taskToCreate = {
 			name: task.value,
 			icon: iconId.toString(),
-			priority: priority,
+			priority: priority.toLowerCase(),
 			projectId: projects.filter((prj) => prj.name === chosenProject)[0].id,
 		}
 		try {
@@ -63,7 +63,6 @@ const TaskForm = ({
 			dispatch(setError('Something goes wrong', 5))
 		}
 	}
-
 	return (
 		<div>
 			<div
@@ -161,4 +160,3 @@ const TaskForm = ({
 }
 
 export default TaskForm
-
