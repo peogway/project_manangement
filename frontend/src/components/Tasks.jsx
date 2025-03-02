@@ -12,6 +12,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import IconsWindow from './IconsWindow'
 import { useField } from '../hooks/hook'
 import SearchIcon from '@mui/icons-material/Search'
+import { allIconsArray } from './AllIcons'
+import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 
 const Tasks = () => {
 	// const location = useLocation()
@@ -91,13 +93,21 @@ const Tasks = () => {
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
 	}
+	const prj =
+		selectedProject === 'All Projects'
+			? null
+			: projects.filter((project) => project.name === selectedProject)[0]
+	const icon =
+		prj === null
+			? { icon: <SplitscreenIcon /> }
+			: allIconsArray.filter((icon) => icon.id === parseInt(prj.icon))[0]
 
 	return (
 		<div className='flex flex-col w-full h-screen z-999 flex-1'>
-			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded-2xl box'>
-				<div className='flex flex-row items-center'>
-					<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
-						label
+			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] min-h-[100px] self-end rounded-2xl box'>
+				<div className='flex flex-row items-center justify-center'>
+					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
+						{icon.icon}
 					</div>
 					<div className='flex flex-col items-start'>
 						<Dropdown
@@ -106,10 +116,19 @@ const Tasks = () => {
 						/>
 						<div className='flex felx-row items-center gap-2'>
 							<ProgressBar
-								progress={completedTasks.length / tasksToShow.length}
+								progress={
+									tasksToShow.length === 0
+										? 1
+										: completedTasks.length / tasksToShow.length
+								}
 								color='bg-orange-500'
 							/>
-							{((completedTasks.length / tasksToShow.length) * 100).toFixed(0)}%
+							{tasksToShow.length === 0
+								? 100
+								: ((completedTasks.length / tasksToShow.length) * 100).toFixed(
+										0
+								  )}
+							%
 						</div>
 					</div>
 					<button
