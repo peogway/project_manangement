@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import {} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
-import Dropdown from './DropDown'
 import TaskForm from './TaskForm'
 import { setAllTasks } from '../reducers/taskReducer'
 import { setAllProject } from '../reducers/prjReducer'
@@ -14,17 +13,21 @@ import { useField } from '../hooks/hook'
 import SearchIcon from '@mui/icons-material/Search'
 import { allIconsArray } from './AllIcons'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
+import Dropdown from './DropDown'
+import ProjectsDropDown from './ProjectsDropdown'
 const Tasks = () => {
 	// const location = useLocation()
 	const dispatch = useDispatch()
-	const [selectedProject, setSelectedProject] = useState('All Projects')
+	const [selectedProject, setSelectedProject] = useState(null)
 	const [taskStatus, setTaskStatus] = useState(false)
 	const [sortValue, setSortValue] = useState('A-Z')
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(1)
 	const { remove: rmSearch, ...search } = useField('text')
+	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 
 	const [render, setRender] = useState(0)
 
@@ -42,9 +45,9 @@ const Tasks = () => {
 
 	const projects = useSelector((state) => state.projects)
 
-	const dropdownProjects = ['All Projects'].concat(
-		projects.map((prj) => prj.name)
-	)
+	// const dropdownProjects = ['All Projects'].concat(
+	// 	projects.map((prj) => prj.name)
+	// )
 
 	const tasksToShow =
 		selectedProject === 'All Projects'
@@ -93,26 +96,36 @@ const Tasks = () => {
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
 	}
-	const prj =
-		selectedProject === 'All Projects'
-			? null
-			: projects.filter((project) => project.name === selectedProject)[0]
+
 	const icon =
-		prj === null
+		selectedProject === null
 			? { icon: <SplitscreenIcon /> }
-			: allIconsArray.filter((icon) => icon.id === parseInt(prj.icon))[0]
+			: allIconsArray.filter(
+					(icon) => icon.id === parseInt(selectedProject.icon)
+			  )[0]
 
 	return (
 		<div className='flex flex-col w-full h-screen z-900 flex-1 '>
-			<div className='flex flex-row justify-between items-center z-900 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[150px] right-0'>
+			<div className='flex flex-row justify-between items-center z-990 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[150px] right-0'>
 				<div className='flex flex-row items-center justify-center'>
 					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						{icon.icon}
 					</div>
 					<div className='flex flex-col items-start'>
-						<Dropdown
-							options={dropdownProjects}
-							onSelect={setSelectedProject}
+						<div
+							className='font-bold text-xl'
+							onClick={() => setOpenProjectsDropDown(!openProjectsDropDown)}
+						>
+							{selectedProject === null ? 'All Projects' : selectedProject.name}
+							<KeyboardArrowDownIcon />
+						</div>
+						<ProjectsDropDown
+							openProjectsDropDown={openProjectsDropDown}
+							setOpenProjectsDropDown={setOpenProjectsDropDown}
+							setChosenProject={setSelectedProject}
+							chosenProject={selectedProject}
+							allProjects={projects}
+							showAllProject={true}
 						/>
 						<div className='flex felx-row items-center gap-2'>
 							<ProgressBar
@@ -149,7 +162,7 @@ const Tasks = () => {
 				</div>
 			</div>
 
-			<div className='top-[100px] relative  overflow-auto  z-999 w-[calc(100vw-160px)] max-h-[calc(100vh-130px)] left-[100px] pt-5 ml-15'>
+			<div className='top-[100px] relative  overflow-auto  z-989 w-[calc(100vw-160px)] max-h-[calc(100vh-130px)] left-[100px] pt-5 ml-15'>
 				<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
 					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
 						<SearchIcon />
