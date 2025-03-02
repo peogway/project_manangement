@@ -151,7 +151,7 @@ const TaskForm = ({
 				</div>
 				<button
 					onClick={handleAddTask}
-					className='bg-orange-600 text-white rounded-xl p-2 w-[85%]'
+					className='bg-orange-500 text-white rounded-xl p-2 w-[85%]'
 				>
 					Add Task
 				</button>

@@ -59,7 +59,7 @@ const Category = (props) => {
 								onClick={() => setShowEditForm(true)}
 								className='edit-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2  transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
-								<div className='text-orange-600 bg-orange-100 rounded-lg self-center'>
+								<div className='text-orange-500 bg-orange-100 rounded-lg self-center'>
 									<EditIcon />
 								</div>
 								<p>Edit</p>

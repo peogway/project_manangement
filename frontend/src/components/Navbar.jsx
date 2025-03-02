@@ -10,11 +10,11 @@ const Navbar = ({ user, displayButtons }) => {
 
 				<div onClick={() => navigate('/')} className='flex cursor-pointer'>
 					{/* Icon */}
-					<TaskAltIcon sx={{ fontSize: 34 }} className='text-orange-600  ' />
+					<TaskAltIcon sx={{ fontSize: 34 }} className='text-orange-500  ' />
 
 					{/* App Name */}
 					<div className='flex gap-1 text-[22px] '>
-						<span className={`font-bold text-orange-600`}>Project</span>
+						<span className={`font-bold text-orange-500`}>Project</span>
 						<span className='text-slate-600'>Master</span>
 					</div>
 				</div>
@@ -29,7 +29,7 @@ const Navbar = ({ user, displayButtons }) => {
 					<>
 						<Link to='/login'>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-white bg-orange-600 p-[8px] px-6 rounded-md `}
+								className={` max-sm:w-full text-sm border border-orange-500 text-white bg-orange-500 p-[8px] px-6 rounded-md `}
 							>
 								Sign In
 							</button>
@@ -37,7 +37,7 @@ const Navbar = ({ user, displayButtons }) => {
 
 						<Link to='/register'>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white p-[8px] px-6 rounded-md `}
+								className={` max-sm:w-full text-sm border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white p-[8px] px-6 rounded-md `}
 							>
 								Sign Up
 							</button>

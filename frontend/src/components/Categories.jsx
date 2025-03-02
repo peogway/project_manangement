@@ -99,7 +99,7 @@ const CategoryForm = ({ onClose, categories }) => {
 
 				<button
 					onClick={handleAddCategory}
-					className='bg-orange-600 text-white rounded-xl p-2 w-[85%]'
+					className='bg-orange-500 text-white rounded-xl p-2 w-[85%]'
 				>
 					Add Category
 				</button>
@@ -154,7 +154,7 @@ const Categories = () => {
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
 				</div>
 				<button
-					className='w-25 h-7 ml-6 bg-orange-600 rounded-lg front text-white justify-center items-center'
+					className='w-25 h-7 ml-6 bg-orange-500 rounded-lg front text-white justify-center items-center'
 					onClick={() => setShowAddCategory(true)}
 				>
 					+ Add New
@@ -171,7 +171,7 @@ const Categories = () => {
 			</div>
 
 			<div className='flex z-1000 rounded-lg gap-2 self-start ml-10 mt-5'>
-				<div className='border-b-2 border-orange-600 pl-1 pr-0.5'>
+				<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
 					<SearchIcon />
 				</div>
 				<input

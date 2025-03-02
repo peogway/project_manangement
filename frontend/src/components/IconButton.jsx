@@ -13,7 +13,7 @@ const IconButton = ({ iconId, setShow }) => {
 		<div>
 			<div
 				onClick={() => setShow(true)}
-				className='bg-orange-600 text-white w-9 h-9 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'
+				className='bg-orange-500 text-white w-9 h-9 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'
 			>
 				{icon.icon}
 			</div>

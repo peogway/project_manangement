@@ -717,18 +717,18 @@ const AllIcons = ({ onClose, setIconId, iconId }) => {
 			: allIconsArray
 
 	return (
-		<div className='flex flex-wrap gap-2 text-orange-600 p-3'>
+		<div className='flex flex-wrap gap-2 text-orange-500 p-3'>
 			{icons.map((singleIcon, index) => (
 				<div
 					key={index}
 					onClick={() => handleTheIconSelection(singleIcon)}
 					className={`w-9 h-9  shadow-sm border border-slate-50 flex items-center 
           
-          justify-center rounded-lg hover:bg-orange-600 hover:text-white 
+          justify-center rounded-lg hover:bg-orange-500 hover:text-white 
           ${
 						singleIcon.isSelected
-							? 'bg-orange-600 text-white'
-							: 'bg-white text-orange-600'
+							? 'bg-orange-500 text-white'
+							: 'bg-white text-orange-500'
 					}`}
 				>
 					{singleIcon.icon}

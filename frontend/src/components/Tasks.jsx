@@ -96,7 +96,7 @@ const Tasks = () => {
 		<div className='flex flex-col w-full h-screen z-999 flex-1'>
 			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] h-25 self-end rounded-2xl box'>
 				<div className='flex flex-row items-center'>
-					<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-600 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
+					<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						label
 					</div>
 					<div className='flex flex-col items-start'>
@@ -107,14 +107,14 @@ const Tasks = () => {
 						<div className='flex felx-row items-center gap-2'>
 							<ProgressBar
 								progress={completedTasks.length / tasksToShow.length}
-								color='bg-orange-600'
+								color='bg-orange-500'
 							/>
 							{((completedTasks.length / tasksToShow.length) * 100).toFixed(0)}%
 						</div>
 					</div>
 					<button
 						onClick={toggleAddTask}
-						className='w-25 h-7 ml-10 bg-orange-600 rounded-lg text-white'
+						className='w-25 h-7 ml-10 bg-orange-500 rounded-lg text-white'
 					>
 						+ Add New
 					</button>
@@ -131,7 +131,7 @@ const Tasks = () => {
 			</div>
 
 			<div className='flex z-1000 rounded-lg  self-start ml-10 mt-5'>
-				<div className='border-b-2 border-orange-600 pl-1 pr-0.5'>
+				<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
 					<SearchIcon />
 				</div>
 				<input
@@ -144,7 +144,7 @@ const Tasks = () => {
 				<div className='flex flex-row gap-5'>
 					<div
 						className={`flex ${taskStatus && 'opacity-40 '} ${
-							!taskStatus && 'text-orange-600'
+							!taskStatus && 'text-orange-500'
 						}`}
 					>
 						<button onClick={() => setTaskStatus(false)} className='font-bold'>
@@ -157,7 +157,7 @@ const Tasks = () => {
 
 					<div
 						className={`flex ${!taskStatus && 'opacity-40 '} ${
-							taskStatus && 'text-orange-600'
+							taskStatus && 'text-orange-500'
 						}`}
 					>
 						<button onClick={() => setTaskStatus(true)} className='font-bold'>

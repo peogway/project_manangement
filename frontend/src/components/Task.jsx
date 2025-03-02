@@ -52,7 +52,7 @@ const Task = ({ ...props }) => {
 				</div>
 				<div className='flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box'>
 					<div className='flex flex-row items-center w-[20%]'>
-						<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-600 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
+						<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
 							{icon}
 						</div>
 						<div className='flex flex-col'>
@@ -88,7 +88,7 @@ const Task = ({ ...props }) => {
 						<div className='flex flex-row justify-between gap-3'>
 							<div
 								onClick={() => setShowEditForm(true)}
-								className='text-orange-600 bg-orange-100 rounded-lg'
+								className='text-orange-500 bg-orange-100 rounded-lg'
 							>
 								<EditIcon />
 							</div>

@@ -82,7 +82,7 @@ const App = () => {
 				<nav className='navbar w-[120px] max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[60] transition-all rounded-xl'>
 					<div className='  flex items-center gap-2 justify-center'>
 						<TaskAltIcon
-							className='text-orange-600 font-bold'
+							className='text-orange-500 font-bold'
 							sx={{ fontSize: '41px' }}
 						/>
 					</div>
@@ -91,7 +91,7 @@ const App = () => {
 						to='/dashboard'
 						className={`${
 							location.pathname === '/dashboard'
-								? 'text-orange-600'
+								? 'text-orange-500'
 								: 'text-slate-500'
 						}`}
 					>
@@ -103,7 +103,7 @@ const App = () => {
 						to='/projects'
 						className={`${
 							location.pathname === '/projects'
-								? 'text-orange-600'
+								? 'text-orange-500'
 								: 'text-slate-500'
 						}`}
 					>
@@ -115,7 +115,7 @@ const App = () => {
 						to='/tasks'
 						className={`${
 							location.pathname === '/tasks'
-								? 'text-orange-600'
+								? 'text-orange-500'
 								: 'text-slate-500'
 						}`}
 					>
@@ -127,7 +127,7 @@ const App = () => {
 						to='/categories'
 						className={`${
 							location.pathname === '/categories'
-								? 'text-orange-600'
+								? 'text-orange-500'
 								: 'text-slate-500'
 						}`}
 					>

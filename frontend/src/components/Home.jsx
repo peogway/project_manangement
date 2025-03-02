@@ -24,19 +24,19 @@ const Features = () => {
 		{
 			id: 4,
 			name: 'Seamless Project and Task Management',
-			icon: <ListAltRoundedIcon className='text-orange-600 text-[32px]' />,
+			icon: <ListAltRoundedIcon className='text-orange-500 text-[32px]' />,
 			description: ` Create, edit, and delete projects and tasks with ease. Use sorting, filtering, and tabs to keep your workspace organized.`,
 		},
 		{
 			id: 5,
 			name: 'Dynamic Interface with Responsive Design',
-			icon: <DevicesRoundedIcon className='text-orange-600 text-[32px]' />,
+			icon: <DevicesRoundedIcon className='text-orange-500 text-[32px]' />,
 			description: ` Navigate through a responsive dashboard and task pages that adapt to any screen size. Open and close sidebars, dropdowns, and menus intuitively, enhancing your productivity.`,
 		},
 		{
 			id: 6,
 			name: 'Advanced Task Sorting and Progress Tracking',
-			icon: <SortRoundedIcon className='text-orange-600 text-[32px]' />,
+			icon: <SortRoundedIcon className='text-orange-500 text-[32px]' />,
 			description: ` Track ongoing and completed tasks, switch between tabs, and sort tasks or projects based on status, priority, or date to stay on top of your workload.`,
 		},
 	]
@@ -55,7 +55,7 @@ const Features = () => {
 							<div className='w-20 h-20 rounded-full items-center justify-center flex bg-orange-100'>
 								{feature.icon}
 							</div>
-							<h3 className='text-lg font-semibold text-orange-600 mt-6 text-center'>
+							<h3 className='text-lg font-semibold text-orange-500 mt-6 text-center'>
 								{feature.name}
 							</h3>
 							<p className='text-slate-600 text-[13px] mt-2 text-center w-[80%]'>
@@ -76,7 +76,7 @@ const CTASection = () => {
 			{/*  */}
 			<h2 className='font-bold text-2xl text-center'>
 				Manage Your Projects and Tasks
-				<span className={`text-orange-600`}> Effortlessly!</span>
+				<span className={`text-orange-500`}> Effortlessly!</span>
 			</h2>
 			{/*  */}
 			<p className='text-center text-[15px] w-[510px] max-sm:w-full text-slate-500 '>
@@ -86,7 +86,7 @@ const CTASection = () => {
 			</p>
 
 			<button
-				className={`block bg-orange-600 rounded-md  px-9 py-3 text-sm font-medium text-white hover:bg-orange-600    `}
+				className={`block bg-orange-500 rounded-md  px-9 py-3 text-sm font-medium text-white hover:bg-orange-500    `}
 				onClick={() => navigate('/login')}
 				type='button'
 			>
