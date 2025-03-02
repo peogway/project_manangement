@@ -170,7 +170,7 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='flex z-1000 rounded-lg gap-2 self-start ml-10 mt-5'>
+			<div className='flex z-900 rounded-lg gap-2 self-start ml-10 mt-5'>
 				<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
 					<SearchIcon />
 				</div>
