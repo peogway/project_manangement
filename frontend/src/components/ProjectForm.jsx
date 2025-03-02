@@ -4,14 +4,28 @@ import { createNewProject } from '../reducers/prjReducer'
 import DropDown from './DropDown'
 import { useDispatch } from 'react-redux'
 import { setError } from '../reducers/notiReducer'
+import GridViewIcon from '@mui/icons-material/GridView'
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from './IconButton'
 
-const ProjectForm = ({ categories, onClose }) => {
+const ProjectForm = ({
+	categories,
+	onClose,
+	setShowIconsMenu,
+	iconId,
+	setIconId,
+}) => {
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
-	const [cateName, setCateName] = useState(null)
 	const [resCates, setResCates] = useState([])
 	const { remove: rmProjectName, ...prjName } = useField('text')
-	const categoryNames = categories.map((category) => category.name)
+	const [categoryNames, setCategoryNames] = useState(
+		() =>
+			categories
+				?.map((category) => category.name)
+				.sort((a, b) => a.localeCompare(b)) || []
+	)
+
 	const dispatch = useDispatch()
 
 	const handleClickOutside = (event) => {
@@ -21,6 +35,7 @@ const ProjectForm = ({ categories, onClose }) => {
 	}
 	const handleAddPrj = (e) => {
 		e.preventDefault()
+		setIconId(1)
 
 		if (prjName.value === '') {
 			dispatch(setError('Please enter a project name', 2))
@@ -29,6 +44,7 @@ const ProjectForm = ({ categories, onClose }) => {
 		const prjToCreate = {
 			name: prjName.value,
 			categories: resCates,
+			icon: iconId.toString(),
 		}
 		try {
 			dispatch(createNewProject(prjToCreate))
@@ -40,8 +56,9 @@ const ProjectForm = ({ categories, onClose }) => {
 
 	const handleSelectCategory = (name) => {
 		const foundCate = categories.filter((cate) => cate.name === name)[0]
-		setCateName(null)
+
 		if (!resCates.includes(foundCate)) {
+			setCategoryNames(categoryNames.filter((cateName) => cateName !== name))
 			setResCates(resCates.concat(foundCate))
 		}
 	}
@@ -53,10 +70,10 @@ const ProjectForm = ({ categories, onClose }) => {
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: 0,
+					left: '120px',
 					width: '100%',
 					height: '100%',
-					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+					backgroundColor: 'rgba(104, 102, 102, 0.5)',
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
@@ -64,47 +81,89 @@ const ProjectForm = ({ categories, onClose }) => {
 			<div
 				ref={formRef}
 				style={{
-					position: 'absolute',
-					top: '50%',
+					position: 'fixed',
+					top: '40%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
 					zIndex: 1000,
 				}}
+				className='flex flex-col items-center max-w-[600px] w-[550px] rounded-2xl'
 			>
-				<h1>Add Project</h1>
-				<button onClick={onClose}>X</button>
-				<div className='project-name'>
-					<label>Project Name</label>
-					<br />
-					<input {...prjName} placeholder='Enter a name for the Project' />
+				<div className='flex flex-row justify-between self-start w-full items-center'>
+					<div className='flex flex-row gap-4'>
+						<div className='text-orange-500 bg-orange-300 rounded-lg w-9 h-9 justify-center items-center flex border border-slate-50'>
+							<GridViewIcon />
+						</div>
+						<h1 className='font-bold text-xl'>New Project</h1>
+					</div>
+					<div onClick={onClose} className='text-gray-500 mr-2'>
+						<CloseIcon />
+					</div>
 				</div>
-				{resCates.map((cate) => (
-					<div key={cate.id}>
-						<label>
-							{cate.name}{' '}
+
+				<div className='project-name w-[85%] mt-7'>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Project Name
+					</label>
+					<div className=' w-full mt-2 flex flex-row justify-between '>
+						<input
+							{...prjName}
+							placeholder='Enter a name for the Project'
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%]'
+						/>
+						<div className=''>
+							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
+						</div>
+					</div>
+				</div>
+
+				<div className='task-priority w-[85%] mt-7 flex flex-row items-center gap-5 '>
+					<label className='text-gray-500 ml-[-10px] font-bold'>
+						Categories
+					</label>
+
+					<div className=''>
+						<DropDown
+							options={categoryNames}
+							onSelect={handleSelectCategory}
+							description='Choose categories'
+							value={true}
+						/>
+					</div>
+				</div>
+				<div className='flex flex-wrap gap-3 self-start mt-4 mb-10 ml-4 mr-4'>
+					{resCates.map((cate) => (
+						<div
+							key={cate.id}
+							className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between'
+						>
+							<label>{cate.name}</label>
 							<button
-								onClick={() =>
+								onClick={() => {
 									setResCates(
 										resCates.filter((category) => category.id !== cate.id)
 									)
-								}
+									setCategoryNames(
+										categoryNames
+											.concat(cate.name)
+											.sort((a, b) => a.localeCompare(b))
+									)
+								}}
 							>
-								x
+								<CloseIcon />
 							</button>
-						</label>
-					</div>
-				))}
-				<DropDown
-					options={categoryNames}
-					onSelect={handleSelectCategory}
-					description='Choose a Category'
-					value={true}
-				/>
+						</div>
+					))}
+				</div>
 
-				<button onClick={onClose}>Cancel</button>
-				<button onClick={handleAddPrj}>Add Project</button>
+				<button
+					onClick={handleAddPrj}
+					className='bg-orange-500 text-white rounded-xl p-2 w-[85%] '
+				>
+					Add Project
+				</button>
 			</div>
 		</div>
 	)
