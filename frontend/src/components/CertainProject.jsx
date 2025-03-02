@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllTasks, updateTask } from '../reducers/taskReducer'
-import SortDropdown from './sortDropDown'
+import SortDropdown from './SortDropDown'
 import TaskViewInProject from './TaskViewInProject'
-import EditTaskForm from './EditTaskForm'
 import CircularChart from './CircularChart'
 
-const CertainProject = ({ project, categories, onClose }) => {
+const CertainProject = ({ project, onClose }) => {
 	const dispatch = useDispatch()
 	const formRef = useRef(null)
 	const [sortValue, setSortValue] = useState('A-Z')
@@ -145,4 +144,3 @@ const CertainProject = ({ project, categories, onClose }) => {
 }
 
 export default CertainProject
-
