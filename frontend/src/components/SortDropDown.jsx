@@ -13,7 +13,7 @@ const SortDropdown = ({ setSortValue, sortTasks, initlaValue, sortByDate }) => {
 		<select
 			value={selectedSort}
 			onChange={handleChange}
-			className='border-1 border-black rounded-lg'
+			className=' rounded-lg w-[80px]'
 		>
 			<optgroup label='Order'>
 				<option value='A-Z'>A-Z</option>
