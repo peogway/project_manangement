@@ -27,8 +27,15 @@ const Dropdown = forwardRef(
 						{description}
 					</option>
 				)}
-				{options.map((option) => (
+				{options.map((option, index) => (
 					<option key={option} value={option}>
+						{option === 'High'
+							? '🔴'
+							: option === 'Medium'
+							? '🟡'
+							: option === 'Low'
+							? '🟢'
+							: ''}
 						{option}
 					</option>
 				))}
@@ -38,4 +45,3 @@ const Dropdown = forwardRef(
 )
 
 export default Dropdown
-
