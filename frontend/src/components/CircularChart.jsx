@@ -33,10 +33,10 @@ const CircularChart = ({ initial, after }) => {
 	}, [after])
 
 	return (
-		<div className={`w-40 h-40 mt-7 mb-1 `}>
+		<div className={`w-40 h-40 `}>
 			{(animatedPercentage === 0 || animatedPercentage === null) && (
 				<div
-					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-160%] -translate-y-[-110%]'
+					className='text-[#f97316] text-[30px] relative transform -translate-x-[-40%] -translate-y-[-220%]'
 					style={{
 						content: `'0%'`,
 					}}
@@ -46,7 +46,7 @@ const CircularChart = ({ initial, after }) => {
 			)}
 			{animatedPercentage > 0 && animatedPercentage < 100 && (
 				<div
-					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-110%] -translate-y-[-110%]'
+					className='text-[#f97316] text-[30px] relative transform -translate-x-[-35%] -translate-y-[-220%]'
 					style={{
 						content: `'${animatedPercentage.toFixed(0)}%'`,
 					}}
@@ -56,7 +56,7 @@ const CircularChart = ({ initial, after }) => {
 			)}
 			{animatedPercentage === 100 && (
 				<div
-					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-70%] -translate-y-[-110%]'
+					className='text-[#f97316] text-[30px] relative transform -translate-x-[-30%] -translate-y-[-220%]'
 					style={{
 						content: '100%',
 					}}

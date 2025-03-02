@@ -147,8 +147,8 @@ const Categories = () => {
 	}
 
 	return (
-		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className='z-999 bg-white w-[99%] min-h-[100px] flex items-center self-end rounded-2xl box'>
+		<div className='flex flex-col items-center flex-1 h-screen '>
+			<div className='z-999 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[150px] right-0'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
@@ -170,48 +170,50 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='flex z-900 rounded-lg gap-2 self-start ml-10 mt-5'>
-				<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
-					<SearchIcon />
+			<div className='top-[100px] relative overflow-auto  z-500 w-[calc(100vw-200px)] max-h-[calc(100vh-130px)]  left-[100px] pt-10'>
+				<div className='flex z-900 rounded-lg gap-2 self-start '>
+					<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
+						<SearchIcon />
+					</div>
+					<input
+						{...search}
+						placeholder='Search a category'
+						className='border-b-2 border-gray-200 pl-0.5'
+					/>
 				</div>
-				<input
-					{...search}
-					placeholder='Search a category'
-					className='border-b-2 border-gray-200 pl-0.5'
-				/>
-			</div>
 
-			<div className='z-999 mt-7 w-[95%] h-[80%] '>
-				{categories.length === 0 ? (
-					<div
-						style={{
-							position: 'absolute',
-							top: '50%',
-							left: '50%',
-							transform: 'translate(-50%, -50%)',
-							padding: 20,
-							zIndex: 1000,
-						}}
-					>
-						<p>No categories available</p>
-					</div>
-				) : (
-					<div className='flex flex-col items-center gap-4 mt-4'>
-						{categories.map((category) => (
-							<div
-								key={category.id}
-								className='rounded-2xl box w-[98%] bg-white'
-							>
-								<Category
-									name={category.name}
-									id={category.id}
-									categories={categories}
-									projects={category.projects}
-								/>
-							</div>
-						))}
-					</div>
-				)}
+				<div className='z-999 mt-7 w-[95%] h-[80%]'>
+					{categories.length === 0 ? (
+						<div
+							style={{
+								position: 'absolute',
+								top: '50%',
+								left: '50%',
+								transform: 'translate(-50%, -50%)',
+								padding: 20,
+								zIndex: 1000,
+							}}
+						>
+							<p>No categories available</p>
+						</div>
+					) : (
+						<div className='flex flex-col items-center gap-4 mt-4 pb-10 '>
+							{categories.map((category) => (
+								<div
+									key={category.id}
+									className='rounded-2xl box w-[98%] bg-white '
+								>
+									<Category
+										name={category.name}
+										id={category.id}
+										categories={categories}
+										projects={category.projects}
+									/>
+								</div>
+							))}
+						</div>
+					)}
+				</div>
 				{showAddCategory && (
 					<CategoryForm
 						onClose={() => setShowAddCategory(false)}

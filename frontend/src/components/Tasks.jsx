@@ -103,8 +103,8 @@ const Tasks = () => {
 			: allIconsArray.filter((icon) => icon.id === parseInt(prj.icon))[0]
 
 	return (
-		<div className='flex flex-col w-full h-screen z-999 flex-1'>
-			<div className='flex flex-row justify-between items-center z-999 bg-white w-[99%] min-h-[100px] self-end rounded-2xl box'>
+		<div className='flex flex-col w-full h-screen z-999 flex-1 '>
+			<div className='flex flex-row justify-between items-center z-999 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[150px] right-0'>
 				<div className='flex flex-row items-center justify-center'>
 					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						{icon.icon}
@@ -149,54 +149,59 @@ const Tasks = () => {
 				</div>
 			</div>
 
-			<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
-				<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
-					<SearchIcon />
-				</div>
-				<input
-					{...search}
-					placeholder='Search a task'
-					className='border-b-2 border-gray-200 pl-0.5'
-				/>
-			</div>
-			<div className='ml-7 mt-10'>
-				<div className='flex flex-row gap-5'>
-					<div
-						className={`flex ${taskStatus && 'opacity-40 '} ${
-							!taskStatus && 'text-orange-500'
-						}`}
-					>
-						<button onClick={() => setTaskStatus(false)} className='font-bold'>
-							On Going Tasks
-						</button>
-						<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
-							{uncompletedTasks.length}
-						</div>
+			<div className='top-[100px] relative  overflow-auto  z-500 w-[calc(100vw-160px)] max-h-[calc(100vh-130px)] left-[100px] pt-5 ml-15'>
+				<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
+					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
+						<SearchIcon />
 					</div>
+					<input
+						{...search}
+						placeholder='Search a task'
+						className='border-b-2 border-gray-200 pl-0.5'
+					/>
+				</div>
+				<div className='ml-7 mt-10 '>
+					<div className='flex flex-row gap-5'>
+						<div
+							className={`flex ${taskStatus && 'opacity-40 '} ${
+								!taskStatus && 'text-orange-500'
+							}`}
+						>
+							<button
+								onClick={() => setTaskStatus(false)}
+								className='font-bold'
+							>
+								On Going Tasks
+							</button>
+							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+								{uncompletedTasks.length}
+							</div>
+						</div>
 
-					<div
-						className={`flex ${!taskStatus && 'opacity-40 '} ${
-							taskStatus && 'text-orange-500'
-						}`}
-					>
-						<button onClick={() => setTaskStatus(true)} className='font-bold'>
-							Completed Tasks
-						</button>
-						<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
-							{completedTasks.length}
+						<div
+							className={`flex ${!taskStatus && 'opacity-40 '} ${
+								taskStatus && 'text-orange-500'
+							}`}
+						>
+							<button onClick={() => setTaskStatus(true)} className='font-bold'>
+								Completed Tasks
+							</button>
+							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+								{completedTasks.length}
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className='ml-5 mt-5 w-[95%]'>
-					{showTasks.map((task) => (
-						<div key={task.id}>
-							<Task
-								{...task}
-								projects={projects}
-								selectedProject={selectedProject}
-							/>
-						</div>
-					))}
+					<div className='ml-5 mt-5 w-[95%]  pb-10'>
+						{showTasks.map((task) => (
+							<div key={task.id}>
+								<Task
+									{...task}
+									projects={projects}
+									selectedProject={selectedProject}
+								/>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 			{showAddTask && (

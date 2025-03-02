@@ -59,8 +59,8 @@ const Projects = () => {
 	}
 
 	return (
-		<div className='z-999 flex flex-row h-screen flex-1'>
-			<div className='flex flex-col w-[80%]'>
+		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[120px] max-w-[calc(100vw-120px)]  relative'>
+			<div className='flex flex-col w-[calc(80%-120px)] '>
 				<div className='flex flex-row justify-between mt-7 mb-1'>
 					<div className='flex z-900 rounded-lg ml-5 '>
 						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
@@ -100,7 +100,7 @@ const Projects = () => {
 						/>
 					</div>
 				</div>
-				<div className='flex gap-15 ml-15 mr-10 flex-wrap'>
+				<div className='flex gap-15 ml-15 mr-10 flex-wrap pb-10'>
 					{sortedProjects.map((project) => (
 						<div
 							key={project.id}
@@ -121,7 +121,8 @@ const Projects = () => {
 					))}
 				</div>
 			</div>
-			<div className='flex-1 bg-white rounded-xl flex flex-col items-center h-[90%] self-center'>
+
+			<div className='flex-1  bg-white rounded-xl flex flex-col items-center h-[90%] self-center'>
 				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
 				<CircularChart initial={30} after={30} />
 			</div>
