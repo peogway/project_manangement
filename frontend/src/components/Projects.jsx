@@ -55,7 +55,7 @@ const Projects = () => {
 	}
 
 	return (
-		<div className='z-999 flex flex-row h-screen w-full'>
+		<div className='z-999 flex flex-row h-screen flex-1'>
 			<div className='flex flex-col w-[80%]'>
 				<div className='flex flex-row justify-between mt-7 mb-1'>
 					<div className='flex z-900 rounded-lg ml-5 '>
