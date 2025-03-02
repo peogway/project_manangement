@@ -33,16 +33,45 @@ const CircularChart = ({ initial, after }) => {
 	}, [after])
 
 	return (
-		<div className='w-40 h-40 mt-7 mb-1'>
+		<div className={`w-40 h-40 mt-7 mb-1 `}>
+			{(animatedPercentage === 0 || animatedPercentage === null) && (
+				<div
+					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-160%] -translate-y-[-110%]'
+					style={{
+						content: `'${0}%'`,
+					}}
+				>
+					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+				</div>
+			)}
+			{animatedPercentage > 0 && animatedPercentage < 100 && (
+				<div
+					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-110%] -translate-y-[-110%]'
+					style={{
+						content: `'${
+							animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)
+						}%'`,
+					}}
+				>
+					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+				</div>
+			)}
+			{animatedPercentage === 100 && (
+				<div
+					className='text-[#f97316] text-[30px] absolute transform -translate-x-[-70%] -translate-y-[-110%]'
+					style={{
+						content: `'${
+							animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)
+						}%'`,
+					}}
+				>
+					{animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}%
+				</div>
+			)}
 			<CircularProgressbar
 				value={animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}
-				text={`${
-					animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)
-				}%`}
 				styles={buildStyles({
-					textSize: '16px',
 					pathColor: `rgba(234, 88, 12, 2)`,
-					textColor: '#f97316',
 					trailColor: '#f1f5f9',
 					backgroundColor: '#3e98c7',
 				})}
