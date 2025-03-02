@@ -68,7 +68,7 @@ const CategoryForm = ({ onClose, categories }) => {
 				ref={formRef}
 				style={{
 					position: 'fixed',
-					top: '30%',
+					top: '40vh',
 					left: '50%',
 					width: '40%',
 					transform: 'translate(-50%, -50%)',
