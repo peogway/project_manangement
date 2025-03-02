@@ -14,6 +14,7 @@ const ProjectForm = ({
 	setShowIconsMenu,
 	iconId,
 	setIconId,
+	projectUnique,
 }) => {
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
@@ -41,6 +42,13 @@ const ProjectForm = ({
 			dispatch(setError('Please enter a project name', 2))
 			return
 		}
+
+		if (projectUnique(prjName.value)) {
+			dispatch(setError('Project names must be unique', 2))
+			onClose()
+			return
+		}
+
 		const prjToCreate = {
 			name: prjName.value,
 			categories: resCates,
