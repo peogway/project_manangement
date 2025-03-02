@@ -134,6 +134,11 @@ const Projects = () => {
 					setIconId={setIconId}
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
+					projectUnique={(prjName) =>
+						projects.some(
+							(prj) => prj.name.toLowerCase() === prjName.toLowerCase()
+						)
+					}
 				/>
 			)}
 			{projectToEdit && (
