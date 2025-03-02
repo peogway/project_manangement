@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { deleteProject } from '../reducers/prjReducer'
 import ProgressBar from './ProgressBar'
-import EditProjectForm from './EditProjectForm'
+
 import { useDispatch } from 'react-redux'
 
-const ProjectLabel = ({ project, categories }) => {
+const ProjectLabel = ({ project, setProjectToEdit, setIconId }) => {
 	const dispatch = useDispatch()
 	const [showFeatures, setShowFeatures] = useState(false)
-	const [showEditForm, setShowEditForm] = useState(false)
+
 	const featuresRef = useRef(null)
 
 	const projectFeatures = () => {
@@ -22,7 +22,14 @@ const ProjectLabel = ({ project, categories }) => {
 
 		return (
 			<div ref={featuresRef}>
-				<button onClick={() => setShowEditForm(true)}>edit</button>
+				<button
+					onClick={() => {
+						setProjectToEdit(project)
+						setIconId(parseInt(project.icon))
+					}}
+				>
+					edit
+				</button>
 				<br />
 				<button onClick={handleDelete}>delete</button>
 			</div>
@@ -60,14 +67,6 @@ const ProjectLabel = ({ project, categories }) => {
 					<label>{category.name}</label>
 				</div>
 			))}
-
-			{showEditForm && (
-				<EditProjectForm
-					project={project}
-					categories={categories}
-					onClose={() => setShowEditForm(false)}
-				/>
-			)}
 		</div>
 	)
 }
