@@ -40,7 +40,7 @@ const ProjectLabel = ({ project, categories }) => {
 	}, [showFeatures])
 
 	return (
-		<div>
+		<div className='bg-white rounded-2xl w-[200px] h-[200px]'>
 			<p>{project.name}</p>
 			<button onClick={() => setShowFeatures(true)} disabled={showFeatures}>
 				...
