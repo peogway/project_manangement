@@ -82,7 +82,8 @@ const Task = ({ ...props }) => {
 										priorityMap[props.priority]
 									} mr-1`}
 								></div>
-								{props.priority}
+								{props.priority.charAt(0).toUpperCase() +
+									props.priority.slice(1)}
 							</div>
 						</div>
 						<div className='flex flex-row justify-between gap-3'>
