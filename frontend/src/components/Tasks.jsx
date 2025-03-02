@@ -106,7 +106,7 @@ const Tasks = () => {
 		<div className='flex flex-col w-full h-screen z-900 flex-1 '>
 			<div className='flex flex-row justify-between items-center z-900 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[150px] right-0'>
 				<div className='flex flex-row items-center justify-center'>
-					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
+					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						{icon.icon}
 					</div>
 					<div className='flex flex-col items-start'>
