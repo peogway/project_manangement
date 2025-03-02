@@ -9,7 +9,9 @@ import SortDropdown from './SortDropDown'
 import ProjectForm from './ProjectForm'
 import CertainProject from './CertainProject'
 import ProjectLabel from './ProjectLabel'
+import EditProjectForm from './EditProjectForm'
 
+import IconsWindow from './IconsWindow'
 import SearchIcon from '@mui/icons-material/Search'
 import CircularChart from './CircularChart'
 
@@ -19,7 +21,9 @@ const Projects = () => {
 	const [selectedProject, setSelectedProject] = useState(null)
 	const [sortValue, setSortValue] = useState('newest')
 	const { remove: rmSearch, ...search } = useField('text')
-
+	const [showIconsMenu, setShowIconsMenu] = useState(false)
+	const [projectToEdit, setProjectToEdit] = useState(null)
+	const [iconId, setIconId] = useState(1)
 	const [render, setRender] = useState(0)
 
 	useEffect(() => {
@@ -108,28 +112,56 @@ const Projects = () => {
 									setSelectedProject(project)
 							}}
 						>
-							<ProjectLabel project={project} categories={categories} />
+							<ProjectLabel
+								project={project}
+								setIconId={setIconId}
+								setProjectToEdit={setProjectToEdit}
+							/>
 						</div>
 					))}
 				</div>
 			</div>
+			<div className='flex-1 bg-white rounded-xl flex flex-col items-center h-[90%] self-center'>
+				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
+				<CircularChart initial={30} after={30} />
+			</div>
+
 			{showAddProject && (
 				<ProjectForm
 					categories={categories}
 					onClose={() => setShowAddProject(false)}
+					setIconId={setIconId}
+					iconId={iconId}
+					setShowIconsMenu={setShowIconsMenu}
+				/>
+			)}
+			{projectToEdit && (
+				<EditProjectForm
+					project={projectToEdit}
+					categories={categories}
+					onClose={() => {
+						setProjectToEdit(null)
+						setIconId(1)
+					}}
+					setIconId={setIconId}
+					iconId={iconId}
+					setShowIconsMenu={setShowIconsMenu}
+					setProjectToEdit={setProjectToEdit}
 				/>
 			)}
 			{selectedProject && (
 				<CertainProject
 					project={selectedProject}
-					categories={categories}
 					onClose={() => setSelectedProject(null)}
 				/>
 			)}
-			<div className='flex-1 bg-white rounded-xl flex flex-col items-center h-[90%] self-center'>
-				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
-				<CircularChart initial={30} after={30} />
-			</div>
+
+			<IconsWindow
+				onClose={() => setShowIconsMenu(false)}
+				iconId={iconId}
+				setIconId={setIconId}
+				show={showIconsMenu}
+			/>
 		</div>
 	)
 }
