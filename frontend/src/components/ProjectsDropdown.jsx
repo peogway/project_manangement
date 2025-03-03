@@ -46,7 +46,7 @@ const ProjectsDropDown = ({
 			ref={dropDownRef}
 			className={` ${
 				openProjectsDropDown ? 'block' : 'hidden'
-			}    overflow-auto bg-white absolute p-3  border border-slate-50 shadow-md rounded-lg flex flex-col gap-2 
+			}    overflow-auto bg-white absolute p-3 select-none  user-select-none border border-slate-50 shadow-md rounded-lg flex flex-col gap-2 
 			${
 				showAllProject === true
 					? ' w-[210px] top-15 left-15 max-h-[calc(100vh-300px)]'
