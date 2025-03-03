@@ -50,9 +50,9 @@ const Tasks = () => {
 	// )
 
 	const tasksToShow =
-		selectedProject === 'All Projects'
+		selectedProject === null
 			? tasks
-			: tasks.filter((task) => task.project.name === selectedProject)
+			: tasks.filter((task) => task.project.name === selectedProject.name)
 	const priorityOrder = { high: 3, medium: 2, low: 1 }
 	let sortedTasks
 	if (sortValue === 'A-Z') {
