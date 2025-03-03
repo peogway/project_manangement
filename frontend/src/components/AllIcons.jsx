@@ -740,8 +740,12 @@ const AllIcons = ({ onClose, setIconId, iconId }) => {
 
 export default AllIcons
 
-export const getIconComponent = (iconId) => (
-	<div className='text-[27px] text-orange-600'>
+export const getIconComponent = (
+	iconId,
+	color = 'text-orange-600',
+	size = 'text-[27px]'
+) => (
+	<div className={`${color} ${size} flex items-center`}>
 		{allIconsArray[iconId - 1].icon}
 	</div>
 )
