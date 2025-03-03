@@ -92,7 +92,7 @@ const CategoryForm = ({ onClose, categories }) => {
 					<br />
 					<input
 						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2 mb-10'
+						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2 mb-10 pl-3'
 						placeholder='Type a name for the Category...'
 					/>
 				</div>
@@ -178,7 +178,7 @@ const Categories = () => {
 					<input
 						{...search}
 						placeholder='Search a category'
-						className='border-b-2 border-gray-200 pl-0.5'
+						className='border-b-2 border-gray-200 pl-1 '
 					/>
 				</div>
 

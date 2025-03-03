@@ -69,7 +69,7 @@ const Projects = () => {
 						<input
 							{...search}
 							placeholder='Search a project'
-							className='border-b-2 border-gray-200 pl-0.5'
+							className='border-b-2 border-gray-200 pl-1'
 						/>
 					</div>
 					<button

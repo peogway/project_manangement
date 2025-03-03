@@ -100,7 +100,7 @@ const EditTaskForm = ({ onClose, projects, selectedProject, ...task }) => {
 					<div className=' w-full mt-2 flex flex-row justify-between '>
 						<input
 							{...taskName}
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%]'
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3'
 						/>
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />

@@ -170,7 +170,7 @@ const Tasks = () => {
 					<input
 						{...search}
 						placeholder='Search a task'
-						className='border-b-2 border-gray-200 pl-0.5'
+						className='border-b-2 border-gray-200 pl-1'
 					/>
 				</div>
 				<div className='ml-7 mt-10 '>
