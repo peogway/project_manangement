@@ -140,8 +140,15 @@ const EditTaskForm = ({ onClose, projects, ...task }) => {
 					<br />
 					<div className='mb-10 mt-2 w-full'>
 						<div
-							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg'
-							onClick={() => setOpenProjectsDropDown(!openProjectsDropDown)}
+							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg user-select-none'
+							onMouseDown={(e) => {
+								if (e.target === e.currentTarget) {
+									// Only prevent default if clicking on the div itself, not text
+									e.preventDefault()
+								}
+								e.stopPropagation()
+								setOpenProjectsDropDown(!openProjectsDropDown)
+							}}
 						>
 							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
 								<div

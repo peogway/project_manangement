@@ -113,8 +113,15 @@ const Tasks = () => {
 					</div>
 					<div className='flex flex-col items-start'>
 						<div
-							className='font-bold text-xl'
-							onClick={() => setOpenProjectsDropDown(!openProjectsDropDown)}
+							className='font-bold text-xl user-select-none cursor-pointer'
+							onMouseDown={(e) => {
+								if (e.target === e.currentTarget) {
+									// Only prevent default if clicking on the div itself, not text
+									e.preventDefault()
+								}
+								e.stopPropagation()
+								setOpenProjectsDropDown(!openProjectsDropDown)
+							}}
 						>
 							{selectedProject === null ? 'All Projects' : selectedProject.name}
 							<KeyboardArrowDownIcon />
