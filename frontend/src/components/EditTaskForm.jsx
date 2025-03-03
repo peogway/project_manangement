@@ -82,6 +82,7 @@ const EditTaskForm = ({ onClose, projects, ...task }) => {
 					zIndex: 1000,
 					pointerEvents: 'auto',
 				}}
+				className='rounded-2xl'
 			/>
 			<div
 				ref={formRef}

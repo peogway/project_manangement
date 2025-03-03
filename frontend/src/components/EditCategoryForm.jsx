@@ -57,6 +57,7 @@ const EditCategoryForm = ({ onClose, name, categories, id }) => {
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
+				className='rounded-2xl'
 			/>
 			<div
 				ref={formRef}
