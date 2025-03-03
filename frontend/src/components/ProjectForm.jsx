@@ -85,12 +85,13 @@ const ProjectForm = ({
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
+				className='rounded-2xl'
 			/>
 			<div
 				ref={formRef}
 				style={{
 					position: 'fixed',
-					top: '40%',
+					top: '37%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',

@@ -91,13 +91,14 @@ const EditProjectForm = ({
 					zIndex: 999,
 					pointerEvents: 'auto',
 				}}
+				className='rounded-2xl'
 			/>
 			<div
 				ref={formRef}
 				style={{
 					position: 'absolute',
-					top: '40%',
-					left: '50%',
+					top: '37%',
+					left: '45%',
 					transform: 'translate(-50%, -50%)',
 					background: 'white',
 					padding: 20,
