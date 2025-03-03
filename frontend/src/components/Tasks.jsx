@@ -169,7 +169,7 @@ const Tasks = () => {
 				</div>
 			</div>
 
-			<div className='top-[100px] relative  overflow-auto  z-999 w-[calc(100vw-160px)] max-h-[calc(100vh-130px)] left-[100px] pt-5 ml-15'>
+			<div className='top-[100px] relative  overflow-auto w-[calc(100vw-160px)] max-h-[calc(100vh-130px)] left-[100px] pt-5 ml-15'>
 				<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
 					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
 						<SearchIcon />
