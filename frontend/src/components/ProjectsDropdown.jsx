@@ -95,8 +95,8 @@ const AllProjectsItem = ({
 				//Close the drop down
 				setOpenProjectsDropDown(false)
 			}}
-			className={`   flex items-center justify-between  gap-7 rounded-lg text-slate-600 hover:text-orange-600  cursor-pointer ${
-				chosenProject === null && 'border border-orange-600 bg-orange-50'
+			className={`   flex items-center justify-between  gap-7 rounded-lg text-slate-600 hover:text-orange-600  cursor-pointer select-none user-select-none ${
+				chosenProject === null && 'border border-orange-600 bg-orange-50 '
 			} `}
 		>
 			<div className='flex gap-2 items-center '>
