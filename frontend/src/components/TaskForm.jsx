@@ -6,6 +6,9 @@ import { createNewTask } from '../reducers/taskReducer'
 import { useDispatch } from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
+import ProjectsDropDown from './ProjectsDropdown'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { getIconComponent } from './AllIcons'
 
 const TaskForm = ({
 	onClose,
@@ -17,28 +20,23 @@ const TaskForm = ({
 }) => {
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
-	const [chosenProject, setChosenProject] = useState(selectedProject)
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 	const dispatch = useDispatch()
+	const [chosenProject, setChosenProject] = useState(selectedProject)
+	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
+
 	const handleClickOutside = (event) => {
 		if (formRef.current && !formRef.current.contains(event.target)) {
 			onClose()
 		}
 	}
 	const priorities = ['Low', 'Medium', 'High']
-	const dropdownProjects =
-		chosenProject === 'All Projects'
-			? projects.map((prj) => prj.name)
-			: [chosenProject].concat(
-					projects
-						.filter((prj) => prj.name !== chosenProject)
-						.map((prj) => prj.name)
-			  )
+
 	const handleAddTask = (e) => {
 		e.preventDefault()
 		setIconId(1)
-		if (chosenProject === 'All Projects') {
+		if (chosenProject === null) {
 			dispatch(setError('Please select a project', 2))
 			return
 		}
@@ -54,7 +52,7 @@ const TaskForm = ({
 			name: task.value,
 			icon: iconId.toString(),
 			priority: priority.toLowerCase(),
-			projectId: projects.filter((prj) => prj.name === chosenProject)[0].id,
+			projectId: chosenProject.id,
 		}
 		try {
 			dispatch(createNewTask(taskToCreate))
@@ -63,6 +61,11 @@ const TaskForm = ({
 			dispatch(setError('Something goes wrong', 5))
 		}
 	}
+
+	const icon =
+		chosenProject === null
+			? null
+			: getIconComponent(chosenProject.icon, 'text-white', 'text-[27px]')
 	return (
 		<div>
 			<div
@@ -108,7 +111,7 @@ const TaskForm = ({
 						<input
 							{...task}
 							placeholder='Enter Task Name...'
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%]'
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3'
 						/>
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
@@ -136,15 +139,34 @@ const TaskForm = ({
 					</label>
 					<br />
 					<div className='mb-10 mt-2 w-full'>
-						<Dropdown
-							options={dropdownProjects}
-							onSelect={setChosenProject}
-							description={
-								chosenProject === 'All Projects'
-									? 'Select a project'
-									: undefined
-							}
-							width='full'
+						<div
+							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg'
+							onClick={() => setOpenProjectsDropDown(!openProjectsDropDown)}
+						>
+							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
+								<div
+									className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
+										icon === null && 'hidden'
+									}`}
+								>
+									{icon !== null ? icon : null}
+								</div>
+								<div className='text-gray-500'>
+									{chosenProject === null
+										? 'Select Project'
+										: chosenProject.name}
+								</div>
+							</div>
+							<div className='text-gray-500'>
+								<KeyboardArrowDownIcon fontSize='medium' />
+							</div>
+						</div>
+						<ProjectsDropDown
+							openProjectsDropDown={openProjectsDropDown}
+							setOpenProjectsDropDown={setOpenProjectsDropDown}
+							setChosenProject={setChosenProject}
+							chosenProject={chosenProject}
+							allProjects={projects}
 						/>
 					</div>
 				</div>
