@@ -60,7 +60,7 @@ const Projects = () => {
 
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[120px] max-w-[calc(100vw-120px)]  relative'>
-			<div className='flex flex-col w-[calc(100%-250px)] '>
+			<div className='flex flex-col w-[calc(100%-250px)] overflow-auto'>
 				<div className='flex flex-row justify-between mt-7 mb-1'>
 					<div className='flex z-900 rounded-lg ml-5 '>
 						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
@@ -100,7 +100,7 @@ const Projects = () => {
 						/>
 					</div>
 				</div>
-				<div className='flex gap-5 ml-15  flex-wrap pb-10'>
+				<div className='flex gap-5 ml-12  flex-wrap pb-10'>
 					{sortedProjects.map((project) => (
 						<div
 							key={project.id}
