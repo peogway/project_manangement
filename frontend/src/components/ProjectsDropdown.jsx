@@ -67,16 +67,18 @@ const ProjectsDropDown = ({
 						No Projects Found
 					</p>
 				)}
-				{allProjects.map((singleProject, index) => (
-					<SingleProject
-						key={singleProject.id}
-						singleProject={singleProject}
-						setChosenProject={setChosenProject}
-						setOpenProjectsDropDown={setOpenProjectsDropDown}
-						allProjects={allProjects}
-						chosenProject={chosenProject}
-					/>
-				))}
+				{[...allProjects]
+					.sort((a, b) => a.name.localeCompare(b.name))
+					.map((singleProject, index) => (
+						<SingleProject
+							key={singleProject.id}
+							singleProject={singleProject}
+							setChosenProject={setChosenProject}
+							setOpenProjectsDropDown={setOpenProjectsDropDown}
+							allProjects={allProjects}
+							chosenProject={chosenProject}
+						/>
+					))}
 			</>
 		</div>
 	)
