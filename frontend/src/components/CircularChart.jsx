@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
-const CircularChart = ({ initial, after }) => {
-	const [animatedPercentage, setAnimatedPercentage] = useState(initial)
-	// console.log(initial, after)
-	// console.log(animatedPercentage, initial)
+const CircularChart = ({ initial, after, percent }) => {
+	const [animatedPercentage, setAnimatedPercentage] = useState(
+		percent !== undefined && !isNaN(percent) ? percent : initial ?? 0
+	)
 
 	useEffect(() => {
 		let start = animatedPercentage
@@ -28,13 +28,16 @@ const CircularChart = ({ initial, after }) => {
 				setTimeout(animate, stepTime)
 			}
 		}
-
-		animate()
+		if (!percent) {
+			animate()
+		}
 	}, [after])
 
 	return (
 		<div className={`w-40 h-40 `}>
-			{(animatedPercentage === 0 || animatedPercentage === null) && (
+			{(animatedPercentage === 0 ||
+				animatedPercentage === null ||
+				percent === 0) && (
 				<div
 					className='text-[#f97316] text-[30px] relative transform -translate-x-[-40%] -translate-y-[-220%]'
 					style={{
@@ -44,17 +47,21 @@ const CircularChart = ({ initial, after }) => {
 					0%
 				</div>
 			)}
-			{animatedPercentage > 0 && animatedPercentage < 100 && (
+			{((animatedPercentage > 0 && animatedPercentage < 100) ||
+				(percent > 0 && percent < 100)) && (
 				<div
 					className='text-[#f97316] text-[30px] relative transform -translate-x-[-35%] -translate-y-[-220%]'
 					style={{
 						content: `'${animatedPercentage.toFixed(0)}%'`,
 					}}
 				>
-					{animatedPercentage.toFixed(0)}%
+					{percent !== undefined
+						? percent.toFixed(0)
+						: animatedPercentage.toFixed(0)}
+					%
 				</div>
 			)}
-			{animatedPercentage === 100 && (
+			{(animatedPercentage === 100 || percent === 100) && (
 				<div
 					className='text-[#f97316] text-[30px] relative transform -translate-x-[-30%] -translate-y-[-220%]'
 					style={{
@@ -65,7 +72,13 @@ const CircularChart = ({ initial, after }) => {
 				</div>
 			)}
 			<CircularProgressbar
-				value={animatedPercentage === null ? 0 : animatedPercentage.toFixed(0)}
+				value={
+					percent !== undefined
+						? percent.toFixed(0)
+						: animatedPercentage === null
+						? 0
+						: animatedPercentage.toFixed(0)
+				}
 				styles={buildStyles({
 					pathColor: `rgba(234, 88, 12, 2)`,
 					trailColor: '#f1f5f9',
