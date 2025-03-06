@@ -21,6 +21,7 @@ const Projects = () => {
 	const [selectedProject, setSelectedProject] = useState(null)
 	const [sortValue, setSortValue] = useState('newest')
 	const { remove: rmSearch, ...search } = useField('text')
+	const [percent, setPercent] = useState({ initial: null, after: null })
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [projectToEdit, setProjectToEdit] = useState(null)
 	const [iconId, setIconId] = useState(1)
@@ -57,6 +58,21 @@ const Projects = () => {
 			.sort((a, b) => new Date(a.createAt) - new Date(b.created))
 			.filter((project) => project.name.includes(search.value))
 	}
+
+	const completedProjects = sortedProjects.filter(
+		(project) =>
+			project.tasks.filter((task) => task.completed === false).length === 0
+	)
+
+	const completionPercentage =
+		projects.length > 0 ? (completedProjects.length / projects.length) * 100 : 0
+
+	useEffect(() => {
+		setPercent((prev) => ({
+			initial: prev.after ?? 0,
+			after: completionPercentage ?? 0,
+		}))
+	}, [completionPercentage])
 
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[120px] max-w-[calc(100vw-120px)]  relative'>
@@ -124,7 +140,7 @@ const Projects = () => {
 
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[250px]'>
 				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
-				<CircularChart initial={30} after={30} />
+				<CircularChart percent={completionPercentage} />
 			</div>
 
 			{showAddProject && (
