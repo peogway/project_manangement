@@ -747,7 +747,9 @@ export const getIconComponent = (
 	bg_color = 'bg-white',
 	padding = ''
 ) => (
-	<div className={`${color} ${size} ${bg_color} ${padding} flex items-center`}>
+	<div
+		className={`${color} ${size} ${bg_color} ${padding} flex items-center rounded-lg`}
+	>
 		{allIconsArray[iconId - 1].icon}
 	</div>
 )
