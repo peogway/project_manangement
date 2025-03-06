@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 const CircularChart = ({ initial, after, percent }) => {
 	const [animatedPercentage, setAnimatedPercentage] = useState(
-		percent !== undefined && !isNaN(percent) ? percent : initial ?? 0
+		percent !== undefined && !isNaN(percent) ? percent : initial
 	)
 
 	useEffect(() => {
@@ -28,9 +28,7 @@ const CircularChart = ({ initial, after, percent }) => {
 				setTimeout(animate, stepTime)
 			}
 		}
-		if (!percent) {
-			animate()
-		}
+		animate()
 	}, [after])
 
 	return (
@@ -52,12 +50,16 @@ const CircularChart = ({ initial, after, percent }) => {
 				<div
 					className='text-[#f97316] text-[30px] relative transform -translate-x-[-35%] -translate-y-[-220%]'
 					style={{
-						content: `'${animatedPercentage.toFixed(0)}%'`,
+						content: `'${
+							percent !== undefined
+								? Math.floor(percent)
+								: Math.floor(animatedPercentage)
+						}%'`,
 					}}
 				>
 					{percent !== undefined
-						? percent.toFixed(0)
-						: animatedPercentage.toFixed(0)}
+						? Math.floor(percent)
+						: Math.floor(animatedPercentage)}
 					%
 				</div>
 			)}
@@ -74,10 +76,10 @@ const CircularChart = ({ initial, after, percent }) => {
 			<CircularProgressbar
 				value={
 					percent !== undefined
-						? percent.toFixed(0)
+						? Math.floor(percent)
 						: animatedPercentage === null
 						? 0
-						: animatedPercentage.toFixed(0)
+						: Math.floor(animatedPercentage)
 				}
 				styles={buildStyles({
 					pathColor: `rgba(234, 88, 12, 2)`,
