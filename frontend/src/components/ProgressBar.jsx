@@ -1,16 +1,10 @@
-import { useState } from 'react'
-
-const ProgressBar = ({ progress, color, showPercent }) => {
+const ProgressBar = ({ progress }) => {
 	return (
-		<div className='w-[200px] max-w-md '>
-			<div className='w-full bg-gray-200 rounded-full h-1'>
-				<div
-					className={`${color} h-1 rounded-full transition-all`}
-					style={{ width: `${progress * 100}%` }}
-				>
-					{showPercent && `${(progress * 100).toFixed(0)}%`}
-				</div>
-			</div>
+		<div className='w-full bg-gray-200 rounded-full h-2'>
+			<div
+				className='bg-orange-600 h-2 rounded-full transition-all'
+				style={{ width: `${progress}%` }}
+			></div>
 		</div>
 	)
 }
