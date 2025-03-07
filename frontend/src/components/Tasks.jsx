@@ -139,9 +139,13 @@ const Tasks = () => {
 								progress={
 									tasksToShow.length === 0
 										? 1
-										: completedTasks.length / tasksToShow.length
+										: Math.floor(
+												(completedTasks.length / tasksToShow.length) * 100
+										  )
 								}
 								color='bg-orange-500'
+								height='h-1'
+								className='w-[200px] max-w-md'
 							/>
 							{tasksToShow.length === 0
 								? 100
