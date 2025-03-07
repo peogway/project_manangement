@@ -1,10 +1,16 @@
-const ProgressBar = ({ progress }) => {
+const ProgressBar = ({ progress, color, className, height }) => {
 	return (
-		<div className='w-full bg-gray-200 rounded-full h-2'>
+		<div className={className ? className : ''}>
 			<div
-				className='bg-orange-600 h-2 rounded-full transition-all'
-				style={{ width: `${progress}%` }}
-			></div>
+				className={`w-full bg-gray-200 rounded-full ${height ? height : 'h-2'}`}
+			>
+				<div
+					className={`${color ? color : 'bg-orange-600'} ${
+						height ? height : 'h-2'
+					} rounded-full transition-all`}
+					style={{ width: `${progress}%` }}
+				></div>
+			</div>
 		</div>
 	)
 }
