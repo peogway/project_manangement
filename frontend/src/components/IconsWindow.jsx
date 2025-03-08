@@ -59,11 +59,11 @@ const IconsWindow = ({ onClose, iconId, setIconId, show }) => {
 							width: '100%',
 							height: '100%',
 							backgroundColor: 'rgba(104, 102, 102, 0.5)',
-							zIndex: 999,
+							zIndex: 1001,
 							pointerEvents: 'auto',
 						}}
 					></div>
-					<div className='z-1000 absolute top-[5%]' ref={formRef}>
+					<div className='z-1002 absolute top-[5%]' ref={formRef}>
 						<div
 							className={`fixed absolute p-3 h-[530px] w-[50%] max-sm:w-[90%]  bg-white shadow-md 
       left-1/2  rounded-lg -translate-x-1/2 `}
