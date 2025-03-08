@@ -114,7 +114,7 @@ const EditProjectForm = ({
 						<h1 className='font-bold text-xl'>Edit Project</h1>
 					</div>
 					<div onClick={onClose} className='text-gray-500 mr-2'>
-						<CloseIcon />
+						<CloseIcon fontSize='large' />
 					</div>
 				</div>
 
@@ -137,12 +137,13 @@ const EditProjectForm = ({
 						Categories
 					</label>
 
-					<div className=''>
+					<div className='w-[10%]'>
 						<DropDown
 							options={categoryNames}
 							onSelect={handleSelectCategory}
 							description='Choose categories'
 							value={true}
+							width='[300px]'
 						/>
 					</div>
 				</div>
@@ -151,25 +152,23 @@ const EditProjectForm = ({
 					{resCates.map((cate) => (
 						<div
 							key={cate.id}
-							className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between'
+							className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
 						>
-							<label>
-								{cate.name}{' '}
-								<button
-									onClick={() => {
-										setResCates(
-											resCates.filter((category) => category.id !== cate.id)
-										)
-										setCategoryNames(
-											categoryNames
-												.concat(cate.name)
-												.sort((a, b) => a.localeCompare(b))
-										)
-									}}
-								>
-									x
-								</button>
-							</label>
+							<label className='flex flex-row gap-5'>{cate.name}</label>
+							<div
+								onClick={() => {
+									setResCates(
+										resCates.filter((category) => category.id !== cate.id)
+									)
+									setCategoryNames(
+										categoryNames
+											.concat(cate.name)
+											.sort((a, b) => a.localeCompare(b))
+									)
+								}}
+							>
+								<CloseIcon fontSize='small' />
+							</div>
 						</div>
 					))}
 				</div>
