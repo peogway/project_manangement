@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import {
 	setAllCategories,
-	deleteCategory,
-	updateCategory,
 	createNewCategory,
 } from '../reducers/categoryReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -126,29 +124,24 @@ const Categories = () => {
 	}, [search.value])
 
 	const initialCategories = useSelector((state) => state.categories)
-	let categories
+
+	let categories = [...initialCategories].filter((category) =>
+		category.name.includes(search.value)
+	)
 	if (sortValue === 'A-Z') {
-		categories = [...initialCategories]
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.filter((category) => category.name.includes(search.value))
+		categories = [...categories].sort((a, b) => a.name.localeCompare(b.name))
 	} else if (sortValue === 'Z-A') {
-		categories = [...initialCategories].sort((a, b) =>
-			b.name
-				.localeCompare(a.name)
-				.filter((category) => category.name.includes(search.value))
-		)
+		categories = [...categories].sort((a, b) => b.name.localeCompare(a.name))
 	} else if (sortValue === 'newest') {
-		categories = [...initialCategories]
-			.reverse()
-			.filter((category) => category.name.includes(search.value))
+		categories = [...categories].reverse()
 	} else {
-		categories = [...initialCategories].filter((category) =>
+		categories = [...categories].filter((category) =>
 			category.name.includes(search.value)
 		)
 	}
 
 	return (
-		<div className='flex flex-col items-center flex-1 h-screen '>
+		<div className='flex flex-col items-center flex-1 h-screen'>
 			<div className=' z-500 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
