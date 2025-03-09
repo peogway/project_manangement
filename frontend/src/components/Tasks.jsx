@@ -23,7 +23,7 @@ const Tasks = () => {
 		location.state?.project ? location.state?.project : null
 	)
 
-	const [taskStatus, setTaskStatus] = useState(false)
+	const [taskStatus, setTaskStatus] = useState(null)
 	const [sortValue, setSortValue] = useState('A-Z')
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
@@ -38,7 +38,7 @@ const Tasks = () => {
 		dispatch(setAllTasks())
 		dispatch(setAllProject())
 	}, [])
-	useEffect(() => setTaskStatus(false), [selectedProject])
+	useEffect(() => setTaskStatus(null), [selectedProject])
 	useEffect(() => {
 		setRender(render + 1)
 	}, [search.value, selectedProject])
@@ -80,9 +80,12 @@ const Tasks = () => {
 		(task) => task.completed === false
 	)
 
-	const showTasks = taskStatus
-		? completedTasks.filter((task) => task.name.includes(search.value))
-		: uncompletedTasks.filter((task) => task.name.includes(search.value))
+	const showTasks =
+		taskStatus === null
+			? sortedTasks.filter((task) => task.name.includes(search.value))
+			: taskStatus === true
+			? completedTasks.filter((task) => task.name.includes(search.value))
+			: uncompletedTasks.filter((task) => task.name.includes(search.value))
 
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
@@ -214,8 +217,21 @@ const Tasks = () => {
 				<div className='ml-7 mt-10 '>
 					<div className='flex flex-row gap-5'>
 						<div
-							className={`flex ${taskStatus && 'opacity-40 '} ${
-								!taskStatus && 'text-orange-500'
+							className={`flex ${taskStatus !== null && 'opacity-40 '} ${
+								taskStatus === null && 'text-orange-500'
+							}`}
+						>
+							<button onClick={() => setTaskStatus(null)} className='font-bold'>
+								All
+							</button>
+							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+								{sortedTasks.length}
+							</div>
+						</div>
+
+						<div
+							className={`flex ${taskStatus !== false && 'opacity-40 '} ${
+								taskStatus === false && 'text-orange-500'
 							}`}
 						>
 							<button
@@ -230,8 +246,8 @@ const Tasks = () => {
 						</div>
 
 						<div
-							className={`flex ${!taskStatus && 'opacity-40 '} ${
-								taskStatus && 'text-orange-500'
+							className={`flex ${taskStatus !== true && 'opacity-40 '} ${
+								taskStatus === true && 'text-orange-500'
 							}`}
 						>
 							<button onClick={() => setTaskStatus(true)} className='font-bold'>
