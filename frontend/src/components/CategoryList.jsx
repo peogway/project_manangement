@@ -65,7 +65,7 @@ const CategoryList = ({ categories }) => {
 	return (
 		<div
 			ref={containerRef}
-			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] overflow-hidden p-1 ${
+			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px]  overflow-hidden p-1 ${
 				categories.length > 1
 					? 'hover:h-auto hover:z-999 hover:absolute hover:bg-gray-100 hover:rounded-2xl'
 					: ''
@@ -74,15 +74,15 @@ const CategoryList = ({ categories }) => {
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			{(isHovered ? categories : visibleCategories).map((category, index) => (
-				<div
-					key={category.id}
-					className={`${
-						isHovered
-							? 'bg-gray-300 h-auto'
-							: 'bg-gray-200 h-[25px] whitespace-nowrap'
-					} rounded-xl p-1 border-slate-200  flex items-center  white  justify-center text-[16px] `}
-				>
-					{category.name}
+				<div className=''>
+					<div
+						key={category.id}
+						className={`${
+							isHovered ? 'bg-gray-300 ' : 'bg-gray-200 whitespace-nowrap '
+						} rounded-xl p-1 border-slate-200  h-auto flex justify-center items-center`}
+					>
+						{category.name}
+					</div>
 				</div>
 			))}
 			{isFull && !isHovered && (
