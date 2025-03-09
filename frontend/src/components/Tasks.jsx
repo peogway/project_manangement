@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import {} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
 import TaskForm from './TaskForm'
@@ -18,7 +18,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ProjectsDropDown from './ProjectsDropdown'
 const Tasks = () => {
 	const dispatch = useDispatch()
-	const [selectedProject, setSelectedProject] = useState(null)
+	const location = useLocation()
+	const [selectedProject, setSelectedProject] = useState(
+		location.state?.project ? location.state?.project : null
+	)
+
 	const [taskStatus, setTaskStatus] = useState(false)
 	const [sortValue, setSortValue] = useState('A-Z')
 	const [showAddTask, setShowAddTask] = useState(false)
@@ -27,7 +31,6 @@ const Tasks = () => {
 	const { remove: rmSearch, ...search } = useField('text')
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 	const headerRef = useRef(null)
-
 	const [render, setRender] = useState(0)
 
 	useEffect(() => {
@@ -91,8 +94,6 @@ const Tasks = () => {
 			: allIconsArray.filter(
 					(icon) => icon.id === parseInt(selectedProject.icon)
 			  )[0]
-
-	console.log(headerRef.current?.offsetHeight)
 
 	return (
 		<div className='flex flex-col w-full h-screen z-900 flex-1 '>
