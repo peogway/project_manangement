@@ -204,7 +204,7 @@ const Projects = () => {
 							onClick={(e) => {
 								if (e.target.tagName !== 'BUTTON')
 									navigate('/tasks', {
-										state: project,
+										state: { project: project },
 									})
 							}}
 							className='mb-4'
