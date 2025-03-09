@@ -160,7 +160,7 @@ const Categories = () => {
 				>
 					+ Add New
 				</button>
-				<div className='ml-auto items-center mr-5 flex'>
+				<div className='ml-auto items-center mr-20 flex'>
 					<p className='font-bold'>Sort</p>
 					<FilterAltIcon fontSize='small' />
 					<SortDropdown
