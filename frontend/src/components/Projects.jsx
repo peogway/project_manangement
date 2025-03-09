@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllProject } from '../reducers/prjReducer'
 import { setAllCategories } from '../reducers/categoryReducer'
 import { useField } from '../hooks/hook'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import SortDropdown from './SortDropDown'
 import ProjectForm from './ProjectForm'
-import CertainProject from './CertainProject'
 import ProjectLabel from './ProjectLabel'
 import EditProjectForm from './EditProjectForm'
 import TaskForm from './TaskForm'
@@ -23,7 +22,6 @@ import DropDown from './DropDown'
 const Projects = () => {
 	const dispatch = useDispatch()
 	const [showAddProject, setShowAddProject] = useState(false)
-	const [selectedProject, setSelectedProject] = useState(null)
 	const [sortValue, setSortValue] = useState('newest')
 	const { remove: rmSearch, ...search } = useField('text')
 	const [percent, setPercent] = useState({ initial: null, after: null })
@@ -37,7 +35,7 @@ const Projects = () => {
 	const [resCates, setResCates] = useState(
 		location.state?.cates ? location.state?.cates : []
 	)
-	console.log(resCates)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		document.title = 'Projects'
@@ -204,7 +202,10 @@ const Projects = () => {
 						<div
 							key={project.id}
 							onClick={(e) => {
-								if (e.target.tagName !== 'BUTTON') setSelectedProject(project)
+								if (e.target.tagName !== 'BUTTON')
+									navigate('/tasks', {
+										state: project,
+									})
 							}}
 							className='mb-4'
 						>
@@ -251,13 +252,6 @@ const Projects = () => {
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
 					setProjectToEdit={setProjectToEdit}
-				/>
-			)}
-
-			{selectedProject && (
-				<CertainProject
-					project={selectedProject}
-					onClose={() => setSelectedProject(null)}
 				/>
 			)}
 
