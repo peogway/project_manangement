@@ -39,6 +39,7 @@ const App = () => {
 	const user = useSelector((state) => state.user) // User state from Redux
 	const [loading, setLoading] = useState(true) // Loading state for initial app load
 	const navigate = useNavigate()
+	const [isHovered, setIsHovered] = useState(null)
 
 	useEffect(() => {
 		// Check for logged-in user in localStorage on initial load
@@ -79,8 +80,13 @@ const App = () => {
 
 			{/* Sidebar and Navigation Links */}
 			{user && (
-				<nav className='navbar w-[120px] fixed max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[1000] transition-all rounded-xl'>
-					<div className='  flex items-center gap-2 justify-center'>
+				<nav className='navbar w-[60px] absolute max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[1000] transition-all rounded-xl'>
+					<div
+						className='  flex items-center gap-2 justify-center'
+						onClick={() => {
+							navigate('/')
+						}}
+					>
 						<TaskAltIcon
 							className='text-orange-500 font-bold'
 							sx={{ fontSize: '41px' }}
@@ -93,10 +99,22 @@ const App = () => {
 							location.pathname === '/dashboard'
 								? 'text-orange-500'
 								: 'text-slate-500'
-						}`}
+						} relative`}
+						onMouseEnter={() => setIsHovered('Dashboard')}
+						onMouseLeave={() => setIsHovered(null)}
 					>
 						<DashboardIcon />
-						Dashboard
+						{isHovered === 'Dashboard' && (
+							<span
+								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+									location.pathname === '/dashboard'
+										? 'bg-orange-500 text-white'
+										: 'bg-slate-200 text-slate-600'
+								}`}
+							>
+								{isHovered}
+							</span>
+						)}
 					</Link>
 					<Link
 						style={{ padding: 5 }}
@@ -105,10 +123,22 @@ const App = () => {
 							location.pathname === '/projects'
 								? 'text-orange-500'
 								: 'text-slate-500'
-						}`}
+						} relative`}
+						onMouseEnter={() => setIsHovered('Projects')}
+						onMouseLeave={() => setIsHovered(null)}
 					>
 						<StorageIcon />
-						Projects
+						{isHovered === 'Projects' && (
+							<span
+								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+									location.pathname === '/projects'
+										? 'bg-orange-500 text-white'
+										: 'bg-slate-200 text-slate-600'
+								} `}
+							>
+								{isHovered}
+							</span>
+						)}
 					</Link>
 					<Link
 						style={{ padding: 5 }}
@@ -117,10 +147,22 @@ const App = () => {
 							location.pathname === '/tasks'
 								? 'text-orange-500'
 								: 'text-slate-500'
-						}`}
+						} relative`}
+						onMouseEnter={() => setIsHovered('Tasks')}
+						onMouseLeave={() => setIsHovered(null)}
 					>
 						<LayersIcon />
-						Tasks
+						{isHovered === 'Tasks' && (
+							<span
+								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+									location.pathname === '/tasks'
+										? 'bg-orange-500 text-white'
+										: 'bg-slate-200 text-slate-600'
+								} `}
+							>
+								{isHovered}
+							</span>
+						)}
 					</Link>
 					<Link
 						style={{ padding: 5 }}
@@ -129,15 +171,39 @@ const App = () => {
 							location.pathname === '/categories'
 								? 'text-orange-500'
 								: 'text-slate-500'
-						}`}
+						} relative`}
+						onMouseEnter={() => setIsHovered('Categories')}
+						onMouseLeave={() => setIsHovered(null)}
 					>
 						<CategoryIcon />
-						Categories
+						{isHovered === 'Categories' && (
+							<span
+								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+									location.pathname === '/categories'
+										? 'bg-orange-500 text-white'
+										: 'bg-slate-200 text-slate-600'
+								} `}
+							>
+								{isHovered}
+							</span>
+						)}
 					</Link>
 
 					{/* Logout button */}
-					<div onClick={handleLogout}>
-						<LogoutIcon></LogoutIcon>
+					<div
+						onClick={handleLogout}
+						onMouseEnter={() => setIsHovered('Sign Out')}
+						onMouseLeave={() => setIsHovered(null)}
+						className='relative hover:text-orange-500'
+					>
+						<LogoutIcon />
+						{isHovered === 'Sign Out' && (
+							<span
+								className={`ml-1 absolute  rounded-xl p-2 top-[-5px] bg-orange-500 text-white whitespace-nowrap `}
+							>
+								{isHovered}
+							</span>
+						)}
 					</div>
 				</nav>
 			)}
