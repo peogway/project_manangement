@@ -57,7 +57,11 @@ const ProjectLabel = ({
 			setShowFeatures((prev) => !prev) // Only toggle if mouseup didn’t happen right after mousedown
 		}
 	}
-
+	const priorityMap = {
+		high: 'bg-red-500',
+		medium: 'bg-yellow-500',
+		low: 'bg-green-500',
+	}
 	const projectFeatures = () => {
 		const handleDelete = (e) => {
 			e.stopPropagation()
@@ -160,7 +164,7 @@ const ProjectLabel = ({
 						</p>
 					</div>
 				) : (
-					<ul className='list-disc list-inside '>
+					<ul className='list-none  '>
 						{project.tasks.map(
 							(task, index) =>
 								index < 3 && (
@@ -169,7 +173,12 @@ const ProjectLabel = ({
 										className={` whitespace-nowrap text-gray-500 overflow-hidden w-[200px] hover:overflow-visible 
 												hover:w-auto rounded-sm hover:z-999 relative hover:bg-gray-100  hover:pr-10 pl-1 pr-1 pt-0.5 pb-0.5  rounded-xl `}
 									>
-										<label>{task.name}</label>
+										<span
+											className={`absolute left-0 top-1/2 transform  translate-y-[-1px] w-1.5 h-1.5 rounded-full ${
+												priorityMap[task.priority]
+											}`}
+										></span>
+										<label className='ml-2'>{task.name}</label>
 									</li>
 								)
 						)}
