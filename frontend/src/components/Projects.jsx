@@ -10,6 +10,7 @@ import ProjectForm from './ProjectForm'
 import CertainProject from './CertainProject'
 import ProjectLabel from './ProjectLabel'
 import EditProjectForm from './EditProjectForm'
+import TaskForm from './TaskForm'
 
 import IconsWindow from './IconsWindow'
 import SearchIcon from '@mui/icons-material/Search'
@@ -26,6 +27,7 @@ const Projects = () => {
 	const [projectToEdit, setProjectToEdit] = useState(null)
 	const [iconId, setIconId] = useState(1)
 	const [render, setRender] = useState(0)
+	const [projectToAddTask, setProjectToAddTask] = useState(null)
 
 	useEffect(() => {
 		document.title = 'Projects'
@@ -73,6 +75,14 @@ const Projects = () => {
 			after: completionPercentage ?? 0,
 		}))
 	}, [completionPercentage])
+
+	const setReFetch = () => {
+		// window.location.reload()
+
+		setTimeout(() => {
+			dispatch(setAllProject())
+		}, 100)
+	}
 
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[120px] max-w-[calc(100vw-120px)]  relative'>
@@ -128,6 +138,7 @@ const Projects = () => {
 								project={project}
 								setIconId={setIconId}
 								setProjectToEdit={setProjectToEdit}
+								setProjectToAddTask={setProjectToAddTask}
 							/>
 						</div>
 					))}
@@ -180,6 +191,18 @@ const Projects = () => {
 				setIconId={setIconId}
 				show={showIconsMenu}
 			/>
+
+			{projectToAddTask && (
+				<TaskForm
+					onClose={() => setProjectToAddTask(null)}
+					projects={projects}
+					selectedProject={projectToAddTask}
+					setIconId={setIconId}
+					iconId={iconId}
+					setShowIconsMenu={setShowIconsMenu}
+					setReFetch={setReFetch}
+				/>
+			)}
 		</div>
 	)
 }
