@@ -15,6 +15,9 @@ import TaskForm from './TaskForm'
 import IconsWindow from './IconsWindow'
 import SearchIcon from '@mui/icons-material/Search'
 import CircularChart from './CircularChart'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
+import CloseIcon from '@mui/icons-material/Close'
+import DropDown from './DropDown'
 
 const Projects = () => {
 	const dispatch = useDispatch()
@@ -28,6 +31,8 @@ const Projects = () => {
 	const [iconId, setIconId] = useState(1)
 	const [render, setRender] = useState(0)
 	const [projectToAddTask, setProjectToAddTask] = useState(null)
+	const [categoryNames, setCategoryNames] = useState([])
+	const [resCates, setResCates] = useState([])
 
 	useEffect(() => {
 		document.title = 'Projects'
@@ -42,23 +47,38 @@ const Projects = () => {
 	const projects = useSelector((state) => state.projects)
 	const categories = useSelector((state) => state.categories)
 
-	let sortedProjects
+	useEffect(() => {
+		setCategoryNames(
+			() =>
+				categories
+					?.map((category) => category.name)
+					.sort((a, b) => a.localeCompare(b)) || []
+		)
+	}, [categories])
+
+	let sortedProjects = [...projects]
+		.filter((project) =>
+			resCates.every((cate) =>
+				project.categories.some((category) => category.name === cate.name)
+			)
+		)
+		.filter((project) => project.name.includes(search.value))
 	if (sortValue === 'A-Z') {
-		sortedProjects = [...projects]
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.filter((project) => project.name.includes(search.value))
+		sortedProjects = [...sortedProjects].sort((a, b) =>
+			a.name.localeCompare(b.name)
+		)
 	} else if (sortValue === 'Z-A') {
-		sortedProjects = [...projects]
-			.sort((a, b) => b.name.localeCompare(a.name))
-			.filter((project) => project.name.includes(search.value))
+		sortedProjects = [...sortedProjects].sort((a, b) =>
+			b.name.localeCompare(a.name)
+		)
 	} else if (sortValue === 'newest') {
-		sortedProjects = [...projects]
-			.sort((a, b) => new Date(b.createAt) - new Date(a.createAt))
-			.filter((project) => project.name.includes(search.value))
+		sortedProjects = [...sortedProjects].sort(
+			(a, b) => new Date(b.createAt) - new Date(a.createAt)
+		)
 	} else {
-		sortedProjects = [...projects]
-			.sort((a, b) => new Date(a.createAt) - new Date(b.created))
-			.filter((project) => project.name.includes(search.value))
+		sortedProjects = [...sortedProjects].sort(
+			(a, b) => new Date(a.createAt) - new Date(b.created)
+		)
 	}
 
 	const completedProjects = sortedProjects.filter(
@@ -82,6 +102,14 @@ const Projects = () => {
 		setTimeout(() => {
 			dispatch(setAllProject())
 		}, 100)
+	}
+
+	const handleSelectCategory = (name) => {
+		const foundCate = categories.filter((cate) => cate.name === name)[0]
+		if (!resCates.includes(foundCate)) {
+			setCategoryNames(categoryNames.filter((cateName) => cateName !== name))
+			setResCates(resCates.concat(foundCate))
+		}
 	}
 
 	return (
@@ -113,19 +141,59 @@ const Projects = () => {
 							{sortedProjects.length} Projects
 						</p>
 					</div>
-
-					<div className='ml-auto items-center mr-5 flex'>
-						<p className='font-bold text-gray-400'>Sort</p>
-						<div className='text-gray-400'>
-							<FilterAltIcon fontSize='small' />
+					<div className='flex flex-col mr-20 h-auto'>
+						<div className='ml-auto items-center mr-5 flex'>
+							<p className='font-bold text-gray-400'>Sort</p>
+							<div className='text-gray-400'>
+								<FilterAltIcon fontSize='small' />
+							</div>
+							<SortDropdown
+								initlaValue='newest'
+								sortByDate={true}
+								setSortValue={setSortValue}
+							/>
 						</div>
-						<SortDropdown
-							initlaValue='newest'
-							sortByDate={true}
-							setSortValue={setSortValue}
-						/>
+
+						<div className='ml-auto items-center mr-5 flex pt-2'>
+							<p className='font-bold text-gray-400'>Filter by categories</p>
+							<div className='text-gray-400 pr-3'>
+								<FilterAltOffIcon fontSize='small' />
+							</div>
+							<DropDown
+								options={categoryNames}
+								onSelect={handleSelectCategory}
+								description='Choose categories'
+								value={true}
+								width='[300px]'
+							/>
+						</div>
+						<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
+							{resCates.map((cate) => (
+								<div
+									key={cate.id}
+									className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
+								>
+									<label className='flex flex-row gap-5'>{cate.name}</label>
+									<div
+										onClick={() => {
+											setResCates(
+												resCates.filter((category) => category.id !== cate.id)
+											)
+											setCategoryNames(
+												categoryNames
+													.concat(cate.name)
+													.sort((a, b) => a.localeCompare(b))
+											)
+										}}
+									>
+										<CloseIcon fontSize='small' />
+									</div>
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
+
 				<div className='flex gap-4 pl-10  flex-wrap pb-10'>
 					{sortedProjects.map((project) => (
 						<div
@@ -165,6 +233,7 @@ const Projects = () => {
 					}
 				/>
 			)}
+
 			{projectToEdit && (
 				<EditProjectForm
 					project={projectToEdit}
@@ -179,6 +248,7 @@ const Projects = () => {
 					setProjectToEdit={setProjectToEdit}
 				/>
 			)}
+
 			{selectedProject && (
 				<CertainProject
 					project={selectedProject}
