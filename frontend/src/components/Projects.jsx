@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllProject } from '../reducers/prjReducer'
 import { setAllCategories } from '../reducers/categoryReducer'
 import { useField } from '../hooks/hook'
+import { useLocation } from 'react-router-dom'
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import SortDropdown from './SortDropDown'
@@ -32,7 +33,11 @@ const Projects = () => {
 	const [render, setRender] = useState(0)
 	const [projectToAddTask, setProjectToAddTask] = useState(null)
 	const [categoryNames, setCategoryNames] = useState([])
-	const [resCates, setResCates] = useState([])
+	const location = useLocation()
+	const [resCates, setResCates] = useState(
+		location.state?.cates ? location.state?.cates : []
+	)
+	console.log(resCates)
 
 	useEffect(() => {
 		document.title = 'Projects'
