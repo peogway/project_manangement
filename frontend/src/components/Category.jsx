@@ -17,6 +17,7 @@ const Category = (props) => {
 			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
 		) {
 			dispatch(deleteCategory(props.id))
+			props.reFetch()
 		}
 	}
 
@@ -40,7 +41,16 @@ const Category = (props) => {
 			<div className='category-container flex justify-between items-center'>
 				<div className='Category-name-project ml-4 p-3'>
 					<h2 className='category-name font-bold text-xl'>{props.name}</h2>
-					<p className='category-project text-gray-400 ml-1'>
+					<p
+						className='category-project text-gray-400 ml-1 hover:underline cursor-pointer'
+						onClick={() =>
+							props.setDisplayProjects(
+								props.allProjects.filter((project) =>
+									project.categories.some((cate) => props.name === cate.name)
+								)
+							)
+						}
+					>
 						{props.projects.length} Projects
 					</p>
 				</div>
@@ -77,7 +87,11 @@ const Category = (props) => {
 				</div>
 			</div>
 			{showEditForm && (
-				<EditCategoryForm onClose={() => setShowEditForm(false)} {...props} />
+				<EditCategoryForm
+					onClose={() => setShowEditForm(false)}
+					{...props}
+					reFetch={props.reFetch}
+				/>
 			)}
 		</div>
 	)
