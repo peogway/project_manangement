@@ -77,8 +77,10 @@ const CategoryList = ({ categories }) => {
 				<div
 					key={category.id}
 					className={`${
-						isHovered ? 'bg-gray-300' : 'bg-gray-200'
-					} rounded-xl p-1 border-slate-200  flex items-center justify-center text-[16px] inline-block [box-decoration-break:clone] [background-clip:padding-box] `}
+						isHovered
+							? 'bg-gray-300 h-auto'
+							: 'bg-gray-200 h-[25px] whitespace-nowrap'
+					} rounded-xl p-1 border-slate-200  flex items-center  white  justify-center text-[16px] `}
 				>
 					{category.name}
 				</div>
