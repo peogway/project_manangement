@@ -80,7 +80,7 @@ const App = () => {
 
 			{/* Sidebar and Navigation Links */}
 			{user && (
-				<nav className='navbar w-[60px] absolute max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[1000] transition-all rounded-xl'>
+				<nav className='navbar w-[60px] fixed max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[1000] transition-all rounded-xl text-select-none'>
 					<div
 						className='  flex items-center gap-2 justify-center'
 						onClick={() => {
@@ -106,7 +106,7 @@ const App = () => {
 						<DashboardIcon />
 						{isHovered === 'Dashboard' && (
 							<span
-								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+								className={`ml-1 absolute  rounded-xl p-2 top-0 text-select-none ${
 									location.pathname === '/dashboard'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
@@ -130,7 +130,7 @@ const App = () => {
 						<StorageIcon />
 						{isHovered === 'Projects' && (
 							<span
-								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+								className={`ml-1 absolute  rounded-xl p-2 top-0 text-select-none ${
 									location.pathname === '/projects'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
@@ -154,7 +154,7 @@ const App = () => {
 						<LayersIcon />
 						{isHovered === 'Tasks' && (
 							<span
-								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+								className={`ml-1 absolute  rounded-xl p-2 top-0 text-select-none ${
 									location.pathname === '/tasks'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
@@ -178,7 +178,7 @@ const App = () => {
 						<CategoryIcon />
 						{isHovered === 'Categories' && (
 							<span
-								className={`ml-1 absolute  rounded-xl p-2 top-0  ${
+								className={`ml-1 absolute  rounded-xl p-2 top-0 text-select-none ${
 									location.pathname === '/categories'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
@@ -199,7 +199,7 @@ const App = () => {
 						<LogoutIcon />
 						{isHovered === 'Sign Out' && (
 							<span
-								className={`ml-1 absolute  rounded-xl p-2 top-[-5px] bg-orange-500 text-white whitespace-nowrap `}
+								className={`ml-1 absolute  rounded-xl p-2 top-[-5px] bg-orange-500 text-white whitespace-nowrap text-select-none `}
 							>
 								{isHovered}
 							</span>
