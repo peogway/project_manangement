@@ -12,6 +12,7 @@ const Task = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const [isChecked, setIsChecked] = useState(props.completed ? true : false)
 	const [showEditForm, setShowEditForm] = useState(false)
+	const [isHovered, setIsHovered] = useState(false)
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked)
 		const { id } = props
@@ -51,15 +52,29 @@ const Task = ({ ...props }) => {
 					/>
 				</div>
 				<div className='flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box'>
-					<div className='flex flex-row items-center w-[20%]'>
-						<div className='ml-3 mr-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
+					<div className='flex flex-row items-center '>
+						<div className='m-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
 							{icon}
 						</div>
-						<div className='flex flex-col'>
-							<h2 className='font-bold text-lg overflow-hidden w-[300px] hover:w-auto hover:overflow-visible whitespace-nonwrap '>
+						<div className='flex flex-col relative self-start mt-1 bg-black'>
+							<h2
+								className={` p-[1px] pr-2 pl-3 font-bold text-lg overflow-hidden w-[300px] z-30 ${
+									isHovered ? 'bg-slate-100  w-auto' : ''
+								} top-[-1px] left-[-10px] absolute whitespace-nowrap rounded-xl`}
+								onMouseEnter={() => setIsHovered(true)}
+								onMouseLeave={() => setIsHovered(false)}
+							>
 								{props.name}
 							</h2>
-							<p className='text-gray-400 ml-1'>{props.project.name}</p>
+							<p
+								className={`p-[1px] pr-2 pl-2 text-gray-400 ml-1 absolute top-[23px]  left-0 w-[250px] z-20 ${
+									isHovered ? 'bg-slate-100 text-black  w-auto' : ''
+								} whitespace-nowrap overflow-hidden rounded-xl`}
+								onMouseEnter={() => setIsHovered(true)}
+								onMouseLeave={() => setIsHovered(false)}
+							>
+								{props.project.name}
+							</p>
 						</div>
 					</div>
 
