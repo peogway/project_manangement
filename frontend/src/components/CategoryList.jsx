@@ -74,9 +74,8 @@ const CategoryList = ({ categories }) => {
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			{(isHovered ? categories : visibleCategories).map((category, index) => (
-				<div className=''>
+				<div key={category.id}>
 					<div
-						key={category.id}
 						className={`${
 							isHovered ? 'bg-gray-300 ' : 'bg-gray-200 whitespace-nowrap '
 						} rounded-xl p-1 border-slate-200  h-auto flex justify-center items-center`}
