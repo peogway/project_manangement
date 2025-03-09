@@ -5,13 +5,14 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import EditCategoryForm from './EditCategoryForm'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Category = (props) => {
 	const featureRef = useRef(null)
 	const [showFeature, setShowFeature] = useState(false)
 	const dispatch = useDispatch()
 	const [showEditForm, setShowEditForm] = useState(false)
-
+	const navigate = useNavigate()
 	const handleDelete = () => {
 		if (
 			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
@@ -43,13 +44,15 @@ const Category = (props) => {
 					<h2 className='category-name font-bold text-xl'>{props.name}</h2>
 					<p
 						className='category-project text-gray-400 ml-1 hover:underline cursor-pointer'
-						onClick={() =>
-							props.setDisplayProjects(
-								props.allProjects.filter((project) =>
-									project.categories.some((cate) => props.name === cate.name)
-								)
-							)
-						}
+						onClick={() => {
+							navigate('/projects', {
+								state: {
+									cates: props.categories.filter(
+										(cate) => cate.name === props.name
+									),
+								},
+							})
+						}}
 					>
 						{props.projects.length} Projects
 					</p>
@@ -87,11 +90,7 @@ const Category = (props) => {
 				</div>
 			</div>
 			{showEditForm && (
-				<EditCategoryForm
-					onClose={() => setShowEditForm(false)}
-					{...props}
-					reFetch={props.reFetch}
-				/>
+				<EditCategoryForm onClose={() => setShowEditForm(false)} {...props} />
 			)}
 		</div>
 	)
