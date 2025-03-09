@@ -18,6 +18,7 @@ import CircularChart from './CircularChart'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import CloseIcon from '@mui/icons-material/Close'
 import DropDown from './DropDown'
+import { getIconComponent } from './AllIcons'
 
 const Projects = () => {
 	const dispatch = useDispatch()
@@ -84,10 +85,12 @@ const Projects = () => {
 		)
 	}
 
-	const completedProjects = sortedProjects.filter(
-		(project) =>
-			project.tasks.filter((task) => task.completed === false).length === 0
-	)
+	const completedProjects = projects
+		.filter(
+			(project) =>
+				project.tasks.filter((task) => task.completed === false).length === 0
+		)
+		.reverse()
 
 	const completionPercentage =
 		projects.length > 0 ? (completedProjects.length / projects.length) * 100 : 0
@@ -223,6 +226,44 @@ const Projects = () => {
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[210px] '>
 				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
 				<CircularChart percent={completionPercentage} />
+				<div className='font-bold mt-15'>
+					{completedProjects.length} Completed
+				</div>
+				<div className='text-slate-500 mt-1 text-sm'>
+					{projects.reduce(
+						(total, project) =>
+							total + project.tasks.filter((task) => task.completed).length,
+						0
+					)}{' '}
+					Tasks Done
+				</div>
+				<div className='mt-1 overflow-auto flex flex-col gap-1 w-full ml-10 '>
+					{completedProjects.map((project) => (
+						<div
+							className='flex whitespace-nowrap cursor-pointer'
+							key={project.id}
+							onClick={() =>
+								navigate('/tasks', { state: { project: project } })
+							}
+						>
+							<div className='flex justify-center items-center mr-2'>
+								{getIconComponent(
+									project.icon,
+									'text-white',
+									'text-[15px]',
+									'bg-orange-500',
+									'p-1'
+								)}
+							</div>
+							<div className='flex-flex-col overflow-hidden'>
+								<div className='font-bold'>{project.name}</div>
+								<div className='text-slate-300 ml-2 '>
+									{project.tasks.length} tasks
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 
 			{showAddProject && (
