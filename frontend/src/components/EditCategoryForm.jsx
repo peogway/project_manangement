@@ -5,7 +5,7 @@ import { useField } from '../hooks/hook'
 import CloseIcon from '@mui/icons-material/Close'
 import { updateCategory } from '../reducers/categoryReducer'
 
-const EditCategoryForm = ({ onClose, name, categories, id, reFetch }) => {
+const EditCategoryForm = ({ onClose, name, categories, id }) => {
 	const formRef = useRef(null)
 	const { remove: rmTask, ...categoryName } = useField('text', name)
 	const overlayRef = useRef(null)
@@ -36,7 +36,6 @@ const EditCategoryForm = ({ onClose, name, categories, id, reFetch }) => {
 
 		try {
 			dispatch(updateCategory(category))
-			reFetch()
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))
