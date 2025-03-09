@@ -65,7 +65,7 @@ const CategoryList = ({ categories }) => {
 	return (
 		<div
 			ref={containerRef}
-			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] overflow-hidden top-0${
+			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] overflow-hidden pl-1 ${
 				isHovered ? 'h-auto z-999 absolute bg-gray-100 rounded-2xl ' : ''
 			} `}
 			onMouseEnter={() => setIsHovered(true)}
