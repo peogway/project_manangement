@@ -125,7 +125,7 @@ const ProjectLabel = ({
 				</div>
 
 				<div className='flex flex-col gap-1 absolute left-[65px] top-[5px]'>
-					<h1 className='p-2 font-bold text-xl whitespace-nowrap overflow-hidden hover:w-auto hover:overflow-visible w-[180px] hover:bg-white hover:rounded-xl hover:z-1000 hover:'>
+					<h1 className='p-2 font-bold text-xl whitespace-nowrap overflow-hidden hover:w-auto hover:overflow-visible w-[180px] hover:bg-white hover:rounded-xl hover:z-900 hover:'>
 						{project.name}
 					</h1>
 					<div className=''>
