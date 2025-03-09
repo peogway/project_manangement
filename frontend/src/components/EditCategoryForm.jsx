@@ -84,7 +84,7 @@ const EditCategoryForm = ({ onClose, name, categories, id }) => {
 					<br />
 					<input
 						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 mb-10 pl-3'
+						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 mb-10 pl-3 pr-3'
 					/>
 				</div>
 

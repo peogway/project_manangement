@@ -56,7 +56,9 @@ const Task = ({ ...props }) => {
 							{icon}
 						</div>
 						<div className='flex flex-col'>
-							<h2 className='font-bold text-lg'>{props.name}</h2>
+							<h2 className='font-bold text-lg overflow-hidden w-[300px] hover:w-auto hover:overflow-visible whitespace-nonwrap '>
+								{props.name}
+							</h2>
 							<p className='text-gray-400 ml-1'>{props.project.name}</p>
 						</div>
 					</div>

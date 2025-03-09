@@ -120,7 +120,7 @@ const ProjectForm = ({
 						<input
 							{...prjName}
 							placeholder='Enter a name for the Project'
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3'
+							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3 pr-3'
 						/>
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
