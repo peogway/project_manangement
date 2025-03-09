@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
@@ -15,10 +15,8 @@ import { allIconsArray } from './AllIcons'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
-import Dropdown from './DropDown'
 import ProjectsDropDown from './ProjectsDropdown'
 const Tasks = () => {
-	// const location = useLocation()
 	const dispatch = useDispatch()
 	const [selectedProject, setSelectedProject] = useState(null)
 	const [taskStatus, setTaskStatus] = useState(false)
@@ -28,6 +26,7 @@ const Tasks = () => {
 	const [iconId, setIconId] = useState(1)
 	const { remove: rmSearch, ...search } = useField('text')
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
+	const headerRef = useRef(null)
 
 	const [render, setRender] = useState(0)
 
@@ -39,15 +38,11 @@ const Tasks = () => {
 	useEffect(() => setTaskStatus(false), [selectedProject])
 	useEffect(() => {
 		setRender(render + 1)
-	}, [search.value])
+	}, [search.value, selectedProject])
 
 	const tasks = useSelector((state) => state.tasks)
 
 	const projects = useSelector((state) => state.projects)
-
-	// const dropdownProjects = ['All Projects'].concat(
-	// 	projects.map((prj) => prj.name)
-	// )
 
 	const tasksToShow =
 		selectedProject === null
@@ -76,7 +71,6 @@ const Tasks = () => {
 			(a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
 		)
 	}
-	// console.log(sortedTasks)
 
 	const completedTasks = sortedTasks.filter((task) => task.completed === true)
 	const uncompletedTasks = sortedTasks.filter(
@@ -86,12 +80,6 @@ const Tasks = () => {
 	const showTasks = taskStatus
 		? completedTasks.filter((task) => task.name.includes(search.value))
 		: uncompletedTasks.filter((task) => task.name.includes(search.value))
-
-	// console.log(completedTasks)
-	// console.log(uncompletedTasks)
-	// console.log(showTasks)
-
-	// const { prj } = location.state || {}
 
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
@@ -104,16 +92,21 @@ const Tasks = () => {
 					(icon) => icon.id === parseInt(selectedProject.icon)
 			  )[0]
 
+	console.log(headerRef.current?.offsetHeight)
+
 	return (
 		<div className='flex flex-col w-full h-screen z-900 flex-1 '>
-			<div className='flex flex-row justify-between items-center z-990 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[90px] right-0'>
+			<div
+				className='flex flex-row justify-between items-center z-990 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[90px] right-0'
+				ref={headerRef}
+			>
 				<div className='flex flex-row items-center justify-center'>
 					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						{icon.icon}
 					</div>
-					<div className='flex flex-col items-start'>
+					<div className='flex flex-col items-start relative'>
 						<div
-							className='font-bold text-xl user-select-none cursor-pointer'
+							className='font-bold text-xl user-select-none cursor-pointer flex flex-row justify-between relative  '
 							onMouseDown={(e) => {
 								if (e.target === e.currentTarget) {
 									// Only prevent default if clicking on the div itself, not text
@@ -123,18 +116,26 @@ const Tasks = () => {
 								setOpenProjectsDropDown(!openProjectsDropDown)
 							}}
 						>
-							{selectedProject === null ? 'All Projects' : selectedProject.name}
-							<KeyboardArrowDownIcon />
+							<div className='w-[200px] p-2 whitespace-nowrap overflow-hidden hover:overflow-visible hover:bg-white rounded-xl absolute hover:w-auto top-[-10px]  left-[-7px]'>
+								{selectedProject === null
+									? 'All Projects'
+									: selectedProject.name}
+							</div>
+							<div className='absolute left-50 top-[-3px]'>
+								<KeyboardArrowDownIcon />
+							</div>
 						</div>
-						<ProjectsDropDown
-							openProjectsDropDown={openProjectsDropDown}
-							setOpenProjectsDropDown={setOpenProjectsDropDown}
-							setChosenProject={setSelectedProject}
-							chosenProject={selectedProject}
-							allProjects={projects}
-							showAllProject={true}
-						/>
-						<div className='flex felx-row items-center gap-2'>
+						<div className='mt-0 absolute top-[-30px] left-[-60px]'>
+							<ProjectsDropDown
+								openProjectsDropDown={openProjectsDropDown}
+								setOpenProjectsDropDown={setOpenProjectsDropDown}
+								setChosenProject={setSelectedProject}
+								chosenProject={selectedProject}
+								allProjects={projects}
+								showAllProject={true}
+							/>
+						</div>
+						<div className='flex felx-row items-center gap-2 mt-7'>
 							<ProgressBar
 								progress={
 									tasksToShow.length === 0
@@ -162,6 +163,24 @@ const Tasks = () => {
 						+ Add New
 					</button>
 				</div>
+
+				{selectedProject !== null && (
+					<div className='self-start ml-10 mt-3'>
+						<div className='font-bold text-[18px] pb-1'>Categories:</div>
+						<div className='ml-3 mr-2 flex flex-row gap-2 max-w-[500px]  flex-wrap self-start pb-3'>
+							{selectedProject.categories.map((cate) => (
+								<div
+									key={cate.id}
+									className='border-1 rounded-2xl p-1 bg-gray-200 flex flex-row justify-between gap-5'
+								>
+									<label className='flex flex-row gap-5 whitespace-nowrap '>
+										{cate.name}
+									</label>
+								</div>
+							))}
+						</div>
+					</div>
+				)}
 				<div className='ml-auto items-center mr-20 flex'>
 					<p className='font-bold'>Sort</p>
 					<FilterAltIcon fontSize='small' />
@@ -173,7 +192,14 @@ const Tasks = () => {
 				</div>
 			</div>
 
-			<div className='top-[100px] relative  overflow-auto w-[calc(100vw-100px)] max-h-[calc(100vh-130px)] left-[40px] pt-5 ml-15'>
+			<div
+				className={`top-[${
+					headerRef.current?.offsetHeight !== undefined
+						? `${headerRef.current?.offsetHeight}`
+						: //   `200`
+						  '100'
+				}px] relative  overflow-auto w-[calc(100vw-100px)] max-h-[calc(100vh-130px)] left-[40px] pt-5 ml-15`}
+			>
 				<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
 					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
 						<SearchIcon />
