@@ -46,11 +46,11 @@ const ProjectsDropDown = ({
 			ref={dropDownRef}
 			className={` ${
 				openProjectsDropDown ? 'block' : 'hidden'
-			}    overflow-auto bg-white absolute p-3 select-none  user-select-none border border-slate-50 shadow-md rounded-lg flex flex-col gap-2 
+			}    overflow-auto bg-white absolute p-3 select-none  user-select-none border border-slate-50 w-auto shadow-md rounded-lg flex flex-col gap-2 
 			${
 				showAllProject === true
-					? ' w-[210px] top-15 left-15 max-h-[calc(100vh-300px)]'
-					: 'w-[430px] max-h-[calc(150px)]'
+					? ' top-15 left-15 max-h-[calc(100vh-300px)]'
+					: ' max-h-[calc(150px)]'
 			}`}
 		>
 			<div className={showAllProject ? '' : 'hidden'}>
@@ -139,7 +139,7 @@ const SingleProject = ({
 				'border border-orange-600 bg-orange-50'
 			} flex items-center justify-between  gap-7 p-2 rounded-lg text-slate-600  cursor-pointer  hover:text-orange-600`}
 		>
-			<div className={`flex gap-2 items-center  `}>
+			<div className={`flex gap-2 items-center `}>
 				{/* Icon */}
 				<div> {getIconComponent(parseInt(singleProject.icon))} </div>
 				<span className='text-[18px] mt-1  cursor-pointer'>
