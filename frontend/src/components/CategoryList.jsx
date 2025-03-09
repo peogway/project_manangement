@@ -65,8 +65,10 @@ const CategoryList = ({ categories }) => {
 	return (
 		<div
 			ref={containerRef}
-			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] overflow-hidden pl-1 ${
-				isHovered ? 'h-auto z-999 absolute bg-gray-100 rounded-2xl ' : ''
+			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] overflow-hidden p-1 ${
+				categories.length > 1
+					? 'hover:h-auto hover:z-999 hover:absolute hover:bg-gray-100 hover:rounded-2xl'
+					: ''
 			} `}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
@@ -76,7 +78,7 @@ const CategoryList = ({ categories }) => {
 					key={category.id}
 					className={`${
 						isHovered ? 'bg-gray-300' : 'bg-gray-200'
-					} rounded-xl p-1 border-slate-200 h-[30px] flex items-center justify-center text-[16px]`}
+					} rounded-xl p-1 border-slate-200  flex items-center justify-center text-[16px] inline-block [box-decoration-break:clone] [background-clip:padding-box] `}
 				>
 					{category.name}
 				</div>
