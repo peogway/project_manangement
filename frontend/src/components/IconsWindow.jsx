@@ -55,7 +55,7 @@ const IconsWindow = ({ onClose, iconId, setIconId, show }) => {
 						style={{
 							position: 'fixed',
 							top: 0,
-							left: '120px',
+							left: '60px',
 							width: '100%',
 							height: '100%',
 							backgroundColor: 'rgba(104, 102, 102, 0.5)',

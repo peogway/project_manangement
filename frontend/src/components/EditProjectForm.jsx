@@ -84,7 +84,7 @@ const EditProjectForm = ({
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: '120px',
+					left: '60px',
 					width: '100vw',
 					height: '100vw',
 					backgroundColor: 'rgba(104, 102, 102, 0.5)',
@@ -185,4 +185,3 @@ const EditProjectForm = ({
 }
 
 export default EditProjectForm
-

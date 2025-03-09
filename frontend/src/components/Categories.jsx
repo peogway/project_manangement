@@ -56,7 +56,7 @@ const CategoryForm = ({ onClose, categories }) => {
 				style={{
 					position: 'fixed',
 					top: 0,
-					left: '120px',
+					left: '60px',
 					width: '100%',
 					height: '100%',
 					backgroundColor: 'rgba(104, 102, 102, 0.5)',
@@ -149,7 +149,7 @@ const Categories = () => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen '>
-			<div className=' z-500 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[150px] right-0'>
+			<div className=' z-500 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-bold text-2xl'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
@@ -171,7 +171,7 @@ const Categories = () => {
 				</div>
 			</div>
 
-			<div className='top-[100px] relative overflow-auto  z-500 w-[calc(100vw-200px)] max-h-[calc(100vh-130px)]  left-[100px] pt-10'>
+			<div className='top-[100px] relative overflow-auto  z-500 w-[calc(100vw-130px)] max-h-[calc(100vh-130px)]  left-[60px] pt-10'>
 				<div className='flex z-900 rounded-lg gap-2 self-start '>
 					<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
 						<SearchIcon />
