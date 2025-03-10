@@ -8,6 +8,7 @@ const projectSchema = mongoose.Schema({
         trim: true, // Trims leading/trailing spaces
     },
     createAt: Date, // Date when the project was created
+    completeAt: Date, // Date when the project was created
     icon: String, // Optional icon for the project
     tasks: [
         {
