@@ -18,7 +18,6 @@ const Category = (props) => {
 			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
 		) {
 			dispatch(deleteCategory(props.id))
-			props.reFetch()
 		}
 	}
 
