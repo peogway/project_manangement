@@ -149,7 +149,7 @@ const ProjectLabel = ({
 			{/* <p style={{ color: 'gray' }}>Projects</p> */}
 			<div className='absolute top-[120px] left-[40px]'>
 				{project.tasks.length === 0 ? (
-					<div className='relative text-gray-500'>
+					<div className='relative text-gray-400'>
 						<button
 							className='top-4 left-22 absolute hover:text-orange-500 '
 							onClick={(e) => {
