@@ -64,6 +64,9 @@ tasksRouter.post("/", async (req, res) => {
 
     project.tasks = project.tasks.concat(savedTask.id);
     await project.save();
+    await Project.findByIdAndUpdate(project.id, { completeAt: null }, {
+        new: true,
+    });
 
     res.status(201).json(populatedTask);
 });
@@ -96,7 +99,8 @@ tasksRouter.delete("/:id", async (req, res) => {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(400).json({ error: "invalid task id" });
 
-    const project = await Project.findById(task.project);
+    const project = await Project.findById(task.project).populate("tasks");
+
     if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can delete task",
@@ -107,8 +111,14 @@ tasksRouter.delete("/:id", async (req, res) => {
 
     if (project) {
         project.tasks = project.tasks.filter(
-            (task) => task.toString() !== req.params.id,
+            (task) => task._id.toString() !== req.params.id,
         );
+        const uncompletedTasks = project.tasks.filter((task) =>
+            !task.completed && task._id.toString() !== req.params.id
+        );
+        if (uncompletedTasks.length === 0) {
+            project.completeAt = new Date();
+        }
         await project.save();
     }
 
@@ -123,16 +133,31 @@ tasksRouter.put("/:id", async (req, res) => {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(400).json({ error: "invalid task id" });
 
-    const project = await Project.findById(task.project);
+    const project = await Project.findById(task.project).populate("tasks");
     if (project && project.user.toString() !== userRequest.id) {
         return res.status(403).json({
             error: "only project owner can edit task",
         });
     }
 
+    const uncompletedTasks = project.tasks.filter((task) => !task.completed);
+    const completeAt = {
+        completeAt: uncompletedTasks.length === 1 &&
+                uncompletedTasks[0].id.toString() === req.params.id &&
+                (req.body.completed ||
+                    req.body.project !== task.project.toString())
+            ? new Date()
+            : null,
+    };
+
     const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     }).populate("project");
+
+    await Project.findByIdAndUpdate(task.project, completeAt, { new: true });
+    await Project.findByIdAndUpdate(req.body.project, { completeAt: null }, {
+        new: true,
+    });
 
     res.status(200).json(updatedTask);
 });
