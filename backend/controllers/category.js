@@ -96,6 +96,20 @@ categoriesRouter.delete("/:id", async (req, res) => {
         });
     }
 
+    await Promise.all(
+        category.projects.map(async (projectId) => {
+            const foundProject = await Project.findById(projectId);
+
+            if (foundProject) {
+                foundProject.categories = foundProject?.categories.filter(
+                    (cateId) => cateId.toString() !== category._id.toString(),
+                );
+            }
+
+            await foundProject.save();
+        }),
+    );
+
     await Category.findByIdAndDelete(req.params.id);
 
     const user = await User.findById(userRequest.id);
