@@ -2,6 +2,7 @@ import { getIconComponent } from './AllIcons'
 
 import { useEffect, useRef, useState } from 'react'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
 const ProjectsDropDown = ({
 	setOpenProjectsDropDown,
@@ -63,9 +64,10 @@ const ProjectsDropDown = ({
 			</div>
 			<>
 				{allProjects.length === 0 && (
-					<p className='text-center text-slate-400 text-[11px] my-2'>
-						No Projects Found
-					</p>
+					<div className='flex items-center text-center text-slate-400 text-[11px] my-2 justify-center'>
+						<DoNotDisturbAltIcon fontSize='small' />
+						<p className='ml-2'>No Projects Found</p>
+					</div>
 				)}
 				{[...allProjects]
 					.sort((a, b) => a.name.localeCompare(b.name))
