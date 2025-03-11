@@ -15,6 +15,7 @@ import ProjectsDropDown from './ProjectsDropdown'
 import { getIconComponent } from './AllIcons'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { setAllProject } from '../reducers/prjReducer'
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
 const CategoryForm = ({ onClose, categories, projects }) => {
 	const formRef = useRef(null)
@@ -268,22 +269,21 @@ const Categories = () => {
 					/>
 				</div>
 
-				<div className='z-999 mt-7 w-[95%] h-[80%]'>
+				<div className='z-999 mt-7 w-[95%] h-[0.01%]'>
 					{categories.length === 0 ? (
 						<div
 							style={{
-								position: 'absolute',
-								top: '50%',
-								left: '50%',
 								transform: 'translate(-50%, -50%)',
-								padding: 20,
-								zIndex: 1000,
 							}}
+							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
 						>
+							<div className=' mr-2'>
+								<DoNotDisturbAltIcon />
+							</div>
 							<p>No categories available</p>
 						</div>
 					) : (
-						<div className='flex flex-col items-center gap-4 mt-4 pb-10 '>
+						<div className='flex flex-col items-center gap-4 mt-4 pb-25 '>
 							{categories.map((category) => (
 								<div
 									key={category.id}
