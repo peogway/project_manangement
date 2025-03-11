@@ -47,7 +47,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 		}
 		const category = {
 			name: categoryName.value,
-			projects: resProjects.map((project) => project.id),
+			projects: resProjects,
 		}
 
 		try {
