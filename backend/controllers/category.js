@@ -45,7 +45,6 @@ categoriesRouter.post("/", async (req, res) => {
 
     const category = new Category({
         ...body,
-        projects: [],
         user: user.id,
     });
 
@@ -56,6 +55,19 @@ categoriesRouter.post("/", async (req, res) => {
         { path: "user", select: "id name username" },
         { path: "projects", select: "id name status" },
     ]);
+
+    await Promise.all(
+        category.projects.map(async (prjId) => {
+            const foundProject = await Project.findById(prjId);
+            if (!foundProject) return;
+
+            foundProject.categories = foundProject.categories.concat(
+                category.id,
+            );
+
+            await foundProject.save();
+        }),
+    );
 
     res.status(201).json(populatedCategory);
 });
