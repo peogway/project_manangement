@@ -18,6 +18,7 @@ import CircularChart from './CircularChart'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import CloseIcon from '@mui/icons-material/Close'
 import DropDown from './DropDown'
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 import { getIconComponent } from './AllIcons'
 
 const Projects = () => {
@@ -204,6 +205,19 @@ const Projects = () => {
 				</div>
 
 				<div className='flex gap-4 pl-10  flex-wrap pb-10'>
+					{sortedProjects.length === 0 && (
+						<div
+							style={{
+								transform: 'translate(-50%, -50%)',
+							}}
+							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
+						>
+							<div className=' mr-2'>
+								<DoNotDisturbAltIcon />
+							</div>
+							<p>No projects</p>
+						</div>
+					)}
 					{sortedProjects.map((project) => (
 						<div
 							key={project.id}
