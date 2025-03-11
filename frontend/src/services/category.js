@@ -17,7 +17,10 @@ const addCategory = async (category) => {
         headers: { Authorization: getToken() },
     };
 
-    const res = await axios.post(baseUrl, category, config);
+    const res = await axios.post(baseUrl, {
+        ...category,
+        projects: category.projects.map((project) => project.id),
+    }, config);
     return res.data;
 };
 
@@ -35,7 +38,10 @@ const editCategory = async (category) => {
         headers: { Authorization: getToken() },
     };
 
-    const res = await axios.put(`${baseUrl}/${category.id}`, category, config);
+    const res = await axios.put(`${baseUrl}/${category.id}`, {
+        ...category,
+        projects: category.projects.map((project) => project.id),
+    }, config);
     return res.data;
 };
 
