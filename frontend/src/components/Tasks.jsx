@@ -14,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { allIconsArray } from './AllIcons'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
 import ProjectsDropDown from './ProjectsDropdown'
 const Tasks = () => {
@@ -259,6 +260,19 @@ const Tasks = () => {
 						</div>
 					</div>
 					<div className='ml-5 mt-5 w-[95%]  pb-10'>
+						{showTasks.length === 0 && (
+							<div
+								style={{
+									transform: 'translate(-50%, -50%)',
+								}}
+								className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
+							>
+								<div className=' mr-2'>
+									<DoNotDisturbAltIcon />
+								</div>
+								<p>No tasks</p>
+							</div>
+						)}
 						{showTasks.map((task) => (
 							<div key={task.id}>
 								<Task
