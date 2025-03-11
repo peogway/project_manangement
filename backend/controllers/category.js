@@ -150,11 +150,45 @@ categoriesRouter.put("/:id", async (req, res) => {
 
     const editedCategory = {
         name: req.body.name,
+        projects: req.body.projects,
     };
 
-    await Category.findByIdAndUpdate(req.params.id, editedCategory, {
-        new: true,
-    });
+    const updatedCategory = await Category.findByIdAndUpdate(
+        req.params.id,
+        editedCategory,
+        {
+            new: true,
+        },
+    );
+
+    const originalProjectIds = category.projects;
+    const updatedProjectIds = updatedCategory.projects;
+    const addedProjectIds = updatedProjectIds.filter((prjId) =>
+        !originalProjectIds.includes(prjId.toString())
+    );
+    const removedProjectIds = originalProjectIds.filter((prjId) =>
+        !updatedProjectIds.includes(prjId.toString())
+    );
+
+    await Promise.all(
+        addedProjectIds.map(async (prjId) => {
+            const project = await Project.findById(prjId);
+            if (!project) return;
+
+            project.categories = project.categories.concat(category.id);
+            await project.save();
+        }),
+        removedProjectIds.map(async (prjId) => {
+            const project = await Project.findById(prjId);
+            if (!project) return;
+
+            project.categories = project.categories.filter((cateId) =>
+                cateId.toString() !== category.id.toString()
+            );
+            await project.save();
+        }),
+    );
+
     res.status(204).end();
 });
 
