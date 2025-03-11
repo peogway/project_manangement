@@ -56,7 +56,10 @@ const Projects = () => {
 			() =>
 				categories
 					?.map((category) => category.name)
-					.sort((a, b) => a.localeCompare(b)) || []
+					.sort((a, b) => a.localeCompare(b))
+					.filter(
+						(cateName) => !resCates.some((cate) => cate.name === cateName)
+					) || []
 		)
 	}, [categories])
 

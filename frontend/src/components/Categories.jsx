@@ -11,12 +11,22 @@ import SortDropdown from './SortDropDown'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import CloseIcon from '@mui/icons-material/Close'
 import SearchIcon from '@mui/icons-material/Search'
+import ProjectsDropDown from './ProjectsDropdown'
+import { getIconComponent } from './AllIcons'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { setAllProject } from '../reducers/prjReducer'
 
-const CategoryForm = ({ onClose, categories }) => {
+const CategoryForm = ({ onClose, categories, projects }) => {
 	const formRef = useRef(null)
+	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 	const { remove: rmTask, ...categoryName } = useField('text')
 	const overlayRef = useRef(null)
 	const dispatch = useDispatch()
+	const [resProjects, setResProjects] = useState([])
+	const [dropdownProjects, setDropdownProjects] = useState(
+		[...projects].sort((a, b) => a.name.localeCompare(b.name))
+	)
+
 	const handleClickOutside = (event) => {
 		if (formRef.current && !formRef.current.contains(event.target)) {
 			onClose()
@@ -37,6 +47,7 @@ const CategoryForm = ({ onClose, categories }) => {
 		}
 		const category = {
 			name: categoryName.value,
+			projects: resProjects.map((project) => project.id),
 		}
 
 		try {
@@ -46,6 +57,16 @@ const CategoryForm = ({ onClose, categories }) => {
 			dispatch(setError('Something goes wrong', 5))
 		}
 	}
+
+	const handleSelectProject = (project) => {
+		if (!resProjects.includes(projects)) {
+			setDropdownProjects(
+				dropdownProjects.filter((prj) => prj.id !== project.id)
+			)
+			setResProjects(resProjects.concat(project))
+		}
+	}
+
 	return (
 		<div>
 			<div
@@ -67,7 +88,7 @@ const CategoryForm = ({ onClose, categories }) => {
 				ref={formRef}
 				style={{
 					position: 'fixed',
-					top: '40vh',
+					top: '45vh',
 					left: '50%',
 					width: '40%',
 					transform: 'translate(-50%, -50%)',
@@ -91,9 +112,78 @@ const CategoryForm = ({ onClose, categories }) => {
 					<br />
 					<input
 						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2 mb-10 pl-3 pr-3'
+						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2  pl-3 pr-3'
 						placeholder='Type a name for the Category...'
 					/>
+				</div>
+
+				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>
+					<label className='text-gray-500 ml-[-10px] font-bold'>Projects</label>
+
+					<div className=' mt-2 w-full'>
+						<div
+							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg select-none'
+							onMouseDown={(e) => {
+								if (e.target === e.currentTarget) {
+									// Only prevent default if clicking on the div itself, not text
+									e.preventDefault()
+								}
+								e.stopPropagation()
+								setOpenProjectsDropDown(!openProjectsDropDown)
+							}}
+						>
+							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
+								<div className='text-gray-500 select-none'>
+									Select a project
+								</div>
+							</div>
+							<div className='text-gray-500'>
+								<KeyboardArrowDownIcon fontSize='medium' />
+							</div>
+						</div>
+						<ProjectsDropDown
+							openProjectsDropDown={openProjectsDropDown}
+							setOpenProjectsDropDown={setOpenProjectsDropDown}
+							setChosenProject={handleSelectProject}
+							chosenProject={null}
+							allProjects={dropdownProjects}
+						/>
+					</div>
+				</div>
+				<div className='flex flex-wrap gap-3 self-start mt-4 mb-10 ml-4 mr-4'>
+					{resProjects.map((project) => (
+						<div
+							key={project.id}
+							className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
+						>
+							<label className='flex flex-row '>
+								<div className=''>
+									{getIconComponent(
+										project.icon,
+										'text-white',
+										'text-[15px]',
+										'bg-orange-500',
+										'p-1'
+									)}
+								</div>
+								{project.name}
+							</label>
+							<div
+								onClick={() => {
+									setResProjects(
+										resProjects.filter((prj) => prj.id !== project.id)
+									)
+									setDropdownProjects(
+										dropdownProjects
+											.concat(project)
+											.sort((a, b) => a.name.localeCompare(b.name))
+									)
+								}}
+							>
+								<CloseIcon fontSize='small' />
+							</div>
+						</div>
+					))}
 				</div>
 
 				<button
@@ -117,6 +207,7 @@ const Categories = () => {
 	useEffect(() => {
 		document.title = 'Categories'
 		dispatch(setAllCategories())
+		dispatch(setAllProject())
 	}, [])
 
 	useEffect(() => {
@@ -124,6 +215,7 @@ const Categories = () => {
 	}, [search.value])
 
 	const initialCategories = useSelector((state) => state.categories)
+	const projects = useSelector((state) => state.projects)
 
 	let categories = [...initialCategories].filter((category) =>
 		category.name.includes(search.value)
@@ -212,6 +304,7 @@ const Categories = () => {
 					<CategoryForm
 						onClose={() => setShowAddCategory(false)}
 						categories={categories}
+						projects={projects}
 					/>
 				)}
 			</div>
