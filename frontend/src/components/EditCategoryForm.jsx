@@ -50,19 +50,23 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 			return
 		}
 
-		if (categories.some((category) => category.name === categoryName.value)) {
+		if (
+			categories.some(
+				(cate) => cate.name === categoryName.value && cate.id !== category.id
+			)
+		) {
 			dispatch(setError('Categories must be unique', 2))
 			onClose()
 			return
 		}
-		const category = {
+		const categoryToUpdate = {
 			name: categoryName.value,
-			projects: resProjects.map((project) => project.id),
+			projects: resProjects,
 			id: id,
 		}
 
 		try {
-			dispatch(updateCategory(category))
+			dispatch(updateCategory(categoryToUpdate))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))
