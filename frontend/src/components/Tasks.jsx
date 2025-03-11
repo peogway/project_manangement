@@ -108,18 +108,18 @@ const Tasks = () => {
 					<div className='mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
 						{icon.icon}
 					</div>
-					<div className='flex flex-col items-start relative'>
-						<div
-							className='font-bold text-xl user-select-none cursor-pointer flex flex-row justify-between relative  '
-							onMouseDown={(e) => {
-								if (e.target === e.currentTarget) {
-									// Only prevent default if clicking on the div itself, not text
-									e.preventDefault()
-								}
-								e.stopPropagation()
-								setOpenProjectsDropDown(!openProjectsDropDown)
-							}}
-						>
+					<div
+						className='flex flex-col items-start relative'
+						onMouseDown={(e) => {
+							if (e.target === e.currentTarget) {
+								// Only prevent default if clicking on the div itself, not text
+								e.preventDefault()
+							}
+							e.stopPropagation()
+							setOpenProjectsDropDown(!openProjectsDropDown)
+						}}
+					>
+						<div className='font-bold text-xl user-select-none cursor-pointer flex flex-row justify-between relative  '>
 							<div className='w-[200px] p-2 whitespace-nowrap overflow-hidden hover:overflow-visible hover:bg-white rounded-xl absolute hover:w-auto top-[-10px]  left-[-7px]'>
 								{selectedProject === null
 									? 'All Projects'
