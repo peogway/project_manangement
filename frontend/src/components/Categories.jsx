@@ -294,6 +294,7 @@ const Categories = () => {
 										id={category.id}
 										categories={categories}
 										projects={category.projects}
+										category={category}
 									/>
 								</div>
 							))}
