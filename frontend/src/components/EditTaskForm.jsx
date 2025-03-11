@@ -146,7 +146,7 @@ const EditTaskForm = ({ onClose, projects, ...task }) => {
 					<br />
 					<div className='mb-10 mt-2 w-full'>
 						<div
-							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg user-select-none'
+							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg select-none'
 							onMouseDown={(e) => {
 								if (e.target === e.currentTarget) {
 									// Only prevent default if clicking on the div itself, not text

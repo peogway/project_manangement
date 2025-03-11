@@ -119,7 +119,7 @@ const Tasks = () => {
 							setOpenProjectsDropDown(!openProjectsDropDown)
 						}}
 					>
-						<div className='font-bold text-xl user-select-none cursor-pointer flex flex-row justify-between relative  '>
+						<div className='font-bold text-xl select-none cursor-pointer flex flex-row justify-between relative  '>
 							<div className='w-[200px] p-2 whitespace-nowrap overflow-hidden hover:overflow-visible hover:bg-white rounded-xl absolute hover:w-auto top-[-10px]  left-[-7px]'>
 								{selectedProject === null
 									? 'All Projects'
