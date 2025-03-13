@@ -24,7 +24,7 @@ const Tasks = () => {
         location.state?.project ? location.state?.project : null
     )
 
-    const [taskStatus, setTaskStatus] = useState(null)
+    const [taskStatus, setTaskStatus] = useState(false)
     const [sortValue, setSortValue] = useState('A-Z')
     const [showAddTask, setShowAddTask] = useState(false)
     const [showIconsMenu, setShowIconsMenu] = useState(false)
@@ -39,7 +39,7 @@ const Tasks = () => {
         dispatch(setAllTasks())
         dispatch(setAllProject())
     }, [])
-    useEffect(() => setTaskStatus(null), [selectedProject])
+    useEffect(() => setTaskStatus(false), [selectedProject])
     useEffect(() => {
         setRender(render + 1)
     }, [search.value, selectedProject])
