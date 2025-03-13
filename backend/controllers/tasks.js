@@ -12,7 +12,7 @@ tasksRouter.get("/", async (req, res) => {
 
     const tasks = await Task.find({ user: userRequest.id }).populate(
         "project",
-        "id name categories user",
+        "id name categories user icon",
     );
 
     if (
