@@ -51,7 +51,7 @@ const Task = ({ ...props }) => {
 						onChange={handleCheckboxChange}
 					/>
 				</div>
-				<div className='flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box'>
+				<div className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box ${isChecked ? 'opacity-50' : ''}`}>
 					<div className='flex flex-row items-center '>
 						<div className='m-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
 							{icon}
