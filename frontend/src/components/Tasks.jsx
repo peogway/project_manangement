@@ -228,14 +228,15 @@ const Tasks = () => {
                     />
                 </div>
                 <div className="ml-7 mt-10 ">
-                    <div className="flex flex-row gap-5">
+                    <div className="flex flex-row gap-5 select-none">
                         <div
                             className={`flex ${
                                 taskStatus !== null && 'opacity-40 '
                             } ${taskStatus === null && 'text-orange-500'}`}
+                            onClick={() => setTaskStatus(null)}
                         >
                             <button
-                                onClick={() => setTaskStatus(null)}
+                               
                                 className="font-bold"
                             >
                                 All
@@ -249,9 +250,9 @@ const Tasks = () => {
                             className={`flex ${
                                 taskStatus !== false && 'opacity-40 '
                             } ${taskStatus === false && 'text-orange-500'}`}
+                            onClick={() => setTaskStatus(false)}
                         >
                             <button
-                                onClick={() => setTaskStatus(false)}
                                 className="font-bold"
                             >
                                 On Going Tasks
@@ -265,9 +266,9 @@ const Tasks = () => {
                             className={`flex ${
                                 taskStatus !== true && 'opacity-40 '
                             } ${taskStatus === true && 'text-orange-500'}`}
+                            onClick={() => setTaskStatus(true)}
                         >
                             <button
-                                onClick={() => setTaskStatus(true)}
                                 className="font-bold"
                             >
                                 Completed Tasks
