@@ -12,16 +12,17 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { getIconComponent } from './AllIcons'
 import { LogoDevTwoTone } from '@mui/icons-material'
 
-const EditTaskForm = ({ onClose, projects, ...task }) => {
+const EditTaskForm = ({ onClose, project, ...task }) => {
 	const { remove: rmTask, ...taskName } = useField('text', task.name)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(parseInt(task.icon))
 	const [priority, setPriority] = useState(task.priority)
 
 	const [chosenProject, setChosenProject] = useState(
-		projects.filter((prj) => prj.id === task.project.id)[0]
+		project
 	)
-	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
+
+
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 	const dispatch = useDispatch()
@@ -38,9 +39,7 @@ const EditTaskForm = ({ onClose, projects, ...task }) => {
 			(pri) => pri.toLowerCase() !== priority.toLowerCase()
 		)
 	)
-	const dropdownProjects = [chosenProject].concat(
-		projects.filter((prj) => prj.name !== chosenProject).map((prj) => prj.name)
-	)
+
 	const handleEdit = (e) => {
 		e.preventDefault()
 
@@ -139,50 +138,26 @@ const EditTaskForm = ({ onClose, projects, ...task }) => {
 					</div>
 				</div>
 
-				<div className='task-project w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px] font-bold w-full'>
-						Project
-					</label>
-					<br />
-					<div className='mb-10 mt-2 w-full'>
-						<div
-							className='w-full flex flex-rox items-center justify-between border-1 border-gray-400 rounded-lg select-none'
-							onMouseDown={(e) => {
-								if (e.target === e.currentTarget) {
-									// Only prevent default if clicking on the div itself, not text
-									e.preventDefault()
-								}
-								e.stopPropagation()
-								setOpenProjectsDropDown(!openProjectsDropDown)
-							}}
-						>
-							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
-								<div
-									className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
-										icon === null && 'hidden'
-									}`}
-								>
-									{icon !== null ? icon : null}
-								</div>
-								<div className='text-gray-500'>
-									{chosenProject === null
-										? 'Select Project'
-										: chosenProject.name}
-								</div>
-							</div>
-							<div className='text-gray-500'>
-								<KeyboardArrowDownIcon fontSize='medium' />
-							</div>
-						</div>
-						<ProjectsDropDown
-							openProjectsDropDown={openProjectsDropDown}
-							setOpenProjectsDropDown={setOpenProjectsDropDown}
-							setChosenProject={setChosenProject}
-							chosenProject={chosenProject}
-							allProjects={projects}
-						/>
-					</div>
-				</div>
+				<div className='task-project w-[85%] mt-7 flex flex-row justify-center items-center mb-10'>
+                    <label className='text-gray-500 ml-[-10px] font-bold w-full'>
+                        Project
+                    </label>
+
+                    <div className=' whitespace-nowrap flex flex-row gap-2 items-center mr-30 rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr-3'>
+                        <div
+                            className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
+                                icon === null && 'hidden'
+                            }`}
+                        >
+                            {icon !== null ? icon : null}
+                        </div>
+                        <div className='text-gray-500'>
+                            {chosenProject === null
+                                ? 'Select Project'
+                                : chosenProject.name}
+                        </div>
+                    </div>
+                </div>
 
 				<button
 					onClick={handleEdit}
