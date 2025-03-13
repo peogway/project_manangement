@@ -184,9 +184,6 @@ const Tasks = () => {
 
                 {selectedProject !== null && (
                     <div className="self-start ml-10 mt-3">
-                        <div className="font-bold text-[18px] pb-1">
-                            Categories:
-                        </div>
                         <div className="ml-3 mr-2 flex flex-row gap-2 max-w-[500px]  flex-wrap self-start pb-3">
                             {selectedProject.categories.map((cate) => (
                                 <div
