@@ -295,7 +295,6 @@ const Tasks = () => {
                             <div key={task.id}>
                                 <Task
                                     {...task}
-                                    projects={projects}
                                     selectedProject={selectedProject}
                                 />
                             </div>
