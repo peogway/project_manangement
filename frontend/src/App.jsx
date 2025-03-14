@@ -227,7 +227,9 @@ const App = () => {
 				{/* Private routes (only for logged-in users) */}
 				<Route
 					path='/dashboard'
-					element={user ? <Dashboard /> : <Navigate replace to='/login' />}
+					element={
+						user ? <Dashboard user={user} /> : <Navigate replace to='/login' />
+					}
 				/>
 				<Route
 					path='/projects'
