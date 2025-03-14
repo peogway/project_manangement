@@ -111,6 +111,8 @@ const ProjectLabel = ({
 		)
 	}
 
+	const completedTasks = project.tasks.filter((task) => task.completed)
+
 	return (
 		<div className='bg-white rounded-2xl w-[300px] h-[300px] flex flex-col relative cursor-pointer'>
 			<div className='flex flex-row justify-between items-center relative'>
@@ -198,7 +200,9 @@ const ProjectLabel = ({
 					<div className='text-gray-400'>
 						{completedPercentage < 100 ? 'On Progress' : 'Completed'}{' '}
 					</div>
-					<div className='text-gray-400'>{completedPercentage}%</div>
+					<div className='text-gray-400'>
+						{completedTasks.length}/{project.tasks.length}
+					</div>
 				</div>
 			</div>
 		</div>
