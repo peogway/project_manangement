@@ -63,7 +63,7 @@ const RegisterForm = () => {
 					<input {...cfPassword} />
 				</div>
 
-				<button className='btn submitBtn' type='submit'>
+				<button className='btn submitBtn select-none' type='submit'>
 					Sign up
 				</button>
 			</form>

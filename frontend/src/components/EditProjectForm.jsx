@@ -175,7 +175,7 @@ const EditProjectForm = ({
 
 				<button
 					onClick={handleEditPrj}
-					className='bg-orange-500 text-white rounded-xl p-2 w-[85%] '
+					className='bg-orange-500 text-white select-none rounded-xl p-2 w-[85%] '
 				>
 					Edit Project
 				</button>

@@ -24,7 +24,7 @@ const Navbar = ({ user, displayButtons }) => {
 
 	const Buttons = ({ user }) => {
 		return (
-			<div className='flex gap-2 max-sm:flex-col max-sm:w-full max-sm:mt-8'>
+			<div className='flex gap-2 select-none max-sm:flex-col max-sm:w-full max-sm:mt-8'>
 				{!user && (
 					<>
 						<Link to='/login'>
@@ -48,7 +48,7 @@ const Navbar = ({ user, displayButtons }) => {
 		)
 	}
 	return (
-		<nav className='flex m-7 p-2 max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col  '>
+		<nav className='flex m-7 p-2 select-none max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col  '>
 			<Logo />
 			{displayButtons && <Buttons user={user} />}
 		</nav>

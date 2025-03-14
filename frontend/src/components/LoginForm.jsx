@@ -50,7 +50,7 @@ const LoginForm = () => {
 					<label>Password: </label>
 					<input {...password} placeholder='Enter password' />
 				</div>
-				<button className='btn submitBtn' type='submit'>
+				<button className='btn submitBtn select-none' type='submit'>
 					Sign in
 				</button>
 			</form>

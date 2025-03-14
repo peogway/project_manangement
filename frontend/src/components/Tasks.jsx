@@ -106,222 +106,203 @@ const Tasks = () => {
               )[0]
 
     return (
-        <div className="flex flex-col w-full h-screen z-900 flex-1 ">
-            <div
-                className="flex flex-row justify-between items-center z-990 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[90px] right-0"
-                ref={headerRef}
-            >
-                <div className="flex flex-row items-center justify-center">
-                    <div className="mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg">
-                        {icon.icon}
-                    </div>
-                    <div className="flex flex-col items-start relative">
-                        <div
-                            className="font-bold text-xl select-none cursor-pointer flex flex-row justify-between relative  "
-                            onMouseDown={(e) => {
-                                if (e.target === e.currentTarget) {
-                                    // Only prevent default if clicking on the div itself, not text
-                                    e.preventDefault()
-                                }
-                                e.stopPropagation()
-                                setOpenProjectsDropDown(!openProjectsDropDown)
-                            }}
-                        >
-                            <div className="min-w-[200px] w-[200px] p-2 whitespace-nowrap overflow-hidden hover:overflow-visible hover:bg-white rounded-xl absolute hover:w-auto top-[-10px]  left-[-7px]">
-                                {selectedProject === null
-                                    ? 'All Projects'
-                                    : selectedProject.name}
-                            </div>
-                            <div className="absolute left-50 top-[-3px]">
-                                <KeyboardArrowDownIcon />
-                            </div>
-                        </div>
-                        <div className="mt-0 absolute top-[-30px] left-[-60px]">
-                            <ProjectsDropDown
-                                openProjectsDropDown={openProjectsDropDown}
-                                setOpenProjectsDropDown={
-                                    setOpenProjectsDropDown
-                                }
-                                setChosenProject={setSelectedProject}
-                                chosenProject={selectedProject}
-                                allProjects={projects}
-                                showAllProject={true}
-                            />
-                        </div>
-                        <div className="flex felx-row items-center gap-2 mt-7">
-                            <ProgressBar
-                                progress={
-                                    tasksToShow.length === 0
-                                        ? 1
-                                        : Math.floor(
-                                              (completedTasks.length /
-                                                  tasksToShow.length) *
-                                                  100
-                                          )
-                                }
-                                color="bg-orange-500"
-                                height="h-1"
-                                className="w-[200px] max-w-md"
-                            />
-                            {tasksToShow.length === 0
-                                ? 100
-                                : (
-                                      (completedTasks.length /
-                                          tasksToShow.length) *
-                                      100
-                                  ).toFixed(0)}
-                            %
-                        </div>
-                    </div>
-                    <button
-                        onClick={toggleAddTask}
-                        className={`w-25 h-7 ml-10 bg-orange-500 rounded-lg text-white ${selectedProject === null ? 'opacity-40' : ''}`}
-                        disabled={selectedProject === null}
-                    >
-                        + Add New
-                    </button>
-                </div>
+			<div className='flex flex-col w-full h-screen z-900 flex-1 '>
+				<div
+					className='flex flex-row justify-between items-center z-990 bg-white  min-h-[100px] self-end rounded-2xl box fixed left-[90px] right-0'
+					ref={headerRef}
+				>
+					<div className='flex flex-row items-center justify-center'>
+						<div className='mb-2 ml-4 mr-2 w-9 h-9 text-orange-500 bg-orange-300 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg'>
+							{icon.icon}
+						</div>
+						<div className='flex flex-col items-start relative'>
+							<div
+								className='font-bold text-xl select-none cursor-pointer flex flex-row justify-between relative  '
+								onMouseDown={(e) => {
+									if (e.target === e.currentTarget) {
+										// Only prevent default if clicking on the div itself, not text
+										e.preventDefault()
+									}
+									e.stopPropagation()
+									setOpenProjectsDropDown(!openProjectsDropDown)
+								}}
+							>
+								<div className='min-w-[200px] w-[200px] p-2 whitespace-nowrap overflow-hidden hover:overflow-visible hover:bg-white rounded-xl absolute hover:w-auto top-[-10px]  left-[-7px]'>
+									{selectedProject === null
+										? 'All Projects'
+										: selectedProject.name}
+								</div>
+								<div className='absolute left-50 top-[-3px]'>
+									<KeyboardArrowDownIcon />
+								</div>
+							</div>
+							<div className='mt-0 absolute top-[-30px] left-[-60px]'>
+								<ProjectsDropDown
+									openProjectsDropDown={openProjectsDropDown}
+									setOpenProjectsDropDown={setOpenProjectsDropDown}
+									setChosenProject={setSelectedProject}
+									chosenProject={selectedProject}
+									allProjects={projects}
+									showAllProject={true}
+								/>
+							</div>
+							<div className='flex felx-row items-center gap-2 mt-7'>
+								<ProgressBar
+									progress={
+										tasksToShow.length === 0
+											? 1
+											: Math.floor(
+													(completedTasks.length / tasksToShow.length) * 100
+											  )
+									}
+									color='bg-orange-500'
+									height='h-1'
+									className='w-[200px] max-w-md'
+								/>
+								{tasksToShow.length === 0
+									? 100
+									: (
+											(completedTasks.length / tasksToShow.length) *
+											100
+									  ).toFixed(0)}
+								%
+							</div>
+						</div>
+						<button
+							onClick={toggleAddTask}
+							className={`w-25 h-7 ml-10 bg-orange-500 select-none rounded-lg text-white ${
+								selectedProject === null ? 'opacity-40' : ''
+							}`}
+							disabled={selectedProject === null}
+						>
+							+ Add New
+						</button>
+					</div>
 
-                {selectedProject !== null && (
-                    <div className="self-start ml-10 mt-3">
-                        <div className="ml-3 mr-2 flex flex-row gap-2 max-w-[500px]  flex-wrap self-start pb-3">
-                            {selectedProject.categories.map((cate) => (
-                                <div
-                                    key={cate.id}
-                                    className="border-1 rounded-2xl p-1 bg-gray-200 flex flex-row justify-between gap-5"
-                                >
-                                    <label className="flex flex-row gap-5 whitespace-nowrap ">
-                                        {cate.name}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-                <div className="ml-auto items-center mr-20 flex">
-                    <p className="font-bold">Sort</p>
-                    <FilterAltIcon fontSize="small" />
-                    <SortDropdown
-                        sortTasks={true}
-                        sortByDate={true}
-                        setSortValue={setSortValue}
-                    />
-                </div>
-            </div>
+					{selectedProject !== null && (
+						<div className='self-start ml-10 mt-3'>
+							<div className='ml-3 mr-2 flex flex-row gap-2 max-w-[500px]  flex-wrap self-start pb-3'>
+								{selectedProject.categories.map((cate) => (
+									<div
+										key={cate.id}
+										className='border-1 rounded-2xl p-1 bg-gray-200 flex flex-row justify-between gap-5'
+									>
+										<label className='flex flex-row gap-5 whitespace-nowrap '>
+											{cate.name}
+										</label>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
+					<div className='ml-auto items-center mr-20 flex'>
+						<p className='font-bold'>Sort</p>
+						<FilterAltIcon fontSize='small' />
+						<SortDropdown
+							sortTasks={true}
+							sortByDate={true}
+							setSortValue={setSortValue}
+						/>
+					</div>
+				</div>
 
-            <div
-                className={`top-[${
-                    headerRef.current?.offsetHeight !== undefined
-                        ? `${headerRef.current?.offsetHeight}`
-                        : //   `200`
-                          '100'
-                }px] relative  overflow-auto w-[calc(100vw-100px)] max-h-[calc(100vh-130px)] left-[40px] pt-5 ml-15`}
-            >
-                <div className="flex z-900 rounded-lg  self-start ml-10 mt-5">
-                    <div className="border-b-2 border-orange-400 pl-1 pr-0.5">
-                        <SearchIcon />
-                    </div>
-                    <input
-                        {...search}
-                        placeholder="Search a task"
-                        className="border-b-2 border-gray-200 pl-1"
-                    />
-                </div>
-                <div className="ml-7 mt-10 ">
-                    <div className="flex flex-row gap-5 select-none">
-                        <div
-                            className={`flex ${
-                                taskStatus !== null && 'opacity-40 '
-                            } ${taskStatus === null && 'text-orange-500'}`}
-                            onClick={() => setTaskStatus(null)}
-                        >
-                            <button
-                               
-                                className="font-bold"
-                            >
-                                All
-                            </button>
-                            <div className="flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1">
-                                {sortedTasks.length}
-                            </div>
-                        </div>
+				<div
+					className={`top-[${
+						headerRef.current?.offsetHeight !== undefined
+							? `${headerRef.current?.offsetHeight}`
+							: //   `200`
+							  '100'
+					}px] relative  overflow-auto w-[calc(100vw-100px)] max-h-[calc(100vh-130px)] left-[40px] pt-5 ml-15`}
+				>
+					<div className='flex z-900 rounded-lg  self-start ml-10 mt-5'>
+						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
+							<SearchIcon />
+						</div>
+						<input
+							{...search}
+							placeholder='Search a task'
+							className='border-b-2 border-gray-200 pl-1'
+						/>
+					</div>
+					<div className='ml-7 mt-10 '>
+						<div className='flex flex-row gap-5 select-none'>
+							<div
+								className={`flex ${taskStatus !== null && 'opacity-40 '} ${
+									taskStatus === null && 'text-orange-500'
+								}`}
+								onClick={() => setTaskStatus(null)}
+							>
+								<button className='font-bold'>All</button>
+								<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+									{sortedTasks.length}
+								</div>
+							</div>
 
-                        <div
-                            className={`flex ${
-                                taskStatus !== false && 'opacity-40 '
-                            } ${taskStatus === false && 'text-orange-500'}`}
-                            onClick={() => setTaskStatus(false)}
-                        >
-                            <button
-                                className="font-bold"
-                            >
-                                On Going Tasks
-                            </button>
-                            <div className="flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1">
-                                {uncompletedTasks.length}
-                            </div>
-                        </div>
+							<div
+								className={`flex ${taskStatus !== false && 'opacity-40 '} ${
+									taskStatus === false && 'text-orange-500'
+								}`}
+								onClick={() => setTaskStatus(false)}
+							>
+								<button className='font-bold'>On Going Tasks</button>
+								<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+									{uncompletedTasks.length}
+								</div>
+							</div>
 
-                        <div
-                            className={`flex ${
-                                taskStatus !== true && 'opacity-40 '
-                            } ${taskStatus === true && 'text-orange-500'}`}
-                            onClick={() => setTaskStatus(true)}
-                        >
-                            <button
-                                className="font-bold"
-                            >
-                                Completed Tasks
-                            </button>
-                            <div className="flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1">
-                                {completedTasks.length}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="ml-5 mt-5 w-[95%]  pb-10">
-                        {showTasks.length === 0 && (
-                            <div
-                                style={{
-                                    transform: 'translate(-50%, -50%)',
-                                }}
-                                className="top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center"
-                            >
-                                <div className=" mr-2">
-                                    <DoNotDisturbAltIcon />
-                                </div>
-                                <p>No tasks</p>
-                            </div>
-                        )}
-                        {showTasks.map((task) => (
-                            <div key={task.id}>
-                                <Task
-                                    {...task}
-                                    selectedProject={selectedProject}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-            {showAddTask && (
-                <TaskForm
-                    onClose={() => setShowAddTask(false)}
-                    projects={projects}
-                    selectedProject={selectedProject}
-                    setIconId={setIconId}
-                    iconId={iconId}
-                    setShowIconsMenu={setShowIconsMenu}
-                />
-            )}
+							<div
+								className={`flex ${taskStatus !== true && 'opacity-40 '} ${
+									taskStatus === true && 'text-orange-500'
+								}`}
+								onClick={() => setTaskStatus(true)}
+							>
+								<button className='font-bold'>Completed Tasks</button>
+								<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
+									{completedTasks.length}
+								</div>
+							</div>
+						</div>
+						<div className='ml-5 mt-5 w-[95%]  pb-10'>
+							{showTasks.length === 0 && (
+								<div
+									style={{
+										transform: 'translate(-50%, -50%)',
+									}}
+									className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
+								>
+									<div className=' mr-2'>
+										<DoNotDisturbAltIcon />
+									</div>
+									<p>No tasks</p>
+								</div>
+							)}
+							{showTasks.map((task) => (
+								<div key={task.id}>
+									<Task {...task} selectedProject={selectedProject} />
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+				{showAddTask && (
+					<TaskForm
+						onClose={() => setShowAddTask(false)}
+						projects={projects}
+						selectedProject={selectedProject}
+						setIconId={setIconId}
+						iconId={iconId}
+						setShowIconsMenu={setShowIconsMenu}
+					/>
+				)}
 
-            <IconsWindow
-                onClose={() => setShowIconsMenu(false)}
-                iconId={iconId}
-                setIconId={setIconId}
-                show={showIconsMenu}
-            />
-        </div>
-    )
+				<IconsWindow
+					onClose={() => setShowIconsMenu(false)}
+					iconId={iconId}
+					setIconId={setIconId}
+					show={showIconsMenu}
+				/>
+			</div>
+		)
 }
 
 export default Tasks

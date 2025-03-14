@@ -138,7 +138,7 @@ const Projects = () => {
 					</div>
 					<button
 						onClick={() => setShowAddProject(true)}
-						className='w-25 h-7 mr-10 bg-orange-500 rounded-lg text-white'
+						className='w-25 h-7 mr-10 bg-orange-500 select-none rounded-lg text-white'
 					>
 						+ Add New
 					</button>

@@ -170,7 +170,7 @@ const ProjectForm = ({
 
 				<button
 					onClick={handleAddPrj}
-					className='bg-orange-500 text-white rounded-xl p-2 w-[85%] '
+					className='bg-orange-500 select-none text-white rounded-xl p-2 w-[85%] '
 				>
 					Add Project
 				</button>
