@@ -190,10 +190,10 @@ const ProjectLabel = ({
 				</div>
 			)}
 			<div className='flex flex-col bottom-17 absolute right-0 left-0 gap-2 mb-4'>
-				<div className='w-[95%] self-center'>
+				<div className='w-[90%] self-center'>
 					<ProgressBar progress={completedPercentage} />
 				</div>
-				<div className='flex flex-row justify-between w-[95%] self-center'>
+				<div className='flex flex-row justify-between w-[90%] self-center'>
 					<div className='text-gray-400'>
 						{completedPercentage < 100 ? 'On Progress' : 'Completed'}{' '}
 					</div>
