@@ -65,9 +65,9 @@ const CategoryList = ({ categories }) => {
 	return (
 		<div
 			ref={containerRef}
-			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px]  overflow-hidden p-1 ${
+			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] h-[67px] overflow-hidden  ${
 				categories.length > 1
-					? 'hover:h-auto hover:z-999 hover:absolute hover:bg-gray-100 hover:rounded-2xl'
+					? 'hover:h-auto hover:z-999 hover:p-1 hover:absolute hover:bg-gray-100 hover:rounded-2xl'
 					: ''
 			} `}
 			onMouseEnter={() => setIsHovered(true)}
