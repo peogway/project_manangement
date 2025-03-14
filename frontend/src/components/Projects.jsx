@@ -153,9 +153,9 @@ const Projects = () => {
 						</p>
 					</div>
 					<div className='flex flex-col mr-20 h-auto'>
-						<div className='ml-auto items-center mr-5 flex'>
+						<div className='ml-auto items-center mr-52 flex'>
 							<p className='font-bold text-gray-400'>Sort</p>
-							<div className='text-gray-400'>
+							<div className='text-gray-400 mr-6'>
 								<FilterAltIcon fontSize='small' />
 							</div>
 							<SortDropdown
