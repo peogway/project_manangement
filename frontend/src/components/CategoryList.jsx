@@ -84,13 +84,16 @@ const CategoryList = ({ categories }) => {
 					</div>
 				</div>
 			))}
-			{isFull && !isHovered && (
-				<div
-					className={`bg-gray-200 rounded-xl p-1 border-slate-300 h-[20px] flex items-center justify-center self-end`}
-				>
-					<MoreHorizIcon fontSize='small' />
-				</div>
-			)}
+			{(isFull || (visibleCategories.length === 0 && categories.length > 0)) &&
+				!isHovered && (
+					<div
+						className={`${
+							visibleCategories.length === 0 ? 'absolute top-3 ' : ''
+						} bg-gray-200 rounded-xl p-1 border-slate-300 h-[20px] flex items-center justify-center self-end`}
+					>
+						<MoreHorizIcon fontSize='small' />
+					</div>
+				)}
 			{categories.length === 0 && (
 				<div className='flex absolute top-4 justify-start items-start w-full h-full text-gray-400 gap-1 absolute mt-5 ml-17'>
 					<DoNotDisturbAltIcon />
