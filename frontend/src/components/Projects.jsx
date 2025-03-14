@@ -92,6 +92,7 @@ const Projects = () => {
 	const completedProjects = projects
 		.filter(
 			(project) =>
+				project.tasks.length > 0 &&
 				project.tasks.filter((task) => task.completed === false).length === 0
 		)
 		.reverse()
