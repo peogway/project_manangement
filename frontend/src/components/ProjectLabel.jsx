@@ -114,9 +114,9 @@ const ProjectLabel = ({
 	const completedTasks = project.tasks.filter((task) => task.completed)
 
 	return (
-		<div className='bg-white rounded-2xl w-[300px] h-[300px] flex flex-col relative cursor-pointer'>
-			<div className='flex flex-row justify-between items-center relative'>
-				<div className='flex items-center justify-center rounded-xl absolute ml-[8px] left-0  top-[35px]'>
+		<div className='bg-white rounded-2xl w-[300px] h-[335px] flex flex-col relative cursor-pointer'>
+			<div className='flex flex-row justify-between items-center relative p-3'>
+				<div className='flex items-center justify-center rounded-xl ] ml-[8px] left-0  top-[px]'>
 					{getIconComponent(
 						parseInt(project.icon),
 						'text-white',
@@ -126,17 +126,14 @@ const ProjectLabel = ({
 					)}
 				</div>
 
-				<div className='flex flex-col gap-1 absolute left-[65px] top-[5px]'>
+				<div className='flex flex-col gap-1 ] left-[65px] top-[5px]'>
 					<h1 className='p-2 font-bold text-xl whitespace-nowrap overflow-hidden hover:w-auto hover:overflow-visible w-[180px] hover:bg-white hover:rounded-xl hover:z-900 hover:'>
 						{project.name}
 					</h1>
-					<div className=''>
-						<CategoryList categories={project.categories} />
-					</div>
 				</div>
 
 				<div
-					className='absolute right-0 top-[30px] mr-2'
+					className=' right-0 top-[30px] mr-2'
 					onMouseDown={handleMouseDown}
 					onMouseUp={handleMouseUp}
 					onClick={handleClick}
@@ -149,7 +146,7 @@ const ProjectLabel = ({
 			</div> */}
 			{showFeatures && projectFeatures()}
 			{/* <p style={{ color: 'gray' }}>Projects</p> */}
-			<div className='absolute top-[120px] left-[40px]'>
+			<div className='absolute top-[80px] left-[40px]'>
 				{project.tasks.length === 0 ? (
 					<div className='relative text-gray-400'>
 						<button
@@ -188,11 +185,11 @@ const ProjectLabel = ({
 				)}
 			</div>
 			{project.tasks.length > 3 && (
-				<div className='absolute top-[210px] left-[20px] text-orange-500'>
+				<div className='absolute top-[170px] left-[20px] text-orange-500'>
 					+{project.tasks.length - 3} tasks
 				</div>
 			)}
-			<div className='flex flex-col bottom-0 absolute right-0 left-0 gap-2 mb-4'>
+			<div className='flex flex-col bottom-17 absolute right-0 left-0 gap-2 mb-4'>
 				<div className='w-[95%] self-center'>
 					<ProgressBar progress={completedPercentage} />
 				</div>
@@ -204,6 +201,9 @@ const ProjectLabel = ({
 						{completedTasks.length}/{project.tasks.length}
 					</div>
 				</div>
+			</div>
+			<div className='absolute bottom-0'>
+				<CategoryList categories={project.categories} />
 			</div>
 		</div>
 	)
