@@ -65,9 +65,9 @@ const CategoryList = ({ categories }) => {
 	return (
 		<div
 			ref={containerRef}
-			className={`flex flex-wrap gap-1 w-[200px] min-h-[67px] h-[67px] overflow-hidden  ${
+			className={`flex flex-wrap gap-1 w-[280px] min-h-[67px] absolute top-[-75px] ml-3  h-[67px] overflow-hidden  ${
 				categories.length > 1
-					? 'hover:h-auto hover:z-999 hover:p-1 hover:absolute hover:bg-gray-100 hover:rounded-2xl'
+					? 'hover:h-auto hover:z-999 hover:p-2  hover:absolute hover:bg-gray-100 hover:rounded-2xl'
 					: ''
 			} `}
 			onMouseEnter={() => setIsHovered(true)}
@@ -92,7 +92,7 @@ const CategoryList = ({ categories }) => {
 				</div>
 			)}
 			{categories.length === 0 && (
-				<div className='flex justify-start items-start w-full h-full text-gray-400 gap-1 absolute mt-2 ml-3'>
+				<div className='flex justify-start items-start w-full h-full text-gray-400 gap-1 absolute mt-5 ml-17'>
 					<DoNotDisturbAltIcon />
 					No Categories
 				</div>
@@ -102,4 +102,3 @@ const CategoryList = ({ categories }) => {
 }
 
 export default CategoryList
-
