@@ -23,7 +23,7 @@ const ProjectLabel = ({
 
 	const completedPercentage =
 		project.tasks.length === 0
-			? 100
+			? 0
 			: Math.floor(
 					(project.tasks.filter((task) => task.completed).length /
 						project.tasks.length) *
