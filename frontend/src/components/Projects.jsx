@@ -176,6 +176,7 @@ const Projects = () => {
 								description='Choose categories'
 								value={true}
 								width='[300px]'
+								noBorder={true}
 							/>
 						</div>
 						<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
