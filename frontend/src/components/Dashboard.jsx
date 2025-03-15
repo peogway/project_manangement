@@ -127,12 +127,42 @@ const Dashboard = ({ user }) => {
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[700px]  box rounded-xl pb-10'>
 				<div className='font-bold text-[]'>Recents Task</div>
 				<div className='mt-5 ml-2 p-2 flex flex-col gap-3 items-center select-none'>
-					{[...tasks].reverse().map(
-						(task, index) =>
+					{[...tasks].reverse().map((task, index) => {
+						const date1 = new Date(task.createAt)
+						const date2 = new Date()
+
+						const intervalInMilliseconds = date2 - date1
+						const intervalInSeconds = intervalInMilliseconds / 1000
+						const intervalInMinutes = intervalInSeconds / 60
+						const intervalInHours = intervalInMinutes / 60
+						const intervalInDays = intervalInHours / 24
+
+						// console.log('Interval in milliseconds:', intervalInMilliseconds)
+						// console.log('Interval in seconds:', intervalInSeconds)
+						// console.log('Interval in minutes:', intervalInMinutes)
+						// console.log('Interval in hours:', intervalInHours)
+						// console.log('Interval in days:', intervalInDays)
+						const displayInterval =
+							intervalInSeconds < 60
+								? `${Math.floor(intervalInSeconds)} ${
+										intervalInSeconds >= 2 ? 'seconds' : 'second'
+								  }`
+								: intervalInMinutes < 60
+								? `${Math.floor(intervalInMinutes)} ${
+										intervalInMinutes >= 2 ? 'minutes' : 'minute'
+								  }`
+								: intervalInHours < 24
+								? `${Math.floor(intervalInHours)} ${
+										intervalInHours >= 2 ? 'hours' : 'hour'
+								  }`
+								: `${Math.floor(intervalInDays)} ${
+										intervalInDays >= 2 ? 'days' : 'day'
+								  }`
+						return (
 							index < 6 && (
 								<div
 									key={task.id}
-									className='rounded-xl bg-slate-100 p-2 flex cursor-pointer gap-2 w-full justify-between'
+									className='h-auto rounded-xl bg-slate-100 relative p-2 flex cursor-pointer w-full  items-center'
 									onClick={(e) => {
 										navigate('/tasks', {
 											state: {
@@ -143,31 +173,48 @@ const Dashboard = ({ user }) => {
 										})
 									}}
 								>
-									<div className='flex justify-center items-center'>
-										{getIconComponent(
-											task.icon,
-											'text-orange-500',
-											'text-[15px]',
-											'bg-white',
-											'p-[2px]'
-										)}
+									{/* Task Icon and Name */}
+									<div className='flex flex-row  w-[150px]'>
+										{/* Task Icon */}
+										<div className=' left-0 top-4 ml-5 flex justify-center items-center'>
+											{getIconComponent(
+												task.icon,
+												'text-orange-500',
+												'text-[15px]',
+												'bg-white',
+												'p-1'
+											)}
+										</div>
+
+										{/* Task Name */}
+										<p className='font-bold  overflow-auto left-5 ml-5'>
+											{task.name}
+										</p>
 									</div>
-									<p className='font-bold'>{task.name}</p>
-									<div className='flex flex-col'>
-										<p className='text-slate-400'>Created at</p>
-										<p className='text-blue-500'>{task.createAt}</p>
+
+									{/* Task Create At */}
+									<div className='flex flex-col  ml-10'>
+										<p className='text-slate-400'>Created</p>
+										<p className='text-blue-500 flex'>{displayInterval} ago</p>
 									</div>
-									<div className='flex flex-col'>
+
+									{/* Task Project */}
+									<div className='flex flex-col w-[150px]  max-w-[150px] ml-20'>
 										<p className='text-slate-400'>In Project</p>
-										<p className='text-blue-500'>{task.project.name}</p>
+										<p className='text-blue-500 overflow-auto  '>
+											{task.project.name}
+										</p>
 									</div>
-									<div className='flex flex-col'>
+
+									{/* Status */}
+									<div className='flex flex-col  ml-10'>
 										<p className='text-slate-400'>Status</p>
 										<p className='text-blue-500'>{task.status}</p>
 									</div>
 								</div>
 							)
-					)}
+						)
+					})}
 				</div>
 			</div>
 
