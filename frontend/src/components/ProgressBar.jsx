@@ -1,8 +1,10 @@
-const ProgressBar = ({ progress, color, className, height }) => {
+const ProgressBar = ({ progress, color, className, height, bgColor }) => {
 	return (
 		<div className={className ? className : ''}>
 			<div
-				className={`w-full bg-gray-200 rounded-full ${height ? height : 'h-2'}`}
+				className={`w-full ${bgColor ? bgColor : 'bg-gray-200'} rounded-full ${
+					height ? height : 'h-2'
+				}`}
 			>
 				<div
 					className={`${color ? color : 'bg-orange-500'} ${
