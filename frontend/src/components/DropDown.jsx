@@ -20,7 +20,7 @@ const Dropdown = forwardRef(
 					selectedOption === '' ? 'default' : ''
 				} text-gray-500 ${
 					noBorder ? '' : 'border-1 border-gray-400'
-				}  rounded-lg w-${width} pl-3`}
+				}  rounded-lg w-${width} pl-3 pb-1`}
 				value={selectedOption}
 				onChange={handleSelectOption}
 			>
