@@ -126,7 +126,7 @@ const Dashboard = ({ user }) => {
 			{/* Recent Tasks */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[700px]  box rounded-xl pb-10'>
 				<div className='font-bold text-[]'>Recents Task</div>
-				<div className='mt-5 ml-2 p-2 flex flex-col gap-3 items-center select-none'>
+				<div className='mt-5 ml-2 p-2 flex flex-col gap-5 items-center select-none'>
 					{[...tasks].reverse().map((task, index) => {
 						const date1 = new Date(task.createAt)
 						const date2 = new Date()
@@ -137,11 +137,6 @@ const Dashboard = ({ user }) => {
 						const intervalInHours = intervalInMinutes / 60
 						const intervalInDays = intervalInHours / 24
 
-						// console.log('Interval in milliseconds:', intervalInMilliseconds)
-						// console.log('Interval in seconds:', intervalInSeconds)
-						// console.log('Interval in minutes:', intervalInMinutes)
-						// console.log('Interval in hours:', intervalInHours)
-						// console.log('Interval in days:', intervalInDays)
 						const displayInterval =
 							intervalInSeconds < 60
 								? `${Math.floor(intervalInSeconds)} ${
@@ -181,7 +176,7 @@ const Dashboard = ({ user }) => {
 												task.icon,
 												'text-orange-500',
 												'text-[15px]',
-												'bg-white',
+												'bg-orange-300',
 												'p-1'
 											)}
 										</div>
@@ -274,7 +269,9 @@ const Dashboard = ({ user }) => {
 												'p-[2px]'
 											)}
 										</div>
-										<div className='text-slate-500'>{project.name}</div>
+										<div className='text-slate-500 overflow-auto'>
+											{project.name}
+										</div>
 									</div>
 
 									<div className='flex w-full justify-between items-center text-slate-500 mt-4'>
