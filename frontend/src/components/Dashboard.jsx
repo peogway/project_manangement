@@ -61,12 +61,12 @@ const Dashboard = ({ user }) => {
 					}}
 				>
 					<div className='flex w-full justify-between items-center'>
-						<div className='flex flex-col items-start	ml-4'>
+						<div className='flex flex-col items-start	ml-5'>
 							<div className='font-bold text-[20px]'>{projects.length}</div>
 							<div className='text-white text-[15px]'>Projects</div>
 						</div>
 					</div>
-					<div className='bg-white mr-5 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
+					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
 						<FontAwesomeIcon icon={faDiagramProject} />
 					</div>
 				</div>
@@ -78,14 +78,14 @@ const Dashboard = ({ user }) => {
 					}}
 				>
 					<div className='flex w-full justify-between items-center'>
-						<div className='flex flex-col items-start '>
+						<div className='flex flex-col items-start ml-5'>
 							<div className='font-bold text-[20px]'>
 								{tasks.filter((task) => task.completed).length}
 							</div>
 							<div className='text-white text-[15px]'>Tasks Completed</div>
 						</div>
 					</div>
-					<div className='bg-white text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
+					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
 						<FontAwesomeIcon icon={faListCheck} />
 					</div>
 				</div>
@@ -96,13 +96,13 @@ const Dashboard = ({ user }) => {
 						navigate('/categories')
 					}}
 				>
-					<div className='flex w-full ml-4 justify-between items-center'>
+					<div className='flex w-full ml-5 justify-between items-center'>
 						<div className='flex flex-col items-start'>
 							<div className='font-bold text-[20px]'>{categories.length}</div>
 							<div className='text-white text-[15px]'>Categories</div>
 						</div>
 					</div>
-					<div className='bg-white mr-5 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
+					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
 						<FontAwesomeIcon icon={faLayerGroup} />
 					</div>
 				</div>
