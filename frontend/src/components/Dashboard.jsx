@@ -206,7 +206,7 @@ const Dashboard = ({ user }) => {
 									</div>
 
 									{/* Task Create At */}
-									<div className='flex flex-col  ml-10 w-[100px]'>
+									<div className='flex flex-col  ml-10 w-[120px]'>
 										<p className='text-slate-400'>Created</p>
 										<p className='text-blue-500 flex'>{displayInterval} ago</p>
 									</div>
