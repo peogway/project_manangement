@@ -216,7 +216,8 @@ const Projects = () => {
 					</div>
 				</div>
 
-				<div className='flex gap-4 pl-10 mt-5  flex-wrap pb-10'>
+				{/* Projects to display */}
+				<div className='flex gap-4 pl-10  flex-wrap pb-10'>
 					{sortedProjects.length === 0 && (
 						<div
 							style={{
