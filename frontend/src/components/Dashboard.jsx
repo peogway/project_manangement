@@ -159,7 +159,6 @@ const Dashboard = ({ user }) => {
 								: `${Math.floor(intervalInDays)} ${
 										intervalInDays >= 2 ? 'days' : 'day'
 								  }`
-						console.log(priorityMap[task.priority])
 
 						return (
 							index < 6 && (
