@@ -73,6 +73,8 @@ const Dashboard = ({ user }) => {
 					onClick={() => {
 						navigate('/projects')
 					}}
+					onMouseEnter={(e) => e.currentTarget.classList.add('box')}
+					onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
 				>
 					<div className='flex w-full justify-between items-center'>
 						<div className='flex flex-col items-start	ml-5'>
@@ -90,6 +92,8 @@ const Dashboard = ({ user }) => {
 					onClick={() => {
 						navigate('/tasks')
 					}}
+					onMouseEnter={(e) => e.currentTarget.classList.add('box')}
+					onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
 				>
 					<div className='flex w-full justify-between items-center'>
 						<div className='flex flex-col items-start ml-5'>
@@ -109,6 +113,8 @@ const Dashboard = ({ user }) => {
 					onClick={() => {
 						navigate('/categories')
 					}}
+					onMouseEnter={(e) => e.currentTarget.classList.add('box')}
+					onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
 				>
 					<div className='flex w-full ml-5 justify-between items-center'>
 						<div className='flex flex-col items-start'>
@@ -177,11 +183,13 @@ const Dashboard = ({ user }) => {
 											},
 										})
 									}}
+									onMouseEnter={(e) => e.currentTarget.classList.add('box')}
+									onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
 								>
 									{/* Task Icon and Name */}
 									<div className='flex flex-row  w-[150px]'>
 										{/* Task Icon */}
-										<div className=' left-0 top-4 ml-5 flex justify-center items-center'>
+										<div className=' left-0 top-4 ml-2 flex justify-center items-center'>
 											{getIconComponent(
 												task.icon,
 												'text-orange-500',
@@ -192,7 +200,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-bold  overflow-auto left-5 ml-5'>
+										<p className='font-bold  overflow-auto left-5 ml-5 break-words'>
 											{task.name}
 										</p>
 									</div>
@@ -206,7 +214,7 @@ const Dashboard = ({ user }) => {
 									{/* Task Project */}
 									<div className='flex flex-col w-[150px]  max-w-[150px] ml-10'>
 										<p className='text-slate-400'>In Project</p>
-										<p className='text-blue-500 overflow-auto whitespace-nowrap flex items-center'>
+										<div className='text-blue-500 overflow-auto whitespace-nowrap flex items-center'>
 											<span className='scale-60 relative top-[1px]'>
 												{getIconComponent(
 													task.project.icon,
@@ -219,7 +227,7 @@ const Dashboard = ({ user }) => {
 											<span className='flex items-center justify-center'>
 												{task.project.name}
 											</span>
-										</p>
+										</div>
 									</div>
 
 									{/* Status */}
@@ -257,7 +265,7 @@ const Dashboard = ({ user }) => {
 			</div>
 
 			{/* Latest Projects */}
-			<div className='pb-10 absolute right-0 top-[350px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
+			<div className='pb-10 bg-white absolute right-0 top-[350px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
 				<div className='flex items-center justify-between p-4 w-full '>
 					<div className='font-bold'>Latest Projects</div>
 					<div
@@ -273,12 +281,14 @@ const Dashboard = ({ user }) => {
 							index < 4 && (
 								<div
 									key={project.id}
-									className='rounded-xl bg-slate-100 p-2 flex flex-col w-full'
+									className='rounded-xl bg-slate-100 p-2 flex flex-col w-full cursor-pointer'
 									onClick={(e) => {
 										navigate('/tasks', {
 											state: { project: project },
 										})
 									}}
+									onMouseEnter={(e) => e.currentTarget.classList.add('box')}
+									onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
 								>
 									<div className='flex p-1 gap-1'>
 										<div className='flex justify-center items-center'>
