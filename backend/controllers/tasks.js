@@ -59,7 +59,6 @@ tasksRouter.post("/", async (req, res) => {
     const savedTask = await task.save();
     const populatedTask = await savedTask.populate(
         "project",
-        "id name categories",
     );
 
     project.tasks = project.tasks.concat(savedTask.id);
