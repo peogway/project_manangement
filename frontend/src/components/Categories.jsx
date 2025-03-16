@@ -269,8 +269,8 @@ const Categories = () => {
 					/>
 				</div>
 
-				<div className='z-999 mt-7 w-[95%] h-[0.01%]'>
-					{categories.length === 0 ? (
+				<div className='mt-7 w-[95%] pb-10'>
+					{categories.length === 0 && (
 						<div
 							style={{
 								transform: 'translate(-50%, -50%)',
@@ -282,24 +282,18 @@ const Categories = () => {
 							</div>
 							<p>No categories available</p>
 						</div>
-					) : (
-						<div className='flex flex-col items-center gap-4 mt-4 pb-25 '>
-							{categories.map((category) => (
-								<div
-									key={category.id}
-									className='rounded-2xl box w-[98%] bg-white '
-								>
-									<Category
-										name={category.name}
-										id={category.id}
-										categories={categories}
-										projects={category.projects}
-										category={category}
-									/>
-								</div>
-							))}
-						</div>
 					)}
+					{categories.map((category) => (
+						<div key={category.id}>
+							<Category
+								name={category.name}
+								id={category.id}
+								categories={categories}
+								projects={category.projects}
+								category={category}
+							/>
+						</div>
+					))}
 				</div>
 				{showAddCategory && (
 					<CategoryForm
