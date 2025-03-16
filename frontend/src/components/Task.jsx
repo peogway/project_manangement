@@ -58,7 +58,7 @@ const Task = ({ ...props }) => {
 				<div
 					className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl ${
 						isHover ? 'box' : ''
-					} ${isChecked ? 'opacity-50' : ''}`}
+					} ${isChecked ? 'opacity-70' : ''}`}
 				>
 					<div className='flex flex-row items-center'>
 						<div className='m-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
@@ -66,7 +66,11 @@ const Task = ({ ...props }) => {
 						</div>
 						<div className='flex flex-col relative self-start  overflow:auto   w-[450px]'>
 							<h2
-								className={`break-words p-[1px] pr-2 pl-3 font-bold text-lg w-auto  z-30 top-[-1px] left-[-10px]  rounded-xl`}
+								className={`${
+									isChecked
+										? "after:absolute after:top-1/2 after:translate-y-1/2 after:left-0 after:w-full after:content-[''] after:h-[1px] after:bg-black"
+										: ''
+								} relative break-words p-[1px] pr-3 pl-3 font-bold text-lg max-w-fit  z-30 top-[-1px] left-[-10px]  rounded-xl`}
 							>
 								{props.name}
 							</h2>
