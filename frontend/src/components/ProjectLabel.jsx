@@ -112,7 +112,7 @@ const ProjectLabel = ({
 		<div
 			className={`bg-white rounded-2xl w-[300px] h-[335px] flex flex-col relative cursor-pointer ${
 				isHover ? 'box' : ''
-			}`}
+			} mt-5`}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
 		>
