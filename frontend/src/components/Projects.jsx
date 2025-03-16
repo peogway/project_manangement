@@ -125,8 +125,11 @@ const Projects = () => {
 
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
+			{/* Contents */}
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
-				<div className='flex flex-row justify-between mt-7 mb-1'>
+				{/* Search and Sort */}
+				<div className='flex flex-row justify-between items-center mt-7 mb-1'>
+					{/* Search */}
 					<div className='flex z-900 rounded-lg ml-5 '>
 						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
 							<SearchIcon />
@@ -137,6 +140,31 @@ const Projects = () => {
 							className='border-b-2 border-gray-200 pl-1 pr-1'
 						/>
 					</div>
+					{/* Sort */}
+					<div className='ml-auto  flex mr-10'>
+						<p className='font-bold text-gray-400'>Sort</p>
+						<div className='text-gray-400 mr-6'>
+							<FilterAltIcon fontSize='small' />
+						</div>
+						<SortDropdown
+							initlaValue='newest'
+							sortByDate={true}
+							setSortValue={setSortValue}
+						/>
+					</div>
+				</div>
+
+				{/* My Projects heading and Add button  */}
+				<div className='flex flex-row justify-between mb-7 mt-10'>
+					{/* Heading */}
+					<div className='flex flex-col ml-5'>
+						<h1 className='font-bold text-2xl'>My Projects</h1>
+						<p className='ml-3 text-gray-400'>
+							{sortedProjects.length} Projects
+						</p>
+					</div>
+
+					{/* Add button */}
 					<button
 						onClick={() => setShowAddProject(true)}
 						className='w-25 h-7 mr-10 bg-orange-500 select-none rounded-lg text-white'
@@ -145,64 +173,46 @@ const Projects = () => {
 					</button>
 				</div>
 
-				<div className='flex flex-row justify-between mb-7 mt-10'>
-					<div className='flex flex-col ml-5'>
-						<h1 className='font-bold text-2xl'>My Projects</h1>
-						<p className='ml-3 text-gray-400'>
-							{sortedProjects.length} Projects
-						</p>
+				{/* Filter */}
+				<div className='flex flex-col ml-10 mb-5 h-auto self-start'>
+					<div className='ml-auto items-center mr-5 flex pt-2'>
+						<p className='font-bold text-gray-400'>Filter by categories</p>
+						<div className='text-gray-400 pr-3'>
+							<FilterAltOffIcon fontSize='small' />
+						</div>
+						<DropDown
+							options={categoryNames}
+							onSelect={handleSelectCategory}
+							description='Choose categories'
+							value={true}
+							width='auto'
+						/>
 					</div>
-					<div className='flex flex-col mr-20 h-auto'>
-						<div className='ml-auto items-center mr-52 flex'>
-							<p className='font-bold text-gray-400'>Sort</p>
-							<div className='text-gray-400 mr-6'>
-								<FilterAltIcon fontSize='small' />
-							</div>
-							<SortDropdown
-								initlaValue='newest'
-								sortByDate={true}
-								setSortValue={setSortValue}
-							/>
-						</div>
 
-						<div className='ml-auto items-center mr-5 flex pt-2'>
-							<p className='font-bold text-gray-400'>Filter by categories</p>
-							<div className='text-gray-400 pr-3'>
-								<FilterAltOffIcon fontSize='small' />
-							</div>
-							<DropDown
-								options={categoryNames}
-								onSelect={handleSelectCategory}
-								description='Choose categories'
-								value={true}
-								width='[300px]'
-								noBorder={true}
-							/>
-						</div>
-						<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
-							{resCates.map((cate) => (
+					{/* Categories to display */}
+					<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
+						{resCates.map((cate) => (
+							<div
+								key={cate.id}
+								className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
+							>
+								<label className='flex flex-row gap-5'>{cate.name}</label>
 								<div
-									key={cate.id}
-									className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
+									onClick={() => {
+										setResCates(
+											resCates.filter((category) => category.id !== cate.id)
+										)
+										setCategoryNames(
+											categoryNames
+												.concat(cate.name)
+												.sort((a, b) => a.localeCompare(b))
+										)
+									}}
 								>
-									<label className='flex flex-row gap-5'>{cate.name}</label>
-									<div
-										onClick={() => {
-											setResCates(
-												resCates.filter((category) => category.id !== cate.id)
-											)
-											setCategoryNames(
-												categoryNames
-													.concat(cate.name)
-													.sort((a, b) => a.localeCompare(b))
-											)
-										}}
-									>
-										<CloseIcon fontSize='small' />
-									</div>
+									<CloseIcon fontSize='small' />
 								</div>
-							))}
-						</div>
+							</div>
+						))}
 					</div>
 				</div>
 
@@ -242,6 +252,7 @@ const Projects = () => {
 				</div>
 			</div>
 
+			{/* Sidebar */}
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[210px] '>
 				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
 				<CircularChart percent={completionPercentage} />
