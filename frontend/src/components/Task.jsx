@@ -12,7 +12,7 @@ const Task = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const [isChecked, setIsChecked] = useState(props.completed ? true : false)
 	const [showEditForm, setShowEditForm] = useState(false)
-	const [isHovered, setIsHovered] = useState(false)
+	const [isHover, setIsHover] = useState(false)
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked)
 		const { id } = props
@@ -40,7 +40,11 @@ const Task = ({ ...props }) => {
 	}
 	return (
 		<div>
-			<div className='flex flex-row items-center mt-5'>
+			<div
+				className='flex flex-row items-center mt-5'
+				onMouseEnter={() => setIsHover(true)}
+				onMouseLeave={() => setIsHover(false)}
+			>
 				<div className='w-[30px]'>
 					<input
 						className={`${
@@ -52,9 +56,9 @@ const Task = ({ ...props }) => {
 					/>
 				</div>
 				<div
-					className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box ${
-						isChecked ? 'opacity-50' : ''
-					}`}
+					className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl ${
+						isHover ? 'box' : ''
+					} ${isChecked ? 'opacity-50' : ''}`}
 				>
 					<div className='flex flex-row items-center'>
 						<div className='m-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
