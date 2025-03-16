@@ -20,6 +20,7 @@ const ProjectLabel = ({
 	const [showFeatures, setShowFeatures] = useState(false)
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const featuresRef = useRef(null)
+	const [isHover, setIsHover] = useState(false)
 
 	const completedPercentage =
 		project.tasks.length === 0
@@ -77,15 +78,9 @@ const ProjectLabel = ({
 		return (
 			<div
 				ref={featuresRef}
-				className='flex flex-col bg-white rounded-2xl p-2 z-1000 gap-2 showdow-md box absolute right-0 top-[70px] mr-4'
+				className='flex flex-col bg-white rounded-2xl p-2 z-1000 gap-2 showdow-md box absolute right-0 top-[50px] mr-4'
 			>
 				<div
-					// onClick={() => {
-					// 	setProjectToEdit(project)
-					// 	setIconId(parseInt(project.icon))
-					// 	setShowFeatures(false)
-					// }}
-
 					onClick={(e) => {
 						e.stopPropagation()
 						setProjectToEdit(project)
@@ -114,7 +109,13 @@ const ProjectLabel = ({
 	const completedTasks = project.tasks.filter((task) => task.completed)
 
 	return (
-		<div className='bg-white rounded-2xl w-[300px] h-[335px] flex flex-col relative cursor-pointer'>
+		<div
+			className={`bg-white rounded-2xl w-[300px] h-[335px] flex flex-col relative cursor-pointer ${
+				isHover ? 'box' : ''
+			}`}
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
+		>
 			<div className='flex flex-row justify-between items-center relative p-3'>
 				<div className='flex items-center justify-center rounded-xl ] ml-[8px] left-0  top-[px]'>
 					{getIconComponent(
@@ -127,7 +128,7 @@ const ProjectLabel = ({
 				</div>
 
 				<div className='flex flex-col gap-1 ] left-[65px] top-[5px]'>
-					<h1 className='p-2 font-bold text-xl whitespace-nowrap overflow-hidden hover:w-auto hover:overflow-visible w-[180px] hover:bg-white hover:rounded-xl hover:z-900 hover:'>
+					<h1 className='p-2 font-bold text-xl whitespace-nowrap overflow-hidden text-ellipsis w-[180px]'>
 						{project.name}
 					</h1>
 				</div>
@@ -169,8 +170,8 @@ const ProjectLabel = ({
 								index < 3 && (
 									<li
 										key={task.id}
-										className={` whitespace-nowrap text-gray-500 overflow-hidden w-[200px] hover:overflow-visible 
-												hover:w-auto rounded-sm hover:z-999 relative hover:bg-gray-100  hover:pr-10 pl-1 pr-1 pt-0.5 pb-0.5  rounded-xl `}
+										className={` whitespace-nowrap  overflow-hidden text-ellipsis text-gray-500 w-[200px] 
+											 rounded-sm relative pl-1 pr-1 pt-0.5 pb-0.5  rounded-xl `}
 									>
 										<span
 											className={`absolute left-0 top-1/2 transform  translate-y-[-1px] w-1.5 h-1.5 rounded-full ${
@@ -203,7 +204,7 @@ const ProjectLabel = ({
 				</div>
 			</div>
 			<div className='absolute bottom-0'>
-				<CategoryList categories={project.categories} />
+				<CategoryList categories={project.categories} isHover={isHover} />
 			</div>
 		</div>
 	)
