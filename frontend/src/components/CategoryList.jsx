@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
-const CategoryList = ({ categories }) => {
+const CategoryList = ({ categories, isHover }) => {
 	const [visibleCategories, setVisibleCategories] = useState([])
 	const [isFull, setIsFull] = useState(false)
-	const [isHovered, setIsHovered] = useState(false)
+
 	const containerRef = useRef(null)
 
 	useEffect(() => {
@@ -70,14 +70,12 @@ const CategoryList = ({ categories }) => {
 					? 'hover:h-auto hover:z-999 hover:p-2  hover:absolute hover:bg-gray-100 hover:rounded-2xl'
 					: ''
 			} `}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
 		>
-			{(isHovered ? categories : visibleCategories).map((category, index) => (
+			{(isHover ? categories : visibleCategories).map((category, index) => (
 				<div key={category.id}>
 					<div
 						className={`${
-							isHovered ? 'bg-gray-300 ' : 'bg-gray-200 whitespace-nowrap '
+							isHover ? 'bg-gray-300 ' : 'bg-gray-200 whitespace-nowrap '
 						} rounded-xl p-1 border-slate-200  h-auto flex justify-center items-center`}
 					>
 						{category.name}
@@ -85,7 +83,7 @@ const CategoryList = ({ categories }) => {
 				</div>
 			))}
 			{(isFull || (visibleCategories.length === 0 && categories.length > 0)) &&
-				!isHovered && (
+				!isHover && (
 					<div
 						className={`${
 							visibleCategories.length === 0 ? 'absolute top-3 ' : ''
