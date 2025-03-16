@@ -15,13 +15,15 @@ const CategoryList = ({ categories, isHover }) => {
 		let totalWidth = 0
 		const fittingCategories = []
 		let stack = 1
-
+		let index = 0
 		// Add items until the total width exceeds container's width
-		for (const category of categories) {
+
+		while (index < categories.length) {
+			const category = categories[index]
 			const categoryElement = document.createElement('div')
 			categoryElement.style.visibility = 'hidden'
 			categoryElement.className =
-				'bg-gray-200 rounded-xl p-1 border-slate-300 h-[30px] flex items-center justify-center text-[16px]'
+				'bg-gray-200 rounded-xl p-1 border-slate-300 h-[30px] flex items-center justify-center text-[16px] max-w-[270px] whitespace-nowrap overflow-hidden text-ellipsis'
 			categoryElement.innerText = category.name
 			container.appendChild(categoryElement)
 
@@ -31,6 +33,7 @@ const CategoryList = ({ categories, isHover }) => {
 			if (totalWidth + categoryWidth + 4 <= containerWidth) {
 				fittingCategories.push(category)
 				totalWidth += categoryWidth + 4
+				index += 1
 			} else {
 				stack += 1
 				if (stack > 2) {
@@ -39,7 +42,7 @@ const CategoryList = ({ categories, isHover }) => {
 						const lastCategoryElement = document.createElement('div')
 						lastCategoryElement.style.visibility = 'hidden'
 						lastCategoryElement.className =
-							'bg-gray-200 rounded-xl p-1 border-slate-300 h-[30px] flex items-center justify-center text-[16px]'
+							'bg-gray-200 rounded-xl p-1 border-slate-300 h-[30px] flex items-center justify-center text-[16px] max-w-[270px] whitespace-nowrap overflow-hidden text-ellipsis'
 						lastCategoryElement.innerText = lastCategory.name
 						container.appendChild(lastCategoryElement)
 
@@ -67,16 +70,22 @@ const CategoryList = ({ categories, isHover }) => {
 			ref={containerRef}
 			className={`flex flex-wrap gap-1 w-[280px] min-h-[67px] absolute top-[-75px] ml-3  h-[67px] overflow-hidden  ${
 				categories.length > 1
-					? 'hover:h-auto hover:z-999 hover:p-2  hover:absolute hover:bg-gray-100 hover:rounded-2xl'
+					? `${
+							isHover
+								? 'h-auto z-999 p-2  absolute bg-gray-100 rounded-2xl'
+								: ''
+					  }`
 					: ''
-			} `}
+			}  ${categories.length > 0 && isHover && isFull ? 'box' : ''}`}
 		>
 			{(isHover ? categories : visibleCategories).map((category, index) => (
 				<div key={category.id}>
 					<div
 						className={`${
-							isHover ? 'bg-gray-300 ' : 'bg-gray-200 whitespace-nowrap '
-						} rounded-xl p-1 border-slate-200  h-auto flex justify-center items-center`}
+							isHover
+								? 'justify-center'
+								: 'max-w-[270px] whitespace-nowrap overflow-hidden text-ellipsis justify-start'
+						} rounded-xl p-1 border-slate-200 bg-gray-200  h-auto items-center`}
 					>
 						{category.name}
 					</div>
@@ -87,7 +96,7 @@ const CategoryList = ({ categories, isHover }) => {
 					<div
 						className={`${
 							visibleCategories.length === 0 ? 'absolute top-3 ' : ''
-						} bg-gray-200 rounded-xl p-1 border-slate-300 h-[20px] flex items-center justify-center self-end`}
+						} bg-gray-200 rounded-xl p-1 border-slate-300 h-[20px] flex items-center justify-center self-start relative top-3`}
 					>
 						<MoreHorizIcon fontSize='small' />
 					</div>
