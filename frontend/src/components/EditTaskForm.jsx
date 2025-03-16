@@ -135,21 +135,21 @@ const EditTaskForm = ({ onClose, project, ...task }) => {
 					</div>
 				</div>
 
-				<div className='task-project w-[85%] mt-7 flex flex-row justify-center items-center mb-10'>
-					<label className='text-gray-500 ml-[-10px] font-bold w-full'>
-						Project
-					</label>
+				<div className='task-project w-full  self-start ml-7 mt-7 flex flex-row items-center mb-10'>
+					<label className='text-gray-500 w-auto font-bold'>Project</label>
 
-					<div className=' whitespace-nowrap flex flex-row gap-2 items-center mr-30 rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr-3'>
-						<div
-							className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
-								icon === null && 'hidden'
-							}`}
-						>
-							{icon !== null ? icon : null}
-						</div>
-						<div className='text-gray-500'>
-							{chosenProject === null ? 'Select Project' : chosenProject.name}
+					<div className='flex-1 flex justify-center items-center '>
+						<div className=' flex flex-row gap-2 items-center rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr'>
+							<div
+								className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
+									icon === null && 'hidden'
+								}`}
+							>
+								{icon !== null ? icon : null}
+							</div>
+							<div className='text-gray-500 w-auto pr-3 max-w-[300px] overflow-auto'>
+								{chosenProject === null ? 'Select Project' : chosenProject.name}
+							</div>
 						</div>
 					</div>
 				</div>
