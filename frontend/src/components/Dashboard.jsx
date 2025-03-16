@@ -200,7 +200,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-bold  overflow-auto left-5 ml-5 break-words'>
+										<p className='font-bold text-slate-500  overflow-auto left-5 ml-5 break-words'>
 											{task.name}
 										</p>
 									</div>
@@ -300,7 +300,7 @@ const Dashboard = ({ user }) => {
 												'p-[5px]'
 											)}
 										</div>
-										<div className='text-slate-500 overflow-auto'>
+										<div className='text-slate-500 overflow-auto font-bold'>
 											{project.name}
 										</div>
 									</div>
