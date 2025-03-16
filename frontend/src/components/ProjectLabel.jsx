@@ -86,6 +86,7 @@ const ProjectLabel = ({
 						setProjectToEdit(project)
 						setIconId(parseInt(project.icon))
 						setShowFeatures(false)
+						setIsHover(false)
 					}}
 					className='edit-category-btn flex w-30 h-12   rounded-xl gap-2 pl-2  transition duration-200 ease-out hover:bg-blue-200 items-center'
 				>
