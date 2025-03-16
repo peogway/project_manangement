@@ -110,7 +110,7 @@ const App = () => {
 									location.pathname === '/dashboard'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
-								}`}
+								} box`}
 							>
 								{isHovered}
 							</span>
@@ -134,7 +134,7 @@ const App = () => {
 									location.pathname === '/projects'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
-								} `}
+								} box`}
 							>
 								{isHovered}
 							</span>
@@ -158,7 +158,7 @@ const App = () => {
 									location.pathname === '/tasks'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
-								} `}
+								} box`}
 							>
 								{isHovered}
 							</span>
@@ -182,7 +182,7 @@ const App = () => {
 									location.pathname === '/categories'
 										? 'bg-orange-500 text-white'
 										: 'bg-slate-200 text-slate-600'
-								} `}
+								} box`}
 							>
 								{isHovered}
 							</span>
