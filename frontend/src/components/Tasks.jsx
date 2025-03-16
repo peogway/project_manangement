@@ -144,7 +144,7 @@ const Tasks = () => {
 							<ProgressBar
 								progress={
 									tasksToShow.length === 0
-										? 1
+										? 0
 										: Math.floor(
 												(completedTasks.length / tasksToShow.length) * 100
 										  )
@@ -153,12 +153,15 @@ const Tasks = () => {
 								height='h-1'
 								className='w-[200px] max-w-md'
 							/>
-							{tasksToShow.length === 0
-								? 100
-								: ((completedTasks.length / tasksToShow.length) * 100).toFixed(
-										0
-								  )}
-							%
+							<p className='w-[30px]'>
+								{tasksToShow.length === 0
+									? 0
+									: (
+											(completedTasks.length / tasksToShow.length) *
+											100
+									  ).toFixed(0)}
+								%
+							</p>
 						</div>
 					</div>
 					<button
@@ -191,7 +194,7 @@ const Tasks = () => {
 						  '100'
 				}px] relative  overflow-auto w-[calc(100vw-100px)] max-h-[calc(100vh-130px)] left-[40px] pt-5 ml-15`}
 			>
-				{selectedProject !== null && (
+				{selectedProject !== null && selectedProject.categories.length != 0 && (
 					<div className='flex-wrap ml-3 mr-2 flex flex-row gap-2 w-auto max-w-[1100px] self-start pb-3'>
 						{selectedProject.categories.map((cate) => (
 							<div
