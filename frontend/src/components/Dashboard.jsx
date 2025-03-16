@@ -90,7 +90,11 @@ const Dashboard = ({ user }) => {
 				<div
 					className='bg-orange-500  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
 					onClick={() => {
-						navigate('/tasks')
+						navigate('/tasks', {
+							state: {
+								taskStatus: true,
+							},
+						})
 					}}
 					onMouseEnter={(e) => e.currentTarget.classList.add('box')}
 					onMouseLeave={(e) => e.currentTarget.classList.remove('box')}
