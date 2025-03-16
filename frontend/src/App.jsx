@@ -75,7 +75,7 @@ const App = () => {
 
 			{/* Soft Layer */}
 			{user && (
-				<div className='w-full h-full z-50 bg-slate-100 fixed opacity-30'></div>
+				<div className='w-full h-full z-50 bg-slate-200 fixed opacity-30'></div>
 			)}
 
 			{/* Sidebar and Navigation Links */}
