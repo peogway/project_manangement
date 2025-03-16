@@ -45,6 +45,12 @@ const Dashboard = ({ user }) => {
 			amt: 2400,
 		},
 	]
+
+	const priorityMap = {
+		high: 'before:bg-red-500',
+		medium: 'before:bg-yellow-500',
+		low: 'before:bg-green-500',
+	}
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			<div className='min-h-[110px] left-[20px] right-0 box flex flex-row justify-between items-center z-990 bg-white rounded-2xl absolute  '>
@@ -153,11 +159,16 @@ const Dashboard = ({ user }) => {
 								: `${Math.floor(intervalInDays)} ${
 										intervalInDays >= 2 ? 'days' : 'day'
 								  }`
+						console.log(priorityMap[task.priority])
+
 						return (
 							index < 6 && (
 								<div
 									key={task.id}
-									className='h-auto rounded-xl bg-slate-100 relative p-2 flex cursor-pointer w-full  items-center'
+									className={`h-auto rounded-xl bg-slate-100 relative p-2 flex cursor-pointer w-full items-center before:content-[''] before:right-0 before:absolute before:top-0 before:h-full 
+										before:w-[7px] ${
+											priorityMap[task.priority]
+										} before:rounded-r-xl overflow-hidden`}
 									onClick={(e) => {
 										navigate('/tasks', {
 											state: {
@@ -188,16 +199,27 @@ const Dashboard = ({ user }) => {
 									</div>
 
 									{/* Task Create At */}
-									<div className='flex flex-col  ml-10'>
+									<div className='flex flex-col  ml-10 w-[100px]'>
 										<p className='text-slate-400'>Created</p>
 										<p className='text-blue-500 flex'>{displayInterval} ago</p>
 									</div>
 
 									{/* Task Project */}
-									<div className='flex flex-col w-[150px]  max-w-[150px] ml-20'>
+									<div className='flex flex-col w-[150px]  max-w-[150px] ml-10'>
 										<p className='text-slate-400'>In Project</p>
-										<p className='text-blue-500 overflow-auto  '>
-											{task.project.name}
+										<p className='text-blue-500 overflow-auto whitespace-nowrap flex items-center'>
+											<span className='scale-60 relative top-[1px]'>
+												{getIconComponent(
+													task.project.icon,
+													'text-white',
+													'text-[15px]',
+													'bg-orange-500',
+													'p-1'
+												)}
+											</span>
+											<span className='flex items-center justify-center'>
+												{task.project.name}
+											</span>
 										</p>
 									</div>
 
@@ -266,7 +288,7 @@ const Dashboard = ({ user }) => {
 												'text-white',
 												'text-[15px]',
 												'bg-orange-500',
-												'p-[2px]'
+												'p-[5px]'
 											)}
 										</div>
 										<div className='text-slate-500 overflow-auto'>
