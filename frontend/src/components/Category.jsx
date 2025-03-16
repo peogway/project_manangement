@@ -13,6 +13,7 @@ const Category = (props) => {
 	const dispatch = useDispatch()
 	const [showEditForm, setShowEditForm] = useState(false)
 	const navigate = useNavigate()
+	const [isHover, setIsHover] = useState(false)
 	const handleDelete = () => {
 		if (
 			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
@@ -37,7 +38,13 @@ const Category = (props) => {
 	}, [])
 
 	return (
-		<div>
+		<div
+			className={`rounded-2xl w-full bg-white ml-2  mt-5 ${
+				isHover ? 'box' : ''
+			}`}
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
+		>
 			<div className='category-container flex justify-between items-center'>
 				<div className='Category-name-project ml-4 p-3'>
 					<h2 className='category-name font-bold text-xl'>{props.name}</h2>
@@ -96,4 +103,3 @@ const Category = (props) => {
 }
 
 export default Category
-
