@@ -51,27 +51,23 @@ const Task = ({ ...props }) => {
 						onChange={handleCheckboxChange}
 					/>
 				</div>
-				<div className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box ${isChecked ? 'opacity-50' : ''}`}>
-					<div className='flex flex-row items-center '>
+				<div
+					className={`flex-1 flex flex-row justify-between items-center bg-white rounded-2xl box ${
+						isChecked ? 'opacity-50' : ''
+					}`}
+				>
+					<div className='flex flex-row items-center'>
 						<div className='m-3 w-9 h-9 text-white bg-orange-500 shadow-sm border border-slate-50 flex items-center justify-center rounded-lg '>
 							{icon}
 						</div>
-						<div className='flex flex-col relative self-start mt-1 bg-black'>
+						<div className='flex flex-col relative self-start  overflow:auto   w-[450px]'>
 							<h2
-								className={` p-[1px] pr-2 pl-3 font-bold text-lg overflow-hidden w-[300px] z-30 ${
-									isHovered ? 'bg-slate-100  w-auto' : ''
-								} top-[-1px] left-[-10px] absolute whitespace-nowrap rounded-xl`}
-								onMouseEnter={() => setIsHovered(true)}
-								onMouseLeave={() => setIsHovered(false)}
+								className={`break-words p-[1px] pr-2 pl-3 font-bold text-lg w-auto  z-30 top-[-1px] left-[-10px]  rounded-xl`}
 							>
 								{props.name}
 							</h2>
 							<p
-								className={`p-[1px] pr-2 pl-2 text-gray-400 ml-1 absolute top-[23px]  left-0 w-[250px] z-20 ${
-									isHovered ? 'bg-slate-100 text-black  w-auto' : ''
-								} whitespace-nowrap overflow-hidden rounded-xl`}
-								onMouseEnter={() => setIsHovered(true)}
-								onMouseLeave={() => setIsHovered(false)}
+								className={`break-words p-[1px] pr-2 pl-2 text-gray-400 ml-2 top-[23px]  left-0 w-[430px] z-20 $  rounded-xl`}
 							>
 								{props.project.name}
 							</p>
@@ -126,4 +122,3 @@ const Task = ({ ...props }) => {
 }
 
 export default Task
-
