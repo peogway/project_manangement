@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import taskService from "../services/task";
 import task from "../services/task";
+import { setAllProject } from "./prjReducer";
 
 const initialState = [];
 
@@ -32,6 +33,7 @@ export const createNewTask = (body) => {
     return async (dispatch) => {
         const newTask = await taskService.addTask(body);
         dispatch(createTask(newTask));
+        dispatch(setAllProject());
     };
 };
 
