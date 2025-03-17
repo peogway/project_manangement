@@ -33,6 +33,7 @@ const Dashboard = ({ user }) => {
 	const [showAddProject, setShowAddProject] = useState(false)
 	const [iconId, setIconId] = useState(1)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
+	const [data, setData] = useState({})
 
 	useEffect(() => {
 		document.title = 'Dashboard'
@@ -45,7 +46,7 @@ const Dashboard = ({ user }) => {
 	const categories = useSelector((state) => state.categories)
 	const tasks = useSelector((state) => state.tasks)
 
-	const data = [
+	const arbitraryData = [
 		{ day: 'Mon', tasksDone: 5 },
 		{ day: 'Tue', tasksDone: 3 },
 		{ day: 'Wed', tasksDone: 2 },
@@ -54,6 +55,10 @@ const Dashboard = ({ user }) => {
 		{ day: 'Sat', tasksDone: 1 },
 		{ day: 'Sun', tasksDone: 4 },
 	]
+
+	useEffect(() => {
+		setData(arbitraryData)
+	}, tasks)
 
 	const priorityMap = {
 		high: 'before:bg-red-500',
@@ -200,8 +205,8 @@ const Dashboard = ({ user }) => {
 							barSize={50}
 							shape={<RoundedBar />}
 							isAnimationActive={true} /* Enables animation */
-							animationBegin={0}
-							animationDuration={1000} /* Adjust animation speed */
+							animationBegin={100}
+							animationDuration={500} /* Adjust animation speed */
 							animationEasing='ease-out' /* Smooth effect */
 						/>
 					</BarChart>
