@@ -12,7 +12,15 @@ import { faBarsProgress } from '@fortawesome/free-solid-svg-icons'
 import { faDiagramProject } from '@fortawesome/free-solid-svg-icons'
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 
-import { BarChart, Bar, ResponsiveContainer } from 'recharts'
+import {
+	BarChart,
+	Bar,
+	ResponsiveContainer,
+	CartesianGrid,
+	XAxis,
+	YAxis,
+	Tooltip,
+} from 'recharts'
 
 import ProjectForm from './ProjectForm'
 import ProgressBar from './ProgressBar'
@@ -38,12 +46,13 @@ const Dashboard = ({ user }) => {
 	const tasks = useSelector((state) => state.tasks)
 
 	const data = [
-		{
-			name: 'Page A',
-			uv: 4000,
-			pv: 2400,
-			amt: 2400,
-		},
+		{ day: 'Mon', tasksDone: 5 },
+		{ day: 'Tue', tasksDone: 3 },
+		{ day: 'Wed', tasksDone: 2 },
+		{ day: 'Thu', tasksDone: 7 },
+		{ day: 'Fri', tasksDone: 8 },
+		{ day: 'Sat', tasksDone: 1 },
+		{ day: 'Sun', tasksDone: 4 },
 	]
 
 	const priorityMap = {
@@ -51,8 +60,46 @@ const Dashboard = ({ user }) => {
 		medium: 'before:bg-yellow-500',
 		low: 'before:bg-green-500',
 	}
+
+	// Custom ToolTip component
+	const CustomToolTip = ({ active, payload, label }) => {
+		if (active && payload && payload.length)
+			return (
+				<div className='bg-white p-4 rounded-md shadow-sm py-4'>
+					<p className='flex gap-2'>
+						<span className='font-bold text-orange-500'>
+							{payload[0]?.value}
+						</span>
+						<span className='text-black'> Tasks done</span>
+					</p>
+				</div>
+			)
+		return null
+	}
+
+	// Custom bar shape functionwith rounded corners
+	const RoundedBar = (props) => {
+		const { x, y, width, height } = props
+
+		// Define the radius for rounded corners
+		const radius = 3
+		return (
+			<g>
+				<rect
+					x={x}
+					y={y}
+					width={width}
+					height={height}
+					rx={radius}
+					ry={radius}
+					fill='rgb(62, 99, 255)'
+				/>
+			</g>
+		)
+	}
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
+			{/* Heading */}
 			<div className='min-h-[110px] left-[20px] right-0 box flex flex-row justify-between items-center z-990 bg-white rounded-2xl absolute  '>
 				<div className='flex flex-row justify-between items-center w-full'>
 					<div className='flex flex-col'>
@@ -134,14 +181,36 @@ const Dashboard = ({ user }) => {
 
 			{/* Barchart */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[250px]  h-[400px] box rounded-xl'>
-				<BarChart width={150} height={40} data={data} barSize={29}>
-					<Bar dataKey='uv' fill='#8884d8' />
-				</BarChart>
+				<div className='flex w-full justify-between p-4'>
+					<p className='font-semibold text-xl'>Daily Performance</p>
+					<p className='text-slate-600'>Last 7 days</p>
+				</div>
+				<div className=''>
+					<BarChart width={600} height={300} data={data}>
+						{/* <CartesianGrid stroke='transparent' /> */}
+						<XAxis dataKey='day' tick={{ fill: 'black' }} />
+						<YAxis dataKey='tasksDone' tick={{ fill: 'black' }} />
+						<Tooltip content={<CustomToolTip />} />
+
+						<Bar
+							// dataKey={data}
+							dataKey='tasksDone'
+							fill='rgb(62, 99, 255)'
+							background={{ fill: 'transparent' }}
+							barSize={50}
+							shape={<RoundedBar />}
+							isAnimationActive={true} /* Enables animation */
+							animationBegin={0}
+							animationDuration={1000} /* Adjust animation speed */
+							animationEasing='ease-out' /* Smooth effect */
+						/>
+					</BarChart>
+				</div>
 			</div>
 
 			{/* Recent Tasks */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[700px]  box rounded-xl pb-10'>
-				<div className='font-bold text-[]'>Recents Task</div>
+				<div className='font-semibold text-xl'>Recents Task</div>
 				<div className='mt-5 ml-2 p-2 flex flex-col gap-5 items-center select-none'>
 					{[...tasks].reverse().map((task, index) => {
 						const date1 = new Date(task.createAt)
@@ -204,7 +273,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-bold text-slate-500  overflow-auto left-5 ml-5 break-words'>
+										<p className='font-semibold text-slate-500  overflow-auto left-5 ml-5 break-words'>
 											{task.name}
 										</p>
 									</div>
@@ -249,7 +318,7 @@ const Dashboard = ({ user }) => {
 			{/* Overall Progress */}
 			<div className='absolute right-0 top-[130px] bg-white w-[320px]  h-[200px] box rounded-2xl flex items-center justify-center'>
 				<div className='flex flex-col justify-between items-center'>
-					<div className='font-bold '>Overall Progress</div>
+					<div className='font-semibold text-xl'>Overall Progress</div>
 					<div className='w-27 h-27 rounded-full bg-orange-500 flex justify-center items-center mt-4'>
 						<div className='flex flex-col items-center justify-between'>
 							<div className='font-bold text-[19px] text-white'>
@@ -271,7 +340,7 @@ const Dashboard = ({ user }) => {
 			{/* Latest Projects */}
 			<div className='pb-10 bg-white absolute right-0 top-[350px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
 				<div className='flex items-center justify-between p-4 w-full '>
-					<div className='font-bold'>Latest Projects</div>
+					<div className='font-semibold text-xl'>Latest Projects</div>
 					<div
 						className='bg-orange-500 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
 						onClick={() => setShowAddProject(true)}
@@ -304,7 +373,7 @@ const Dashboard = ({ user }) => {
 												'p-[5px]'
 											)}
 										</div>
-										<div className='text-slate-500 overflow-auto font-bold'>
+										<div className='text-slate-500 overflow-auto font-semibold'>
 											{project.name}
 										</div>
 									</div>
