@@ -107,14 +107,6 @@ const Projects = () => {
 		}))
 	}, [completionPercentage])
 
-	const setReFetch = () => {
-		// window.location.reload()
-
-		setTimeout(() => {
-			dispatch(setAllProject())
-		}, 100)
-	}
-
 	const handleSelectCategory = (name) => {
 		const foundCate = categories.filter((cate) => cate.name === name)[0]
 		if (!resCates.includes(foundCate)) {
@@ -342,7 +334,6 @@ const Projects = () => {
 					setIconId={setIconId}
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
-					setReFetch={setReFetch}
 				/>
 			)}
 		</div>
