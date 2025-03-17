@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setAllCategories } from '../reducers/categoryReducer'
@@ -33,7 +33,24 @@ const Dashboard = ({ user }) => {
 	const [showAddProject, setShowAddProject] = useState(false)
 	const [iconId, setIconId] = useState(1)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
-	const [data, setData] = useState({})
+	const [recentDays, setRecentDays] = useState(
+		[...Array(7)].map((_, i) => {
+			const date = new Date()
+			date.setDate(date.getDate() - i)
+			const day = String(date.getDate()).padStart(2, '0')
+			const month = String(date.getMonth() + 1).padStart(2, '0')
+			return `${day}-${month}` // Format DD-MM
+		})
+	)
+	const [data, setData] = useState([
+		{ day: recentDays[6], tasksDone: 0 },
+		{ day: recentDays[5], tasksDone: 0 },
+		{ day: recentDays[4], tasksDone: 0 },
+		{ day: recentDays[3], tasksDone: 0 },
+		{ day: recentDays[2], tasksDone: 0 },
+		{ day: recentDays[1], tasksDone: 0 },
+		{ day: recentDays[0], tasksDone: 0 },
+	])
 
 	useEffect(() => {
 		document.title = 'Dashboard'
@@ -46,19 +63,30 @@ const Dashboard = ({ user }) => {
 	const categories = useSelector((state) => state.categories)
 	const tasks = useSelector((state) => state.tasks)
 
-	const arbitraryData = [
-		{ day: 'Mon', tasksDone: 5 },
-		{ day: 'Tue', tasksDone: 3 },
-		{ day: 'Wed', tasksDone: 2 },
-		{ day: 'Thu', tasksDone: 7 },
-		{ day: 'Fri', tasksDone: 8 },
-		{ day: 'Sat', tasksDone: 1 },
-		{ day: 'Sun', tasksDone: 4 },
-	]
+	const groupedTasks = useMemo(
+		() =>
+			recentDays.map((dateStr) => ({
+				date: dateStr,
+				tasks: tasks.filter((task) => {
+					const taskDate = new Date(task.createAt)
+					const day = String(taskDate.getDate()).padStart(2, '0')
+					const month = String(taskDate.getMonth() + 1).padStart(2, '0')
+					return `${day}-${month}` === dateStr
+				}),
+			})),
+		[recentDays, tasks]
+	)
 
 	useEffect(() => {
-		setData(arbitraryData)
-	}, tasks)
+		setData(
+			groupedTasks
+				.map((tasksByDate) => ({
+					day: tasksByDate.date,
+					tasksDone: tasksByDate.tasks.length,
+				}))
+				.reverse()
+		)
+	}, [groupedTasks])
 
 	const priorityMap = {
 		high: 'before:bg-red-500',
