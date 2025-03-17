@@ -266,16 +266,13 @@ const Tasks = () => {
 					</div>
 					<div className='ml-5 mt-5 w-[95%]  pb-10'>
 						{showTasks.length === 0 && (
-							<div
-								style={{
-									transform: 'translate(-50%, -50%)',
-								}}
-								className='top-[50%] left-[50%] fixed p-20 z-200 text-slate-400 text-center flex items-center'
-							>
-								<div className=' mr-2'>
-									<DoNotDisturbAltIcon />
+							<div className='relative w-full h-[200px]'>
+								<div className='top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute p-20 z-200 text-slate-400 text-center flex items-center'>
+									<div className=' mr-2'>
+										<DoNotDisturbAltIcon />
+									</div>
+									<p>No tasks</p>
 								</div>
-								<p>No tasks</p>
 							</div>
 						)}
 						{showTasks.map((task) => (
