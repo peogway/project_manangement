@@ -14,7 +14,6 @@ const TaskForm = ({
 	setShowIconsMenu,
 	iconId,
 	setIconId,
-	setReFetch,
 }) => {
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
@@ -53,9 +52,6 @@ const TaskForm = ({
 		}
 		try {
 			dispatch(createNewTask(taskToCreate))
-			if (setReFetch !== undefined) {
-				setReFetch()
-			}
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))
