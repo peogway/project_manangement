@@ -52,3 +52,24 @@
 	opacity: 1;
 	font-weight: bold; /* Optional: Make selected button stand out */
 }
+
+/* Custom thin scrollbar */
+::-webkit-scrollbar {
+	width: 6px; /* Thin width */
+}
+::-webkit-scrollbar {
+	height: 6px; /* Thin height */
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: #c6c6c6;
+}
+
+::-webkit-scrollbar-button {
+	display: block; /* Ensure buttons/arrows are visible */
+}
