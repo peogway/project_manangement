@@ -68,6 +68,7 @@
 
 ::-webkit-scrollbar-track {
 	background: #dadada;
+	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-button {
