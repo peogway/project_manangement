@@ -25,7 +25,7 @@ import {
 import ProjectForm from './ProjectForm'
 import ProgressBar from './ProgressBar'
 import IconsWindow from './IconsWindow'
-import CubePlue from './CubePlus'
+import CubePlus from './CubePlus'
 
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -670,7 +670,7 @@ const Dashboard = ({ user }) => {
 							className='flex justify-center items-center text-slate-400 hover:text-orange-500 py-5 transition ease-out duration-800'
 							onClick={() => setShowAddProject(true)}
 						>
-							<CubePlue />
+							<CubePlus />
 						</div>
 						<h1 className='text-slate-600 font-semibold text-lg'>
 							No projects yet...
