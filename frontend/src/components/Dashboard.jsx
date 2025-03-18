@@ -226,8 +226,20 @@ const Dashboard = ({ user }) => {
 					</div>
 					<div className='flex gap-7 mr-20 justify-center items-center select-none'>
 						{isSearch ? (
-							// Search box and Close icon
-							<div className='flex gap-15 relative'>
+							// Search box, Close Icon, and Search Window
+							<div
+								className={`flex flex-row-reverse gap-15 relative  ${
+									isSearch ? 'input-open' : 'input-transition'
+								}`}
+							>
+								{/* Close Icon */}
+								<div
+									className='text-slate-500 flex items-center justify-center'
+									onClick={() => setIsSearch(false)}
+								>
+									<CloseIcon />
+								</div>
+
 								{/*  Search box */}
 								<div className='border-slate-600 border-1 rounded-lg flex gap-3 p-2'>
 									<SearchIcon />
@@ -240,18 +252,13 @@ const Dashboard = ({ user }) => {
 										onBlur={() => setIsFocused(false)}
 									/>
 								</div>
-								{/* Close Icon */}
-								<div
-									className='text-slate-500 flex items-center justify-center'
-									onClick={() => setIsSearch(false)}
-								>
-									<CloseIcon />
-								</div>
 								{/* Search window */}
 								{isFocused && search.value.length > 0 && (
 									<div
-										className='absolute flex flex-col top-10 left-0 w-[80%] 
-								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box'
+										className={`absolute flex flex-col top-10 left-0  w-[90%] 
+								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box ${
+									isFocused ? 'dropdown-open' : 'dropdown-transition'
+								}`}
 									>
 										<span className='font-semibold ml-3'>Projects</span>
 										{searchProjects.map((project) => (
