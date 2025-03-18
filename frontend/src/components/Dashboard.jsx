@@ -25,6 +25,7 @@ import {
 import ProjectForm from './ProjectForm'
 import ProgressBar from './ProgressBar'
 import IconsWindow from './IconsWindow'
+import CubePlue from './CubePlus'
 
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -267,7 +268,7 @@ const Dashboard = ({ user }) => {
 								isSearch
 									? 'visibility-hidden opacity-0 '
 									: 'opacity-100 visibility-visible transition-all duration-1000'
-							} select-none cursor-pointer `}
+							} select-none cursor-pointer hover:scale-150 `}
 							onClick={() => {
 								setIsSearch(true)
 								rmSearch()
@@ -432,7 +433,7 @@ const Dashboard = ({ user }) => {
 					<p className='font-semibold text-xl'>Daily Performance</p>
 					<p className='text-slate-600'>Last 7 days</p>
 				</div>
-				<div className=''>
+				<div className='flex justify-center '>
 					<BarChart width={600} height={300} data={data}>
 						{/* <CartesianGrid stroke='transparent' /> */}
 						<XAxis dataKey='day' tick={{ fill: 'black' }} />
@@ -520,7 +521,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-semibold text-slate-500  overflow-auto left-5 ml-5 break-words'>
+										<p className='font-semibold text-lg text-slate-500  overflow-auto left-5 ml-5 break-words'>
 											{task.name}
 										</p>
 									</div>
@@ -586,16 +587,22 @@ const Dashboard = ({ user }) => {
 
 			{/* Latest Projects */}
 			<div className='pb-10 bg-white absolute right-0 top-[350px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
-				<div className='flex items-center justify-between p-4 w-full '>
+				<div
+					className={`flex items-center ${
+						projects.length > 0 ? 'justify-between' : 'justify-center'
+					} px-4 pt-4 w-full `}
+				>
 					<div className='font-semibold text-xl'>Latest Projects</div>
-					<div
-						className='bg-orange-500 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
-						onClick={() => setShowAddProject(true)}
-					>
-						+ Add New
-					</div>
+					{projects.length > 0 && (
+						<div
+							className='bg-orange-500 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
+							onClick={() => setShowAddProject(true)}
+						>
+							+ Add New
+						</div>
+					)}
 				</div>
-				<div className='flex flex-col gap-7 p-2 '>
+				<div className='flex flex-col gap-7 pt-2'>
 					{[...projects].reverse().map(
 						(project, index) =>
 							index < 4 && (
@@ -620,7 +627,7 @@ const Dashboard = ({ user }) => {
 												'p-[5px]'
 											)}
 										</div>
-										<div className='text-slate-500 overflow-auto font-semibold'>
+										<div className='text-slate-500 text-lg overflow-auto font-semibold'>
 											{project.name}
 										</div>
 									</div>
@@ -657,6 +664,23 @@ const Dashboard = ({ user }) => {
 							)
 					)}
 				</div>
+				{projects.length == 0 && (
+					<div className='flex flex-col items-center '>
+						<div
+							className='flex justify-center items-center text-slate-400 hover:text-orange-500 py-5 transition ease-out duration-800'
+							onClick={() => setShowAddProject(true)}
+						>
+							<CubePlue />
+						</div>
+						<h1 className='text-slate-600 font-semibold text-lg'>
+							No projects yet...
+						</h1>
+						<p className='text-slate-400 flex l items-center justify-center p-1 text-center pt-1'>
+							Please click button above <br />
+							to add your first project.
+						</p>
+					</div>
+				)}
 			</div>
 
 			{/* Project Form */}
