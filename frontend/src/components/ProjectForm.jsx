@@ -105,7 +105,7 @@ const ProjectForm = ({
 						<div className='text-orange-500 bg-orange-300 rounded-lg w-9 h-9 justify-center items-center flex border border-slate-50'>
 							<GridViewIcon />
 						</div>
-						<h1 className='font-bold text-xl'>New Project</h1>
+						<h1 className='font-semibold text-2xl'>New Project</h1>
 					</div>
 					<div onClick={onClose} className='text-gray-500 mr-2'>
 						<CloseIcon fontSize='large' />
@@ -113,15 +113,17 @@ const ProjectForm = ({
 				</div>
 
 				<div className='project-name w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Project Name
 					</label>
 					<div className=' w-full mt-2 flex flex-row justify-between '>
-						<input
-							{...prjName}
-							placeholder='Enter a name for the Project'
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3 pr-3'
-						/>
+						<div className='w-[80%] border-1 border-gray-400 rounded-lg items-center justify-center'>
+							<input
+								{...prjName}
+								placeholder='Enter a name for the Project'
+								className='text-gray-500 pl-3 pr-3 pt-1 focus:outline-none w-full'
+							/>
+						</div>
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
 						</div>
@@ -129,7 +131,7 @@ const ProjectForm = ({
 				</div>
 
 				<div className='task-priority w-[85%] mt-7 flex flex-row items-center gap-5 '>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Categories
 					</label>
 

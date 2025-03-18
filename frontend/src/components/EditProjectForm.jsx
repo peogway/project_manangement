@@ -123,10 +123,13 @@ const EditProjectForm = ({
 						Project Name
 					</label>
 					<div className=' w-full mt-2 flex flex-row justify-between '>
-						<input
-							{...prjName}
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3 pr-3'
-						/>
+						<div className='w-[80%] border-1 border-gray-400 rounded-lg items-center justify-center'>
+							<input
+								{...prjName}
+								placeholder='Enter a name for the Project'
+								className='text-gray-500 pl-3 pr-3 pt-1 focus:outline-none w-full'
+							/>
+						</div>
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
 						</div>
