@@ -11,6 +11,7 @@ import ProjectForm from './ProjectForm'
 import ProjectLabel from './ProjectLabel'
 import EditProjectForm from './EditProjectForm'
 import TaskForm from './TaskForm'
+import CubePlus from './CubePlus'
 
 import IconsWindow from './IconsWindow'
 import SearchIcon from '@mui/icons-material/Search'
@@ -134,7 +135,7 @@ const Projects = () => {
 					</div>
 					{/* Sort */}
 					<div className='ml-auto  flex mr-10'>
-						<p className='font-bold text-gray-400'>Sort</p>
+						<p className='font-semibold text-gray-400'>Sort</p>
 						<div className='text-gray-400 mr-6'>
 							<FilterAltIcon fontSize='small' />
 						</div>
@@ -150,7 +151,7 @@ const Projects = () => {
 				<div className='flex flex-row justify-between mb-7 mt-10'>
 					{/* Heading */}
 					<div className='flex flex-col ml-5'>
-						<h1 className='font-bold text-2xl'>My Projects</h1>
+						<h1 className='font-semibold text-2xl'>My Projects</h1>
 						<p className='ml-3 text-gray-400'>
 							{sortedProjects.length} Projects
 						</p>
@@ -168,7 +169,7 @@ const Projects = () => {
 				{/* Filter */}
 				<div className='flex flex-col ml-10 mb-5 h-auto self-start'>
 					<div className='ml-auto items-center mr-5 flex pt-2'>
-						<p className='font-bold text-gray-400'>Filter by categories</p>
+						<p className='font-semibold text-gray-400'>Filter by categories</p>
 						<div className='text-gray-400 pr-3'>
 							<FilterAltOffIcon fontSize='small' />
 						</div>
@@ -210,7 +211,24 @@ const Projects = () => {
 
 				{/* Projects to display */}
 				<div className='flex gap-4 pl-10  flex-wrap pb-10'>
-					{sortedProjects.length === 0 && (
+					{projects.length === 0 && resCates.length === 0 && (
+						<div className='flex flex-col items-center justify-center h-full blue w-full mt-7'>
+							<div
+								className=' scale-150 flex justify-center items-center text-slate-400 hover:text-orange-500 py-5 transition ease-out duration-800'
+								onClick={() => setShowAddProject(true)}
+							>
+								<CubePlus />
+							</div>
+							<h1 className='text-slate-600 font-semibold text-lg my-1 mt-3'>
+								No projects yet...
+							</h1>
+							<p className='text-slate-400 flex l items-center justify-center p-1 text-center pt-1'>
+								Please click button above <br />
+								to add your first project.
+							</p>
+						</div>
+					)}
+					{sortedProjects.length === 0 && resCates.length > 0 && (
 						<div
 							style={{
 								transform: 'translate(-50%, -50%)',
@@ -223,6 +241,7 @@ const Projects = () => {
 							<p>No projects</p>
 						</div>
 					)}
+
 					{sortedProjects.map((project) => (
 						<div
 							key={project.id}
@@ -247,9 +266,9 @@ const Projects = () => {
 
 			{/* Sidebar */}
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[210px] '>
-				<h1 className='font-bold text-xl mt-6'>Projects Completed</h1>
+				<h1 className='font-semibold text-xl mt-6'>Projects Completed</h1>
 				<CircularChart percent={completionPercentage} />
-				<div className='font-bold mt-15'>
+				<div className='font-semibold mt-15'>
 					{completedProjects.length} Completed
 				</div>
 				<div className='text-slate-500 mt-1 text-sm'>
@@ -279,7 +298,7 @@ const Projects = () => {
 								)}
 							</div>
 							<div className='flex-flex-col overflow-hidden'>
-								<div className='font-bold'>{project.name}</div>
+								<div className='font-semibold'>{project.name}</div>
 								<div className='text-slate-300 ml-2 '>
 									{project.tasks.length} tasks
 								</div>
