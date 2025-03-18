@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setAllCategories } from '../reducers/categoryReducer'
 import { setAllProject } from '../reducers/prjReducer'
 import { setAllTasks } from '../reducers/taskReducer'
+import { useField } from '../hooks/hook'
 import { getIconComponent } from './AllIcons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,10 +22,13 @@ import {
 	YAxis,
 	Tooltip,
 } from 'recharts'
-
 import ProjectForm from './ProjectForm'
 import ProgressBar from './ProgressBar'
 import IconsWindow from './IconsWindow'
+
+import SearchIcon from '@mui/icons-material/Search'
+import CloseIcon from '@mui/icons-material/Close'
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
 const Dashboard = ({ user }) => {
 	const dispatch = useDispatch()
@@ -51,13 +55,38 @@ const Dashboard = ({ user }) => {
 		{ day: recentDays[1], tasksDone: 0 },
 		{ day: recentDays[0], tasksDone: 0 },
 	])
+	const [searchProjects, setSearchProjects] = useState([])
+	const [searchTasks, setSearchTasks] = useState([])
 
+	const { remove: rmSearch, ...search } = useField('text')
+	const [isSearch, setIsSearch] = useState(false)
+	const searchRef = useRef(null)
+	const [isFocused, setIsFocused] = useState(true)
+
+	// Set all information, event to toggle isFocused state
 	useEffect(() => {
 		document.title = 'Dashboard'
 		dispatch(setAllCategories())
 		dispatch(setAllProject())
 		dispatch(setAllTasks())
 	}, [])
+
+	// useEffect(() => {
+	// 	const handleFocus = () => setIsFocused(true)
+	// 	const handleBlur = () => setIsFocused(false)
+
+	// 	if (searchRef.current) {
+	// 		searchRef.current.addEventListener('focus', handleFocus)
+	// 		searchRef.current.addEventListener('blur', handleBlur)
+	// 	}
+
+	// 	return () => {
+	// 		if (searchRef.current) {
+	// 			searchRef.current.removeEventListener('focus', handleFocus)
+	// 			searchRef.current.removeEventListener('blur', handleBlur)
+	// 		}
+	// 	}
+	// }, [])
 
 	const projects = useSelector((state) => state.projects)
 	const categories = useSelector((state) => state.categories)
@@ -77,6 +106,7 @@ const Dashboard = ({ user }) => {
 		[recentDays, tasks]
 	)
 
+	// Set tasks grouped by date for barchart
 	useEffect(() => {
 		setData(
 			groupedTasks
@@ -87,6 +117,57 @@ const Dashboard = ({ user }) => {
 				.reverse()
 		)
 	}, [groupedTasks])
+
+	// Filter projects and tasks by search
+	useEffect(() => {
+		if (search.value.length > 0) {
+			setSearchProjects(
+				projects
+					.filter((project) => project.name.includes(search.value))
+					.sort((a, b) => {
+						const startsWithA = a.name
+							.toLowerCase()
+							.startsWith(search.value.toLowerCase())
+						const startsWithB = b.name
+							.toLowerCase()
+							.startsWith(search.value.toLowerCase())
+						if (startsWithA && !startsWithB) return -1
+						if (!startsWithA && startsWithB) return 1
+						return 0
+					})
+			)
+			setSearchTasks(
+				tasks
+					.filter((task) => task.name.includes(search.value))
+					.sort((a, b) => {
+						const startsWithA = a.name
+							.toLowerCase()
+							.startsWith(search.value.toLowerCase())
+						const startsWithB = b.name
+							.toLowerCase()
+							.startsWith(search.value.toLowerCase())
+						if (startsWithA && !startsWithB) return -1
+						if (!startsWithA && startsWithB) return 1
+						return 0
+					})
+			)
+		}
+	}, [search.value])
+
+	// useEffect(() => {
+	// 	if (!searchRef.current) return
+
+	// 	const handleFocus = () => setIsFocused(true)
+	// 	const handleBlur = () => setIsFocused(false)
+
+	// 	searchRef.current.addEventListener('focus', handleFocus)
+	// 	searchRef.current.addEventListener('blur', handleBlur)
+
+	// 	return () => {
+	// 		searchRef.current.removeEventListener('focus', handleFocus)
+	// 		searchRef.current.removeEventListener('blur', handleBlur)
+	// 	}
+	// }, [searchRef?.current])
 
 	const priorityMap = {
 		high: 'before:bg-red-500',
@@ -130,18 +211,132 @@ const Dashboard = ({ user }) => {
 			</g>
 		)
 	}
+
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Heading */}
 			<div className='min-h-[110px] left-[20px] right-0 box flex flex-row justify-between items-center z-990 bg-white rounded-2xl absolute  '>
 				<div className='flex flex-row justify-between items-center w-full'>
-					<div className='flex flex-col'>
-						<div className=''>Hello, {user.name}</div>
-						<div className=''> welcom back</div>
+					<div className='flex flex-col ml-12 relative top-0 '>
+						<div className=''>
+							<span className='font-bold text-3xl '>Hello,</span>{' '}
+							<span className='text-xl '>{user.name} </span>
+						</div>
+						<div className='text-slate-500 px-2 '> Welcom Back!</div>
 					</div>
-					<div className='flex gap-3'>
-						<div className=''>search</div>
-						<div className=''>avt</div>
+					<div className='flex gap-7 mr-20 justify-center items-center select-none'>
+						{isSearch ? (
+							// Search box and Close icon
+							<div className='flex gap-15 relative'>
+								{/*  Search box */}
+								<div className='border-slate-600 border-1 rounded-lg flex gap-3 p-2'>
+									<SearchIcon />
+									<input
+										{...search}
+										placeholder='Search...'
+										className='focus:outline-none w-[400px]'
+										ref={searchRef}
+										onFocus={() => setIsFocused(true)}
+										onBlur={() => setIsFocused(false)}
+									/>
+								</div>
+								{/* Close Icon */}
+								<div
+									className='text-slate-500 flex items-center justify-center'
+									onClick={() => setIsSearch(false)}
+								>
+									<CloseIcon />
+								</div>
+								{/* Search window */}
+								{isFocused && search.value.length > 0 && (
+									<div
+										className='absolute flex flex-col top-10 left-0 w-[80%] 
+								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box'
+									>
+										<span className='font-semibold ml-3'>Projects</span>
+										{searchProjects.map((project) => (
+											<div
+												key={project.id}
+												className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
+												onClick={() =>
+													navigate('/tasks', { state: { project: project } })
+												}
+											>
+												<div className='flex items-center justify-center scale-75'>
+													{getIconComponent(
+														project.icon,
+														'text-white',
+														'text-[15px]',
+														'bg-orange-500',
+														'p-2'
+													)}
+												</div>
+												<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
+													{project.name}
+												</span>
+											</div>
+										))}
+										{searchProjects.length === 0 && (
+											<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+												<div className=' mr-2'>
+													<DoNotDisturbAltIcon />
+												</div>
+												<p>No projects match</p>
+											</div>
+										)}
+										<hr className='w-[80%] text-slate-400 mx-auto my-1 opacity-55 mt-4'></hr>
+										<span className='font-semibold pb-2 ml-3 mt-5'>Tasks</span>
+										{searchTasks.map((task) => (
+											<div
+												key={task.id}
+												className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
+												onClick={() =>
+													navigate('/tasks', {
+														state: { project: task.project },
+													})
+												}
+											>
+												<div className='flex items-center justify-center scale-75'>
+													{getIconComponent(
+														task.icon,
+														'text-white',
+														'text-[15px]',
+														'bg-slate-400',
+														'p-2'
+													)}
+												</div>
+												<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
+													{task.name}
+												</span>
+											</div>
+										))}
+										{searchTasks.length === 0 && (
+											<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+												<div className=' mr-2'>
+													<DoNotDisturbAltIcon />
+												</div>
+												<p>No tasks match</p>
+											</div>
+										)}
+									</div>
+								)}
+							</div>
+						) : (
+							<div
+								onClick={() => {
+									setIsSearch(true)
+									rmSearch()
+								}}
+							>
+								<SearchIcon />
+							</div>
+						)}
+						<div
+							className='flex w-10 h-10 rounded-full bg-orange-500 justify-center items-cetner text-white'
+							onClick={() => {}}
+						>
+							avt
+						</div>
 					</div>
 				</div>
 			</div>
