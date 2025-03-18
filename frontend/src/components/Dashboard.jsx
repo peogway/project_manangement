@@ -224,25 +224,31 @@ const Dashboard = ({ user }) => {
 						</div>
 						<div className='text-slate-500 px-2 '> Welcom Back!</div>
 					</div>
-					<div className='flex gap-7 mr-20 justify-center items-center select-none'>
-						{isSearch ? (
-							// Search box, Close Icon, and Search Window
+					<div className='flex gap-7 mr-20 justify-center items-center select-none relative'>
+						{/* Search box, Close Icon, and Search Window */}
+						<div
+							className={`absolute z-991  top-0 w-[600px] h-[50px] overflow-hidden right-full translate-x-5 flex flex-row-reverse gap-15 ${
+								isSearch ? '' : 'invisible'
+							}`}
+						>
 							<div
-								className={`flex flex-row-reverse gap-15 relative  ${
-									isSearch ? 'input-open' : 'input-transition'
-								}`}
+								className={`absolute top-0 right-0  search flex flex-row-reverse gap-15 ${
+									isSearch ? 'search-open' : ''
+								} `}
 							>
 								{/* Close Icon */}
 								<div
-									className='text-slate-500 flex items-center justify-center'
+									className='text-slate-500 flex items-center justify-center select-non cursor:pointer'
 									onClick={() => setIsSearch(false)}
 								>
 									<CloseIcon />
 								</div>
 
 								{/*  Search box */}
-								<div className='border-slate-600 border-1 rounded-lg flex gap-3 p-2'>
-									<SearchIcon />
+								<div className='border-slate-600 border-1 rounded-2xl flex gap-3 p-2'>
+									<div className='select-none'>
+										<SearchIcon />
+									</div>
 									<input
 										{...search}
 										placeholder='Search...'
@@ -253,91 +259,97 @@ const Dashboard = ({ user }) => {
 									/>
 								</div>
 								{/* Search window */}
-								{isFocused && search.value.length > 0 && (
-									<div
-										className={`absolute flex flex-col top-10 left-0  w-[90%] 
+							</div>
+						</div>
+
+						<div
+							className={`${
+								isSearch
+									? 'visibility-hidden opacity-0 '
+									: 'opacity-100 visibility-visible transition-all duration-1000'
+							} select-none cursor-pointer `}
+							onClick={() => {
+								setIsSearch(true)
+								rmSearch()
+							}}
+						>
+							<SearchIcon />
+						</div>
+						{isFocused && search.value.length > 0 && (
+							<div
+								className={`absolute flex flex-col top-12 right-[150%]  w-[500px] 
 								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box ${
 									isFocused ? 'dropdown-open' : 'dropdown-transition'
 								}`}
+							>
+								<span className='font-semibold ml-3'>Projects</span>
+								{searchProjects.map((project) => (
+									<div
+										key={project.id}
+										className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
+										onClick={() =>
+											navigate('/tasks', { state: { project: project } })
+										}
 									>
-										<span className='font-semibold ml-3'>Projects</span>
-										{searchProjects.map((project) => (
-											<div
-												key={project.id}
-												className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
-												onClick={() =>
-													navigate('/tasks', { state: { project: project } })
-												}
-											>
-												<div className='flex items-center justify-center scale-75'>
-													{getIconComponent(
-														project.icon,
-														'text-white',
-														'text-[15px]',
-														'bg-orange-500',
-														'p-2'
-													)}
-												</div>
-												<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
-													{project.name}
-												</span>
-											</div>
-										))}
-										{searchProjects.length === 0 && (
-											<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
-												<div className=' mr-2'>
-													<DoNotDisturbAltIcon />
-												</div>
-												<p>No projects match</p>
-											</div>
-										)}
-										<hr className='w-[80%] text-slate-400 mx-auto my-1 opacity-55 mt-4'></hr>
-										<span className='font-semibold pb-2 ml-3 mt-5'>Tasks</span>
-										{searchTasks.map((task) => (
-											<div
-												key={task.id}
-												className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
-												onClick={() =>
-													navigate('/tasks', {
-														state: { project: task.project },
-													})
-												}
-											>
-												<div className='flex items-center justify-center scale-75'>
-													{getIconComponent(
-														task.icon,
-														'text-white',
-														'text-[15px]',
-														'bg-slate-400',
-														'p-2'
-													)}
-												</div>
-												<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
-													{task.name}
-												</span>
-											</div>
-										))}
-										{searchTasks.length === 0 && (
-											<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
-												<div className=' mr-2'>
-													<DoNotDisturbAltIcon />
-												</div>
-												<p>No tasks match</p>
-											</div>
-										)}
+										<div className='flex items-center justify-center scale-75'>
+											{getIconComponent(
+												project.icon,
+												'text-white',
+												'text-[15px]',
+												'bg-orange-500',
+												'p-2'
+											)}
+										</div>
+										<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
+											{project.name}
+										</span>
+									</div>
+								))}
+								{searchProjects.length === 0 && (
+									<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+										<div className=' mr-2'>
+											<DoNotDisturbAltIcon />
+										</div>
+										<p>No projects match</p>
+									</div>
+								)}
+								<hr className='w-[80%] text-slate-400 mx-auto my-1 opacity-55 mt-4'></hr>
+								<span className='font-semibold pb-2 ml-3 mt-5'>Tasks</span>
+								{searchTasks.map((task) => (
+									<div
+										key={task.id}
+										className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
+										onClick={() =>
+											navigate('/tasks', {
+												state: { project: task.project },
+											})
+										}
+									>
+										<div className='flex items-center justify-center scale-75'>
+											{getIconComponent(
+												task.icon,
+												'text-white',
+												'text-[15px]',
+												'bg-slate-400',
+												'p-2'
+											)}
+										</div>
+										<span className='text-left text-slate-500 flex items-center justify-center max-h-[70px]  line-clamp-3'>
+											{task.name}
+										</span>
+									</div>
+								))}
+								{searchTasks.length === 0 && (
+									<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+										<div className=' mr-2'>
+											<DoNotDisturbAltIcon />
+										</div>
+										<p>No tasks match</p>
 									</div>
 								)}
 							</div>
-						) : (
-							<div
-								onClick={() => {
-									setIsSearch(true)
-									rmSearch()
-								}}
-							>
-								<SearchIcon />
-							</div>
 						)}
+
 						<div
 							className='flex w-10 h-10 rounded-full bg-orange-500 justify-center items-cetner text-white'
 							onClick={() => {}}
