@@ -129,7 +129,7 @@ const Tasks = () => {
 								setOpenProjectsDropDown(!openProjectsDropDown)
 							}}
 						>
-							<div className='min-w-[200px] w-[200px] p-2 whitespace-nowrap overflow-hidden text-ellipsis rounded-xl absolute top-[-10px]  left-[-7px]'>
+							<div className='text-slate-800 min-w-[200px] w-[200px] p-2 whitespace-nowrap overflow-hidden text-ellipsis rounded-xl absolute top-[-10px]  left-[-7px]'>
 								{selectedProject === null
 									? 'All Projects'
 									: selectedProject.name}
@@ -184,8 +184,10 @@ const Tasks = () => {
 				</div>
 
 				<div className='ml-auto items-center mr-20 flex'>
-					<p className='font-semibold'>Sort</p>
-					<FilterAltIcon fontSize='small' />
+					<p className='font-semibold text-slate-700'>Sort</p>
+					<div className='flex text-slate-700 justify-center items-center'>
+						<FilterAltIcon fontSize='small' />
+					</div>
 					<SortDropdown
 						sortTasks={true}
 						sortByDate={true}
