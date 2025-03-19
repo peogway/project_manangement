@@ -502,13 +502,15 @@ const Dashboard = ({ user }) => {
 									{/* Task Create At */}
 									<div className='flex flex-col  ml-10 w-[120px]'>
 										<p className='text-slate-400'>Created</p>
-										<p className='text-blue-500 flex'>{displayInterval} ago</p>
+										<p className='text-blue-500 flex mt-2'>
+											{displayInterval} ago
+										</p>
 									</div>
 
 									{/* Task Project */}
 									<div className='flex flex-col w-[150px]  max-w-[150px] ml-10'>
-										<p className='text-slate-400'>In Project</p>
-										<div className='text-blue-500 overflow-auto whitespace-nowrap flex items-center'>
+										<p className='text-slate-400 ml-5 text-lg'>In Project</p>
+										<div className='text-blue-500  flex items-center pt-2'>
 											<span className='scale-60 relative top-[1px]'>
 												{getIconComponent(
 													task.project.icon,
@@ -518,16 +520,18 @@ const Dashboard = ({ user }) => {
 													'p-1'
 												)}
 											</span>
-											<span className='flex items-center justify-center'>
-												{task.project.name}
-											</span>
+											<div className='flex items-start justify-start max-h-[60px] '>
+												<span className='w-full max-h-[60px]  line-clamp-2 overflow-hidden'>
+													{task.project.name}
+												</span>
+											</div>
 										</div>
 									</div>
 
 									{/* Status */}
 									<div className='flex flex-col  ml-10'>
 										<p className='text-slate-400'>Status</p>
-										<p className='text-blue-500'>{task.status}</p>
+										<p className='text-blue-500 pt-2'>{task.status}</p>
 									</div>
 								</div>
 							)
