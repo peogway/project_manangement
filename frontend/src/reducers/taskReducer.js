@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import taskService from "../services/task";
-import task from "../services/task";
 import { setAllProject } from "./prjReducer";
+import { getToken, isTokenExpired } from "../services/login";
+import { rmUserFn } from "./userReducer";
 
 const initialState = [];
 
@@ -31,6 +32,11 @@ export const { createTask, setTasks, dltTask, editTask } = taskSlice.actions;
 
 export const createNewTask = (body) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         const newTask = await taskService.addTask(body);
         dispatch(createTask(newTask));
         dispatch(setAllProject());
@@ -39,6 +45,11 @@ export const createNewTask = (body) => {
 
 export const setAllTasks = () => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         const tasks = await taskService.getAll();
         dispatch(setTasks(tasks));
     };
@@ -46,6 +57,11 @@ export const setAllTasks = () => {
 
 export const updateTask = (task) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         const updatedTask = await taskService.editTask(task);
         dispatch(editTask(updatedTask));
     };
@@ -53,6 +69,11 @@ export const updateTask = (task) => {
 
 export const deleteTask = (taskId) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         await taskService.deleteTask(taskId);
         dispatch(dltTask(taskId));
     };

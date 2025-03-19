@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import prjService from "../services/prj";
+import { getToken, isTokenExpired } from "../services/login";
+import { rmUserFn } from "./userReducer";
 
 const initialState = [];
 
@@ -33,6 +35,11 @@ export const { createProject, setProjects, editProject, dltProject } =
 
 export const createNewProject = (project) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         const newProject = await prjService.addProject(project);
         dispatch(createProject(newProject));
     };
@@ -40,6 +47,11 @@ export const createNewProject = (project) => {
 
 export const setAllProject = () => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         const projects = await prjService.getAll();
         dispatch(setProjects(projects));
     };
@@ -47,6 +59,11 @@ export const setAllProject = () => {
 
 export const updateProject = (project) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         await prjService.editProject(project);
         dispatch(editProject(project));
     };
@@ -54,6 +71,11 @@ export const updateProject = (project) => {
 
 export const deleteProject = (prjId) => {
     return async (dispatch) => {
+        const token = getToken();
+        if (isTokenExpired(token)) {
+            dispatch(rmUserFn());
+            return;
+        }
         await prjService.deleteProject(prjId);
         dispatch(dltProject(prjId));
     };
