@@ -129,7 +129,7 @@ const ProjectLabel = ({
 				</div>
 
 				<div className='flex flex-col gap-1 ] left-[65px] top-[5px]'>
-					<h1 className='p-2 font-semibold text-xl whitespace-nowrap overflow-hidden text-ellipsis w-[180px]'>
+					<h1 className='p-2 font-semibold text-slate-700 text-xl whitespace-nowrap overflow-hidden text-ellipsis w-[180px]'>
 						{project.name}
 					</h1>
 				</div>
