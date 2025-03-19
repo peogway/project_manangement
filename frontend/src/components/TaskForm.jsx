@@ -98,14 +98,14 @@ const TaskForm = ({
 				className='flex flex-col items-center max-w-[600px] w-[550px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-bold text-xl'>Add New Task</h1>
+					<h1 className='font-semibold text-xl'>Add New Task</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
 				</div>
 
 				<div className='task-name  w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Task Name
 					</label>
 
@@ -122,7 +122,7 @@ const TaskForm = ({
 				</div>
 
 				<div className='task-priority w-[85%] mt-7 '>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Task Priority
 					</label>
 
@@ -136,7 +136,7 @@ const TaskForm = ({
 					</div>
 				</div>
 				<div className='task-project w-full  self-start ml-7 mt-7 flex flex-row items-center mb-10'>
-					<label className='text-gray-500 w-auto font-bold'>Project</label>
+					<label className='text-gray-500 w-auto font-semibold'>Project</label>
 
 					<div className='flex-1 flex justify-center items-center '>
 						<div className=' flex flex-row gap-2 items-center rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr'>

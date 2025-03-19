@@ -134,7 +134,7 @@ const Projects = () => {
 								<div className={`text-gray-500 text-center`}>
 									{isFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}
 								</div>
-								<p className='font-bold text-gray-500 text-center pr-1'>
+								<p className='font-semibold text-gray-500 text-center pr-1'>
 									Filter
 								</p>
 							</div>

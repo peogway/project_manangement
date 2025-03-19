@@ -119,7 +119,7 @@ const Tasks = () => {
 					</div>
 					<div className='flex flex-col items-start relative'>
 						<div
-							className='font-bold text-xl select-none cursor-pointer flex flex-row justify-between relative  '
+							className='font-semibold text-xl select-none cursor-pointer flex flex-row justify-between relative  '
 							onMouseDown={(e) => {
 								if (e.target === e.currentTarget) {
 									// Only prevent default if clicking on the div itself, not text
@@ -184,7 +184,7 @@ const Tasks = () => {
 				</div>
 
 				<div className='ml-auto items-center mr-20 flex'>
-					<p className='font-bold'>Sort</p>
+					<p className='font-semibold'>Sort</p>
 					<FilterAltIcon fontSize='small' />
 					<SortDropdown
 						sortTasks={true}
@@ -234,7 +234,7 @@ const Tasks = () => {
 							}`}
 							onClick={() => setTaskStatus(null)}
 						>
-							<button className='font-bold'>All</button>
+							<button className='font-semibold'>All</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{sortedTasks.length}
 							</div>
@@ -246,7 +246,7 @@ const Tasks = () => {
 							}`}
 							onClick={() => setTaskStatus(false)}
 						>
-							<button className='font-bold'>On Going Tasks</button>
+							<button className='font-semibold'>On Going Tasks</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{uncompletedTasks.length}
 							</div>
@@ -258,7 +258,7 @@ const Tasks = () => {
 							}`}
 							onClick={() => setTaskStatus(true)}
 						>
-							<button className='font-bold'>Completed Tasks</button>
+							<button className='font-semibold'>Completed Tasks</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{completedTasks.length}
 							</div>

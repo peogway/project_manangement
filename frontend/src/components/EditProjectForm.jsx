@@ -111,7 +111,7 @@ const EditProjectForm = ({
 						<div className='text-orange-500 bg-orange-300 rounded-lg w-9 h-9 justify-center items-center flex border border-slate-50'>
 							<GridViewIcon />
 						</div>
-						<h1 className='font-bold text-xl'>Edit Project</h1>
+						<h1 className='font-semibold text-xl'>Edit Project</h1>
 					</div>
 					<div onClick={onClose} className='text-gray-500 mr-2'>
 						<CloseIcon fontSize='large' />
@@ -119,7 +119,7 @@ const EditProjectForm = ({
 				</div>
 
 				<div className='project-name w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Project Name
 					</label>
 					<div className=' w-full mt-2 flex flex-row justify-between '>
@@ -136,7 +136,7 @@ const EditProjectForm = ({
 					</div>
 				</div>
 				<div className='task-priority w-[85%] mt-7 flex flex-row items-center gap-5 '>
-					<label className='text-gray-500 ml-[-10px] font-bold'>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
 						Categories
 					</label>
 

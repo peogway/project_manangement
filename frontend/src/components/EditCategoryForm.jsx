@@ -113,7 +113,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 				className='flex flex-col items-center max-w-[600px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-bold text-xl'>Edit Category</h1>
+					<h1 className='font-semibold text-xl'>Edit Category</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
@@ -128,7 +128,9 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 				</div>
 
 				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>
-					<label className='text-gray-500 ml-[-10px] font-bold'>Projects</label>
+					<label className='text-gray-500 ml-[-10px] font-semibold'>
+						Projects
+					</label>
 
 					<div className=' mt-2 w-full'>
 						<div
