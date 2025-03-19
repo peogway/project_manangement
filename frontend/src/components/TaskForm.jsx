@@ -110,11 +110,14 @@ const TaskForm = ({
 					</label>
 
 					<div className=' w-full mt-2 flex flex-row justify-between '>
-						<input
-							{...task}
-							placeholder='Enter Task Name...'
-							className='text-gray-500 border-1 border-gray-400 rounded w-[80%] pl-3 pr-3'
-						/>
+						<div className='w-[80%] border-1 border-gray-400 rounded-lg p-2'>
+							<input
+								{...task}
+								placeholder='Enter Task Name...'
+								className='text-gray-500  w-full focus:outline-none'
+							/>
+						</div>
+
 						<div className=''>
 							<IconButton iconId={iconId} setShow={setShowIconsMenu} />
 						</div>

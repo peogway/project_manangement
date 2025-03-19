@@ -223,7 +223,7 @@ const Tasks = () => {
 					<input
 						{...search}
 						placeholder='Search a task'
-						className='border-b-2 border-gray-200 pl-1'
+						className='border-b-2 border-gray-200 pl-1 focus:outline-none'
 					/>
 				</div>
 				<div className='ml-7 mt-10 '>

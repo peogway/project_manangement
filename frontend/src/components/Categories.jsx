@@ -111,11 +111,13 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 						Cateory Name
 					</label>
 					<br />
-					<input
-						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded-sm w-full mt-2  pl-3 pr-3'
-						placeholder='Type a name for the Category...'
-					/>
+					<div className='w-full border-1 border-gray-400 rounded-lg items-center mt-3 p-2 justify-center '>
+						<input
+							{...categoryName}
+							className='text-gray-500  w-full  focus:outline-none'
+							placeholder='Type a name for the Category...'
+						/>
+					</div>
 				</div>
 
 				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>
@@ -264,10 +266,11 @@ const Categories = () => {
 					<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
 						<SearchIcon />
 					</div>
+
 					<input
 						{...search}
 						placeholder='Search a category'
-						className='border-b-2 border-gray-200 pl-1  pr-1'
+						className='border-b-2 border-gray-200 pl-1  pr-1 focus:outline-none'
 					/>
 				</div>
 

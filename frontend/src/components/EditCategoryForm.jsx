@@ -121,10 +121,12 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 				<div className='category-name w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px]'>Cateory Name</label>
 					<br />
-					<input
-						{...categoryName}
-						className='text-gray-500 border-1 border-gray-400 rounded w-full mt-2 pl-3 pr-3'
-					/>
+					<div className='border-1 border-slate-400 rounded-lg w-full p-2 mt-3'>
+						<input
+							{...categoryName}
+							className='text-gray-500 w-full focus:outline-none'
+						/>
+					</div>
 				</div>
 
 				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>

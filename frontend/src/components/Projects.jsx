@@ -138,7 +138,7 @@ const Projects = () => {
 									Filter
 								</p>
 							</div>
-							<div className='mr-2 relative'>
+							<div className='ml-3 relative'>
 								<div className='relative z-900 select-none left-0 w-[100%] h-[110%] overflow-hidden'>
 									<div
 										// className={`filter relative ${isFilter ? 'filter-open' : ''}`}
@@ -228,7 +228,7 @@ const Projects = () => {
 					<input
 						{...search}
 						placeholder='Search a project'
-						className='border-b-2 border-gray-200 pl-1 pr-1'
+						className='border-b-2 border-gray-200 pl-1 pr-1 focus:outline-none'
 					/>
 				</div>
 
