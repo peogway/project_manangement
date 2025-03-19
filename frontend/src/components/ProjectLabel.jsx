@@ -166,7 +166,7 @@ const ProjectLabel = ({
 					</div>
 				) : (
 					<ul className='list-none  '>
-						{project.tasks.map(
+						{[...project.tasks].reverse().map(
 							(task, index) =>
 								index < 3 && (
 									<li
