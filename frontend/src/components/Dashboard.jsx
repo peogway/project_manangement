@@ -602,13 +602,13 @@ const Dashboard = ({ user }) => {
 						</div>
 					)}
 				</div>
-				<div className='flex flex-col gap-7 pt-2'>
+				<div className='flex flex-col gap-7 pt-2 items-center'>
 					{[...projects].reverse().map(
 						(project, index) =>
 							index < 4 && (
 								<div
 									key={project.id}
-									className='rounded-xl bg-slate-100 p-2 flex flex-col w-full cursor-pointer'
+									className='rounded-xl bg-slate-100 p-2 flex flex-col w-[87%] cursor-pointer'
 									onClick={(e) => {
 										navigate('/tasks', {
 											state: { project: project },
