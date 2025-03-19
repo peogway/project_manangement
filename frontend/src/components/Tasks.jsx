@@ -27,7 +27,7 @@ const Tasks = () => {
 	const [taskStatus, setTaskStatus] = useState(
 		location.state?.taskStatus ? location.state?.taskStatus : false
 	)
-	const [sortValue, setSortValue] = useState('A-Z')
+	const [sortValue, setSortValue] = useState('newest')
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(1)
@@ -192,6 +192,7 @@ const Tasks = () => {
 						sortTasks={true}
 						sortByDate={true}
 						setSortValue={setSortValue}
+						initlaValue='newest'
 					/>
 				</div>
 			</div>
