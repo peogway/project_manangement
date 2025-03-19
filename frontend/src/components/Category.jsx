@@ -47,7 +47,9 @@ const Category = (props) => {
 		>
 			<div className='category-container flex justify-between items-center'>
 				<div className='Category-name-project ml-4 p-3'>
-					<h2 className='category-name font-semibold text-xl'>{props.name}</h2>
+					<h2 className='category-name font-semibold text-slate-700 text-xl'>
+						{props.name}
+					</h2>
 					<p
 						className='category-project text-gray-400 ml-1 hover:underline cursor-pointer'
 						onClick={() => {

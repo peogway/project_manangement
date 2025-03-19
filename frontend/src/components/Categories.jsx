@@ -241,7 +241,7 @@ const Categories = () => {
 		<div className='flex flex-col items-center flex-1 h-screen'>
 			<div className=' z-500 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
 				<div className='flex flex-col ml-2'>
-					<h1 className='font-semibold text-2xl'>Categories</h1>
+					<h1 className='font-semibold text-2xl text-slate-800'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
 				</div>
 				<button
@@ -251,8 +251,10 @@ const Categories = () => {
 					+ Add New
 				</button>
 				<div className='ml-auto items-center mr-20 flex'>
-					<p className='font-semibold'>Sort</p>
-					<FilterAltIcon fontSize='small' />
+					<p className='font-semibold text-slate-700'>Sort</p>
+					<div className='text-slate-700 flex items-center justify-center'>
+						<FilterAltIcon fontSize='small' />
+					</div>
 					<SortDropdown
 						initlaValue='newest'
 						sortByDate={true}
