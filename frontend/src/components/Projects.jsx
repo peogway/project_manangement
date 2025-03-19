@@ -40,6 +40,8 @@ const Projects = () => {
 	)
 	const navigate = useNavigate()
 
+	const [isFilter, setIsFilter] = useState(false)
+
 	useEffect(() => {
 		document.title = 'Projects'
 		dispatch(setAllProject())
@@ -120,19 +122,71 @@ const Projects = () => {
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Contents */}
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
-				{/* Search and Sort */}
-				<div className='flex flex-row justify-between items-center mt-7 mb-1'>
-					{/* Search */}
-					<div className='flex z-900 rounded-lg ml-5 '>
-						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
-							<SearchIcon />
+				{/* Filter and Sort */}
+				<div className='flex flex-row justify-between items-center  mt-4'>
+					{/* Filter */}
+					<div className='flex flex-col ml-4 h-auto self-end'>
+						<div className='ml-2 items-cente flex flex-row items-center'>
+							<div
+								className='flex hover:shadow-[1px_1px_15px_rgba(56,55,55,0.5)] select-none cursor-pointer hover:bg-slate-200 rounded-xl p-1'
+								onClick={() => setIsFilter((prev) => !prev)}
+							>
+								<div className={`text-gray-500 text-center`}>
+									{isFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}
+								</div>
+								<p className='font-bold text-gray-500 text-center pr-1'>
+									Filter
+								</p>
+							</div>
+							<div className='mr-2 relative'>
+								<div className='relative z-900 select-none left-0 w-[100%] h-[110%] overflow-hidden'>
+									<div
+										// className={`filter relative ${isFilter ? 'filter-open' : ''}`}
+										className={` relative ${
+											isFilter
+												? 'visible translate-x-0 translate-y-0'
+												: 'invisible translate-x-[-110%]'
+										} transition-all ease-out duration-500`}
+									>
+										<DropDown
+											options={categoryNames}
+											onSelect={handleSelectCategory}
+											description='Choose categories'
+											value={true}
+											width='auto'
+										/>
+									</div>
+								</div>
+							</div>
 						</div>
-						<input
-							{...search}
-							placeholder='Search a project'
-							className='border-b-2 border-gray-200 pl-1 pr-1'
-						/>
+
+						{/* Categories to display */}
+						<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
+							{resCates.map((cate) => (
+								<div
+									key={cate.id}
+									className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
+								>
+									<label className='flex flex-row gap-5'>{cate.name}</label>
+									<div
+										onClick={() => {
+											setResCates(
+												resCates.filter((category) => category.id !== cate.id)
+											)
+											setCategoryNames(
+												categoryNames
+													.concat(cate.name)
+													.sort((a, b) => a.localeCompare(b))
+											)
+										}}
+									>
+										<CloseIcon fontSize='small' />
+									</div>
+								</div>
+							))}
+						</div>
 					</div>
+
 					{/* Sort */}
 					<div className='ml-auto  flex mr-10'>
 						<p className='font-semibold text-gray-400'>Sort</p>
@@ -166,47 +220,16 @@ const Projects = () => {
 					</button>
 				</div>
 
-				{/* Filter */}
-				<div className='flex flex-col ml-10 mb-5 h-auto self-start'>
-					<div className='ml-auto items-center mr-5 flex pt-2'>
-						<p className='font-semibold text-gray-400'>Filter by categories</p>
-						<div className='text-gray-400 pr-3'>
-							<FilterAltOffIcon fontSize='small' />
-						</div>
-						<DropDown
-							options={categoryNames}
-							onSelect={handleSelectCategory}
-							description='Choose categories'
-							value={true}
-							width='auto'
-						/>
+				{/* Search */}
+				<div className='flex z-900 rounded-lg ml-5 pb-2'>
+					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
+						<SearchIcon />
 					</div>
-
-					{/* Categories to display */}
-					<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
-						{resCates.map((cate) => (
-							<div
-								key={cate.id}
-								className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
-							>
-								<label className='flex flex-row gap-5'>{cate.name}</label>
-								<div
-									onClick={() => {
-										setResCates(
-											resCates.filter((category) => category.id !== cate.id)
-										)
-										setCategoryNames(
-											categoryNames
-												.concat(cate.name)
-												.sort((a, b) => a.localeCompare(b))
-										)
-									}}
-								>
-									<CloseIcon fontSize='small' />
-								</div>
-							</div>
-						))}
-					</div>
+					<input
+						{...search}
+						placeholder='Search a project'
+						className='border-b-2 border-gray-200 pl-1 pr-1'
+					/>
 				</div>
 
 				{/* Projects to display */}
@@ -219,7 +242,7 @@ const Projects = () => {
 							>
 								<CubePlus />
 							</div>
-							<h1 className='text-slate-600 font-semibold text-lg my-1 mt-3'>
+							<h1 className='text-slate-600 font-semibold text-lg my-1 mt-3 select-none relative z-2'>
 								No projects yet...
 							</h1>
 							<p className='text-slate-400 flex l items-center justify-center p-1 text-center pt-1'>
@@ -233,7 +256,7 @@ const Projects = () => {
 							style={{
 								transform: 'translate(-50%, -50%)',
 							}}
-							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
+							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center select-none z-0'
 						>
 							<div className=' mr-2'>
 								<DoNotDisturbAltIcon />
