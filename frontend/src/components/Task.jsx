@@ -70,7 +70,7 @@ const Task = ({ ...props }) => {
 									isChecked
 										? "after:absolute after:top-1/2 after:translate-y-1/2 after:left-0 after:w-full after:content-[''] after:h-[1px] after:bg-black"
 										: ''
-								} relative break-words p-[1px] pr-3 pl-3 font-bold text-lg max-w-fit  z-30 top-[-1px] left-[-10px]  rounded-xl`}
+								} text-slate-700 relative break-words p-[1px] pr-3 pl-3 font-semibold text-lg max-w-fit  z-30 top-[-1px] left-[-10px]  rounded-xl`}
 							>
 								{props.name}
 							</h2>
@@ -83,7 +83,7 @@ const Task = ({ ...props }) => {
 					</div>
 
 					<div className='flex flex-row justify-between mr-10 gap-30'>
-						<div className='flex flex-row justify-between text-gray-400 ml-1 font-bold flex-1 w-[300px]'>
+						<div className='flex flex-row justify-between text-gray-400 ml-1 font-semibold flex-1 w-[300px]'>
 							<div className=' flex flex-row'>
 								{props.completed ? (
 									<div>
@@ -110,12 +110,15 @@ const Task = ({ ...props }) => {
 						<div className='flex flex-row justify-between gap-3'>
 							<div
 								onClick={() => setShowEditForm(true)}
-								className='text-orange-500 bg-orange-100 rounded-lg'
+								className='text-orange-500 bg-orange-100 rounded-xl p-1 hover:bg-blue-100 transition-all ease-out duration-200'
 							>
 								<EditIcon />
 							</div>
 
-							<div onClick={handleDelete} className=''>
+							<div
+								onClick={handleDelete}
+								className='p-1 rounded-xl hover:bg-blue-100 transition-all ease-out duration-200'
+							>
 								<DeleteOutlineIcon />
 							</div>
 						</div>
