@@ -220,7 +220,9 @@ const Dashboard = ({ user }) => {
 				<div className='flex flex-row justify-between items-center w-full'>
 					<div className='flex flex-col ml-12 relative top-0 '>
 						<div className=''>
-							<span className='font-bold text-3xl '>Hello,</span>{' '}
+							<span className='font-semibold text-slate-800 text-3xl '>
+								Hello,
+							</span>{' '}
 							<span className='text-xl '>{user.name} </span>
 						</div>
 						<div className='text-slate-500 px-2 '> Welcom Back!</div>
@@ -430,7 +432,9 @@ const Dashboard = ({ user }) => {
 			{/* Barchart */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[250px]  h-[400px] box rounded-xl'>
 				<div className='flex w-full justify-between p-4'>
-					<p className='font-semibold text-xl'>Daily Performance</p>
+					<p className='font-semibold text-slate-800 text-xl'>
+						Daily Performance
+					</p>
 					<p className='text-slate-600'>Last 7 days</p>
 				</div>
 				<div className='flex justify-center '>
@@ -458,7 +462,7 @@ const Dashboard = ({ user }) => {
 
 			{/* Recent Tasks */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[700px]  box rounded-xl pb-10'>
-				<div className='font-semibold text-xl'>Recents Task</div>
+				<div className='font-semibold text-slate-800 text-xl'>Recents Task</div>
 				<div className='mt-5 ml-2 p-2 flex flex-col gap-5 items-center select-none'>
 					{[...tasks].reverse().map((task, index) => {
 						const date1 = new Date(task.createAt)
@@ -521,7 +525,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-semibold text-lg text-slate-500  overflow-auto left-5 ml-5 break-words'>
+										<p className='font-semibold text-lg text-slate-600  overflow-auto left-5 ml-5 break-words'>
 											{task.name}
 										</p>
 									</div>
@@ -566,10 +570,12 @@ const Dashboard = ({ user }) => {
 			{/* Overall Progress */}
 			<div className='absolute right-0 top-[130px] bg-white w-[320px]  h-[200px] box rounded-2xl flex items-center justify-center'>
 				<div className='flex flex-col justify-between items-center'>
-					<div className='font-semibold text-xl'>Overall Progress</div>
+					<div className='font-semi text-slate-800 text-xl'>
+						Overall Progress
+					</div>
 					<div className='w-27 h-27 rounded-full bg-orange-500 flex justify-center items-center mt-4'>
 						<div className='flex flex-col items-center justify-between'>
-							<div className='font-bold text-[19px] text-white'>
+							<div className='font-semibold text-[19px] text-white'>
 								{tasks.length === 0
 									? 0
 									: Math.floor(
@@ -592,7 +598,9 @@ const Dashboard = ({ user }) => {
 						projects.length > 0 ? 'justify-between' : 'justify-center'
 					} px-4 pt-4 w-full `}
 				>
-					<div className='font-semibold text-xl'>Latest Projects</div>
+					<div className='font-semibold text-slate-800 text-xl'>
+						Latest Projects
+					</div>
 					{projects.length > 0 && (
 						<div
 							className='bg-orange-500 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
@@ -627,7 +635,7 @@ const Dashboard = ({ user }) => {
 												'p-[5px]'
 											)}
 										</div>
-										<div className='text-slate-500 text-lg overflow-auto font-semibold'>
+										<div className='text-slate-600 text-lg overflow-auto font-semibold'>
 											{project.name}
 										</div>
 									</div>
