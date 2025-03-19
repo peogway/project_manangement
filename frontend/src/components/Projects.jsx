@@ -128,13 +128,13 @@ const Projects = () => {
 					<div className='flex flex-col ml-4 h-auto self-end'>
 						<div className='ml-2 items-cente flex flex-row items-center'>
 							<div
-								className='flex hover:shadow-[1px_1px_15px_rgba(56,55,55,0.5)] select-none cursor-pointer hover:bg-slate-200 rounded-xl p-1'
+								className='flex select-none cursor-pointer hover:bg-slate-200 rounded-xl p-1'
 								onClick={() => setIsFilter((prev) => !prev)}
 							>
-								<div className={`text-gray-500 text-center`}>
+								<div className={`text-gray-600 text-center`}>
 									{isFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}
 								</div>
-								<p className='font-semibold text-gray-500 text-center pr-1'>
+								<p className='font-semibold text-gray-600 text-center pr-1'>
 									Filter
 								</p>
 							</div>
@@ -289,9 +289,11 @@ const Projects = () => {
 
 			{/* Sidebar */}
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[210px] '>
-				<h1 className='font-semibold text-xl mt-6'>Projects Completed</h1>
+				<h1 className='font-semibold text-xl mt-6 text-slate-800'>
+					Projects Completed
+				</h1>
 				<CircularChart percent={completionPercentage} />
-				<div className='font-semibold mt-15'>
+				<div className='font-semibold mt-15 text-slate-700'>
 					{completedProjects.length} Completed
 				</div>
 				<div className='text-slate-500 mt-1 text-sm'>
