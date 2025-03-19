@@ -494,7 +494,7 @@ const Dashboard = ({ user }) => {
 										</div>
 
 										{/* Task Name */}
-										<p className='font-semibold text-lg text-slate-600  overflow-auto left-5 ml-5 break-words'>
+										<p className='font-semibold text-lg text-slate-600  overflow-hidden left-5 ml-5 break-words line-clamp-4'>
 											{task.name}
 										</p>
 									</div>
