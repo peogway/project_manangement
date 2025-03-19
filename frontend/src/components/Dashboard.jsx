@@ -30,6 +30,7 @@ import CubePlus from './CubePlus'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
+import WaveCircle from './WaveCircle'
 
 const Dashboard = ({ user }) => {
 	const dispatch = useDispatch()
@@ -71,23 +72,6 @@ const Dashboard = ({ user }) => {
 		dispatch(setAllProject())
 		dispatch(setAllTasks())
 	}, [])
-
-	// useEffect(() => {
-	// 	const handleFocus = () => setIsFocused(true)
-	// 	const handleBlur = () => setIsFocused(false)
-
-	// 	if (searchRef.current) {
-	// 		searchRef.current.addEventListener('focus', handleFocus)
-	// 		searchRef.current.addEventListener('blur', handleBlur)
-	// 	}
-
-	// 	return () => {
-	// 		if (searchRef.current) {
-	// 			searchRef.current.removeEventListener('focus', handleFocus)
-	// 			searchRef.current.removeEventListener('blur', handleBlur)
-	// 		}
-	// 	}
-	// }, [])
 
 	const projects = useSelector((state) => state.projects)
 	const categories = useSelector((state) => state.categories)
@@ -154,21 +138,6 @@ const Dashboard = ({ user }) => {
 			)
 		}
 	}, [search.value])
-
-	// useEffect(() => {
-	// 	if (!searchRef.current) return
-
-	// 	const handleFocus = () => setIsFocused(true)
-	// 	const handleBlur = () => setIsFocused(false)
-
-	// 	searchRef.current.addEventListener('focus', handleFocus)
-	// 	searchRef.current.addEventListener('blur', handleBlur)
-
-	// 	return () => {
-	// 		searchRef.current.removeEventListener('focus', handleFocus)
-	// 		searchRef.current.removeEventListener('blur', handleBlur)
-	// 	}
-	// }, [searchRef?.current])
 
 	const priorityMap = {
 		high: 'before:bg-red-500',
@@ -568,13 +537,12 @@ const Dashboard = ({ user }) => {
 			</div>
 
 			{/* Overall Progress */}
-			<div className='absolute right-0 top-[130px] bg-white w-[320px]  h-[200px] box rounded-2xl flex items-center justify-center'>
-				<div className='flex flex-col justify-between items-center'>
-					<div className='font-semi text-slate-800 text-xl'>
-						Overall Progress
-					</div>
-					<div className='w-27 h-27 rounded-full bg-orange-500 flex justify-center items-center mt-4'>
-						<div className='flex flex-col items-center justify-between'>
+			<div className='absolute right-0 top-[130px] bg-white w-[320px]  h-[300px] box rounded-2xl flex items-center justify-center'>
+				<div className='font-semibold text-slate-800 text-xl absolute z-50 top-7 right[100px]'>
+					Overall Progress
+				</div>
+				{/* <div className='w-27 h-27 rounded-full bg-orange-500 flex justify-center items-center mt-4'>
+						<div className='flex flex-col items-center j	ustify-between'>
 							<div className='font-semibold text-[19px] text-white'>
 								{tasks.length === 0
 									? 0
@@ -587,12 +555,19 @@ const Dashboard = ({ user }) => {
 							</div>
 							<div className='text-white text-[14px]'>Progress</div>
 						</div>
-					</div>
+					</div> */}
+
+				{/* <div className='canvas'>
+						<canvas id='canvas'></canvas>
+					</div> */}
+
+				<div className='absolute  w-full h-full scale-80 top-5 '>
+					<WaveCircle />
 				</div>
 			</div>
 
 			{/* Latest Projects */}
-			<div className='pb-10 bg-white absolute right-0 top-[350px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
+			<div className='pb-10 bg-white absolute right-0 top-[450px] w-[320px] h-auto min-h-[100px] rounded-2xl flex flex-col box p-1'>
 				<div
 					className={`flex items-center ${
 						projects.length > 0 ? 'justify-between' : 'justify-center'
@@ -610,7 +585,7 @@ const Dashboard = ({ user }) => {
 						</div>
 					)}
 				</div>
-				<div className='flex flex-col gap-7 pt-2 items-center'>
+				<div className='flex flex-col gap-6 pt-12 items-center'>
 					{[...projects].reverse().map(
 						(project, index) =>
 							index < 4 && (
