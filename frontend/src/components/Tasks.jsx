@@ -157,7 +157,7 @@ const Tasks = () => {
 												(completedTasks.length / tasksToShow.length) * 100
 										  )
 								}
-								color='bg-orange-500'
+								color='bg-orange-400'
 								height='h-1'
 								className='w-[200px] max-w-md'
 							/>
@@ -174,7 +174,7 @@ const Tasks = () => {
 					</div>
 					<button
 						onClick={toggleAddTask}
-						className={`w-25 h-7 ml-10 bg-orange-500 select-none rounded-lg text-white ${
+						className={`w-25 h-7 ml-10 bg-orange-400 select-none rounded-lg text-white ${
 							selectedProject === null ? 'opacity-40' : ''
 						}`}
 						disabled={selectedProject === null}

@@ -7,7 +7,7 @@ const ProgressBar = ({ progress, color, className, height, bgColor }) => {
 				}`}
 			>
 				<div
-					className={`${color ? color : 'bg-orange-500'} ${
+					className={`${color ? color : 'bg-orange-400'} ${
 						height ? height : 'h-2'
 					} rounded-full transition-all`}
 					style={{ width: `${progress}%` }}

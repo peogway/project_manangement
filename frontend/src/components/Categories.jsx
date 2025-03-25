@@ -167,7 +167,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 										project.icon,
 										'text-white',
 										'text-[15px]',
-										'bg-orange-500',
+										'bg-orange-400',
 										'p-1'
 									)}
 								</div>
@@ -193,7 +193,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 
 				<button
 					onClick={handleAddCategory}
-					className='bg-orange-500 text-white select-none rounded-xl p-2 w-[85%]'
+					className='bg-orange-400 text-white select-none rounded-xl p-2 w-[85%]'
 				>
 					Add Category
 				</button>
@@ -245,7 +245,7 @@ const Categories = () => {
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
 				</div>
 				<button
-					className='w-25 h-7 ml-6 bg-orange-500 rounded-lg select-none front text-white justify-center items-center'
+					className='w-25 h-7 ml-6 bg-orange-400 rounded-lg select-none front text-white justify-center items-center'
 					onClick={() => setShowAddCategory(true)}
 				>
 					+ Add New

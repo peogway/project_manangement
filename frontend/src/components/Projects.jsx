@@ -320,7 +320,7 @@ const Projects = () => {
 									project.icon,
 									'text-white',
 									'text-[15px]',
-									'bg-orange-500',
+									'bg-orange-400',
 									'p-1'
 								)}
 							</div>

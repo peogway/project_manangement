@@ -112,13 +112,13 @@ const WaterWave = ({ initial, after, percent, animate }) => {
 				</div>
 			)}
 			<div
-				className='absolute w-[200%] h-[200%] bg-[#07bdff]s bg-orange-200 left-[-50%] opacity-50 rounded-[45%] animate-[wave_5s_linear_infinite]'
+				className='absolute w-[200%] h-[200%] bg-[#07bdff] left-[-50%] opacity-50 rounded-[45%] animate-[wave_5s_linear_infinite]'
 				style={{
 					top: `${100 - (animate ? animatedPercentage : after)}%`,
 				}}
 			/>
 			<div
-				className='absolute w-[204%] h-[204%] bg-[#07bdff]s bg-orange-300  left-[-58%] rounded-[40%] animate-[wave-anti-clockwise_6.2s_linear_infinite]'
+				className='absolute w-[204%] h-[204%] bg-[#07bdff] left-[-58%] rounded-[40%] animate-[wave-anti-clockwise_6.2s_linear_infinite]'
 				style={{
 					top: `${105 - (animate ? animatedPercentage : after)}%`,
 				}}

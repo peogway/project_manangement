@@ -341,7 +341,7 @@ const Dashboard = ({ user, animate }) => {
 						)}
 
 						<div
-							className='flex w-10 h-10 rounded-full bg-orange-500 justify-center items-cetner text-white'
+							className='flex w-10 h-10 rounded-full bg-orange-400 justify-center items-cetner text-white'
 							onClick={() => {}}
 						>
 							avt
@@ -353,7 +353,7 @@ const Dashboard = ({ user, animate }) => {
 			{/* General stats */}
 			<div className='absolute flex flex-row gap-7 p-3 top-[130px] right-[400px] left-[75px] bg-white rounded-xl box'>
 				<div
-					className='bg-orange-500  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
+					className='bg-orange-400  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
 					onClick={() => {
 						navigate('/projects')
 					}}
@@ -372,7 +372,7 @@ const Dashboard = ({ user, animate }) => {
 				</div>
 
 				<div
-					className='bg-orange-500  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
+					className='bg-orange-400  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
 					onClick={() => {
 						navigate('/tasks', {
 							state: {
@@ -397,7 +397,7 @@ const Dashboard = ({ user, animate }) => {
 				</div>
 
 				<div
-					className='bg-orange-500  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
+					className='bg-orange-400  items-center text-white p-2 flex flex-row flex-1/3 rounded-2xl cursor-pointer select-none'
 					onClick={() => {
 						navigate('/categories')
 					}}
@@ -506,7 +506,7 @@ const Dashboard = ({ user, animate }) => {
 												task.icon,
 												'text-orange-500',
 												'text-[15px]',
-												'bg-orange-300',
+												'bg-orange-200',
 												'p-1'
 											)}
 										</div>
@@ -534,7 +534,7 @@ const Dashboard = ({ user, animate }) => {
 													task.project.icon,
 													'text-white',
 													'text-[15px]',
-													'bg-orange-500',
+													'bg-orange-400',
 													'p-1'
 												)}
 											</span>
@@ -586,7 +586,7 @@ const Dashboard = ({ user, animate }) => {
 					</div>
 					{projects.length > 0 && (
 						<div
-							className='bg-orange-500 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
+							className='bg-orange-400 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
 							onClick={() => setShowAddProject(true)}
 						>
 							+ Add New
@@ -614,7 +614,7 @@ const Dashboard = ({ user, animate }) => {
 												project.icon,
 												'text-white',
 												'text-[15px]',
-												'bg-orange-500',
+												'bg-orange-400',
 												'p-[5px]'
 											)}
 										</div>

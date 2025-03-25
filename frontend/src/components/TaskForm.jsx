@@ -65,7 +65,7 @@ const TaskForm = ({
 					chosenProject.icon,
 					'text-white',
 					'text-[27px]',
-					'bg-orange-500'
+					'bg-orange-400'
 			  )
 	return (
 		<div>
@@ -144,7 +144,7 @@ const TaskForm = ({
 					<div className='flex-1 flex justify-center items-center '>
 						<div className=' flex flex-row gap-2 items-center rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr'>
 							<div
-								className={` w-9 h-9 bg-orange-500 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
+								className={` w-9 h-9 bg-orange-400 text-white shadow-sm border border-slate-50 flex items-center justify-center rounded-lg ${
 									icon === null && 'hidden'
 								}`}
 							>
@@ -158,7 +158,7 @@ const TaskForm = ({
 				</div>
 				<button
 					onClick={handleAddTask}
-					className='bg-orange-500 select-none text-white rounded-xl p-2 w-[85%]'
+					className='bg-orange-400 select-none text-white rounded-xl p-2 w-[85%]'
 				>
 					Add Task
 				</button>

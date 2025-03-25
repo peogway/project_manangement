@@ -176,7 +176,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 										project.icon,
 										'text-white',
 										'text-[15px]',
-										'bg-orange-500',
+										'bg-orange-400',
 										'p-1'
 									)}
 								</div>
@@ -202,7 +202,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 
 				<button
 					onClick={handleEditCategory}
-					className='bg-orange-500 text-white select-none rounded-xl p-2 w-[85%]'
+					className='bg-orange-400 text-white select-none rounded-xl p-2 w-[85%]'
 				>
 					Edit Category
 				</button>
