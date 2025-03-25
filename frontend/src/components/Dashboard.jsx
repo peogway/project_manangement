@@ -31,14 +31,16 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 import WaveCircle from './WaveCircle'
+import WaterWave from './WaterWave'
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, animate }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const [showAddProject, setShowAddProject] = useState(false)
 	const [iconId, setIconId] = useState(1)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
+	const [completedPercent, setCompletedPercent] = useState(0)
 	const [recentDays, setRecentDays] = useState(
 		[...Array(7)].map((_, i) => {
 			const date = new Date()
@@ -57,6 +59,7 @@ const Dashboard = ({ user }) => {
 		{ day: recentDays[1], tasksDone: 0 },
 		{ day: recentDays[0], tasksDone: 0 },
 	])
+	const [percent, setPercent] = useState({ initial: null, after: null })
 	const [searchProjects, setSearchProjects] = useState([])
 	const [searchTasks, setSearchTasks] = useState([])
 
@@ -176,11 +179,26 @@ const Dashboard = ({ user }) => {
 					height={height}
 					rx={radius}
 					ry={radius}
-					fill='rgb(62, 99, 255)'
+					fill='rgb(55, 167, 252)'
 				/>
 			</g>
 		)
 	}
+	useEffect(() => {
+		const percent =
+			tasks.length === 0
+				? 0
+				: (tasks.filter((task) => task.completed).length / tasks.length) * 100
+
+		setCompletedPercent(percent)
+	}, [tasks])
+
+	useEffect(() => {
+		setPercent((prev) => ({
+			initial: prev.after ?? 0,
+			after: completedPercent ?? 0,
+		}))
+	}, [completedPercent])
 
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
@@ -541,30 +559,16 @@ const Dashboard = ({ user }) => {
 			</div>
 
 			{/* Overall Progress */}
-			<div className='absolute right-0 top-[130px] bg-white w-[320px]  h-[300px] box rounded-2xl flex items-center justify-center'>
+			<div className='absolute right-0 top-[130px] bg-white w-[320px] overflow-hidden  h-[300px] box rounded-2xl flex items-center justify-center'>
 				<div className='font-semibold text-slate-800 text-xl absolute z-50 top-7 right[100px]'>
 					Overall Progress
 				</div>
-				{/* <div className='w-27 h-27 rounded-full bg-orange-500 flex justify-center items-center mt-4'>
-						<div className='flex flex-col items-center j	ustify-between'>
-							<div className='font-semibold text-[19px] text-white'>
-								{tasks.length === 0
-									? 0
-									: Math.floor(
-											(tasks.filter((task) => task.completed).length /
-												tasks.length) *
-												100
-									  )}
-								%
-							</div>
-							<div className='text-white text-[14px]'>Progress</div>
-						</div>
-					</div> */}
 
-				{/* <div className='canvas'>
-						<canvas id='canvas'></canvas>
-					</div> */}
-
+				<WaterWave
+					initial={percent.initial}
+					after={percent.after}
+					animate={animate}
+				/>
 				<div className='absolute  w-full h-full scale-80 top-5 '>
 					<WaveCircle />
 				</div>
