@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, cloneElement } from 'react'
 import Notification from './components/Notification'
 import Dashboard from './components/Dashboard'
 import Tasks from './components/Tasks'
@@ -32,6 +32,13 @@ import { setNotification, setError } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
 import Navbar from './components/Navbar'
 
+const AnimatedRoute = ({ element }) => {
+	const hasVisited = window.localStorage.getItem('visitedDashboard')
+
+	if (!hasVisited) window.localStorage.setItem('visitedDashboard', true)
+	return cloneElement(element, { animate: hasVisited ? false : true })
+}
+
 const App = () => {
 	const dispatch = useDispatch()
 	const location = useLocation()
@@ -41,6 +48,7 @@ const App = () => {
 	const navigate = useNavigate()
 	const [isHovered, setIsHovered] = useState(null)
 
+	useEffect(() => window.localStorage.removeItem('visitedDashboard'), [])
 	useEffect(() => {
 		// Check for logged-in user in localStorage on initial load
 		const loggedUserJSON = window.localStorage.getItem('loggedPrjMnUser')
@@ -228,7 +236,11 @@ const App = () => {
 				<Route
 					path='/dashboard'
 					element={
-						user ? <Dashboard user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<AnimatedRoute element={<Dashboard user={user} />} />
+						) : (
+							<Navigate replace to='/login' />
+						)
 					}
 				/>
 				<Route
