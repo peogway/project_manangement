@@ -92,16 +92,18 @@ const Projects = () => {
 		)
 	}
 
-	const completedProjects = projects
-		.filter(
-			(project) =>
-				project.tasks.length > 0 &&
-				project.tasks.filter((task) => task.completed === false).length === 0
-		)
+	const projectWithNoUncompletedTasks = projects.filter(
+		(project) =>
+			project.tasks.filter((task) => task.completed === false).length === 0
+	)
+	const completedProjects = projectWithNoUncompletedTasks
+		.filter((project) => project.tasks.length > 0)
 		.reverse()
 
 	const completionPercentage =
-		projects.length > 0 ? (completedProjects.length / projects.length) * 100 : 0
+		projects.length > 0
+			? (projectWithNoUncompletedTasks.length / projects.length) * 100
+			: 0
 
 	useEffect(() => {
 		setPercent((prev) => ({
@@ -288,7 +290,7 @@ const Projects = () => {
 			</div>
 
 			{/* Sidebar */}
-			<div className='  bg-white rounded-xl flex flex-col items-center h-[90%] right-0 fixed w-[210px] '>
+			<div className='  bg-white rounded-xl flex flex-col items-center h-[96%] right-0 fixed w-[210px] '>
 				<h1 className='font-semibold text-xl mt-6 text-slate-800'>
 					Projects Completed
 				</h1>
@@ -304,10 +306,10 @@ const Projects = () => {
 					)}{' '}
 					Tasks Done
 				</div>
-				<div className='mt-1 overflow-auto flex flex-col gap-1 w-full ml-10 '>
+				<div className='mt-7 overflow-auto flex flex-col gap-1 w-full ml-5 '>
 					{completedProjects.map((project) => (
 						<div
-							className='flex whitespace-nowrap cursor-pointer'
+							className='flex whitespace-nowrap cursor-pointer rounded-lg hover:bg-blue-100 px-2'
 							key={project.id}
 							onClick={() =>
 								navigate('/tasks', { state: { project: project } })
@@ -323,7 +325,9 @@ const Projects = () => {
 								)}
 							</div>
 							<div className='flex-flex-col overflow-hidden'>
-								<div className='font-semibold'>{project.name}</div>
+								<div className='font-semibold overflow-hidden w-[80%] whitespace-nowrap text-ellipsis'>
+									{project.name}
+								</div>
 								<div className='text-slate-300 ml-2 '>
 									{project.tasks.length} tasks
 								</div>
