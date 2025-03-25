@@ -134,7 +134,7 @@ const WaveCircle = () => {
 				offset: i * 1.5,
 				speed: 0.7,
 				radius: (150 - i * 4) * dpr,
-				color: `hsl(${220 + i * 10}, 60%, 70%)`,
+				color: `hsl(${190 + i * 10}, 60%, 70%)`,
 			})
 		}
 
