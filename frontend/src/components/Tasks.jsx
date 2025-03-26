@@ -107,6 +107,8 @@ const Tasks = () => {
 					(icon) => icon.id === parseInt(selectedProject.icon)
 			  )[0]
 
+	const taskDuplicate = (name) =>
+		tasksToShow.some((task) => task.name.toLowerCase() === name.toLowerCase())
 	return (
 		<div className='flex flex-col w-full h-screen z-900 flex-1 '>
 			<div
@@ -280,7 +282,11 @@ const Tasks = () => {
 						)}
 						{showTasks.map((task) => (
 							<div key={task.id}>
-								<Task {...task} selectedProject={selectedProject} />
+								<Task
+									{...task}
+									selectedProject={selectedProject}
+									taskDuplicate={taskDuplicate}
+								/>
 							</div>
 						))}
 					</div>
@@ -294,6 +300,7 @@ const Tasks = () => {
 					setIconId={setIconId}
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
+					taskDuplicate={taskDuplicate}
 				/>
 			)}
 

@@ -12,7 +12,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { getIconComponent } from './AllIcons'
 import { LogoDevTwoTone } from '@mui/icons-material'
 
-const EditTaskForm = ({ onClose, project, ...task }) => {
+const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 	const { remove: rmTask, ...taskName } = useField('text', task.name)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(parseInt(task.icon))
@@ -52,6 +52,11 @@ const EditTaskForm = ({ onClose, project, ...task }) => {
 
 		if (!/^[A-Za-z]$/.test(taskName.value[0])) {
 			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+
+		if (taskDuplicate(taskName.value)) {
+			dispatch(setError('Task name must be unique in project', 2))
 			return
 		}
 

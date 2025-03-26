@@ -14,6 +14,7 @@ const TaskForm = ({
 	setShowIconsMenu,
 	iconId,
 	setIconId,
+	taskDuplicate,
 }) => {
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
@@ -49,6 +50,10 @@ const TaskForm = ({
 
 		if (!/^[A-Za-z]$/.test(task.value[0])) {
 			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+		if (taskDuplicate(task.value)) {
+			dispatch(setError('Task name must be unique in project', 2))
 			return
 		}
 
