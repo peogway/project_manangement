@@ -54,6 +54,12 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 			)
 			return
 		}
+
+		if (!/^[A-Za-z]$/.test(categoryName.value[0])) {
+			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+
 		const category = {
 			name: categoryName.value,
 			projects: resProjects,

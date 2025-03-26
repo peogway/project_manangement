@@ -58,6 +58,12 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 			)
 			return
 		}
+
+		if (!/^[A-Za-z]$/.test(categoryName.value[0])) {
+			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+
 		if (
 			categories.some(
 				(cate) => cate.name === categoryName.value && cate.id !== category.id

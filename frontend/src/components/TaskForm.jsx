@@ -47,6 +47,11 @@ const TaskForm = ({
 			return
 		}
 
+		if (!/^[A-Za-z]$/.test(task.value[0])) {
+			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+
 		// console.log("the");
 		const taskToCreate = {
 			name: task.value,

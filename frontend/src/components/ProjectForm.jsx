@@ -56,6 +56,10 @@ const ProjectForm = ({
 			)
 			return
 		}
+		if (!/^[A-Za-z]$/.test(prjName.value[0])) {
+			dispatch(setError('Require first non-special character', 2))
+			return
+		}
 
 		const prjToCreate = {
 			name: prjName.value,

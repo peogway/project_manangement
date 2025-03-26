@@ -50,6 +50,11 @@ const EditTaskForm = ({ onClose, project, ...task }) => {
 			return
 		}
 
+		if (!/^[A-Za-z]$/.test(taskName.value[0])) {
+			dispatch(setError('Require first non-special character', 2))
+			return
+		}
+
 		const taskToUpdate = {
 			name: taskName.value,
 			priority: priority.toLowerCase(),
