@@ -16,6 +16,7 @@ const EditProjectForm = ({
 	iconId,
 	setProjectToEdit,
 	setIconId,
+	projectUnique,
 }) => {
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
@@ -50,6 +51,10 @@ const EditProjectForm = ({
 
 		if (prjName.value === '') {
 			dispatch(setError('Please enter a project name', 2))
+			return
+		}
+		if (projectUnique(prjName.value)) {
+			dispatch(setError('Project names must be unique', 2))
 			return
 		}
 		if (
