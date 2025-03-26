@@ -45,7 +45,10 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 			dispatch(setError('Categories must be unique', 2))
 			return
 		}
-		if (categoryName.value.length < 5 || !isUpperCase(categoryName.value[0])) {
+		if (
+			categoryName.value.length < 5 ||
+			categoryName.value[0].toUpperCase() !== categoryName.value[0]
+		) {
 			dispatch(
 				setError('Require first uppercase character and minimum length of 5', 2)
 			)
