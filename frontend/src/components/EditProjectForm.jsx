@@ -47,12 +47,12 @@ const EditProjectForm = ({
 	const handleEditPrj = (e) => {
 		e.preventDefault()
 		setIconId(1)
-		setProjectToEdit(null)
 
 		if (prjName.value === '') {
 			dispatch(setError('Please enter a project name', 2))
 			return
 		}
+		setProjectToEdit(null)
 		const prjToUpdate = {
 			name: prjName.value,
 			categories: resCates,
