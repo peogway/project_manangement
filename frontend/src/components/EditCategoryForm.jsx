@@ -49,7 +49,12 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 
 			return
 		}
-
+		if (categoryName.value.length < 5 || !isUpperCase(categoryName.value[0])) {
+			dispatch(
+				setError('Require first uppercase character and minimum length of 5', 2)
+			)
+			return
+		}
 		if (
 			categories.some(
 				(cate) => cate.name === categoryName.value && cate.id !== category.id

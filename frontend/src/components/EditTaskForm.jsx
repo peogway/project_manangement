@@ -45,6 +45,11 @@ const EditTaskForm = ({ onClose, project, ...task }) => {
 			return
 		}
 
+		if (taskName.value.length < 5) {
+			dispatch(setError('Require minimum length of 5', 2))
+			return
+		}
+
 		const taskToUpdate = {
 			name: taskName.value,
 			priority: priority.toLowerCase(),

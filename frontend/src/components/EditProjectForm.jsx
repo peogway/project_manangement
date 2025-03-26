@@ -52,6 +52,12 @@ const EditProjectForm = ({
 			dispatch(setError('Please enter a project name', 2))
 			return
 		}
+		if (prjName.value.length < 5 || !isUpperCase(prjName.value[0])) {
+			dispatch(
+				setError('Require first uppercase character and minimum length of 5', 2)
+			)
+			return
+		}
 		setProjectToEdit(null)
 		const prjToUpdate = {
 			name: prjName.value,

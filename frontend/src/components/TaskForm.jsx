@@ -42,6 +42,10 @@ const TaskForm = ({
 			dispatch(setError('Please enter a task name', 2))
 			return
 		}
+		if (task.value.length < 5) {
+			dispatch(setError('Require  minimum length of 5', 2))
+			return
+		}
 
 		// console.log("the");
 		const taskToCreate = {

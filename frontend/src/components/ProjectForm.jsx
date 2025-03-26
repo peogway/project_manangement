@@ -45,7 +45,12 @@ const ProjectForm = ({
 
 		if (projectUnique(prjName.value)) {
 			dispatch(setError('Project names must be unique', 2))
-			onClose()
+			return
+		}
+		if (prjName.value.length < 5 || !isUpperCase(prjName.value[0])) {
+			dispatch(
+				setError('Require first uppercase character and minimum length of 5', 2)
+			)
 			return
 		}
 
