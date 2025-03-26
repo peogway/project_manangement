@@ -85,7 +85,7 @@ const Dashboard = ({ user, animate }) => {
 			recentDays.map((dateStr) => ({
 				date: dateStr,
 				tasks: tasks.filter((task) => {
-					const taskDate = new Date(task.createAt)
+					const taskDate = new Date(task.completeAt)
 					const day = String(taskDate.getDate()).padStart(2, '0')
 					const month = String(taskDate.getMonth() + 1).padStart(2, '0')
 					return `${day}-${month}` === dateStr
