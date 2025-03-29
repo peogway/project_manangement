@@ -26,6 +26,7 @@ import ProjectForm from './ProjectForm'
 import ProgressBar from './ProgressBar'
 import IconsWindow from './IconsWindow'
 import CubePlus from './CubePlus'
+import Avatar from './Avatar'
 
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -271,7 +272,7 @@ const Dashboard = ({ user, animate }) => {
 								isSearch
 									? 'visibility-hidden opacity-0 '
 									: 'opacity-100 visibility-visible transition-all duration-1000'
-							} select-none cursor-pointer hover:scale-150 `}
+							} select-none cursor-pointer hover:scale-120 `}
 							onClick={() => {
 								setIsSearch(true)
 								rmSearch()
@@ -354,12 +355,8 @@ const Dashboard = ({ user, animate }) => {
 							</div>
 						)}
 
-						<div
-							className='flex w-10 h-10 rounded-full bg-orange-400 justify-center items-cetner text-white'
-							onClick={() => {}}
-						>
-							avt
-						</div>
+						{/* Avartar */}
+						<Avatar />
 					</div>
 				</div>
 			</div>
@@ -451,7 +448,7 @@ const Dashboard = ({ user, animate }) => {
 								marginRight: '5px',
 							}}
 						></span>{' '}
-						Tasks Completed
+						<span className='text-slate-600'>Tasks Completed</span>
 					</div>
 					<div>
 						<span
@@ -463,7 +460,7 @@ const Dashboard = ({ user, animate }) => {
 								marginRight: '5px',
 							}}
 						></span>{' '}
-						Tasks Created
+						<span className='text-slate-600'>Tasks Created</span>
 					</div>
 				</div>
 				<div className='flex justify-start items-center translate-x-[-20px] mt-8'>
