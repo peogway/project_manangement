@@ -51,13 +51,13 @@ const Dashboard = ({ user, animate }) => {
 		})
 	)
 	const [data, setData] = useState([
-		{ day: recentDays[6], tasksDone: 0 },
-		{ day: recentDays[5], tasksDone: 0 },
-		{ day: recentDays[4], tasksDone: 0 },
-		{ day: recentDays[3], tasksDone: 0 },
-		{ day: recentDays[2], tasksDone: 0 },
-		{ day: recentDays[1], tasksDone: 0 },
-		{ day: recentDays[0], tasksDone: 0 },
+		{ date: recentDays[6], completed: 0, created: 0 },
+		{ date: recentDays[5], completed: 0, created: 0 },
+		{ date: recentDays[4], completed: 0, created: 0 },
+		{ date: recentDays[3], completed: 0, created: 0 },
+		{ date: recentDays[2], completed: 0, created: 0 },
+		{ date: recentDays[1], completed: 0, created: 0 },
+		{ date: recentDays[0], completed: 0, created: 0 },
 	])
 	const [percent, setPercent] = useState({ initial: null, after: null })
 	const [searchProjects, setSearchProjects] = useState([])
@@ -80,15 +80,22 @@ const Dashboard = ({ user, animate }) => {
 	const categories = useSelector((state) => state.categories)
 	const tasks = useSelector((state) => state.tasks)
 
+	const formatDate = (date) => {
+		const day = String(date.getDate()).padStart(2, '0')
+		const month = String(date.getMonth() + 1).padStart(2, '0')
+		return `${day}-${month}`
+	}
 	const groupedTasks = useMemo(
 		() =>
 			recentDays.map((dateStr) => ({
 				date: dateStr,
 				tasks: tasks.filter((task) => {
 					const taskDate = new Date(task.completeAt)
-					const day = String(taskDate.getDate()).padStart(2, '0')
-					const month = String(taskDate.getMonth() + 1).padStart(2, '0')
-					return `${day}-${month}` === dateStr
+					return formatDate(taskDate) === dateStr
+				}),
+				tasksCreate: tasks.filter((task) => {
+					const taskDate = new Date(task.createAt)
+					return formatDate(taskDate) === dateStr
 				}),
 			})),
 		[recentDays, tasks]
@@ -99,8 +106,9 @@ const Dashboard = ({ user, animate }) => {
 		setData(
 			groupedTasks
 				.map((tasksByDate) => ({
-					day: tasksByDate.date,
-					tasksDone: tasksByDate.tasks.length,
+					date: tasksByDate.date,
+					completed: tasksByDate.tasks.length,
+					created: tasksByDate.tasksCreate.length,
 				}))
 				.reverse()
 		)
@@ -154,10 +162,16 @@ const Dashboard = ({ user, animate }) => {
 			return (
 				<div className='bg-white p-4 rounded-md shadow-sm py-4'>
 					<p className='flex gap-2'>
-						<span className='font-bold text-orange-500'>
+						<span className='font-bold text-[rgb(62,99,255)]'>
 							{payload[0]?.value}
 						</span>
 						<span className='text-black'> Tasks done</span>
+					</p>
+					<p className='flex gap-2'>
+						<span className='font-bold text-orange-500'>
+							{payload[1]?.value}
+						</span>
+						<span className='text-black'> Tasks created</span>
 					</p>
 				</div>
 			)
@@ -417,27 +431,66 @@ const Dashboard = ({ user, animate }) => {
 			</div>
 
 			{/* Barchart */}
-			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[250px]  h-[400px] box rounded-xl'>
+			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[250px]  h-[500px] box rounded-xl'>
 				<div className='flex w-full justify-between p-4'>
 					<p className='font-semibold text-slate-800 text-xl'>
 						Daily Performance
 					</p>
 					<p className='text-slate-600'>Last 7 days</p>
 				</div>
-				<div className='flex justify-center '>
-					<BarChart width={600} height={300} data={data}>
-						{/* <CartesianGrid stroke='transparent' /> */}
-						<XAxis dataKey='day' tick={{ fill: 'black' }} />
-						<YAxis dataKey='tasksDone' tick={{ fill: 'black' }} />
-						<Tooltip content={<CustomToolTip />} />
 
+				{/* Legend for the barchart */}
+				<div className='self-end mr-10'>
+					<div>
+						<span
+							style={{
+								width: '10px',
+								height: '10px',
+								backgroundColor: 'rgb(62, 99, 255)',
+								display: 'inline-block',
+								marginRight: '5px',
+							}}
+						></span>{' '}
+						Tasks Completed
+					</div>
+					<div>
+						<span
+							style={{
+								width: '10px',
+								height: '10px',
+								backgroundColor: 'rgb(255, 99, 62)',
+								display: 'inline-block',
+								marginRight: '5px',
+							}}
+						></span>{' '}
+						Tasks Created
+					</div>
+				</div>
+				<div className='flex justify-start items-center translate-x-[-20px] mt-8'>
+					<BarChart width={700} height={300} data={data} barGap={0}>
+						<XAxis dataKey='date' tick={{ fill: 'black' }} />
+						<YAxis
+							tick={{ fill: 'black' }}
+							domain={[0, (dataMax) => Math.max(dataMax, 1)]}
+						/>
+
+						<Tooltip content={<CustomToolTip />} />
 						<Bar
-							// dataKey={data}
-							dataKey='tasksDone'
+							dataKey='completed'
 							fill='rgb(62, 99, 255)'
 							background={{ fill: 'transparent' }}
-							barSize={50}
+							barSize={37}
 							shape={<RoundedBar />}
+							isAnimationActive={true} /* Enables animation */
+							animationBegin={100}
+							animationDuration={500} /* Adjust animation speed */
+							animationEasing='ease-out' /* Smooth effect */
+						/>
+						<Bar
+							dataKey='created'
+							fill='rgb(255, 99, 62)'
+							barSize={37}
+							// shape={<RoundedBar />}
 							isAnimationActive={true} /* Enables animation */
 							animationBegin={100}
 							animationDuration={500} /* Adjust animation speed */
@@ -448,7 +501,7 @@ const Dashboard = ({ user, animate }) => {
 			</div>
 
 			{/* Recent Tasks */}
-			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[700px]  box rounded-xl pb-10'>
+			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[800px]  box rounded-xl pb-10'>
 				<div className='font-semibold text-slate-800 text-xl'>Recents Task</div>
 				<div className='mt-5 ml-2 p-2 flex flex-col gap-5 items-center select-none'>
 					{[...tasks].reverse().map((task, index) => {
