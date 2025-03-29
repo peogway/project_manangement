@@ -4,7 +4,7 @@ import AppsIcon from '@mui/icons-material/Apps'
 import CloseIcon from '@mui/icons-material/Close'
 import AllIcons from './AllIcons'
 
-const IconsWindow = ({ onClose, iconId, setIconId, show }) => {
+const IconsWindow = ({ onClose, iconId, setIconId, show, editTask }) => {
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 	const handleClickOutside = (event) => {
@@ -66,7 +66,9 @@ const IconsWindow = ({ onClose, iconId, setIconId, show }) => {
 					<div className='z-1002 absolute top-[5%]' ref={formRef}>
 						<div
 							className={`fixed absolute p-3 h-[530px] w-[50%] max-sm:w-[90%]  bg-white shadow-md 
-      left-1/2  rounded-lg -translate-x-1/2 `}
+      left-1/2  rounded-lg -translate-x-1/2  ${
+				editTask ? 'translate-y-[-100px]' : ''
+			}`}
 						>
 							{/* Header */}
 							<Header />

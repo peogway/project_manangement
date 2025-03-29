@@ -183,6 +183,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 				iconId={iconId}
 				setIconId={setIconId}
 				show={showIconsMenu}
+				editTask={true}
 			/>
 		</div>
 	)
