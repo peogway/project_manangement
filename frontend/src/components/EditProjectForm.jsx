@@ -53,7 +53,7 @@ const EditProjectForm = ({
 			dispatch(setError('Please enter a project name', 2))
 			return
 		}
-		if (projectUnique(prjName.value)) {
+		if (projectUnique(prjName.value) && prjName.value !== project.name) {
 			dispatch(setError('Project names must be unique', 2))
 			return
 		}

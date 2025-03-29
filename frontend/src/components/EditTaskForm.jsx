@@ -55,7 +55,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 			return
 		}
 
-		if (taskDuplicate(taskName.value)) {
+		if (taskDuplicate(taskName.value) && taskName.value !== task.name) {
 			dispatch(setError('Task name must be unique in project', 2))
 			return
 		}
