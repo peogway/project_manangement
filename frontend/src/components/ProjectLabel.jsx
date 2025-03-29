@@ -205,7 +205,7 @@ const ProjectLabel = ({
 				</div>
 			</div>
 			<div className='absolute bottom-0'>
-				<CategoryList categories={project.categories} isHover={isHover} />
+				<CategoryList categories={project.categories} />
 			</div>
 		</div>
 	)

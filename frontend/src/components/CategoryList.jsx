@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
-const CategoryList = ({ categories, isHover }) => {
+const CategoryList = ({ categories }) => {
 	const [visibleCategories, setVisibleCategories] = useState([])
 	const [isFull, setIsFull] = useState(false)
+	const [isHover, setIsHover] = useState(false)
 
 	const containerRef = useRef(null)
 
@@ -77,6 +78,8 @@ const CategoryList = ({ categories, isHover }) => {
 					  }`
 					: ''
 			}  ${categories.length > 0 && isHover && isFull ? 'box' : ''}`}
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
 		>
 			{(isHover ? categories : visibleCategories).map((category, index) => (
 				<div key={category.id}>
