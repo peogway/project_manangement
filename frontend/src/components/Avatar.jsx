@@ -2,13 +2,14 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { rmUserFn } from '../reducers/userReducer'
 
+import profilePicNull from '../assets/profile-picture-null.png'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import PersonIcon from '@mui/icons-material/Person'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDispatch } from 'react-redux'
 
-const Avatar = () => {
+const Avatar = ({ user }) => {
 	const [showOptions, setShowOptions] = useState(false)
 	const optionsRef = useRef(null)
 
@@ -45,9 +46,14 @@ const Avatar = () => {
 	}, [showOptions])
 	return (
 		<div
-			className={`flex w-10 h-10 rounded-full bg-orange-400 justify-center items-center relative ${
+			className={`flex w-10 h-10 rounded-full justify-center items-center relative box ${
 				showOptions ? '' : 'hover:opacity-90'
 			} `}
+			style={{
+				backgroundImage: user.avatarUrl ? '' : `url(${profilePicNull})`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+			}}
 			onMouseDown={(e) => {
 				if (optionsRef.current && optionsRef.current.contains(e.target)) {
 					// Click inside options, don't block event
