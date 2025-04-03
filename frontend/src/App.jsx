@@ -6,6 +6,8 @@ import Projects from './components/Projects'
 import Categories from './components/Categories'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
+import Profile from './components/Profile'
+import Account from './components/Account'
 import RegisterForm from './components/RegisterForm'
 import { setToken } from './services/login'
 import LogoutIcon from '@mui/icons-material/Logout'
@@ -254,6 +256,18 @@ const App = () => {
 				<Route
 					path='/categories'
 					element={user ? <Categories /> : <Navigate replace to='/login' />}
+				/>
+				<Route
+					path='/profile'
+					element={
+						user ? <Profile user={user} /> : <Navigate replace to='/login' />
+					}
+				/>
+				<Route
+					path='/account'
+					element={
+						user ? <Account user={user} /> : <Navigate replace to='/login' />
+					}
 				/>
 			</Routes>
 		</div>
