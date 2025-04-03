@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     passwordHash: { // Hash of the user's password
         type: String,
     },
+    avatarUrl: String,
     projects: [
         {
             type: mongoose.Schema.Types.ObjectId,
