@@ -27,6 +27,7 @@ usersRouter.post("/", async (req, res) => {
         name,
         username,
         passwordHash,
+        avatarUrl: null,
     });
 
     // Save the user to the database
