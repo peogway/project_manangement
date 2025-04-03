@@ -72,14 +72,14 @@ const Avatar = () => {
 				} top-full right-0 w-[150px] h-[240px] bg-white mt-3 rounded-xl flex flex-col gap-3 items-center`}
 				ref={optionsRef}
 			>
-				<div className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 mt-4 flex text-slate-600'>
-					<div
-						className=' flex items-center gap-4 ml-2 '
-						onClick={() => {
-							setShowOptions(false)
-							navigate('/profile')
-						}}
-					>
+				<div
+					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 mt-4 flex text-slate-600'
+					onClick={() => {
+						setShowOptions(false)
+						navigate('/profile')
+					}}
+				>
+					<div className=' flex items-center gap-4 ml-2 '>
 						<div className='items-center flex justify-center'>
 							<PersonIcon />
 						</div>
@@ -87,14 +87,14 @@ const Avatar = () => {
 					</div>
 				</div>
 
-				<div className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'>
-					<div
-						className=' flex items-center gap-4 ml-2'
-						onClick={() => {
-							setShowOptions(false)
-							navigate('/account')
-						}}
-					>
+				<div
+					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
+					onClick={() => {
+						setShowOptions(false)
+						navigate('/account')
+					}}
+				>
+					<div className=' flex items-center gap-4 ml-2'>
 						<div className='items-center flex justify-center'>
 							<VpnKeyIcon />
 						</div>
@@ -102,16 +102,16 @@ const Avatar = () => {
 					</div>
 				</div>
 
-				<div className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'>
-					<div
-						className=' flex items-center gap-4 ml-2'
-						onClick={() => {
-							setShowOptions(false)
-							window.localStorage.removeItem('loggedPrjMnUser') // Remove user from localStorage
-							dispatch(rmUserFn()) // Dispatch action to remove user from Redux
-							navigate('/')
-						}}
-					>
+				<div
+					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
+					onClick={() => {
+						setShowOptions(false)
+						window.localStorage.removeItem('loggedPrjMnUser') // Remove user from localStorage
+						dispatch(rmUserFn()) // Dispatch action to remove user from Redux
+						navigate('/')
+					}}
+				>
+					<div className=' flex items-center gap-4 ml-2'>
 						<div className='items-center flex justify-center'>
 							<LogoutIcon />
 						</div>
