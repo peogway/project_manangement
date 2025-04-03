@@ -37,7 +37,12 @@ loginRouter.post("/", async (req, res) => {
     );
 
     // Respond with the token and user information
-    res.status(200).send({ token, username: user.username, name: user.name });
+    res.status(200).send({
+        token,
+        username: user.username,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+    });
 });
 
 // Export the router
