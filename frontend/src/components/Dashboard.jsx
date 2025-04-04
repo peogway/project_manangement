@@ -356,7 +356,7 @@ const Dashboard = ({ user, animate }) => {
 						)}
 
 						{/* Avartar */}
-						<Avatar />
+						<Avatar user={user} />
 					</div>
 				</div>
 			</div>
