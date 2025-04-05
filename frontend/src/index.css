@@ -137,3 +137,14 @@ canvas {
 		transform: rotate(-360deg);
 	}
 }
+
+.p-dialog-mask {
+	background-color: rgba(129, 127, 127, 0.9) !important;
+	z-index: 9999 !important;
+	position: fixed !important; /* Ensure it's positioned relative to the viewport */
+	left: 60px !important; /* Offset the mask from the left by 60px */
+	top: 0 !important; /* Ensure it stretches from the top */
+	right: 0 !important; /* Stretch to the right */
+	bottom: 0 !important; /* Stretch to the bottom */
+	border-radius: 10px !important;
+}
