@@ -16,8 +16,9 @@ import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
+import Avatar from './Avatar'
 import ProjectsDropDown from './ProjectsDropdown'
-const Tasks = () => {
+const Tasks = ({ user }) => {
 	const dispatch = useDispatch()
 	const location = useLocation()
 	const [selectedProject, setSelectedProject] = useState(
@@ -196,6 +197,9 @@ const Tasks = () => {
 						setSortValue={setSortValue}
 						initlaValue='newest'
 					/>
+				</div>
+				<div className='mr-20'>
+					<Avatar user={user} />
 				</div>
 			</div>
 

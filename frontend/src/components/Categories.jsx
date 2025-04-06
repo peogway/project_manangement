@@ -17,6 +17,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { setAllProject } from '../reducers/prjReducer'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
+import Avatar from './Avatar'
+
 const CategoryForm = ({ onClose, categories, projects }) => {
 	const formRef = useRef(null)
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
@@ -216,7 +218,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 	)
 }
 
-const Categories = () => {
+const Categories = ({ user }) => {
 	const dispatch = useDispatch()
 	const [sortValue, setSortValue] = useState('newest')
 	const [showAddCategory, setShowAddCategory] = useState(false)
@@ -274,6 +276,9 @@ const Categories = () => {
 						sortByDate={true}
 						setSortValue={setSortValue}
 					/>
+				</div>
+				<div className='mr-20'>
+					<Avatar user={user} />
 				</div>
 			</div>
 
