@@ -39,19 +39,19 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
 // Route handlers
-app.use('/upload-avatar', middleware.userExtractor, profileRouter)
+app.use("/upload-avatar", middleware.userExtractor, profileRouter);
 app.use("/api/projects", middleware.userExtractor, projectsRouter);
 app.use("/api/categories", middleware.userExtractor, categoriesRouter);
 app.use("/api/tasks", middleware.userExtractor, tasksRouter);
 app.use("/api/users", usersRouter); // Routes for user operations
 app.use("/login", loginRouter); // Routes for login operations
 
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 // Enable testing routes in test environment
-// if (process.env.NODE_ENV === 'test') {
-//   const testingRouter = require('./controllers/testing');
-//   app.use('/api/testing', testingRouter);
+// if (process.env.NODE_ENV === "test") {
+//   const testingRouter = require("./controllers/testing");
+//   app.use("/api/testing", testingRouter);
 // }
 
 app.use(middleware.unknownEndpoint); // Handle requests to unknown endpoints
