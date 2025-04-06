@@ -20,8 +20,9 @@ import CircularChart from './CircularChart'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import CloseIcon from '@mui/icons-material/Close'
 import DropDown from './DropDown'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 import { getIconComponent } from './AllIcons'
+import notFound from '../assets/icons8-nothing-found-100.png'
+import noMatch from '../assets/icons8-nothing-found-48.png'
 
 const Projects = ({ user }) => {
 	const dispatch = useDispatch()
@@ -68,13 +69,15 @@ const Projects = ({ user }) => {
 		)
 	}, [categories])
 
-	let sortedProjects = [...projects]
-		.filter((project) =>
-			resCates.every((cate) =>
-				project.categories.some((category) => category.name === cate.name)
-			)
-		)
-		.filter((project) => project.name.includes(search.value))
+	let sortedProjects = isFilter
+		? [...projects]
+				.filter((project) =>
+					resCates.every((cate) =>
+						project.categories.some((category) => category.name === cate.name)
+					)
+				)
+				.filter((project) => project.name.includes(search.value))
+		: [...projects].filter((project) => project.name.includes(search.value))
 	if (sortValue === 'A-Z') {
 		sortedProjects = [...sortedProjects].sort((a, b) =>
 			a.name.localeCompare(b.name)
@@ -125,14 +128,64 @@ const Projects = ({ user }) => {
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Contents */}
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
-				{/* Filter and Sort */}
-				<div className='flex flex-row justify-between items-center  mt-4'>
-					<div className='ml-10'>
-						<Avatar user={user} optionsPosRight={true} />
+				{/* Heading */}
+				<div className='flex flex-row justify-between mb-7 mt-10'>
+					{/* My Projects title and Add button  */}
+					<div className='flex justify-between items-center w-[350px] ml-10'>
+						{/* Title */}
+						<div className='flex flex-col ml-5'>
+							<h1 className='font-semibold text-2xl'>My Projects</h1>
+							<p className='ml-3 text-gray-400'>
+								{sortedProjects.length} Projects
+							</p>
+						</div>
+
+						{/* Add button */}
+						<button
+							onClick={() => setShowAddProject(true)}
+							className='w-25 h-7 mr-10 bg-orange-500 select-none rounded-lg text-white'
+						>
+							+ Add New
+						</button>
+					</div>
+
+					{/* Sort and Avatar */}
+					<div className='flex items-center'>
+						{/* Sort */}
+						<div className='ml-auto  flex mr-20'>
+							<p className='font-semibold text-gray-400'>Sort</p>
+							<div className='text-gray-400 mr-6'>
+								<FilterAltIcon fontSize='small' />
+							</div>
+							<SortDropdown
+								initlaValue='newest'
+								sortByDate={true}
+								setSortValue={setSortValue}
+							/>
+						</div>
+
+						{/* Avatar */}
+						<div className='mr-15'>
+							<Avatar user={user} />
+						</div>
+					</div>
+				</div>
+
+				{/* Search and Filter */}
+				<div className='flex justify-between items-center'>
+					<div className='flex z-900 rounded-lg ml-15 pb-2 h-wrap self-start'>
+						<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
+							<SearchIcon />
+						</div>
+						<input
+							{...search}
+							placeholder='Search a project'
+							className='border-b-2 border-gray-200 pl-1 pr-1 focus:outline-none'
+						/>
 					</div>
 					{/* Filter */}
-					<div className='flex flex-col ml-10 h-auto self-end'>
-						<div className='ml-2 items-cente flex flex-row items-center'>
+					<div className='flex flex-col mr-10 h-auto self-end'>
+						<div className='ml-2 items-cente flex flex-row-reverse items-center'>
 							<div
 								className='flex select-none cursor-pointer hover:bg-slate-200 rounded-xl p-1'
 								onClick={() => setIsFilter((prev) => !prev)}
@@ -144,14 +197,14 @@ const Projects = ({ user }) => {
 									Filter
 								</p>
 							</div>
-							<div className='ml-3 relative'>
+							<div className='mr-3 relative'>
 								<div className='relative z-900 select-none left-0 w-[100%] h-[110%] overflow-hidden'>
 									<div
 										// className={`filter relative ${isFilter ? 'filter-open' : ''}`}
 										className={` relative ${
 											isFilter
 												? 'visible translate-x-0 translate-y-0'
-												: 'invisible translate-x-[-110%]'
+												: 'invisible translate-x-[110%]'
 										} transition-all ease-out duration-500`}
 									>
 										<DropDown
@@ -167,79 +220,46 @@ const Projects = ({ user }) => {
 						</div>
 
 						{/* Categories to display */}
-						<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
-							{resCates.map((cate) => (
-								<div
-									key={cate.id}
-									className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
-								>
-									<label className='flex flex-row gap-5'>{cate.name}</label>
+						{isFilter && (
+							<div className='flex flex-row flex-wrap w-[500px] h-auto pt-2 gap-2 pl-5'>
+								{resCates.map((cate) => (
 									<div
-										onClick={() => {
-											setResCates(
-												resCates.filter((category) => category.id !== cate.id)
-											)
-											setCategoryNames(
-												categoryNames
-													.concat(cate.name)
-													.sort((a, b) => a.localeCompare(b))
-											)
-										}}
+										key={cate.id}
+										className='border-1 rounded-2xl p-1 bg-gray-200  flex flex-row justify-between gap-5'
 									>
-										<CloseIcon fontSize='small' />
+										<label className='flex flex-row gap-5'>{cate.name}</label>
+										<div
+											onClick={() => {
+												setResCates(
+													resCates.filter((category) => category.id !== cate.id)
+												)
+												setCategoryNames(
+													categoryNames
+														.concat(cate.name)
+														.sort((a, b) => a.localeCompare(b))
+												)
+											}}
+										>
+											<CloseIcon fontSize='small' />
+										</div>
 									</div>
-								</div>
-							))}
+								))}
+							</div>
+						)}
+					</div>
+				</div>
+
+				{/* No match projects */}
+				{sortedProjects.length === 0 && resCates.length > 0 && (
+					<div className='justify-center items-center flex-1 mb-10 text-slate-400 text-center flex items-center select-none z-0'>
+						<div className=' mr-2'>
+							<img src={noMatch} />
 						</div>
+						<p>No match projects</p>
 					</div>
-
-					{/* Sort */}
-					<div className='ml-auto  flex mr-10'>
-						<p className='font-semibold text-gray-400'>Sort</p>
-						<div className='text-gray-400 mr-6'>
-							<FilterAltIcon fontSize='small' />
-						</div>
-						<SortDropdown
-							initlaValue='newest'
-							sortByDate={true}
-							setSortValue={setSortValue}
-						/>
-					</div>
-				</div>
-
-				{/* My Projects heading and Add button  */}
-				<div className='flex flex-row justify-between mb-7 mt-10'>
-					{/* Heading */}
-					<div className='flex flex-col ml-5'>
-						<h1 className='font-semibold text-2xl'>My Projects</h1>
-						<p className='ml-3 text-gray-400'>
-							{sortedProjects.length} Projects
-						</p>
-					</div>
-
-					{/* Add button */}
-					<button
-						onClick={() => setShowAddProject(true)}
-						className='w-25 h-7 mr-10 bg-orange-500 select-none rounded-lg text-white'
-					>
-						+ Add New
-					</button>
-				</div>
-
-				{/* Search */}
-				<div className='flex z-900 rounded-lg ml-5 pb-2'>
-					<div className='border-b-2 border-orange-400 pl-1 pr-0.5'>
-						<SearchIcon />
-					</div>
-					<input
-						{...search}
-						placeholder='Search a project'
-						className='border-b-2 border-gray-200 pl-1 pr-1 focus:outline-none'
-					/>
-				</div>
-
+				)}
 				{/* Projects to display */}
-				<div className='flex gap-4 pl-10  flex-wrap pb-10'>
+				<div className='flex justify-between mr-15 gap-x-25 gap-y-10 pl-15 mt-4  flex-wrap'>
 					{projects.length === 0 && resCates.length === 0 && (
 						<div className='flex flex-col items-center justify-center h-full blue w-full mt-7'>
 							<div
@@ -255,19 +275,6 @@ const Projects = ({ user }) => {
 								Please click button above <br />
 								to add your first project.
 							</p>
-						</div>
-					)}
-					{sortedProjects.length === 0 && resCates.length > 0 && (
-						<div
-							style={{
-								transform: 'translate(-50%, -50%)',
-							}}
-							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center select-none z-0'
-						>
-							<div className=' mr-2'>
-								<DoNotDisturbAltIcon />
-							</div>
-							<p>No projects</p>
 						</div>
 					)}
 
@@ -339,6 +346,14 @@ const Projects = ({ user }) => {
 						</div>
 					))}
 				</div>
+				{completedProjects.length === 0 && (
+					<div className='flex flex-1 flex-col  items-center mt-10'>
+						<p className='text-lg text-slate-400 flex items-center justify-center text-center'>
+							No projects <br /> completed yet
+						</p>
+						<img src={notFound} />
+					</div>
+				)}
 			</div>
 
 			{showAddProject && (
