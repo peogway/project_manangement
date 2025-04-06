@@ -12,6 +12,7 @@ import ProjectLabel from './ProjectLabel'
 import EditProjectForm from './EditProjectForm'
 import TaskForm from './TaskForm'
 import CubePlus from './CubePlus'
+import Avatar from './Avatar'
 
 import IconsWindow from './IconsWindow'
 import SearchIcon from '@mui/icons-material/Search'
@@ -22,7 +23,7 @@ import DropDown from './DropDown'
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 import { getIconComponent } from './AllIcons'
 
-const Projects = () => {
+const Projects = ({ user }) => {
 	const dispatch = useDispatch()
 	const [showAddProject, setShowAddProject] = useState(false)
 	const [sortValue, setSortValue] = useState('newest')
@@ -126,8 +127,11 @@ const Projects = () => {
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
 				{/* Filter and Sort */}
 				<div className='flex flex-row justify-between items-center  mt-4'>
+					<div className='ml-10'>
+						<Avatar user={user} />
+					</div>
 					{/* Filter */}
-					<div className='flex flex-col ml-4 h-auto self-end'>
+					<div className='flex flex-col ml-10 h-auto self-end'>
 						<div className='ml-2 items-cente flex flex-row items-center'>
 							<div
 								className='flex select-none cursor-pointer hover:bg-slate-200 rounded-xl p-1'
