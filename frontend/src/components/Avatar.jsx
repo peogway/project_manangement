@@ -46,7 +46,7 @@ const Avatar = ({ user }) => {
 	}, [showOptions])
 	return (
 		<div
-			className={`flex w-10 h-10 rounded-full justify-center items-center relative box ${
+			className={`flex w-12 h-12 rounded-full justify-center items-center relative box ${
 				showOptions ? '' : 'hover:opacity-90'
 			} `}
 			style={{
