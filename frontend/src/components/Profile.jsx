@@ -6,20 +6,36 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import Avatar from 'react-avatar-edit'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
+import userPng from '../assets/user.png'
+import { setError, setNotification } from '../reducers/notiReducer'
+import userEditPng from '../assets/user-edit.png'
 
 import { updateAvatar } from '../reducers/userReducer'
+
+import NotListedLocationIcon from '@mui/icons-material/NotListedLocation'
+import { useField } from '../hooks/hook'
 
 const Profile = ({ user }) => {
 	const [imageCrop, setImageCrop] = useState(false) // to control the cropping dialog
 	const [src, setSrc] = useState(null) // source for the avatar image
 	const [pview, setPview] = useState(null) // cropped image preview
+
 	const [isHovered, setIsHovered] = useState(false)
 	const dialogRef = useRef(null)
 	const avatarUrl = user?.avatarUrl
 	const [profileImage, setProfileImage] = useState(avatarUrl)
 
+	const [isEditting, setIsEditting] = useState(false)
 	const dispatch = useDispatch()
 
+	const { remove: rmName, ...nameInput } = useField('text', user.name)
+	const { remove: rmEmail, ...emailInput } = useField('email', user.email)
+	const { remove: rmGender, ...genderInput } = useField('text', user.gender)
+	const { remove: rmDate, ...dateInput } = useField('text', user.dateOfBirth)
+	const { remove: rmPhoneNumber, ...phoneNumberInput } = useField(
+		'text',
+		user.phoneNumber
+	)
 	// Detect click outside of the dialog
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -106,6 +122,8 @@ const Profile = ({ user }) => {
 		}
 	}
 
+	const handleUpdateUser = () => {}
+
 	return (
 		<div className='z-999 flex flex-col items-center h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			<Heading name='Profile' user={user} />
@@ -115,7 +133,7 @@ const Profile = ({ user }) => {
 				<div className='flex flex-col relative justify-center items-center w-full h-[95%]'>
 					{/* picure */}
 					<div
-						className={`absolute w-50 h-50 bottom-full rounded-full translate-y-[70%] right-[50%] translate-x-[50%] box`}
+						className={`absolute w-50 h-50 bottom-full left-0 rounded-full translate-y-[70%] right-[50%] translate-x-[50%] box`}
 						style={{
 							// backgroundImage: user.avatarUrl ? '' : `url(${profilePicNull})`,
 							backgroundImage: profileImage
@@ -189,6 +207,123 @@ const Profile = ({ user }) => {
 							</div>
 						</div>
 					</Dialog>
+				</div>
+
+				<div
+					className='absolute top-10 right-20 scale-60'
+					onClick={() => setIsEditting(true)}
+				>
+					<img src={userEditPng} />
+				</div>
+
+				<div className='flex flex-col items-center gap-10 absolute w-[80%] h-[60%] top-50 translate-x-[50%] right-[50%]'>
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Name:
+						</label>
+						{isEditting ? (
+							<div className='max-w-[280px] flex flex-1 items-center ml-10 text-slate-600 rounded-lg border-1 border-slate-500'>
+								<input {...nameInput} className='focus:outline-none px-2' />
+							</div>
+						) : (
+							<div className='flex text-lg flex-1 items-center ml-10 text-slate-600'>
+								{user.name}
+							</div>
+						)}
+					</div>
+
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Username:
+						</label>
+
+						<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+							{user.username}
+						</div>
+					</div>
+
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Email:
+						</label>
+						{isEditting ? (
+							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600 rounded-lg border-1 border-slate-500'>
+								<input {...emailInput} className='focus:outline-none px-2' />
+							</div>
+						) : (
+							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+								{user.email === null ? (
+									<NotListedLocationIcon className='scale-130' />
+								) : (
+									user.email
+								)}
+							</div>
+						)}
+					</div>
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Gender:
+						</label>
+						{isEditting ? (
+							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+						) : (
+							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+								{user.gender === null ? (
+									<NotListedLocationIcon className='scale-130' />
+								) : (
+									user.gender
+								)}
+							</div>
+						)}
+					</div>
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Date of birth:
+						</label>
+						{isEditting ? (
+							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+						) : (
+							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+								{user.dateOfBirth === null ? (
+									<NotListedLocationIcon className='scale-130' />
+								) : (
+									user.dateOfBirth
+								)}
+							</div>
+						)}
+					</div>
+					<div className='flex w-full'>
+						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
+							Phone number:
+						</label>
+						{isEditting ? (
+							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+						) : (
+							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+								{user.phoneNumber === null ? (
+									<NotListedLocationIcon className='scale-130' />
+								) : (
+									user.phoneNumber
+								)}
+							</div>
+						)}
+					</div>
+					{isEditting && (
+						<div className='flex w-full items-center mt-2 justify-center select-none'>
+							<div
+								className='text-white bg-orange-500 mr-4 p-2 rounded-xl'
+								onClick={handleUpdateUser}
+							>
+								Apply changes
+							</div>
+							<div
+								className='text-slate-800 bg-slate-300 rounded-xl p-2'
+								onClick={() => setIsEditting(false)}
+							>
+								Cancel
+							</div>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

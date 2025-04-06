@@ -42,6 +42,10 @@ loginRouter.post("/", async (req, res) => {
         username: user.username,
         name: user.name,
         avatarUrl: user.avatarUrl,
+        email: user.email,
+        gender: user.gender,
+        dateOfBirth: user.dateOfBirth,
+        phoneNumber: user.phoneNumber,
     });
 });
 
