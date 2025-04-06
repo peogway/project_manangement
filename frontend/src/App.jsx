@@ -247,15 +247,21 @@ const App = () => {
 				/>
 				<Route
 					path='/projects'
-					element={user ? <Projects /> : <Navigate replace to='/login' />}
+					element={
+						user ? <Projects user={user} /> : <Navigate replace to='/login' />
+					}
 				/>
 				<Route
 					path='/tasks'
-					element={user ? <Tasks /> : <Navigate replace to='/login' />}
+					element={
+						user ? <Tasks user={user} /> : <Navigate replace to='/login' />
+					}
 				/>
 				<Route
 					path='/categories'
-					element={user ? <Categories /> : <Navigate replace to='/login' />}
+					element={
+						user ? <Categories user={user} /> : <Navigate replace to='/login' />
+					}
 				/>
 				<Route
 					path='/profile'
