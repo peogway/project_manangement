@@ -128,7 +128,7 @@ const Projects = ({ user }) => {
 				{/* Filter and Sort */}
 				<div className='flex flex-row justify-between items-center  mt-4'>
 					<div className='ml-10'>
-						<Avatar user={user} />
+						<Avatar user={user} optionsPosRight={true} />
 					</div>
 					{/* Filter */}
 					<div className='flex flex-col ml-10 h-auto self-end'>
