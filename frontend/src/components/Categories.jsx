@@ -282,7 +282,7 @@ const Categories = ({ user }) => {
 				</div>
 			</div>
 
-			<div className='top-[100px] relative overflow-auto  z-500 w-[calc(100vw-120px)] max-h-[calc(100vh-130px)]  left-[60px] pt-10'>
+			<div className='top-[100px] relative overflow-auto z-100  w-[calc(100vw-120px)] max-h-[calc(100vh-130px)]  left-[60px] pt-10'>
 				<div className='flex z-900 rounded-lg gap-2 self-start '>
 					<div className='border-b-2 border-orange-500 pl-1 pr-0.5'>
 						<SearchIcon />
