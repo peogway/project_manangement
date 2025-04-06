@@ -9,13 +9,12 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 
 import { updateAvatar } from '../reducers/userReducer'
 
-const Profile = () => {
+const Profile = ({ user }) => {
 	const [imageCrop, setImageCrop] = useState(false) // to control the cropping dialog
 	const [src, setSrc] = useState(null) // source for the avatar image
 	const [pview, setPview] = useState(null) // cropped image preview
 	const [isHovered, setIsHovered] = useState(false)
 	const dialogRef = useRef(null)
-	const user = useSelector((state) => state.user)
 	const avatarUrl = user?.avatarUrl
 	const [profileImage, setProfileImage] = useState(avatarUrl)
 
@@ -64,7 +63,7 @@ const Profile = () => {
 		if (avatarUrl) {
 			setProfileImage(`http://localhost:3001${avatarUrl}`) // Make sure the URL is absolute and points to your server
 		}
-	}, [avatarUrl])
+	}, [user])
 
 	const closeDialog = () => {
 		setImageCrop(false)
