@@ -46,7 +46,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 	}, [showOptions])
 	return (
 		<div
-			className={`flex z-999 w-12 h-12 rounded-full justify-center items-center relative box ${
+			className={`flex z-1000 w-12 h-12 rounded-full justify-center items-center relative box ${
 				showOptions ? '' : 'hover:opacity-90'
 			} `}
 			style={{
