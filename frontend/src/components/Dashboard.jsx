@@ -30,7 +30,7 @@ import Avatar from './Avatar'
 
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
+import noMatch from '../assets/no-match-blue.png'
 import WaveCircle from './WaveCircle'
 import WaterWave from './WaterWave'
 
@@ -311,9 +311,9 @@ const Dashboard = ({ user, animate }) => {
 									</div>
 								))}
 								{searchProjects.length === 0 && (
-									<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+									<div className='items-center px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
 										<div className=' mr-2'>
-											<DoNotDisturbAltIcon />
+											<img src={noMatch} />
 										</div>
 										<p>No projects match</p>
 									</div>
@@ -345,9 +345,9 @@ const Dashboard = ({ user, animate }) => {
 									</div>
 								))}
 								{searchTasks.length === 0 && (
-									<div className='px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
+									<div className='items-center px-4 py-3 flex gap-2 rounded-xl text-slate-400'>
 										<div className=' mr-2'>
-											<DoNotDisturbAltIcon />
+											<img src={noMatch} />
 										</div>
 										<p>No tasks match</p>
 									</div>

@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { allIconsArray } from './AllIcons'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
+import noMatch from '../assets/no-match-blue.png'
 
 import Avatar from './Avatar'
 import ProjectsDropDown from './ProjectsDropdown'
@@ -278,9 +278,9 @@ const Tasks = ({ user }) => {
 							<div className='relative w-full h-[200px]'>
 								<div className='top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute p-20 z-200 text-slate-400 text-center flex items-center'>
 									<div className=' mr-2'>
-										<DoNotDisturbAltIcon />
+										<img src={noMatch} />
 									</div>
-									<p>No tasks</p>
+									<p>No tasks available</p>
 								</div>
 							</div>
 						)}

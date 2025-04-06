@@ -15,7 +15,7 @@ import ProjectsDropDown from './ProjectsDropdown'
 import { getIconComponent } from './AllIcons'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { setAllProject } from '../reducers/prjReducer'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
+import noMatch from '../assets/no-match-blue.png'
 
 import Avatar from './Avatar'
 
@@ -304,7 +304,7 @@ const Categories = ({ user }) => {
 							className='top-[50%] left-[50%] fixed p-20 z-999 text-slate-400 text-center flex items-center'
 						>
 							<div className=' mr-2'>
-								<DoNotDisturbAltIcon />
+								<img src={noMatch} />
 							</div>
 							<p>No categories available</p>
 						</div>
