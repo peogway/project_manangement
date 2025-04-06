@@ -9,7 +9,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDispatch } from 'react-redux'
 
-const Avatar = ({ user }) => {
+const Avatar = ({ user, optionsPosRight }) => {
 	const [showOptions, setShowOptions] = useState(false)
 	const optionsRef = useRef(null)
 
@@ -46,7 +46,7 @@ const Avatar = ({ user }) => {
 	}, [showOptions])
 	return (
 		<div
-			className={`flex w-12 h-12 rounded-full justify-center items-center relative box ${
+			className={`flex z-999 w-12 h-12 rounded-full justify-center items-center relative box ${
 				showOptions ? '' : 'hover:opacity-90'
 			} `}
 			style={{
@@ -75,13 +75,13 @@ const Avatar = ({ user }) => {
 				<KeyboardArrowDownIcon />
 			</div>
 			<div
-				className={`absolute box ${
-					showOptions ? 'block' : 'hidden'
-				} top-full right-0 w-[150px] h-[240px] bg-white mt-3 rounded-xl flex flex-col gap-3 items-center`}
+				className={`absolute box ${showOptions ? 'block' : 'hidden'} top-full ${
+					optionsPosRight ? 'left-0' : 'right-0'
+				} w-[150px] h-[240px] bg-white mt-3 rounded-xl flex flex-col gap-3 items-center`}
 				ref={optionsRef}
 			>
 				<div
-					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 mt-4 flex text-slate-600'
+					className='w-[90%] p-2 rounded-xl h-[60px] hover:bg-blue-200 mt-4 flex text-slate-600'
 					onClick={() => {
 						setShowOptions(false)
 						navigate('/profile')
@@ -96,7 +96,7 @@ const Avatar = ({ user }) => {
 				</div>
 
 				<div
-					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
+					className='w-[90%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
 					onClick={() => {
 						setShowOptions(false)
 						navigate('/account')
@@ -111,7 +111,7 @@ const Avatar = ({ user }) => {
 				</div>
 
 				<div
-					className='w-[95%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
+					className='w-[90%] p-2 rounded-xl h-[60px] hover:bg-blue-200 flex text-slate-600'
 					onClick={() => {
 						setShowOptions(false)
 						window.localStorage.removeItem('loggedPrjMnUser') // Remove user from localStorage
