@@ -21,8 +21,8 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import CloseIcon from '@mui/icons-material/Close'
 import DropDown from './DropDown'
 import { getIconComponent } from './AllIcons'
-import notFound from '../assets/icons8-nothing-found-100.png'
-import noMatch from '../assets/icons8-nothing-found-48.png'
+import notFound from '../assets/no-match-orange.png'
+import noMatch from '../assets/no-match-blue.png'
 
 const Projects = ({ user }) => {
 	const dispatch = useDispatch()
