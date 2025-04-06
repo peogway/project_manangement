@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
 
 const CategoryList = ({ categories }) => {
 	const [visibleCategories, setVisibleCategories] = useState([])
@@ -104,12 +103,6 @@ const CategoryList = ({ categories }) => {
 						<MoreHorizIcon fontSize='small' />
 					</div>
 				)}
-			{/* {categories.length === 0 && (
-				<div className='flex absolute top-4 justify-start items-start w-full h-full text-gray-400 gap-1 absolute mt-5 ml-17'>
-					<DoNotDisturbAltIcon />
-					No Categories
-				</div>
-			)} */}
 		</div>
 	)
 }
