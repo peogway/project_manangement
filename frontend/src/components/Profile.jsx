@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import Heading from './Heading'
 import profilePicNull from '../assets/profile-picture-null.png'
 import { Button } from 'primereact/button'
@@ -8,49 +7,65 @@ import { Dialog } from 'primereact/dialog'
 import Avatar from 'react-avatar-edit'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 
-const Profile = ({ user }) => {
+import { updateAvatar } from '../reducers/userReducer'
+
+const Profile = () => {
 	const [imageCrop, setImageCrop] = useState(false) // to control the cropping dialog
 	const [src, setSrc] = useState(null) // source for the avatar image
 	const [pview, setPview] = useState(null) // cropped image preview
-	const [profileImage, setProfileImage] = useState(null) // New state for the image
 	const [isHovered, setIsHovered] = useState(false)
 	const dialogRef = useRef(null)
+	const user = useSelector((state) => state.user)
+	const avatarUrl = user?.avatarUrl
+	const [profileImage, setProfileImage] = useState(avatarUrl)
+
+	const dispatch = useDispatch()
 
 	// Detect click outside of the dialog
-	const handleClickOutside = (event) => {
-		// Check if the dialog is rendered
-		if (dialogRef.current) {
-			const dialogRect = dialogRef.current.getBoundingClientRect()
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			// Check if the dialog is rendered
+			if (dialogRef.current) {
+				const dialogRect = dialogRef.current.getBoundingClientRect()
 
-			// Get mouse click position
-			const mouseX = event.clientX
-			const mouseY = event.clientY
+				// Get mouse click position
+				const mouseX = event.clientX
+				const mouseY = event.clientY
 
-			// Calculate the distance from the click to the dialog's nearest edge
-			const distanceTop = dialogRect.top - mouseY
-			const distanceBottom = mouseY - dialogRect.bottom
-			const distanceLeft = dialogRect.left - mouseX
-			const distanceRight = mouseX - dialogRect.right
+				// Calculate the distance from the click to the dialog's nearest edge
+				const distanceTop = dialogRect.top - mouseY
+				const distanceBottom = mouseY - dialogRect.bottom
+				const distanceLeft = dialogRect.left - mouseX
+				const distanceRight = mouseX - dialogRect.right
 
-			// Check if the click is outside and the distance from the edge is greater than 100px
-			if (
-				distanceTop > 34 ||
-				distanceBottom > 34 ||
-				distanceLeft > 41 ||
-				distanceRight > 41
-			) {
-				closeDialog()
+				// Check if the click is outside and the distance from the edge is greater than 100px
+				if (
+					distanceTop > 34 ||
+					distanceBottom > 34 ||
+					distanceLeft > 41 ||
+					distanceRight > 41
+				) {
+					closeDialog()
+				}
 			}
 		}
-	}
-	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside)
+
+		if (user.avatarUrl !== null)
+			setProfileImage(`http://localhost:3001${avatarUrl}`)
 
 		// Cleanup the event listener on component unmount
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
 	}, [])
+
+	useEffect(() => {
+		if (avatarUrl) {
+			setProfileImage(`http://localhost:3001${avatarUrl}`) // Make sure the URL is absolute and points to your server
+		}
+	}, [avatarUrl])
+
 	const closeDialog = () => {
 		setImageCrop(false)
 	}
@@ -62,9 +77,25 @@ const Profile = ({ user }) => {
 		setPview(view)
 	}
 	const saveCropImage = () => {
-		setProfileImage(pview)
+		// Convert base64 image to a File object
+		const base64Image = pview.split(',')[1] // Remove the base64 prefix
+		const byteArray = new Uint8Array(
+			atob(base64Image)
+				.split('')
+				.map((char) => char.charCodeAt(0))
+		)
+		const file = new File([byteArray], 'avatar.png', { type: 'image/png' })
+
+		// Dispatch updateAvatar to upload the cropped image
+		dispatch(updateAvatar(file))
+		// setProfileImage(pview)
 		setImageCrop(false)
 	}
+
+	useEffect(() => {
+		window.localStorage.setItem('loggedPrjMnUser', JSON.stringify(user))
+	}, [user])
+
 	const onBeforeFileLoad = (elem) => {
 		const file = elem.target.files[0]
 		// File size check: 1MB limit (in bytes)
