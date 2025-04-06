@@ -50,7 +50,9 @@ const Avatar = ({ user }) => {
 				showOptions ? '' : 'hover:opacity-90'
 			} `}
 			style={{
-				backgroundImage: user.avatarUrl ? '' : `url(${profilePicNull})`,
+				backgroundImage: user.avatarUrl
+					? `url(http://localhost:3001${user.avatarUrl})`
+					: `url(${profilePicNull})`,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
 			}}
@@ -130,4 +132,3 @@ const Avatar = ({ user }) => {
 }
 
 export default Avatar
-
