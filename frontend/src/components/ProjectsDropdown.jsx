@@ -2,7 +2,7 @@ import { getIconComponent } from './AllIcons'
 
 import { useEffect, useRef, useState } from 'react'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt'
+import noMatch from '../assets/no-match-blue.png'
 
 const ProjectsDropDown = ({
 	setOpenProjectsDropDown,
@@ -65,7 +65,7 @@ const ProjectsDropDown = ({
 			<>
 				{allProjects.length === 0 && (
 					<div className='flex items-center text-center text-slate-400 text-[11px] my-2 justify-center'>
-						<DoNotDisturbAltIcon fontSize='small' />
+						<img src={noMatch} />
 						<p className='ml-2'>No Projects Found</p>
 					</div>
 				)}
@@ -153,4 +153,3 @@ const SingleProject = ({
 }
 
 export default ProjectsDropDown
-
