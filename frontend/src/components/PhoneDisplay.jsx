@@ -31,12 +31,13 @@ const PhoneDisplay = ({ user }) => {
 		<div>
 			{phone && country && (
 				<div className='flex items-center'>
-					<img
-						src={getCountryFlag()}
-						alt='Flag'
-						style={{ marginRight: '8px' }}
-						className='box'
-					/>
+					<div className='bg-slate-100 rounded-lg flex items-center justify-center p-2'>
+						<img
+							src={getCountryFlag()}
+							alt='Flag'
+							className='w-[90%] h-[90%] scale-130'
+						/>
+					</div>
 					<span>{formattedPhone}</span>
 				</div>
 			)}
