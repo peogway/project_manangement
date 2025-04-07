@@ -15,6 +15,15 @@ import { updateAvatar } from '../reducers/userReducer'
 import NotListedLocationIcon from '@mui/icons-material/NotListedLocation'
 import { useField } from '../hooks/hook'
 
+import {
+	getCountries,
+	getCountryCallingCode,
+	getDefaultCountry,
+} from 'react-phone-input-2'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import PhoneDisplay from './PhoneDisplay'
+
 const Profile = ({ user }) => {
 	const [imageCrop, setImageCrop] = useState(false) // to control the cropping dialog
 	const [src, setSrc] = useState(null) // source for the avatar image
@@ -26,16 +35,43 @@ const Profile = ({ user }) => {
 	const [profileImage, setProfileImage] = useState(avatarUrl)
 
 	const [isEditting, setIsEditting] = useState(false)
-	const dispatch = useDispatch()
+	const [emailValid, setEmailValid] = useState(true)
 
-	const { remove: rmName, ...nameInput } = useField('text', user.name)
-	const { remove: rmEmail, ...emailInput } = useField('email', user.email)
-	const { remove: rmGender, ...genderInput } = useField('text', user.gender)
-	const { remove: rmDate, ...dateInput } = useField('text', user.dateOfBirth)
+	const [genders, setGenders] = useState([
+		user.gender === 'Male',
+		user.gender === 'Female',
+		user.gender === 'Other',
+	])
+
+	const [nameInput, setNameInput] = useState(user.name)
+	const [emailInput, setEmailInput] = useState(user.email || '')
+	const [dob, setDob] = useState(
+		user.dateOfBirth
+			? new Date(user.dateOfBirth).toISOString().split('T')[0]
+			: ''
+	)
+	const [phone, setPhone] = useState(user.phoneNumber || '358415766163')
+
+	const dispatch = useDispatch()
 	const { remove: rmPhoneNumber, ...phoneNumberInput } = useField(
 		'text',
-		user.phoneNumber
+		user.phoneNumber === null ? '' : user.phoneNumber
 	)
+
+	const nameValid = nameInput.length > 0
+
+	// Handle validate email
+	useEffect(() => {
+		if (
+			emailInput.length === 0 ||
+			emailInput.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+		) {
+			setEmailValid(true)
+		} else {
+			setEmailValid(false)
+		}
+	}, [emailInput])
+
 	// Detect click outside of the dialog
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -74,7 +110,7 @@ const Profile = ({ user }) => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
 	}, [])
-
+	// Handle update avatar
 	useEffect(() => {
 		if (avatarUrl) {
 			setProfileImage(`http://localhost:3001${avatarUrl}`) // Make sure the URL is absolute and points to your server
@@ -122,13 +158,48 @@ const Profile = ({ user }) => {
 		}
 	}
 
-	const handleUpdateUser = () => {}
+	const handleUpdateUser = () => {
+		if (!nameValid) {
+			dispatch(setError('Invalid name'))
+			return
+		}
+		if (!emailValid) {
+			dispatch(setError('Invalid email format'))
+			return
+		}
+	}
+
+	const onCancel = () => {
+		setIsEditting(false)
+		setGenders([
+			user.gender === 'Male',
+			user.gender === 'Female',
+			user.gender === 'Other',
+		])
+		setNameInput(user.name)
+		setEmailInput(user.email ? user.email : '')
+		setDob(
+			user.dateOfBirth
+				? new Date(user.dateOfBirth).toISOString().split('T')[0]
+				: ''
+		)
+		setPhone(user.phoneNumber || '')
+	}
+
+	const toggleCheckbox = (index) => {
+		if (genders[index]) {
+			setGenders([false, false, false])
+		} else {
+			setGenders(genders.map((gender, i) => (i === index ? true : false)))
+		}
+	}
 
 	return (
 		<div className='z-999 flex flex-col items-center h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			<Heading name='Profile' user={user} />
 			<div className='relative h-full w-[60%]  top-[200px]'>
-				<div className='absolute h-[95%] bg-white top-0 w-full rounded-t-[10%] rounded-b-4xl '></div>
+				<div className='absolute h-[700px] bg-white top-0 w-full rounded-t-[10%] rounded-b-4xl '></div>
+				<div className='absolute top-0 w-full h-[750px]'></div>
 				{/* Photo */}
 				<div className='flex flex-col relative justify-center items-center w-full h-[95%]'>
 					{/* picure */}
@@ -174,8 +245,8 @@ const Profile = ({ user }) => {
 						>
 							<div className='mt-10 cursor-pointer avatar-crop react-avatar-edit'>
 								<Avatar
-									width={600}
-									height={400}
+									width={500}
+									height={300}
 									onCrop={onCrop}
 									onClose={onClose}
 									src={src}
@@ -188,8 +259,8 @@ const Profile = ({ user }) => {
 										justifyContent: 'center',
 										alignItems: 'center',
 										position: 'absolute', // Position it absolutely within the Avatar
-										width: '600px', // Make it take the entire width of the Avatar
-										height: '400px', // Make it take the entire height of the Avatar
+										width: '500px', // Make it take the entire width of the Avatar
+										height: '300px', // Make it take the entire height of the Avatar
 										textAlign: 'center', // Center the text inside the circle
 										cursor: 'pointer', // Make it clickable
 									}}
@@ -216,74 +287,154 @@ const Profile = ({ user }) => {
 					<img src={userEditPng} />
 				</div>
 
-				<div className='flex flex-col items-center gap-10 absolute w-[80%] h-[60%] top-50 translate-x-[50%] right-[50%]'>
+				<div className='flex flex-col items-center gap-10 absolute w-[80%] h-[490px] top-50 translate-x-[50%] right-[50%]'>
+					{/* Name */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Name:
 						</label>
 						{isEditting ? (
-							<div className='max-w-[280px] flex flex-1 items-center ml-10 text-slate-600 rounded-lg border-1 border-slate-500'>
-								<input {...nameInput} className='focus:outline-none px-2' />
+							<div
+								className={`${
+									nameValid
+										? 'border-1 border-slate-500'
+										: 'border-2 border-red-600'
+								} max-w-[280px] flex flex-1 items-center ml-5 text-slate-600 rounded-lg relative`}
+							>
+								<input
+									type='text'
+									value={nameInput}
+									onChange={(e) => setNameInput(e.target.value)}
+									className='focus:outline-none px-2'
+									placeholder='Enter your name'
+								/>
+								{!nameValid && (
+									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
+										Invalid name
+									</div>
+								)}
 							</div>
 						) : (
-							<div className='flex text-lg flex-1 items-center ml-10 text-slate-600'>
+							<div className='flex text-lg flex-1 items-center ml-5 text-slate-600'>
 								{user.name}
 							</div>
 						)}
 					</div>
 
+					{/* Username */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Username:
 						</label>
 
-						<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+						<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
 							{user.username}
 						</div>
 					</div>
 
+					{/* Email */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Email:
 						</label>
 						{isEditting ? (
-							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600 rounded-lg border-1 border-slate-500'>
-								<input {...emailInput} className='focus:outline-none px-2' />
+							<div
+								className={`${
+									emailValid
+										? 'border-slate-500 border-1'
+										: 'border-2 border-red-600'
+								} flex max-w-[280px] flex-1 items-center ml-5 text-slate-600 rounded-lg  relative`}
+							>
+								{!emailValid && (
+									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
+										Invalid email
+									</div>
+								)}
+								<input
+									type='text'
+									value={emailInput}
+									onChange={(e) => setEmailInput(e.target.value)}
+									className='focus:outline-none px-2'
+									placeholder='Enter your email'
+								/>
 							</div>
 						) : (
-							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
-								{user.email === null ? (
-									<NotListedLocationIcon className='scale-130' />
+							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
+								{user.email ? (
+									<div className='flex text-lg flex-1 items-center  text-slate-600'>
+										{/* {user.email} */}
+									</div>
 								) : (
-									user.email
+									<NotListedLocationIcon className='scale-130' />
 								)}
 							</div>
 						)}
 					</div>
+
+					{/* Gender */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Gender:
 						</label>
 						{isEditting ? (
-							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+							<div className='flex max-w-[330px] w-[330px]  justify-between items-center text-slate-600 relative'>
+								<div className='flex gap-1 items-center'>
+									<input
+										type='checkbox'
+										checked={genders[0]}
+										onChange={() => toggleCheckbox(0)}
+										className='text-orange-200 accent-orange-300 w-5 h-5'
+									/>
+									<label className='semi-bold text-slate-600'>Male</label>
+								</div>
+								<div className='flex gap-1 items-center'>
+									<input
+										type='checkbox'
+										checked={genders[1]}
+										onChange={() => toggleCheckbox(1)}
+										className='text-orange-200 accent-orange-300 w-5 h-5'
+									/>
+									<label className='semi-bold text-slate-600'>Female</label>
+								</div>
+								<div className='flex gap-1 items-center'>
+									<input
+										type='checkbox'
+										checked={genders[2]}
+										onChange={() => toggleCheckbox(2)}
+										className='text-orange-200 accent-orange-300 w-5 h-5'
+									/>
+									<label className='semi-bold text-slate-600'>Other</label>
+								</div>
+							</div>
 						) : (
-							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
 								{user.gender === null ? (
 									<NotListedLocationIcon className='scale-130' />
 								) : (
-									user.gender
+									<div className='flex text-lg flex-1 items-center text-slate-600'>
+										{user.gender}
+									</div>
 								)}
 							</div>
 						)}
 					</div>
+
+					{/* Date of Birth */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Date of birth:
 						</label>
 						{isEditting ? (
-							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+							<div className='flex max-w-[280px] flex-1 items-center ml-5 border-1 border-slate-500 rounded-lg text-slate-600'>
+								<input
+									className='focus:outline-none px-2'
+									type='date'
+									value={dob}
+									onChange={(e) => setDob(e.target.value)}
+								/>
+							</div>
 						) : (
-							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
 								{user.dateOfBirth === null ? (
 									<NotListedLocationIcon className='scale-130' />
 								) : (
@@ -292,33 +443,54 @@ const Profile = ({ user }) => {
 							</div>
 						)}
 					</div>
+
+					{/* Phone Number */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
 							Phone number:
 						</label>
 						{isEditting ? (
-							<div className='flex max-w-[280px] flex-1 items-center ml-10 text-slate-600'></div>
+							<div className='flex max-w-[280px]  flex-1 items-center ml-5 text-slate-500'>
+								<PhoneInput
+									country={'auto'}
+									value={phone}
+									onChange={setPhone}
+									enableSearch={true}
+									enableAreaCodes={true}
+									autoFormat={true}
+									disableDropdown={false}
+									localization={{}}
+									placeholder='Enter phone number'
+									inputProps={{
+										name: 'phone',
+										required: true,
+										autoFocus: true,
+									}}
+								/>
+							</div>
 						) : (
-							<div className='flex flex-1 text-lg items-center ml-10 text-slate-600'>
+							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
 								{user.phoneNumber === null ? (
 									<NotListedLocationIcon className='scale-130' />
 								) : (
-									user.phoneNumber
+									<PhoneDisplay user={user} />
 								)}
 							</div>
 						)}
 					</div>
+
+					{/* Buttons */}
 					{isEditting && (
 						<div className='flex w-full items-center mt-2 justify-center select-none'>
 							<div
-								className='text-white bg-orange-500 mr-4 p-2 rounded-xl'
+								className='text-white bg-orange-500 mr-4 p-2 rounded-xl semi-bold'
 								onClick={handleUpdateUser}
 							>
 								Apply changes
 							</div>
 							<div
-								className='text-slate-800 bg-slate-300 rounded-xl p-2'
-								onClick={() => setIsEditting(false)}
+								className='text-slate-800 bg-slate-300 rounded-xl p-2 semi-bold'
+								onClick={onCancel}
 							>
 								Cancel
 							</div>
