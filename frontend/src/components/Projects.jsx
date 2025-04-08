@@ -259,7 +259,7 @@ const Projects = ({ user }) => {
 					</div>
 				)}
 				{/* Projects to display */}
-				<div className='flex justify-between mr-15 gap-x-25 gap-y-10 pl-15 mt-4  flex-wrap'>
+				<div className='flex justify-evenly mr-15 gap-x-25 gap-y-10 pl-15 mt-4  flex-wrap'>
 					{projects.length === 0 && resCates.length === 0 && (
 						<div className='flex flex-col items-center justify-center h-full blue w-full mt-7'>
 							<div
