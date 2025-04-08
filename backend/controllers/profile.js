@@ -2,6 +2,8 @@ const User = require('../models/user')
 const multer = require('multer')
 const fs = require('fs')
 const path = require('path')
+const validator = require('validator')
+const { isValidPhoneNumber } = require('libphonenumber-js')
 
 const profileRouter = require('express').Router()
 
@@ -25,7 +27,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 // Profile upload endpoint to handle avatar image uploads
-profileRouter.post('/', upload.single('avatar'), async (req, res) => {
+profileRouter.post('/upload-avatar', upload.single('avatar'), async (req, res) => {
 	const userRequest = req.user // Get the user from the request (assumed to be set by authentication middleware)
 
 	// Check if the user is authenticated
@@ -57,6 +59,26 @@ profileRouter.post('/', upload.single('avatar'), async (req, res) => {
 
 	// Respond with the URL of the uploaded avatar
 	res.json({ avatarUrl: filePath })
+})
+
+profileRouter.put('/', async (req, res) => {
+	const userRequest = req.user
+	if (!userRequest) {
+		return res.status(401).json({ error: 'token invalid' })
+	}
+
+	const user = await User.findById(userRequest.id)
+	if(!user) {
+		return res.status(404).json({ error: 'User not' })
+	}
+	const { name, email, phone } = req.body
+	
+	if ( !name ) return res.status(400).send('Missing field name')
+	if ( email?.length > 0 && !validator.isEmail(email) ) return res.status(400).send('Invalid email')
+	if ( phone?.length > 0 && !isValidPhoneNumber(phone) ) return res.status(400).send('Invalid phone')
+
+	const updatedUser = await User.findByIdAndUpdate(userRequest.id, {name, email: email?.length > 0 ? email : null , phoneNumber: phone?.length > 0 ? phone : null}, { new: true })
+	res.status(204).end();
 })
 
 // Export the profileRouter to be used in other parts of the application
