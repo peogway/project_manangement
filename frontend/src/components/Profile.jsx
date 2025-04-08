@@ -10,7 +10,8 @@ import userPng from '../assets/user.png'
 import { setError, setNotification } from '../reducers/notiReducer'
 import userEditPng from '../assets/user-edit.png'
 
-import { updateAvatar } from '../reducers/userReducer'
+import { isValidPhoneNumber } from 'libphonenumber-js'
+import { updateAvatar, updateProfile } from '../reducers/userReducer'
 
 import NotListedLocationIcon from '@mui/icons-material/NotListedLocation'
 import { useField } from '../hooks/hook'
@@ -50,7 +51,7 @@ const Profile = ({ user }) => {
 			? new Date(user.dateOfBirth).toISOString().split('T')[0]
 			: ''
 	)
-	const [phone, setPhone] = useState(user.phoneNumber || '358415766163')
+	const [phone, setPhone] = useState(user.phoneNumber || '')
 
 	const dispatch = useDispatch()
 	const { remove: rmPhoneNumber, ...phoneNumberInput } = useField(
@@ -167,6 +168,27 @@ const Profile = ({ user }) => {
 			dispatch(setError('Invalid email format'))
 			return
 		}
+		if (phone.length > 0 && !isValidPhoneNumber(`+${phone}`)) {
+			dispatch(setError('Invalid phone number'))
+			return
+		}
+
+		const userToUpdate = {
+			...user,
+			name: nameInput,
+			email: emailInput ? emailInput : null,
+			gender: genders[0]
+				? 'Male'
+				: genders[1]
+				? 'Female'
+				: genders[2]
+				? 'Other'
+				: null,
+			dateOfBirth: dob ? dob : null,
+			phoneNumber: phone ? phone : null,
+		}
+		dispatch(updateProfile(userToUpdate))
+		setIsEditting(false)
 	}
 
 	const onCancel = () => {
@@ -193,6 +215,14 @@ const Profile = ({ user }) => {
 			setGenders(genders.map((gender, i) => (i === index ? true : false)))
 		}
 	}
+	const formatDate = (dateStr) => {
+		const d = new Date(dateStr)
+		return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1)
+			.toString()
+			.padStart(2, '0')}/${d.getFullYear()}`
+	}
+	const phoneValid = isValidPhoneNumber(`+${phone}`)
+	console.log(phoneValid)
 
 	return (
 		<div className='z-999 flex flex-col items-center h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
@@ -359,10 +389,10 @@ const Profile = ({ user }) => {
 								/>
 							</div>
 						) : (
-							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
+							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600 relative'>
 								{user.email ? (
-									<div className='flex text-lg flex-1 items-center  text-slate-600'>
-										{/* {user.email} */}
+									<div className='absolute top-0 left-0 flex text-lg flex-1 items-center  text-slate-600'>
+										{user.email}
 									</div>
 								) : (
 									<NotListedLocationIcon className='scale-130' />
@@ -438,7 +468,7 @@ const Profile = ({ user }) => {
 								{user.dateOfBirth === null ? (
 									<NotListedLocationIcon className='scale-130' />
 								) : (
-									user.dateOfBirth
+									<div className=''>{formatDate(user.dateOfBirth)}</div>
 								)}
 							</div>
 						)}
@@ -450,23 +480,38 @@ const Profile = ({ user }) => {
 							Phone number:
 						</label>
 						{isEditting ? (
-							<div className='flex max-w-[280px]  flex-1 items-center ml-5 text-slate-500'>
-								<PhoneInput
-									country={'auto'}
-									value={phone}
-									onChange={setPhone}
-									enableSearch={true}
-									enableAreaCodes={true}
-									autoFormat={true}
-									disableDropdown={false}
-									localization={{}}
-									placeholder='Enter phone number'
-									inputProps={{
-										name: 'phone',
-										required: true,
-										autoFocus: true,
-									}}
-								/>
+							<div
+								className={`flex max-w-[280px]  flex-1 items-center ml-5  relative`}
+							>
+								<div
+									className={`flex w-full h-full items-center text-slate-500 ${
+										phoneValid
+											? 'border border-slate-500'
+											: 'border-2 border-red-600'
+									} overflow-hidden`}
+								>
+									<PhoneInput
+										country={'auto'}
+										value={phone}
+										onChange={setPhone}
+										enableSearch={true}
+										enableAreaCodes={true}
+										autoFormat={true}
+										disableDropdown={false}
+										localization={{}}
+										placeholder='Enter phone number'
+										inputProps={{
+											name: 'phone',
+											required: true,
+											autoFocus: true,
+										}}
+									/>
+								</div>
+								{!phoneValid && (
+									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
+										Invalid phone number
+									</div>
+								)}
 							</div>
 						) : (
 							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
