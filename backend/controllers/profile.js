@@ -71,12 +71,15 @@ profileRouter.put("/", async (req, res) => {
     if(!user) {
         return res.status(404).json({ error: "User not" });
     }
-    const { name, email, phone } = req.body;
+    const { name, email, phone, dateOfBirth } = req.body;
     if ( !name ) return res.status(400).send("Missing field name");
     if ( email?.length > 0 && !validator.isEmail(email) ) return res.status(400).send("Invalid email");
     if ( phone?.length > 0 && !isValidPhoneNumber(phone) ) return res.status(400).send("Invalid phone");
 
-    await User.findByIdAndUpdate(userRequest.id, { name, email: email?.length > 0 ? email : null , phoneNumber: phone?.length > 0 ? phone : null }, { new: true });
+    const d = new Date(dateOfBirth);
+    const date = dateOfBirth && d instanceof Date && !isNaN(d) ? d : null;
+
+    await User.findByIdAndUpdate(userRequest.id, { name, email: email?.length > 0 ? email : null , dateOfBirth: date , phoneNumber: phone?.length > 0 ? phone : null }, { new: true });
     res.status(204).end();
 });
 
