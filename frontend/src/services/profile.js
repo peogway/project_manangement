@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/upload-avatar'
+const baseUrl = 'http://localhost:3001/profile'
 import { getToken } from './login'
 
 const updateAvatar = async (pic) => {
@@ -13,9 +13,18 @@ const updateAvatar = async (pic) => {
 		},
 	}
 
-	const res = await axios.post(baseUrl, formData, config)
+	const res = await axios.post(`${baseUrl}/upload-avatar`, formData, config)
 	return res.data
 }
 
-export default { updateAvatar }
+const updateProfile = async (data) => {
+	const config = {
+		headers: {
+			Authorization: getToken(),
+		},
+	}
+	const res = await axios.put(`${baseUrl}`, data, config)
+	return res.data
+}
 
+export default { updateAvatar, updateProfile }
