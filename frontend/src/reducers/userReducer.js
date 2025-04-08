@@ -43,4 +43,16 @@ export const updateAvatar = (pic) => {
 		dispatch(editUser({ avatarUrl })) // Pass it as a string
 	}
 }
+
+export const updateProfile = (user) => {
+	return async (dispatch) => {
+		if (isTokenExpired(getToken())) {
+			dispatch(rmUserFn())
+			return
+		}
+		await profile.updateProfile(user)
+		dispatch(editUser(user))
+	}
+}
+
 export default userSlice.reducer
