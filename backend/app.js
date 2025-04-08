@@ -39,7 +39,7 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
 // Route handlers
-app.use("/upload-avatar", middleware.userExtractor, profileRouter);
+app.use("/profile", middleware.userExtractor, profileRouter);
 app.use("/api/projects", middleware.userExtractor, projectsRouter);
 app.use("/api/categories", middleware.userExtractor, categoriesRouter);
 app.use("/api/tasks", middleware.userExtractor, tasksRouter);
