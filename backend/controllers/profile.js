@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const validator = require("validator");
 const { isValidPhoneNumber } = require("libphonenumber-js");
+const bcrypt = require("bcrypt"); // For hashing and comparing passwords
 
 const profileRouter = require("express").Router();
 
@@ -69,7 +70,7 @@ profileRouter.put("/", async (req, res) => {
 
     const user = await User.findById(userRequest.id);
     if(!user) {
-        return res.status(404).json({ error: "User not" });
+        return res.status(404).json({ error: "User not found" });
     }
     const { name, email, gender, phoneNumber, dateOfBirth } = req.body;
     if ( !name ) return res.status(400).send("Missing field name");
@@ -80,6 +81,39 @@ profileRouter.put("/", async (req, res) => {
     const date = dateOfBirth && d instanceof Date && !isNaN(d) ? d : null;
     await User.findByIdAndUpdate(userRequest.id, { name, email: email?.length > 0 ? email : null , gender, dateOfBirth: date , phoneNumber: phoneNumber?.length > 0 ? phoneNumber : null }, { new: true });
     res.status(204).end();
+});
+
+profileRouter.put("/password", async (req, res) => {
+    const userRequest = req.user;
+
+    if (!userRequest) {
+        return res.status(401).json({ error: "token invalid", success: false });
+    }
+
+    const user = await User.findById(userRequest.id);
+    if(!user) {
+        return res.status(404).json({ error: "User not found", success: false });
+    }
+
+    const { oldPassword, newPassword } = req.body;
+    if (newPassword.length < 3) {
+        return res.status(403).json({
+            error: "new password length must be at least 3",
+            success:false
+        });
+    }
+    const passwordCorrect = await bcrypt.compare(oldPassword, user.passwordHash);
+    if (!passwordCorrect) {
+        return res.status(200).json({
+            error: "Incorect old password"
+        });
+    }
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(newPassword, saltRounds);
+
+    await User.findByIdAndUpdate(userRequest.id, { passwordHash }, { new: true });
+
+    return res.status(200).json({ success: true });
 });
 
 // Export the profileRouter to be used in other parts of the application
