@@ -311,7 +311,7 @@ const Profile = ({ user }) => {
 				</div>
 
 				<div
-					className='absolute top-10 right-20 scale-60'
+					className='absolute top-10 right-20 scale-60 hover:scale-62'
 					onClick={() => setIsEditting(true)}
 				>
 					<img src={userEditPng} />
