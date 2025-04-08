@@ -6,13 +6,11 @@ const PhoneDisplay = ({ user }) => {
 	const [phone, setPhone] = useState(`+${user.phoneNumber}`) // handle null phone number
 	const [country, setCountry] = useState('')
 	const [formattedPhone, setFormattedPhone] = useState('')
-	console.log(formattedPhone)
 
 	useEffect(() => {
 		if (phone) {
 			// Parse the phone number and format it based on the country
 			const phoneNumber = parsePhoneNumberFromString(phone, country)
-			console.log(phone, phoneNumber)
 
 			if (phoneNumber) {
 				const formatted = `${phoneNumber.formatInternational()}`
