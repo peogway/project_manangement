@@ -26,5 +26,14 @@ const updateProfile = async (data) => {
 	const res = await axios.put(`${baseUrl}`, data, config)
 	return res.data
 }
+export const changePassword = async (data) => {
+	const config = {
+		headers: {
+			Authorization: getToken(),
+		},
+	}
+	const res = await axios.put(`${baseUrl}/password`, data, config)
+	return res.data
+}
 
 export default { updateAvatar, updateProfile }
