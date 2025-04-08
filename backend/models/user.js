@@ -15,9 +15,9 @@ const userSchema = mongoose.Schema({
     },
     avatarUrl: String,
     email: String,
-	gender: String,
-	dateOfBirth: Date,
-	phoneNumber: String,
+    gender: String,
+    dateOfBirth: Date,
+    phoneNumber: String,
     projects: [
         {
             type: mongoose.Schema.Types.ObjectId,
