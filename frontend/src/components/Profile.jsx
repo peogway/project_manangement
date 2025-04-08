@@ -6,7 +6,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import Avatar from 'react-avatar-edit'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
-import userPng from '../assets/user.png'
+
 import { setError, setNotification } from '../reducers/notiReducer'
 import userEditPng from '../assets/user-edit.png'
 
@@ -14,13 +14,7 @@ import { isValidPhoneNumber } from 'libphonenumber-js'
 import { updateAvatar, updateProfile } from '../reducers/userReducer'
 
 import NotListedLocationIcon from '@mui/icons-material/NotListedLocation'
-import { useField } from '../hooks/hook'
 
-import {
-	getCountries,
-	getCountryCallingCode,
-	getDefaultCountry,
-} from 'react-phone-input-2'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import PhoneDisplay from './PhoneDisplay'
@@ -54,10 +48,6 @@ const Profile = ({ user }) => {
 	const [phone, setPhone] = useState(user.phoneNumber || '')
 
 	const dispatch = useDispatch()
-	const { remove: rmPhoneNumber, ...phoneNumberInput } = useField(
-		'text',
-		user.phoneNumber === null ? '' : user.phoneNumber
-	)
 
 	const nameValid = nameInput.length > 0
 
