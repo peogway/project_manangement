@@ -347,7 +347,7 @@ const Projects = ({ user }) => {
 					))}
 				</div>
 				{completedProjects.length === 0 && (
-					<div className='flex flex-1 flex-col  items-center mt-10'>
+					<div className='flex flex-1 flex-col  items-center mt-5'>
 						<p className='text-lg text-slate-400 flex items-center justify-center text-center'>
 							No projects <br /> completed yet
 						</p>
