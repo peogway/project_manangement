@@ -463,7 +463,7 @@ const Dashboard = ({ user, animate }) => {
 						<span className='text-slate-600'>Tasks Created</span>
 					</div>
 				</div>
-				<div className='flex justify-start items-center translate-x-[-20px] mt-8'>
+				<div className='flex self-center justify-start items-center translate-x-[-20px] mt-8'>
 					<BarChart width={700} height={300} data={data} barGap={0}>
 						<XAxis dataKey='date' tick={{ fill: 'black' }} />
 						<YAxis
