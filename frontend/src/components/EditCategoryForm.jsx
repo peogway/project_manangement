@@ -138,6 +138,9 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 					<div className='border-1 border-slate-400 rounded-lg w-full p-2 mt-3'>
 						<input
 							{...categoryName}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') handleEditCategory(e)
+							}}
 							className='text-gray-500 w-full focus:outline-none'
 						/>
 					</div>
@@ -226,4 +229,3 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 }
 
 export default EditCategoryForm
-

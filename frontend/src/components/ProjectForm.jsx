@@ -132,6 +132,9 @@ const ProjectForm = ({
 						<div className='w-[80%] border-1 border-gray-400 rounded-lg items-center justify-center'>
 							<input
 								{...prjName}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') handleAddPrj(e)
+								}}
 								placeholder='Enter a name for the Project'
 								className='text-gray-500 pl-3 pr-3 pt-1 focus:outline-none w-full'
 							/>
@@ -194,4 +197,3 @@ const ProjectForm = ({
 }
 
 export default ProjectForm
-

@@ -129,6 +129,9 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 						<div className='w-[80%] border-1 border-gray-400 rounded-lg p-2'>
 							<input
 								{...taskName}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') handleEdit(e)
+								}}
 								className='text-gray-500  w-full focus:outline-none'
 							/>
 						</div>

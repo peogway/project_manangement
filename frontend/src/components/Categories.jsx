@@ -130,6 +130,9 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 					<div className='w-full border-1 border-gray-400 rounded-lg items-center mt-3 p-2 justify-center '>
 						<input
 							{...categoryName}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') handleAddCategory(e)
+							}}
 							className='text-gray-500  w-full  focus:outline-none'
 							placeholder='Type a name for the Category...'
 						/>

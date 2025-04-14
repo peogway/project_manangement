@@ -127,6 +127,9 @@ const TaskForm = ({
 						<div className='w-[80%] border-1 border-gray-400 rounded-lg p-2'>
 							<input
 								{...task}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') handleAddTask(e)
+								}}
 								placeholder='Enter Task Name...'
 								className='text-gray-500  w-full focus:outline-none'
 							/>
