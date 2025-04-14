@@ -37,15 +37,15 @@ const Account = ({ user }) => {
 			return
 		}
 		if (newPw.length < 3) {
-			dispatch(setError('New password length must be at least 3.'))
+			dispatch(setError('New password length must be at least 3.', 2))
 			return
 		}
 		if (!isMatch) {
-			dispatch(setError('Password confirmation does not match.'))
+			dispatch(setError('Password confirmation does not match.', 2))
 			return
 		}
 		if (oldPw.length < 3) {
-			dispatch(setError('Old password does not match.'))
+			dispatch(setError('Old password does not match.', 2))
 
 			return
 		}
@@ -53,10 +53,10 @@ const Account = ({ user }) => {
 		const res = await changePassword({ oldPassword: oldPw, newPassword: newPw })
 
 		if (res && res.error === 'Incorect old password') {
-			dispatch(setError('Incorect old password.'))
+			dispatch(setError('Incorect old password.', 2))
 			return
 		}
-		dispatch(setNotification('Password updated successfully.'))
+		dispatch(setNotification('Password updated successfully.', 2))
 		onCancel()
 	}
 	return (

@@ -29,12 +29,12 @@ const LoginForm = () => {
 			window.localStorage.setItem('loggedPrjMnUser', JSON.stringify(user))
 			setToken(user.token)
 			dispatch(setUserFn(user))
-			dispatch(setNotification('Login successfully', 5))
+			dispatch(setNotification('Login successfully', 2))
 			rmUsername()
 			rmPassword()
 			navigate('/dashboard')
 		} catch (exception) {
-			dispatch(setError('Wrong Credentials', 5))
+			dispatch(setError('Wrong Credentials', 2))
 		}
 	}
 	return (

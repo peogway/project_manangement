@@ -71,7 +71,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 			dispatch(createNewCategory(category))
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 5))
+			dispatch(setError('Something goes wrong', 2))
 		}
 	}
 

@@ -151,15 +151,15 @@ const Profile = ({ user }) => {
 
 	const handleUpdateUser = () => {
 		if (!nameValid) {
-			dispatch(setError('Invalid name'))
+			dispatch(setError('Invalid name', 2))
 			return
 		}
 		if (!emailValid) {
-			dispatch(setError('Invalid email format'))
+			dispatch(setError('Invalid email format', 2))
 			return
 		}
 		if (phone.length > 0 && !isValidPhoneNumber(`+${phone}`)) {
-			dispatch(setError('Invalid phone number'))
+			dispatch(setError('Invalid phone number', 2))
 			return
 		}
 

@@ -68,7 +68,7 @@ const TaskForm = ({
 			dispatch(createNewTask(taskToCreate))
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 5))
+			dispatch(setError('Something goes wrong', 2))
 		}
 	}
 

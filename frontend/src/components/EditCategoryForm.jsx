@@ -83,7 +83,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 			dispatch(updateCategory(categoryToUpdate))
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 5))
+			dispatch(setError('Something goes wrong', 2))
 		}
 	}
 

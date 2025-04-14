@@ -29,7 +29,7 @@ const RegisterForm = () => {
 				password: password.value,
 			})
 
-			dispatch(setNotification('Register successfully', 5))
+			dispatch(setNotification('Register successfully', 2))
 			rmName()
 			rmUsername()
 			rmPassword()
@@ -38,7 +38,7 @@ const RegisterForm = () => {
 		} catch (exception) {
 			rmPassword()
 			rmCfPassword()
-			dispatch(setError('Something went wrong', 5))
+			dispatch(setError('Something went wrong', 2))
 		}
 	}
 	return (
