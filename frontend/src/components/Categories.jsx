@@ -225,6 +225,7 @@ const Categories = ({ user }) => {
 	const dispatch = useDispatch()
 	const [sortValue, setSortValue] = useState('newest')
 	const [showAddCategory, setShowAddCategory] = useState(false)
+	const [editing, setEditting] = useState(false)
 	const { remove: rmSearch, ...search } = useField('text')
 
 	const [render, setRender] = useState(0)
@@ -258,7 +259,11 @@ const Categories = ({ user }) => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className=' z-100 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
+			<div
+				className={`${
+					editing ? 'z-100' : 'z-101'
+				}  bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0 `}
+			>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-semibold text-2xl text-slate-800'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
@@ -320,18 +325,19 @@ const Categories = ({ user }) => {
 								categories={categories}
 								projects={category.projects}
 								category={category}
+								setEditting={setEditting}
 							/>
 						</div>
 					))}
 				</div>
-				{showAddCategory && (
-					<CategoryForm
-						onClose={() => setShowAddCategory(false)}
-						categories={categories}
-						projects={projects}
-					/>
-				)}
 			</div>
+			{showAddCategory && (
+				<CategoryForm
+					onClose={() => setShowAddCategory(false)}
+					categories={categories}
+					projects={projects}
+				/>
+			)}
 		</div>
 	)
 }
