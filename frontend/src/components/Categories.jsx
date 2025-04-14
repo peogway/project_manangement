@@ -255,7 +255,7 @@ const Categories = ({ user }) => {
 
 	return (
 		<div className='flex flex-col items-center flex-1 h-screen'>
-			<div className=' z-500 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
+			<div className=' z-100 bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0'>
 				<div className='flex flex-col ml-2'>
 					<h1 className='font-semibold text-2xl text-slate-800'>Categories</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
