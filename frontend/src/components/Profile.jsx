@@ -527,7 +527,7 @@ const Profile = ({ user }) => {
 								{user.phoneNumber === null ? (
 									<NotListedLocationIcon className='scale-130' />
 								) : (
-									<PhoneDisplay user={user} />
+									<PhoneDisplay user={{ phoneNumber: phone }} />
 								)}
 							</div>
 						)}
