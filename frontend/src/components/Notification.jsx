@@ -1,15 +1,34 @@
-// import { useDispatch } from 'react-redux'
-// import { setNotification } from '../reducers/notiReducer'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
 const Notification = ({ message, className }) => {
-  
-  if (!message) {
-    return null
-  }
+	if (!message) {
+		return null
+	}
 
-  return <div className={`${className} absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-xl shadow-lg`}>{message}</div>
+	const baseStyles =
+		'z-10000 fixed top-0 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg transition-transform duration-500 ease-in-out'
+	const colorStyles =
+		className === 'error'
+			? 'bg-red-500 text-white'
+			: className === 'notification'
+			? 'bg-green-500 text-white'
+			: 'bg-gray-500 text-white'
+
+	return (
+		<div
+			className={`${baseStyles} ${colorStyles} ${
+				message ? 'translate-y-12' : '-translate-y-full'
+			}`}
+		>
+			{message}
+		</div>
+	)
+}
+
+Notification.propTypes = {
+	message: PropTypes.string,
+	className: PropTypes.string,
 }
 
 export default Notification
-
