@@ -77,7 +77,10 @@ const Category = (props) => {
 					{showFeature && (
 						<div className=' flex flex-col bg-white absolute right-0 z-100 showdow-md gap-2 rounded-xl box'>
 							<div
-								onClick={() => setShowEditForm(true)}
+								onClick={() => {
+									setShowEditForm(true)
+									props.setEditting(true)
+								}}
 								className='edit-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2  transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
 								<div className='text-orange-500 bg-orange-100 rounded-lg self-center'>
@@ -98,7 +101,13 @@ const Category = (props) => {
 				</div>
 			</div>
 			{showEditForm && (
-				<EditCategoryForm onClose={() => setShowEditForm(false)} {...props} />
+				<EditCategoryForm
+					onClose={() => {
+						setShowEditForm(false)
+						props.setEditting(false)
+					}}
+					{...props}
+				/>
 			)}
 		</div>
 	)
