@@ -34,6 +34,7 @@ const Account = ({ user }) => {
 			return
 		}
 		if (oldPw.length === 0 || newPw.length === 0 || retypeNewPw.length === 0) {
+			dispatch(setError('Fields must not be empty.', 2))
 			return
 		}
 		if (newPw.length < 3) {
@@ -102,6 +103,9 @@ const Account = ({ user }) => {
 										)}
 										<input
 											className='px-2 focus:outline-none'
+											onKeyDown={(e) => {
+												if (e.key === 'Enter') handleChangePassword()
+											}}
 											type={isVisible ? 'text' : 'password'}
 											value={oldPw}
 											onChange={(e) => setOldPw(e.target.value)}
@@ -130,6 +134,9 @@ const Account = ({ user }) => {
 										)}
 										<input
 											className='px-2 focus:outline-none'
+											onKeyDown={(e) => {
+												if (e.key === 'Enter') handleChangePassword()
+											}}
 											type={isVisible ? 'text' : 'password'}
 											value={newPw}
 											onChange={(e) => setNewPw(e.target.value)}
@@ -159,6 +166,9 @@ const Account = ({ user }) => {
 										<input
 											className='px-2 focus:outline-none'
 											type={isVisible ? 'text' : 'password'}
+											onKeyDown={(e) => {
+												if (e.key === 'Enter') handleChangePassword()
+											}}
 											value={retypeNewPw}
 											onChange={(e) => setRetypeNewPw(e.target.value)}
 											placeholder='Re-type new password'

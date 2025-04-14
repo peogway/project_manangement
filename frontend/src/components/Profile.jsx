@@ -323,6 +323,11 @@ const Profile = ({ user }) => {
 								<input
 									type='text'
 									value={nameInput}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') {
+											handleUpdateUser()
+										}
+									}}
 									onChange={(e) => setNameInput(e.target.value)}
 									className='focus:outline-none px-2'
 									placeholder='Enter your name'
@@ -370,6 +375,11 @@ const Profile = ({ user }) => {
 									</div>
 								)}
 								<input
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') {
+											handleUpdateUser()
+										}
+									}}
 									type='text'
 									value={emailInput}
 									onChange={(e) => setEmailInput(e.target.value)}
@@ -446,6 +456,11 @@ const Profile = ({ user }) => {
 						{isEditting ? (
 							<div className='flex max-w-[280px] flex-1 items-center ml-5 border-1 border-slate-500 rounded-lg text-slate-600'>
 								<input
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') {
+											handleUpdateUser()
+										}
+									}}
 									className='focus:outline-none px-2'
 									type='date'
 									value={dob}
@@ -493,6 +508,11 @@ const Profile = ({ user }) => {
 											name: 'phone',
 											required: true,
 											autoFocus: true,
+										}}
+										onKeyDown={(e) => {
+											if (e.key === 'Enter') {
+												handleUpdateUser()
+											}
 										}}
 									/>
 								</div>
