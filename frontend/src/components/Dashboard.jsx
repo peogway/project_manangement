@@ -542,6 +542,8 @@ const Dashboard = ({ user, animate }) => {
 												project: projects.filter(
 													(project) => project.id === task.project.id
 												)[0],
+												taskStatus: task.completed,
+												search: task.name,
 											},
 										})
 									}}
