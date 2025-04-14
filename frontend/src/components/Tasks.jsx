@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Task from './Task'
 import TaskForm from './TaskForm'
@@ -21,6 +21,7 @@ import ProjectsDropDown from './ProjectsDropdown'
 const Tasks = ({ user }) => {
 	const dispatch = useDispatch()
 	const location = useLocation()
+	const navigate = useNavigate()
 	const [selectedProject, setSelectedProject] = useState(
 		location.state?.project ? location.state?.project : null
 	)
@@ -32,7 +33,9 @@ const Tasks = ({ user }) => {
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(1)
-	const { remove: rmSearch, ...search } = useField('text')
+	const [search, setSearch] = useState(
+		location.state?.search ? location.state?.search : ''
+	)
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 	const headerRef = useRef(null)
 	const [render, setRender] = useState(0)
@@ -41,7 +44,12 @@ const Tasks = ({ user }) => {
 		document.title = 'Tasks'
 		dispatch(setAllTasks())
 		dispatch(setAllProject())
+
+		if (location.state) {
+			navigate(location.pathname, { replace: true, state: null })
+		}
 	}, [])
+
 	useEffect(
 		() =>
 			setTaskStatus(
@@ -51,7 +59,7 @@ const Tasks = ({ user }) => {
 	)
 	useEffect(() => {
 		setRender(render + 1)
-	}, [search.value, selectedProject])
+	}, [search, selectedProject])
 
 	const tasks = useSelector((state) => state.tasks)
 
@@ -92,13 +100,18 @@ const Tasks = ({ user }) => {
 
 	const showTasks =
 		taskStatus === null
-			? sortedTasks.filter((task) => task.name.includes(search.value))
+			? sortedTasks.filter((task) => task.name.includes(search))
 			: taskStatus === true
-			? completedTasks.filter((task) => task.name.includes(search.value))
-			: uncompletedTasks.filter((task) => task.name.includes(search.value))
+			? completedTasks.filter((task) => task.name.includes(search))
+			: uncompletedTasks.filter((task) => task.name.includes(search))
 
 	const toggleAddTask = () => {
 		setShowAddTask(!showAddTask)
+	}
+	const handleSetProject = (project) => {
+		setSearch('')
+		setTaskStatus(true)
+		setSelectedProject(project)
 	}
 
 	const icon =
@@ -145,7 +158,7 @@ const Tasks = ({ user }) => {
 							<ProjectsDropDown
 								openProjectsDropDown={openProjectsDropDown}
 								setOpenProjectsDropDown={setOpenProjectsDropDown}
-								setChosenProject={setSelectedProject}
+								setChosenProject={handleSetProject}
 								chosenProject={selectedProject}
 								allProjects={projects}
 								showAllProject={true}
@@ -230,7 +243,8 @@ const Tasks = ({ user }) => {
 						<SearchIcon />
 					</div>
 					<input
-						{...search}
+						value={search}
+						onChange={(e) => setSearch(e.target.value)}
 						placeholder='Search a task'
 						className='border-b-2 border-gray-200 pl-1 focus:outline-none'
 					/>
