@@ -69,6 +69,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 
 		try {
 			dispatch(createNewCategory(category))
+			dispatch(setNotification(`Category "${categoryName.value}" created`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))

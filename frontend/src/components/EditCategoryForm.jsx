@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
-import { setError } from '../reducers/notiReducer'
+import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
 import CloseIcon from '@mui/icons-material/Close'
 import { updateCategory } from '../reducers/categoryReducer'
@@ -81,6 +81,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 
 		try {
 			dispatch(updateCategory(categoryToUpdate))
+			dispatch(setNotification(`Category "${categoryName.value}" updated`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))

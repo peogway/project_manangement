@@ -9,6 +9,7 @@ import CategoryList from './CategoryList'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
+import { setNotification } from '../reducers/notiReducer'
 
 const ProjectLabel = ({
 	project,
@@ -73,6 +74,7 @@ const ProjectLabel = ({
 				)
 			)
 				dispatch(deleteProject(project.id))
+			dispatch(setNotification(`Project ${project.name} deleted`, 2))
 		}
 
 		return (

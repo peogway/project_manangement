@@ -69,6 +69,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 		}
 		try {
 			dispatch(updateTask(taskToUpdate))
+			dispatch(setNotification(`Task "${taskName.value}" updated`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 5))

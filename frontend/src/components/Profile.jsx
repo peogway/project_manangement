@@ -130,6 +130,7 @@ const Profile = ({ user }) => {
 
 		// Dispatch updateAvatar to upload the cropped image
 		dispatch(updateAvatar(file))
+		dispatch(setNotification('Profile photo updated successfully.', 2))
 		// setProfileImage(pview)
 		setImageCrop(false)
 	}
@@ -177,8 +178,13 @@ const Profile = ({ user }) => {
 			dateOfBirth: dob ? dob : null,
 			phoneNumber: phone ? phone : null,
 		}
-		dispatch(updateProfile(userToUpdate))
-		setIsEditting(false)
+		try {
+			dispatch(updateProfile(userToUpdate))
+			dispatch(setNotification('Profile updated', 2))
+			setIsEditting(false)
+		} catch (error) {
+			dispatch(setError('Failed to update profile', 2))
+		}
 	}
 
 	const onCancel = () => {

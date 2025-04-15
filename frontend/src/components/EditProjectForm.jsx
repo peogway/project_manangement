@@ -3,7 +3,7 @@ import { useField } from '../hooks/hook'
 import { updateProject } from '../reducers/prjReducer'
 import DropDown from './DropDown'
 import { useDispatch } from 'react-redux'
-import { setError } from '../reducers/notiReducer'
+import { setError, setNotification } from '../reducers/notiReducer'
 import GridViewIcon from '@mui/icons-material/GridView'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
@@ -82,6 +82,7 @@ const EditProjectForm = ({
 
 		try {
 			dispatch(updateProject(prjToUpdate))
+			dispatch(setNotification(`Project "${prjName.value}" updated`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))

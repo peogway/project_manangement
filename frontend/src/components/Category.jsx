@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import EditCategoryForm from './EditCategoryForm'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { setNotification } from '../reducers/notiReducer'
 
 const Category = (props) => {
 	const featureRef = useRef(null)
@@ -19,6 +20,7 @@ const Category = (props) => {
 			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
 		) {
 			dispatch(deleteCategory(props.id))
+			dispatch(setNotification(`Category ${props.name} deleted`, 2))
 		}
 	}
 

@@ -3,7 +3,7 @@ import { useField } from '../hooks/hook'
 import { createNewProject } from '../reducers/prjReducer'
 import DropDown from './DropDown'
 import { useDispatch } from 'react-redux'
-import { setError } from '../reducers/notiReducer'
+import { setError, setNotification } from '../reducers/notiReducer'
 import GridViewIcon from '@mui/icons-material/GridView'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
@@ -68,6 +68,7 @@ const ProjectForm = ({
 		}
 		try {
 			dispatch(createNewProject(prjToCreate))
+			dispatch(setNotification(`Project "${prjName.value}" created`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))

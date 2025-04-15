@@ -66,6 +66,7 @@ const TaskForm = ({
 		}
 		try {
 			dispatch(createNewTask(taskToCreate))
+			dispatch(setNotification(`Task "${task.value}" created`, 2))
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))

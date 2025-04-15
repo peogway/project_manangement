@@ -57,8 +57,13 @@ const Account = ({ user }) => {
 			dispatch(setError('Incorect old password.', 2))
 			return
 		}
-		dispatch(setNotification('Password updated successfully.', 2))
-		onCancel()
+
+		try {
+			dispatch(setNotification('Password updated successfully.', 2))
+			onCancel()
+		} catch (error) {
+			dispatch(setError('Failed to update password.', 2))
+		}
 	}
 	return (
 		<div className='z-999 flex flex-col items-center h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>

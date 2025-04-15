@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { updateTask, deleteTask } from '../reducers/taskReducer'
+import { setNotification } from '../reducers/notiReducer'
 import { useDispatch } from 'react-redux'
 import EditTaskForm from './EditTaskForm'
 import CachedIcon from '@mui/icons-material/Cached'
@@ -31,6 +32,7 @@ const Task = ({ ...props }) => {
 	const handleDelete = () => {
 		if (window.confirm(`Are you sure you want to delete task ${props.name}?`)) {
 			dispatch(deleteTask(props.id))
+			dispatch(setNotification(`Task ${props.name} deleted`, 2))
 		}
 	}
 	const priorityMap = {
