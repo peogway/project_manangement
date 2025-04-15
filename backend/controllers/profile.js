@@ -67,7 +67,8 @@ profileRouter.put("/", async (req, res) => {
     if (!userRequest) {
         return res.status(401).json({ error: "token invalid" });
     }
-
+    // Check if the user is authenticated
+    // If not, return a 401 Unauthorized response
     const user = await User.findById(userRequest.id);
     if(!user) {
         return res.status(404).json({ error: "User not found" });
@@ -85,7 +86,8 @@ profileRouter.put("/", async (req, res) => {
 
 profileRouter.put("/password", async (req, res) => {
     const userRequest = req.user;
-
+    // Check if the user is authenticated
+    // If not, return a 401 Unauthorized response
     if (!userRequest) {
         return res.status(401).json({ error: "token invalid", success: false });
     }
