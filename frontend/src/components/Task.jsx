@@ -9,11 +9,17 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { allIconsArray } from './AllIcons'
 
+import ConfirmDialog from './ConfirmDialog'
+
 const Task = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const [isChecked, setIsChecked] = useState(props.completed ? true : false)
 	const [showEditForm, setShowEditForm] = useState(false)
 	const [isHover, setIsHover] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
+	const handleClose = () => {
+		setIsOpen(false)
+	}
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked)
 		const { id } = props
@@ -30,10 +36,9 @@ const Task = ({ ...props }) => {
 		(iconObj) => iconObj.id === parseInt(props.icon)
 	)[0].icon
 	const handleDelete = () => {
-		if (window.confirm(`Are you sure you want to delete task ${props.name}?`)) {
-			dispatch(deleteTask(props.id))
-			dispatch(setNotification(`Task ${props.name} deleted`, 2))
-		}
+		setIsOpen(false)
+		dispatch(setNotification(`Task ${props.name} deleted`, 2))
+		dispatch(deleteTask(props.id))
 	}
 	const priorityMap = {
 		high: 'bg-red-500',
@@ -118,7 +123,7 @@ const Task = ({ ...props }) => {
 							</div>
 
 							<div
-								onClick={handleDelete}
+								onClick={() => setIsOpen(true)}
 								className='p-1 rounded-xl hover:bg-blue-100 transition-all ease-out duration-200'
 							>
 								<DeleteOutlineIcon />
@@ -129,6 +134,14 @@ const Task = ({ ...props }) => {
 			</div>
 			{showEditForm && (
 				<EditTaskForm onClose={() => setShowEditForm(false)} {...props} />
+			)}
+			{isOpen && (
+				<ConfirmDialog
+					isOpen={isOpen}
+					onClose={handleClose}
+					onConfirm={handleDelete}
+					message={`Are you sure you want to delete Task "${props.name}"?`}
+				/>
 			)}
 		</div>
 	)

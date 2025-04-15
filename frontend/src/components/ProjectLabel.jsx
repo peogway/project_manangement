@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import { setNotification } from '../reducers/notiReducer'
+import ConfirmDialog from './ConfirmDialog'
 
 const ProjectLabel = ({
 	project,
@@ -22,6 +23,7 @@ const ProjectLabel = ({
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const featuresRef = useRef(null)
 	const [isHover, setIsHover] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const completedPercentage =
 		project.tasks.length === 0
@@ -64,19 +66,16 @@ const ProjectLabel = ({
 		medium: 'bg-yellow-500',
 		low: 'bg-green-500',
 	}
+	const handleClose = () => {
+		setIsOpen(false)
+	}
+	const handleDelete = (e) => {
+		e.stopPropagation()
+		setIsOpen(false)
+		dispatch(deleteProject(project.id))
+		dispatch(setNotification(`Project ${project.name} deleted`, 2))
+	}
 	const projectFeatures = () => {
-		const handleDelete = (e) => {
-			e.stopPropagation()
-			setShowFeatures(false)
-			if (
-				window.confirm(
-					`Are you sure you want to delete project ${project.name}?`
-				)
-			)
-				dispatch(deleteProject(project.id))
-			dispatch(setNotification(`Project ${project.name} deleted`, 2))
-		}
-
 		return (
 			<div
 				ref={featuresRef}
@@ -98,7 +97,11 @@ const ProjectLabel = ({
 					<p>Edit</p>
 				</div>
 				<div
-					onClick={handleDelete}
+					onClick={(e) => {
+						e.stopPropagation()
+						setIsOpen(true)
+						setShowFeatures(false)
+					}}
 					// onClick={handleClick}
 					className='delete-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
 				>
@@ -209,6 +212,14 @@ const ProjectLabel = ({
 			<div className='absolute bottom-0'>
 				<CategoryList categories={project.categories} />
 			</div>
+			{isOpen && (
+				<ConfirmDialog
+					isOpen={isOpen}
+					onClose={handleClose}
+					onConfirm={handleDelete}
+					message={`Are you sure you want to delete Project "${project.name}"?`}
+				/>
+			)}
 		</div>
 	)
 }

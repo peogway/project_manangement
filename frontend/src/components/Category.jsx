@@ -7,6 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import EditCategoryForm from './EditCategoryForm'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setNotification } from '../reducers/notiReducer'
+import ConfirmDialog from './ConfirmDialog'
 
 const Category = (props) => {
 	const featureRef = useRef(null)
@@ -15,13 +16,16 @@ const Category = (props) => {
 	const [showEditForm, setShowEditForm] = useState(false)
 	const navigate = useNavigate()
 	const [isHover, setIsHover] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 	const handleDelete = () => {
-		if (
-			window.confirm(`Are you sure you want to delete Category ${props.name}?`)
-		) {
-			dispatch(deleteCategory(props.id))
-			dispatch(setNotification(`Category ${props.name} deleted`, 2))
-		}
+		setShowFeature(false)
+		handleClose()
+		dispatch(deleteCategory(props.id))
+		dispatch(setNotification(`Category ${props.name} deleted`, 2))
+	}
+	const handleClose = () => {
+		setIsOpen(false)
+		props.setEditting(false)
 	}
 
 	useEffect(() => {
@@ -92,7 +96,10 @@ const Category = (props) => {
 							</div>
 
 							<div
-								onClick={handleDelete}
+								onClick={() => {
+									setIsOpen(true)
+									props.setEditting(true)
+								}}
 								className='delete-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
 								<DeleteOutlineIcon />
@@ -109,6 +116,14 @@ const Category = (props) => {
 						props.setEditting(false)
 					}}
 					{...props}
+				/>
+			)}
+			{isOpen && (
+				<ConfirmDialog
+					isOpen={isOpen}
+					onClose={handleClose}
+					onConfirm={handleDelete}
+					message={`Are you sure you want to delete Category "${props.name}"?`}
 				/>
 			)}
 		</div>
