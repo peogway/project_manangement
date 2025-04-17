@@ -27,7 +27,7 @@ const Navbar = ({ user, displayButtons }) => {
 			<div className='flex gap-2 select-none max-sm:flex-col max-sm:w-full max-sm:mt-8'>
 				{!user && (
 					<>
-						<Link to='/login'>
+						<Link to='/authentication'>
 							<button
 								className={` max-sm:w-full text-sm border border-orange-500 text-white bg-orange-500 p-[8px] px-6 rounded-md `}
 							>
@@ -35,7 +35,7 @@ const Navbar = ({ user, displayButtons }) => {
 							</button>
 						</Link>
 
-						<Link to='/register'>
+						<Link to='/authentication' state={{ active: true }}>
 							<button
 								className={` max-sm:w-full text-sm border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white p-[8px] px-6 rounded-md `}
 							>

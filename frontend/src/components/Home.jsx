@@ -87,7 +87,7 @@ const CTASection = () => {
 
 			<button
 				className={`block bg-orange-500 rounded-md  px-9 py-3 text-sm font-medium text-white hover:bg-orange-500    `}
-				onClick={() => navigate('/login')}
+				onClick={() => navigate('/authentication')}
 				type='button'
 			>
 				{`Let's get started!`}

@@ -34,7 +34,7 @@ const RegisterForm = () => {
 			rmUsername()
 			rmPassword()
 			rmCfPassword()
-			navigate('/login')
+			navigate('/authentication')
 		} catch (exception) {
 			rmPassword()
 			rmCfPassword()
@@ -67,7 +67,10 @@ const RegisterForm = () => {
 					Sign up
 				</button>
 			</form>
-			<p onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>
+			<p
+				onClick={() => navigate('/authentication')}
+				style={{ cursor: 'pointer' }}
+			>
 				I already had an account
 			</p>
 		</div>

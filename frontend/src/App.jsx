@@ -4,14 +4,12 @@ import Dashboard from './components/Dashboard'
 import Tasks from './components/Tasks'
 import Projects from './components/Projects'
 import Categories from './components/Categories'
-import LoginForm from './components/LoginForm'
+import Authentication from './components/Authentication'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Account from './components/Account'
-import RegisterForm from './components/RegisterForm'
 import { setToken } from './services/login'
 import LogoutIcon from '@mui/icons-material/Logout'
-import HomeIcon from '@mui/icons-material/Home'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import CategoryIcon from '@mui/icons-material/Category'
 import StorageIcon from '@mui/icons-material/Storage'
@@ -84,12 +82,12 @@ const App = () => {
 					</Link> */}
 
 			{/* Soft Layer */}
-			{user && location.pathname !== '/login' && (
+			{user && location.pathname !== '/authentication' && (
 				<div className='w-full h-full z-50 bg-slate-300 fixed opacity-30'></div>
 			)}
 
 			{/* Sidebar and Navigation Links */}
-			{user && location.pathname !== '/login' && (
+			{user && location.pathname !== '/authentication' && (
 				<nav className='navbar w-[60px] fixed max-[940px]:hidden h-screen py-10 pl-1 bg-white flex flex-col items-start justify-between z-[1000] transition-all rounded-xl select-none'>
 					<div
 						className='  flex items-center gap-2 justify-center'
@@ -225,8 +223,7 @@ const App = () => {
 			{/* Define routes */}
 			<Routes>
 				{/* Public routes */}
-				<Route path='/login' element={<LoginForm />} />
-				<Route path='/register' element={<RegisterForm />} />
+				<Route path='/authentication' element={<Authentication />} />
 				<Route
 					path='/'
 					element={
@@ -241,38 +238,58 @@ const App = () => {
 						user ? (
 							<AnimatedRoute element={<Dashboard user={user} />} />
 						) : (
-							<Navigate replace to='/login' />
+							<Navigate replace to='/authentication' />
 						)
 					}
 				/>
 				<Route
 					path='/projects'
 					element={
-						user ? <Projects user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<Projects user={user} />
+						) : (
+							<Navigate replace to='/authentication' />
+						)
 					}
 				/>
 				<Route
 					path='/tasks'
 					element={
-						user ? <Tasks user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<Tasks user={user} />
+						) : (
+							<Navigate replace to='/authentication' />
+						)
 					}
 				/>
 				<Route
 					path='/categories'
 					element={
-						user ? <Categories user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<Categories user={user} />
+						) : (
+							<Navigate replace to='/authentication' />
+						)
 					}
 				/>
 				<Route
 					path='/profile'
 					element={
-						user ? <Profile user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<Profile user={user} />
+						) : (
+							<Navigate replace to='/authentication' />
+						)
 					}
 				/>
 				<Route
 					path='/account'
 					element={
-						user ? <Account user={user} /> : <Navigate replace to='/login' />
+						user ? (
+							<Account user={user} />
+						) : (
+							<Navigate replace to='/authentication' />
+						)
 					}
 				/>
 			</Routes>
