@@ -74,7 +74,8 @@ profileRouter.put("/", async (req, res) => {
         return res.status(404).json({ error: "User not found" });
     }
     const { name, email, gender, phoneNumber, dateOfBirth } = req.body;
-    if ( !name ) return res.status(400).send("Missing field name");
+    // Validate the input data
+    if (!email) return res.status(400).send("Email is required");
     if ( email?.length > 0 && !validator.isEmail(email) ) return res.status(400).send("Invalid email");
     if ( phoneNumber?.length > 0 && !isValidPhoneNumber(`+${phoneNumber}`) ) return res.status(400).send("Invalid phone");
 
