@@ -49,8 +49,6 @@ const Profile = ({ user }) => {
 
 	const dispatch = useDispatch()
 
-	const nameValid = nameInput.length > 0
-
 	// Handle validate email
 	useEffect(() => {
 		if (
@@ -151,12 +149,12 @@ const Profile = ({ user }) => {
 	}
 
 	const handleUpdateUser = () => {
-		if (!nameValid) {
-			dispatch(setError('Invalid name', 2))
-			return
-		}
 		if (!emailValid) {
 			dispatch(setError('Invalid email format', 2))
+			return
+		}
+		if (emailInput.length === 0) {
+			dispatch(setError('Email is required', 2))
 			return
 		}
 		if (phone.length > 0 && !isValidPhoneNumber(`+${phone}`)) {
@@ -319,13 +317,7 @@ const Profile = ({ user }) => {
 							Name:
 						</label>
 						{isEditting ? (
-							<div
-								className={`${
-									nameValid
-										? 'border-1 border-slate-500'
-										: 'border-2 border-red-600'
-								} max-w-[280px] flex flex-1 items-center ml-5 text-slate-600 rounded-lg relative`}
-							>
+							<div className='border-1 border-slate-500 max-w-[280px] flex flex-1 items-center ml-5 text-slate-600 rounded-lg relative'>
 								<input
 									type='text'
 									value={nameInput}
@@ -338,16 +330,13 @@ const Profile = ({ user }) => {
 									className='focus:outline-none px-2'
 									placeholder='Enter your name'
 								/>
-								{!nameValid && (
-									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-										Invalid name
-									</div>
-								)}
 							</div>
-						) : (
+						) : user.name ? (
 							<div className='flex text-lg flex-1 items-center ml-5 text-slate-600'>
 								{user.name}
 							</div>
+						) : (
+							<NotListedLocationIcon className='scale-130' />
 						)}
 					</div>
 
@@ -370,11 +359,16 @@ const Profile = ({ user }) => {
 						{isEditting ? (
 							<div
 								className={`${
-									emailValid
+									emailValid && emailInput.length > 0
 										? 'border-slate-500 border-1'
 										: 'border-2 border-red-600'
 								} flex max-w-[280px] flex-1 items-center ml-5 text-slate-600 rounded-lg  relative`}
 							>
+								{emailInput.length === 0 && (
+									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
+										Email is required
+									</div>
+								)}
 								{!emailValid && (
 									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
 										Invalid email
@@ -395,13 +389,9 @@ const Profile = ({ user }) => {
 							</div>
 						) : (
 							<div className='flex flex-1 text-lg items-center ml-5 text-slate-600 relative'>
-								{user.email ? (
-									<div className='absolute top-0 left-0 flex text-lg flex-1 items-center  text-slate-600'>
-										{user.email}
-									</div>
-								) : (
-									<NotListedLocationIcon className='scale-130' />
-								)}
+								<div className='absolute top-0 left-0 flex text-lg flex-1 items-center  text-slate-600'>
+									{user.email}
+								</div>
 							</div>
 						)}
 					</div>
