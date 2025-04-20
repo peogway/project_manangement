@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/profile'
+const baseUrl = '/profile'
 import { getToken } from './login'
 
 const updateAvatar = async (pic) => {
