@@ -226,7 +226,7 @@ const Dashboard = ({ user, animate }) => {
 								Hello
 							</span>{' '}
 							<span className='text-xl font-semi-bold text-orange-500'>
-								{user.name ? user.name : 'User'}{' '}
+								{user.username ? user.username : 'User'}{' '}
 							</span>
 						</div>
 						<div className='text-slate-500 px-2 '> Welcom Back!</div>
