@@ -30,11 +30,9 @@ loginRouter.post("/", async (req, res) => {
     };
 
     // Generate a JSON Web Token with an expiration of 1 hour
-    const token = jwt.sign(
-        userForToken,
-        process.env.SECRET,
-        { expiresIn: 60 * 60 },
-    );
+    const token = jwt.sign(userForToken, process.env.SECRET, {
+        expiresIn: 60 * 60 * 24 * 3,
+    });
 
     // Respond with the token and user information
     res.status(200).send({
