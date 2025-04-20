@@ -29,7 +29,7 @@ const Navbar = ({ user, displayButtons }) => {
 					<>
 						<Link to='/authentication'>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-500 text-white bg-orange-500 p-[8px] px-6 rounded-md `}
+								className={` hover:opacity-70 max-sm:w-full text-sm border border-orange-500 text-white bg-orange-500 p-[8px] px-6 rounded-md `}
 							>
 								Sign In
 							</button>
@@ -37,7 +37,7 @@ const Navbar = ({ user, displayButtons }) => {
 
 						<Link to='/authentication' state={{ active: true }}>
 							<button
-								className={` max-sm:w-full text-sm border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white p-[8px] px-6 rounded-md `}
+								className={` max-sm:w-full text-sm border border-orange-500 text-orange-500 hover:bg-slate-100 p-[8px] px-6 rounded-md `}
 							>
 								Sign Up
 							</button>
