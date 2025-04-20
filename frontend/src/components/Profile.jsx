@@ -92,7 +92,7 @@ const Profile = ({ user }) => {
 		document.addEventListener('mousedown', handleClickOutside)
 
 		if (user.avatarUrl !== null)
-			setProfileImage(`http://localhost:3001${avatarUrl}`)
+			setProfileImage(`${avatarUrl}`)
 
 		// Cleanup the event listener on component unmount
 		return () => {
@@ -102,7 +102,7 @@ const Profile = ({ user }) => {
 	// Handle update avatar
 	useEffect(() => {
 		if (avatarUrl) {
-			setProfileImage(`http://localhost:3001${avatarUrl}`) // Make sure the URL is absolute and points to your server
+			setProfileImage(`${avatarUrl}`) // Make sure the URL is absolute and points to your server
 		}
 	}, [user])
 

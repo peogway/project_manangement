@@ -51,7 +51,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 			} `}
 			style={{
 				backgroundImage: user.avatarUrl
-					? `url(http://localhost:3001${user.avatarUrl})`
+					? `url(${user.avatarUrl})`
 					: `url(${profilePicNull})`,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
