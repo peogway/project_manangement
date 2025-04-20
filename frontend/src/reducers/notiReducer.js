@@ -47,6 +47,22 @@ export const setNotification = (notification, seconds) => {
 	}
 }
 
+export const clearMessages = () => {
+	return async (dispatch) => {
+		// Clear any existing timeouts
+		if (notiTimeout) {
+			clearTimeout(notiTimeout)
+		}
+		if (errorTimeout) {
+			clearTimeout(errorTimeout)
+		}
+
+		// Dispatch actions to clear notifications and errors
+		dispatch(removeNoti())
+		dispatch(removeError())
+	}
+}
+
 // Unified setError function with timeout clearing
 export const setError = (notification, seconds) => {
 	return async (dispatch) => {

@@ -2,14 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorIcon from '@mui/icons-material/Error'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import CloseIcon from '@mui/icons-material/Close'
 
-const Notification = ({ message, className }) => {
+const Notification = ({ message, className, removeMessage }) => {
 	if (!message) {
 		return null
 	}
 
 	const baseStyles =
-		'z-10000 fixed flex items-center gap-2 text-xl top-0 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg transition-transform duration-500 ease-in-out'
+		'z-10000 fixed flex text-center items-center gap-2 text-xl top-0 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg transition-transform duration-500 ease-in-out'
 	const colorStyles =
 		className === 'error'
 			? 'bg-red-500 text-white'
@@ -27,6 +28,12 @@ const Notification = ({ message, className }) => {
 				{className === 'error' ? <ErrorIcon /> : <TaskAltIcon />}
 			</div>
 			{message}
+			<div
+				className='text-black cursor-pointer self-center ml-5'
+				onClick={removeMessage}
+			>
+				<CloseIcon />
+			</div>
 		</div>
 	)
 }

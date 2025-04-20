@@ -28,7 +28,7 @@ import {
 } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { setNotification, setError } from './reducers/notiReducer'
+import { clearMessages } from './reducers/notiReducer'
 import { setUserFn, rmUserFn } from './reducers/userReducer'
 import Navbar from './components/Navbar'
 
@@ -217,8 +217,16 @@ const App = () => {
 			)}
 
 			{/* Display notifications */}
-			<Notification message={notification.error} className='error' />
-			<Notification message={notification.noti} className='notification' />
+			<Notification
+				message={notification.error}
+				className='error'
+				removeMessage={() => dispatch(clearMessages())}
+			/>
+			<Notification
+				message={notification.noti}
+				className='notification'
+				removeMessage={() => dispatch(clearMessages())}
+			/>
 
 			{/* Define routes */}
 			<Routes>
