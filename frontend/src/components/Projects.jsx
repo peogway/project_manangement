@@ -134,7 +134,10 @@ const Projects = ({ user }) => {
 					<div className='flex justify-between items-center w-[350px] ml-10'>
 						{/* Title */}
 						<div className='flex flex-col ml-5'>
-							<h1 className='font-semibold text-2xl'>My Projects</h1>
+							<h1 className='font-semibold text-2xl'>
+								<span className='text-orange-500'>My </span>
+								Projects
+							</h1>
 							<p className='ml-3 text-gray-400'>
 								{sortedProjects.length} Projects
 							</p>
