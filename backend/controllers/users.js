@@ -8,30 +8,30 @@ usersRouter.post("/", async (req, res) => {
     const { username, email, password } = req.body; // Extract user data from request body
 
     // Validate password presence and length
-    if (!req.body.password) {
+    if (!password) {
         return res.status(400).json({ error: "password missing" });
     }
 
-    if (req.body.password.length < 3) {
+    if (password.length < 3) {
         return res.status(400).json({
             error: "password must be at least 3 characters long",
         });
     }
 
     // validate email presence and format
-    if (!req.body.email) {
+    if (!email) {
         return res.status(400).json({ error: "email missing" });
     }
-    if (!req.body.email.includes("@")) {
+    if (!email.includes("@")) {
         return res.status(400).json({ error: "email not valid" });
     }
 
     // Validate username presence and length
-    if (!req.body.username) {
+    if (!username) {
         return res.status(400).json({ error: "username missing" });
     }
 
-    if (req.body.username.length < 3) {
+    if (username.length < 3) {
         return res.status(400).json({
             error: "username must be at least 3 characters long",
         });
@@ -53,7 +53,7 @@ usersRouter.post("/", async (req, res) => {
         username,
         passwordHash,
         avatarUrl: null,
-        email:null,
+        email:email,
         gender: null,
         dateOfBirth: null,
         phoneNumber: null,
