@@ -8,11 +8,11 @@
 		"lint": "eslint .",
 		"test": "cross-env  NODE_ENV=test node --test",
 		"start:test": "cross-env NODE_ENV=test node index.js",
-		"build:ui": "rm -rf dist && cd ../notes-frontend/ && npm run build && cp -r dist ../notes-backend",
-    "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",    
-    "logs:prod": "fly logs"
-  },
+		"build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../frontend && npm run build && @powershell Copy-Item dist -Recurse ../backend",
+		"deploy": "fly deploy",
+		"deploy:full": "npm run build:ui && npm run deploy",
+		"logs:prod": "fly logs"
+	},
 	"author": "peogway",
 	"license": "ISC",
 	"description": "",
