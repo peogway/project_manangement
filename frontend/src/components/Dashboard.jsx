@@ -223,9 +223,11 @@ const Dashboard = ({ user, animate }) => {
 					<div className='flex flex-col ml-12 relative top-0 '>
 						<div className=''>
 							<span className='font-semibold text-slate-800 text-3xl '>
-								Hello,
+								Hello
 							</span>{' '}
-							<span className='text-xl '>{user.name} </span>
+							<span className='text-xl font-semi-bold text-orange-500'>
+								{user.name ? user.name : 'User'}{' '}
+							</span>
 						</div>
 						<div className='text-slate-500 px-2 '> Welcom Back!</div>
 					</div>
