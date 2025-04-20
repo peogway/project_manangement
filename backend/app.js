@@ -1,6 +1,8 @@
 // Import necessary modules and configurations
 const config = require("./utils/config");
 const express = require("express");
+const path = require('path'); // Path module for handling file paths
+
 require("express-async-errors"); // Handle async errors automatically
 const app = express();
 
@@ -37,6 +39,11 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
 // Route handlers
+// Catch-all route to serve index.html for frontend routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.use("/profile", middleware.userExtractor, profileRouter);
 app.use("/api/projects", middleware.userExtractor, projectsRouter);
 app.use("/api/categories", middleware.userExtractor, categoriesRouter);
