@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 // Set the port value from the environment variable or fallback to a default
-let PORT = process.env.PORT;
+let PORT = process.env.PORT || 3001; // Default to 3000 if PORT is not set
 
 // Define the MongoDB URI based on the environment
 // If the environment is "test", use the test MongoDB URI, otherwise use the production one
