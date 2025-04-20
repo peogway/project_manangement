@@ -3,7 +3,6 @@ const config = require("./utils/config");
 const express = require("express");
 require("express-async-errors"); // Handle async errors automatically
 const app = express();
-const cors = require("cors"); // Enable Cross-Origin Resource Sharing
 
 // Import routers and utilities
 const usersRouter = require("./controllers/users"); // User-related routes
@@ -33,7 +32,6 @@ mongoose.connect(config.MONGODB_URI)
     });
 
 // Middleware setup
-app.use(cors()); // Allow cross-origin requests
 app.use(express.static("dist")); // Serve static files from "dist" directory
 app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
