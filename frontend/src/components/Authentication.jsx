@@ -12,12 +12,15 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+
 const Authentication = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [active, setActive] = useState(location.state?.active || false)
 	const [isVisible, setIsVisible] = useState(false)
+	const [isHover, setIsHover] = useState(false)
 	useEffect(() => {
 		document.title = active ? 'Registration' : 'Login'
 	}, [active])
@@ -56,19 +59,16 @@ const Authentication = () => {
 		event.preventDefault()
 
 		try {
-			if (passwordRegis !== cfPasswordRegis){
+			if (passwordRegis !== cfPasswordRegis) {
 				dispatch(setError('Password does not match', 2))
 				return
 			}
 
-			
 			const user = await registerService.register({
 				username: usernameRegis.value,
 				email: email.value,
 				password: passwordRegis,
 			})
-			
-
 
 			dispatch(setNotification('Register successfully', 2))
 			rmEmail()
@@ -88,7 +88,29 @@ const Authentication = () => {
 	}
 
 	return (
-		<div className='body'>
+		<div className='body relative'>
+			<div
+				className='absolute top-5 text-slate-500 left-2 scale-110'
+				onMouseEnter={() => setIsHover(true)}
+				onMouseLeave={() => setIsHover(false)}
+			>
+				<ArrowBackIcon
+					className={`${
+						isHover
+							? 'text-orange-500 transition-all duration-200 ease-out box'
+							: 'text-slate-500 hover:text-orange-500'
+					} cursor-pointer scale-110`}
+					onClick={() => {
+						navigate('/')
+					}}
+					fontSize='large'
+				/>
+				{isHover && (
+					<div className='absolute top-full left-2 translate-y-2 min-w-30 w-auto text-center bg-slate-200 text-slate-600 rounded-lg'>
+						Back to Home
+					</div>
+				)}
+			</div>
 			<div className={`container ${active ? 'active' : ''}`}>
 				<div className='form-box login'>
 					<form onSubmit={handleLogin}>
@@ -271,5 +293,4 @@ const Authentication = () => {
 }
 
 export default Authentication
-
 
