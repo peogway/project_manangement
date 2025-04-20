@@ -6,6 +6,8 @@ import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 
+import fontPicture from '../assets/font-page-pic.png'
+
 const Home = ({ user }) => {
 	useEffect(() => {
 		document.title = 'Project Management'
@@ -93,13 +95,12 @@ const CTASection = () => {
 				{`Let's get started!`}
 			</button>
 
-			{/* <Image
-				src={'/app.png'}
-				alt='dashboard'
-				width={900}
-				height={400}
-				className='shadow-xl mt-9 aspect-auto sm:w-auto w-[398px] rounded-lg max-w-full   sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl'
-			/> */}
+			<img
+				src={fontPicture}
+				alt='font-page-pic'
+				loading='lazy'
+				className='scale-120 shadow-xl border-1 border-slate-300 mt-9 aspect-auto sm:w-auto w-[398px] rounded-lg max-w-full   sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl'
+			/>
 		</div>
 	)
 }
