@@ -34,7 +34,7 @@ mongoose.connect(config.MONGODB_URI)
 
 // Middleware setup
 app.use(cors()); // Allow cross-origin requests
-// app.use(express.static("dist")); // Serve static files from "dist" directory
+app.use(express.static("dist")); // Serve static files from "dist" directory
 app.use(express.json()); // Parse incoming JSON requests
 app.use(middleware.tokenExtractor); // Extract token from requests
 
