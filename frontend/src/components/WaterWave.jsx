@@ -35,7 +35,7 @@ const WaterWave = ({ initial, after, percent, animate }) => {
 	}, [after])
 	return (
 		<div className='absolute  w-[160px]  h-[146px] overflow-hidden rounded-full mt-5 top-[50%] right-[50%] translate-x-[50%] translate-y-[-50%]'>
-			{rainAnimation && animate && (
+			{rainAnimation && animate && after > 0 && (
 				<div className='aboslute'>
 					<WaterDrop
 						topStart={0}
@@ -131,4 +131,3 @@ const WaterWave = ({ initial, after, percent, animate }) => {
 }
 
 export default WaterWave
-
