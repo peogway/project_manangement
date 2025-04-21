@@ -215,7 +215,7 @@ const Profile = ({ user }) => {
 			.toString()
 			.padStart(2, '0')}/${d.getFullYear()}`
 	}
-	const phoneValid = isValidPhoneNumber(`+${phone}`)
+	const phoneValid = isValidPhoneNumber(`+${phone}`) || phone.length === 0
 
 	return (
 		<div className='z-999 flex flex-col items-center h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
