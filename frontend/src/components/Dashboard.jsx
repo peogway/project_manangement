@@ -75,6 +75,7 @@ const Dashboard = ({ user, animate }) => {
 		dispatch(setAllCategories())
 		dispatch(setAllProject())
 		dispatch(setAllTasks())
+		setPercent({ initial: null, after: null })
 	}, [])
 
 	const projects = useSelector((state) => state.projects)
