@@ -115,6 +115,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 					onClick={() => {
 						setShowOptions(false)
 						window.localStorage.removeItem('loggedPrjMnUser') // Remove user from localStorage
+						window.localStorage.removeItem('visitedDashboard')
 						dispatch(rmUserFn()) // Dispatch action to remove user from Redux
 						navigate('/')
 					}}
