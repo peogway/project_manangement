@@ -15,6 +15,8 @@ import { allIconsArray } from './AllIcons'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import noMatch from '../assets/no-match-blue.png'
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
 
 import Avatar from './Avatar'
 import ProjectsDropDown from './ProjectsDropdown'
@@ -39,6 +41,10 @@ const Tasks = ({ user }) => {
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 	const headerRef = useRef(null)
 	const [render, setRender] = useState(0)
+	const { t, i18n } = useTranslation()
+
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 
 	useEffect(() => {
 		document.title = 'Tasks'
@@ -197,6 +203,13 @@ const Tasks = ({ user }) => {
 					>
 						+ Add New
 					</button>
+					{/* Display language options */}
+					<LanguageDropDown
+						openLanguageDropDown={openLanguageDropDown}
+						setOpenLanguageDropDown={setOpenLanguageDropDown}
+						setChosenCard={setChosenCard}
+						chosenCard={chosenCard}
+					/>
 				</div>
 
 				<div className='ml-auto items-center mr-20 flex'>

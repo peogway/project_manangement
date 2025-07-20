@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
 	setAllCategories,
 	createNewCategory,
@@ -6,8 +6,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { useField } from '../hooks/hook'
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+
 import Category from './Category'
 import SortDropdown from './SortDropDown'
+
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import CloseIcon from '@mui/icons-material/Close'
 import SearchIcon from '@mui/icons-material/Search'
@@ -229,11 +233,17 @@ const Categories = ({ user }) => {
 	const [editing, setEditting] = useState(false)
 	const { remove: rmSearch, ...search } = useField('text')
 
+	const { t, i18n } = useTranslation()
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
+
 	const [render, setRender] = useState(0)
 	useEffect(() => {
 		document.title = 'Categories'
 		dispatch(setAllCategories())
 		dispatch(setAllProject())
+
+		// setChosenCard(getCard)
 	}, [])
 
 	useEffect(() => {
@@ -266,7 +276,9 @@ const Categories = ({ user }) => {
 				}  bg-white min-h-[100px] flex flex-row justify-between items-center self-end rounded-2xl box fixed left-[90px] right-0 `}
 			>
 				<div className='flex flex-col ml-2'>
-					<h1 className='font-semibold text-2xl text-slate-800'>Categories</h1>
+					<h1 className='font-semibold text-2xl text-slate-800'>
+						{t('Categories')}
+					</h1>
 					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
 				</div>
 				<button
@@ -286,6 +298,15 @@ const Categories = ({ user }) => {
 						setSortValue={setSortValue}
 					/>
 				</div>
+
+				{/* Display language options */}
+				<LanguageDropDown
+					openLanguageDropDown={openLanguageDropDown}
+					setOpenLanguageDropDown={setOpenLanguageDropDown}
+					setChosenCard={setChosenCard}
+					chosenCard={chosenCard}
+				/>
+
 				<div className='mr-20'>
 					<Avatar user={user} />
 				</div>

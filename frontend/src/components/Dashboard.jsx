@@ -13,6 +13,9 @@ import { faBarsProgress } from '@fortawesome/free-solid-svg-icons'
 import { faDiagramProject } from '@fortawesome/free-solid-svg-icons'
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+
 import {
 	BarChart,
 	Bar,
@@ -68,6 +71,11 @@ const Dashboard = ({ user, animate }) => {
 	const [isSearch, setIsSearch] = useState(false)
 	const searchRef = useRef(null)
 	const [isFocused, setIsFocused] = useState(true)
+
+	const { t, i18n } = useTranslation()
+
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 
 	// Set all information, event to toggle isFocused state
 	useEffect(() => {
@@ -219,7 +227,7 @@ const Dashboard = ({ user, animate }) => {
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Heading */}
 			<div className='min-h-[110px] left-[20px] right-0 box flex flex-row justify-between items-center z-990 bg-white rounded-2xl absolute  '>
-				<div className='flex flex-row justify-between items-center w-full'>
+				<div className='flex flex-row justify-between items- w-full '>
 					<div className='flex flex-col ml-12 relative top-0 '>
 						<div className=''>
 							<span className='font-semibold text-slate-800 text-3xl '>
@@ -231,6 +239,16 @@ const Dashboard = ({ user, animate }) => {
 						</div>
 						<div className='text-slate-500 px-2 '> Welcom Back!</div>
 					</div>
+
+					<div className='mt-3'>
+						{/* Display language options */}
+						<LanguageDropDown
+							openLanguageDropDown={openLanguageDropDown}
+							setOpenLanguageDropDown={setOpenLanguageDropDown}
+							setChosenCard={setChosenCard}
+							chosenCard={chosenCard}
+						/>
+					</div>
 					<div className='flex gap-7 mr-20 justify-center items-center select-none relative'>
 						{/* Search box, Close Icon, and Search Window */}
 						<div
@@ -239,7 +257,7 @@ const Dashboard = ({ user, animate }) => {
 							}`}
 						>
 							<div
-								className={`absolute top-0 right-0  search flex flex-row-reverse gap-15 ${
+								className={`absolute top-0 right-0  search flex flex-row-reverse mt-[6px] gap-15 ${
 									isSearch ? 'search-open' : ''
 								} `}
 							>
@@ -285,7 +303,7 @@ const Dashboard = ({ user, animate }) => {
 						{isFocused && search.value.length > 0 && (
 							<div
 								className={`absolute flex flex-col top-12 right-[150%]  w-[500px] 
-								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box ${
+								bg-white rounded-xl max-h-[400px] overflow-auto p-2 py-4 box mt-2 ${
 									isFocused ? 'dropdown-open' : 'dropdown-transition'
 								}`}
 							>

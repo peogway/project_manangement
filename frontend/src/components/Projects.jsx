@@ -24,6 +24,9 @@ import { getIconComponent } from './AllIcons'
 import notFound from '../assets/no-match-orange.png'
 import noMatch from '../assets/no-match-blue.png'
 
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+
 const Projects = ({ user }) => {
 	const dispatch = useDispatch()
 	const [showAddProject, setShowAddProject] = useState(false)
@@ -43,6 +46,10 @@ const Projects = ({ user }) => {
 	const navigate = useNavigate()
 
 	const [isFilter, setIsFilter] = useState(false)
+	const { t, i18n } = useTranslation()
+
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 
 	useEffect(() => {
 		document.title = 'Projects'
@@ -150,6 +157,14 @@ const Projects = ({ user }) => {
 						>
 							+ Add New
 						</button>
+
+						{/* Display language options */}
+						<LanguageDropDown
+							openLanguageDropDown={openLanguageDropDown}
+							setOpenLanguageDropDown={setOpenLanguageDropDown}
+							setChosenCard={setChosenCard}
+							chosenCard={chosenCard}
+						/>
 					</div>
 
 					{/* Sort and Avatar */}
