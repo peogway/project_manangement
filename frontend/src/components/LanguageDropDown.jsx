@@ -72,7 +72,7 @@ const LanguageDropDown = ({
 				ref={dropDownRef}
 				className={` ${
 					openLanguageDropDown ? 'block' : 'hidden'
-				} z-20 overflow-auto whitespace-nowrap bg-white absolute p-2 
+				} z-20 overflow-auto whitespace-nowrap bg-white absolute !p-2 bg-black
             select-none  user-select-none border border-slate-50 w-auto shadow-md box rounded-lg flex flex-col gap-2 top-full mt-2 right-0 ml-13  `}
 			>
 				<div
@@ -129,7 +129,7 @@ const vnCard = () => (
 			width='30'
 			height='30'
 			style={{ objectFit: 'contain' }}
-			className='ml-2'
+			className='!ml-1'
 		/>
 	</div>
 )
@@ -141,7 +141,7 @@ const enCard = () => (
 			width='30'
 			height='30'
 			style={{ objectFit: 'contain' }}
-			className='ml-2'
+			className='!ml-1'
 		/>
 	</div>
 )
@@ -153,7 +153,7 @@ const fiCard = () => (
 			width='30'
 			height='30'
 			style={{ objectFit: 'contain' }}
-			className='ml-2'
+			className='!ml-1'
 		/>
 	</div>
 )
