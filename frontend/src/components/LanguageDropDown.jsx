@@ -66,6 +66,8 @@ const LanguageDropDown = ({
 					<KeyboardArrowDownIcon />
 				</div>
 			</div>
+
+			{/* Dropdown */}
 			<div
 				ref={dropDownRef}
 				className={` ${
