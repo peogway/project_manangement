@@ -95,7 +95,8 @@ const AllProjectsItem = ({
 	const { t, i18n } = useTranslation()
 	return (
 		<div
-			onClick={() => {
+			onClick={(e) => {
+				e.stopPropagation()
 				//Unselect the project
 				setChosenProject(null)
 				//Close the drop down
@@ -139,7 +140,10 @@ const SingleProject = ({
 
 	return (
 		<div
-			onClick={() => handleTheProjectClicked(singleProject.id)}
+			onClick={(e) => {
+				e.stopPropagation()
+				handleTheProjectClicked(singleProject.id)
+			}}
 			className={` ${
 				chosenProject?.id === singleProject.id &&
 				'border border-orange-600 bg-orange-50'
