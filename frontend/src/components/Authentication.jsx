@@ -304,7 +304,7 @@ const Authentication = () => {
 				</div>
 			</div>
 			{/* Display language options */}
-			<div className='fixed top-5 left-[50%] '>
+			<div className='fixed top-5 right-0 '>
 				<LanguageDropDown
 					openLanguageDropDown={openLanguageDropDown}
 					setOpenLanguageDropDown={setOpenLanguageDropDown}
