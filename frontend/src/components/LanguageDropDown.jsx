@@ -44,12 +44,12 @@ const LanguageDropDown = ({
 		}
 	}, [openLanguageDropDown])
 	return (
-		<div className='flex absolute left-250 justify-center items-center w-[150px]'>
+		<div className='flex relative justify-center items-center w-[150px]'>
 			<div className=''>
 				<LanguageIcon fontSize='large' />
 			</div>
 			<div
-				className='flex relative justify-center items-center left-4 cursor-pointer border-gray-200 p-1 border-1 rounded-xl'
+				className='flex relative justify-center items-center cursor-pointer border-gray-200 p-1 border-1 rounded-xl'
 				// onClick={() => setOpenLanguageDropDown((prev) => !prev)}
 				onMouseDown={(e) => {
 					if (e.target === e.currentTarget) {
@@ -73,7 +73,7 @@ const LanguageDropDown = ({
 				className={` ${
 					openLanguageDropDown ? 'block' : 'hidden'
 				} z-20 overflow-auto whitespace-nowrap bg-white absolute !p-2 bg-black
-            select-none  user-select-none border border-slate-50 w-auto shadow-md box rounded-lg flex flex-col gap-2 top-full mt-2 right-0 ml-13  `}
+            select-none  user-select-none border border-slate-50 w-auto shadow-md box rounded-lg flex flex-col gap-2 top-full mt-2 ml-10  `}
 			>
 				<div
 					className='hover:text-orange-600 hover hover:bg-orange-100 rounded-xl p-2'
@@ -170,4 +170,3 @@ const getCard = () => {
 
 export { enCard, vnCard, fiCard, getCard }
 export default LanguageDropDown
-
