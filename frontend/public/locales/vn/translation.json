@@ -173,5 +173,7 @@
 	"Please select a project": "Vui lòng chọn dự án",
 	"On Going Tasks": "Nhiệm vụ đang tiến hành",
 	"Completed Tasks": "Nhiệm vụ đã hoàn thành",
-	"No tasks available": "Không có nhiệm vụ"
+	"No tasks available": "Không có nhiệm vụ",
+	"Wrong Credentials": "Thông tin đăng nhập sai",
+	"Login successfully": "Đăng nhập thành công"
 }

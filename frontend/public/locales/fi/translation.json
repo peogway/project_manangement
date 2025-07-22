@@ -175,5 +175,7 @@
 	"Please select a project": "Valitse projekti",
 	"On Going Tasks": "Käynnissä olevat tehtävät",
 	"Completed Tasks": "Valmiit tehtävät",
-	"No tasks available": "Ei tehtäviä saatavilla"
+	"No tasks available": "Ei tehtäviä saatavilla",
+	"Wrong Credentials": "Väärät tunnistetiedot",
+	"Login successfully": "Kirjautuminen onnistui"
 }

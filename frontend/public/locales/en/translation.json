@@ -173,6 +173,8 @@
 	"Please select a project": "Please select a project",
 	"On Going Tasks": "On Going Tasks",
 	"Completed Tasks": "Completed Tasks",
-	"No tasks available": "No tasks available"
+	"No tasks available": "No tasks available",
+	"Wrong Credentials": "Wrong Credentials",
+	"Login successfully": "Login successfully"
 }
 
