@@ -1,7 +1,9 @@
 import React, { useState, forwardRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Dropdown = forwardRef(
 	({ options, onSelect, description, value, width, noBorder }, ref) => {
+		const { t, i18n } = useTranslation()
 		const [selectedOption, setSelectedOption] = useState(
 			description !== undefined ? '' : options[0]
 		)
@@ -38,7 +40,7 @@ const Dropdown = forwardRef(
 							: option === 'Low'
 							? '🟢'
 							: ''}
-						{option}
+						{t(option)}
 					</option>
 				))}
 			</select>

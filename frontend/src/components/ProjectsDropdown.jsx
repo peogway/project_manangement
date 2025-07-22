@@ -3,6 +3,7 @@ import { getIconComponent } from './AllIcons'
 import { useEffect, useRef, useState } from 'react'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import noMatch from '../assets/no-match-blue.png'
+import { useTranslation } from 'react-i18next'
 
 const ProjectsDropDown = ({
 	setOpenProjectsDropDown,
@@ -91,9 +92,11 @@ const AllProjectsItem = ({
 	setChosenProject,
 	chosenProject,
 }) => {
+	const { t, i18n } = useTranslation()
 	return (
 		<div
-			onClick={() => {
+			onClick={(e) => {
+				e.stopPropagation()
 				//Unselect the project
 				setChosenProject(null)
 				//Close the drop down
@@ -108,7 +111,9 @@ const AllProjectsItem = ({
 				<div className='text-orange-600 text-[27px]'>
 					<SplitscreenIcon />
 				</div>
-				<span className='text-[18px] mt-1 cursor-pointer'>All Projects</span>
+				<span className='text-[18px] mt-1 cursor-pointer'>
+					{t('All Projects')}
+				</span>
 			</div>
 		</div>
 	)
@@ -135,7 +140,10 @@ const SingleProject = ({
 
 	return (
 		<div
-			onClick={() => handleTheProjectClicked(singleProject.id)}
+			onClick={(e) => {
+				e.stopPropagation()
+				handleTheProjectClicked(singleProject.id)
+			}}
 			className={` ${
 				chosenProject?.id === singleProject.id &&
 				'border border-orange-600 bg-orange-50'

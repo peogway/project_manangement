@@ -1,19 +1,35 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded'
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import { Link, useNavigate } from 'react-router-dom'
+
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+
 import Navbar from './Navbar'
 
 import fontPicture from '../assets/font-page-pic.png'
 
 const Home = ({ user }) => {
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 	useEffect(() => {
 		document.title = 'Project Management'
 	}, [])
 	return (
 		<div className='poppins'>
+			{/* Language Dropdown */}
+			<div className='absolute top-5 left-0 '>
+				{/* Display language options */}
+				<LanguageDropDown
+					openLanguageDropDown={openLanguageDropDown}
+					setOpenLanguageDropDown={setOpenLanguageDropDown}
+					setChosenCard={setChosenCard}
+					chosenCard={chosenCard}
+				/>
+			</div>
 			<Navbar user={user} displayButtons={true} />
 			<CTASection />
 			<Features />
@@ -22,6 +38,7 @@ const Home = ({ user }) => {
 }
 
 const Features = () => {
+	const { t, i18n } = useTranslation()
 	const features = [
 		{
 			id: 4,
@@ -46,7 +63,7 @@ const Features = () => {
 	return (
 		<section className=' py-12 bg-slate-50 mt-12 px-9'>
 			<div className=' mx-auto px-4 '>
-				<h2 className='text-2xl font-bold text-center '>Key Features</h2>
+				<h2 className='text-2xl font-bold text-center '>{t('Key Features')}</h2>
 				{/*  */}
 				<div className='mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 px-10 '>
 					{features.map((feature, index) => (
@@ -58,10 +75,10 @@ const Features = () => {
 								{feature.icon}
 							</div>
 							<h3 className='text-lg font-semibold text-orange-500 mt-6 text-center'>
-								{feature.name}
+								{t(feature.name)}
 							</h3>
 							<p className='text-slate-600 text-[13px] mt-2 text-center w-[80%]'>
-								{feature.description}
+								{t(feature.description)}
 							</p>
 						</div>
 					))}
@@ -72,19 +89,20 @@ const Features = () => {
 }
 
 const CTASection = () => {
+	const { t, i18n } = useTranslation()
 	const navigate = useNavigate()
 	return (
 		<div className='flex flex-col mx-16 items-center mt-[120px] gap-6 '>
 			{/*  */}
 			<h2 className='font-bold text-2xl text-center'>
-				Manage Your Projects and Tasks
-				<span className={`text-orange-500`}> Effortlessly!</span>
+				{t('Manage Your Projects and Tasks')}
+				<span className={`text-orange-500`}> {t('Effortlessly!')}</span>
 			</h2>
 			{/*  */}
 			<p className='text-center text-[15px] w-[510px] max-sm:w-full text-slate-500 '>
-				Take full control of your projects today – start adding tasks, sorting
-				your priorities, and tracking progress with ease. Stay organized and
-				boost your productivity effortlessly!
+				{t(
+					'Take full control of your projects today – start adding tasks, sorting your priorities, and tracking progress with ease. Stay organized and boost your productivity effortlessly!'
+				)}
 			</p>
 
 			<button
@@ -92,7 +110,7 @@ const CTASection = () => {
 				onClick={() => navigate('/authentication')}
 				type='button'
 			>
-				{`Let's get started!`}
+				{t(`Let's get started!`)}
 			</button>
 
 			<img
@@ -106,4 +124,3 @@ const CTASection = () => {
 }
 
 export default Home
-

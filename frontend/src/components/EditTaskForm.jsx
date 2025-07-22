@@ -7,12 +7,15 @@ import { useDispatch } from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close'
 import IconsWindow from './IconsWindow'
 import IconButton from './IconButton'
-import ProjectsDropDown from './ProjectsDropdown'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+// import ProjectsDropDown from './ProjectsDropdown'
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { getIconComponent } from './AllIcons'
 import { LogoDevTwoTone } from '@mui/icons-material'
 
+import { useTranslation } from 'react-i18next'
+
 const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
+	const { t, i18n } = useTranslation()
 	const { remove: rmTask, ...taskName } = useField('text', task.name)
 	const [showIconsMenu, setShowIconsMenu] = useState(false)
 	const [iconId, setIconId] = useState(parseInt(task.icon))
@@ -41,22 +44,22 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 		e.preventDefault()
 
 		if (taskName.value === '') {
-			dispatch(setError('Please enter a task name', 2))
+			dispatch(setError(`${t('Please enter a task name')}`, 2))
 			return
 		}
 
 		if (taskName.value.length < 5) {
-			dispatch(setError('Require minimum length of 5', 2))
+			dispatch(setError(`${t('Require minimum length of 5')}`, 2))
 			return
 		}
 
 		if (!/^[A-Za-z]$/.test(taskName.value[0])) {
-			dispatch(setError('Require first non-special character', 2))
+			dispatch(setError(`${t('Require first non-special character')}`, 2))
 			return
 		}
 
 		if (taskDuplicate(taskName.value) && taskName.value !== task.name) {
-			dispatch(setError('Task name must be unique in project', 2))
+			dispatch(setError(`${t('Task name must be unique in project')}`, 2))
 			return
 		}
 
@@ -69,10 +72,12 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 		}
 		try {
 			dispatch(updateTask(taskToUpdate))
-			dispatch(setNotification(`Task "${taskName.value}" updated`, 2))
+			dispatch(
+				setNotification(`${t('Task')} "${taskName.value}" ${t('updated')}`, 2)
+			)
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 5))
+			dispatch(setError(`${t('Something goes wrong')}`, 5))
 		}
 	}
 	const icon =
@@ -115,7 +120,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 				className='flex flex-col items-center max-w-[600px] w-[550px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-semibold text-xl'>Edit Task</h1>
+					<h1 className='font-semibold text-xl'>{t('Edit Task')}</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
@@ -123,7 +128,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 
 				<div className='task-name  w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Task Name
+						{t('Task Name')}
 					</label>
 
 					<div className=' w-full mt-2 flex flex-row justify-between '>
@@ -133,7 +138,8 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 								onKeyDown={(e) => {
 									if (e.key === 'Enter') handleEdit(e)
 								}}
-								className='text-gray-500  w-full focus:outline-none'
+								className='text-gray-500  w-full focus:outline-none h-full'
+								placeholder={`${t('Enter Task Name')}...`}
 							/>
 						</div>
 						<div className=''>
@@ -144,7 +150,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 
 				<div className='task-priority w-[85%] mt-7 '>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Task Priority
+						{t('Task Priority')}
 					</label>
 
 					<div className='mt-2'>
@@ -157,7 +163,9 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 				</div>
 
 				<div className='task-project w-full  self-start ml-7 mt-7 flex flex-row items-center mb-10'>
-					<label className='text-gray-500 w-auto font-semibold'>Project</label>
+					<label className='text-gray-500 w-auto font-semibold'>
+						{t('Project')}
+					</label>
 
 					<div className='flex-1 flex justify-center items-center '>
 						<div className=' flex flex-row gap-2 items-center rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr'>
@@ -179,7 +187,7 @@ const EditTaskForm = ({ onClose, project, taskDuplicate, ...task }) => {
 					onClick={handleEdit}
 					className='bg-orange-400 select-none text-white rounded-xl p-2 w-[85%]'
 				>
-					Edit Task
+					{t('Edit Task')}
 				</button>
 			</div>
 			<IconsWindow

@@ -10,7 +10,10 @@ import { getIconComponent } from './AllIcons'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
+	const { t, i18n } = useTranslation()
 	const formRef = useRef(null)
 	const { remove: rmTask, ...categoryName } = useField('text', name)
 	const overlayRef = useRef(null)
@@ -45,7 +48,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 	const handleEditCategory = (e) => {
 		e.preventDefault()
 		if (categoryName.value === '') {
-			dispatch(setError('Please enter a category name', 2))
+			dispatch(setError(`${t('Please enter a category name')}`, 2))
 
 			return
 		}
@@ -54,13 +57,16 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 			categoryName.value[0].toUpperCase() !== categoryName.value[0]
 		) {
 			dispatch(
-				setError('Require first uppercase character and minimum length of 5', 2)
+				setError(
+					`${t('Require first uppercase character and minimum length of 5')}`,
+					2
+				)
 			)
 			return
 		}
 
 		if (!/^[A-Za-z]$/.test(categoryName.value[0])) {
-			dispatch(setError('Require first non-special character', 2))
+			dispatch(setError(`${t('Require first non-special character')}`, 2))
 			return
 		}
 
@@ -69,7 +75,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 				(cate) => cate.name === categoryName.value && cate.id !== category.id
 			)
 		) {
-			dispatch(setError('Categories must be unique', 2))
+			dispatch(setError(`${t('Categories must be unique')}`, 2))
 			onClose()
 			return
 		}
@@ -81,10 +87,15 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 
 		try {
 			dispatch(updateCategory(categoryToUpdate))
-			dispatch(setNotification(`Category "${categoryName.value}" updated`, 2))
+			dispatch(
+				setNotification(
+					`${t('Category')} "${categoryName.value}" ${'updated'}`,
+					2
+				)
+			)
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 2))
+			dispatch(setError(`${t('Something goes wrong')}`, 2))
 		}
 	}
 
@@ -128,13 +139,15 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 				className='flex flex-col items-center max-w-[600px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-semibold text-xl'>Edit Category</h1>
+					<h1 className='font-semibold text-xl'>{t('Edit Category')}</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
 				</div>
 				<div className='category-name w-[85%] mt-7'>
-					<label className='text-gray-500 ml-[-10px]'>Cateory Name</label>
+					<label className='text-gray-500 ml-[-10px]'>
+						{t('Cateory Name')}
+					</label>
 					<br />
 					<div className='border-1 border-slate-400 rounded-lg w-full p-2 mt-3'>
 						<input
@@ -143,13 +156,14 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 								if (e.key === 'Enter') handleEditCategory(e)
 							}}
 							className='text-gray-500 w-full focus:outline-none'
+							placeholder={t('Enter a name')}
 						/>
 					</div>
 				</div>
 
 				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Projects
+						{t('Projects')}
 					</label>
 
 					<div className=' mt-2 w-full'>
@@ -166,7 +180,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 						>
 							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
 								<div className='text-gray-500 select-none'>
-									Select a project
+									{t('Select a project')}
 								</div>
 							</div>
 							<div className='text-gray-500'>
@@ -222,7 +236,7 @@ const EditCategoryForm = ({ onClose, name, categories, id, category }) => {
 					onClick={handleEditCategory}
 					className='bg-orange-400 text-white select-none rounded-xl p-2 w-[85%]'
 				>
-					Edit Category
+					{t('Edit Category')}
 				</button>
 			</div>
 		</div>

@@ -8,8 +8,10 @@ import EditCategoryForm from './EditCategoryForm'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setNotification } from '../reducers/notiReducer'
 import ConfirmDialog from './ConfirmDialog'
+import { useTranslation } from 'react-i18next'
 
 const Category = (props) => {
+	const { t, i18n } = useTranslation()
 	const featureRef = useRef(null)
 	const [showFeature, setShowFeature] = useState(false)
 	const dispatch = useDispatch()
@@ -21,7 +23,9 @@ const Category = (props) => {
 		setShowFeature(false)
 		handleClose()
 		dispatch(deleteCategory(props.id))
-		dispatch(setNotification(`Category ${props.name} deleted`, 2))
+		dispatch(
+			setNotification(`${t('Category')} ${props.name} ${t('deleted')}`, 2)
+		)
 	}
 	const handleClose = () => {
 		setIsOpen(false)
@@ -68,7 +72,7 @@ const Category = (props) => {
 							})
 						}}
 					>
-						{props.projects.length} Projects
+						{props.projects.length} {t('Projects')}
 					</p>
 				</div>
 
@@ -92,7 +96,7 @@ const Category = (props) => {
 								<div className='text-orange-500 bg-orange-100 rounded-lg self-center'>
 									<EditIcon />
 								</div>
-								<p>Edit</p>
+								<p>{t('Edit')}</p>
 							</div>
 
 							<div
@@ -103,7 +107,7 @@ const Category = (props) => {
 								className='delete-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
 							>
 								<DeleteOutlineIcon />
-								<div>Delete</div>
+								<div>{t('Delete')}</div>
 							</div>
 						</div>
 					)}
@@ -123,7 +127,9 @@ const Category = (props) => {
 					isOpen={isOpen}
 					onClose={handleClose}
 					onConfirm={handleDelete}
-					message={`Are you sure you want to delete Category "${props.name}"?`}
+					message={`${t('Are you sure you want to delete Category')} "${
+						props.name
+					}"?`}
 				/>
 			)}
 		</div>

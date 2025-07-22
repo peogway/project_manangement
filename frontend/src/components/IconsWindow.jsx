@@ -4,7 +4,10 @@ import AppsIcon from '@mui/icons-material/Apps'
 import CloseIcon from '@mui/icons-material/Close'
 import AllIcons from './AllIcons'
 
+import { useTranslation } from 'react-i18next'
+
 const IconsWindow = ({ onClose, iconId, setIconId, show, editTask }) => {
+	const { t, i18n } = useTranslation()
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 	const handleClickOutside = (event) => {
@@ -25,7 +28,7 @@ const IconsWindow = ({ onClose, iconId, setIconId, show, editTask }) => {
 						/>
 					</div>
 					{/* Header */}
-					<span className='font-semibold text-lg'>All Icons</span>
+					<span className='font-semibold text-lg'>{t('All Icons')}</span>
 				</div>
 				<CloseIcon
 					onClick={onClose}
@@ -74,7 +77,9 @@ const IconsWindow = ({ onClose, iconId, setIconId, show, editTask }) => {
 							<Header />
 
 							<span className=' mx-8 text-[13px] mt-12  text-slate-400'>
-								{`Please select the icons you'd like to use from the collection below:`}
+								{t(
+									`Please select the icons you'd like to use from the collection below:`
+								)}
 							</span>
 							{/* All Icons Area */}
 							<IconsArea />
@@ -87,4 +92,3 @@ const IconsWindow = ({ onClose, iconId, setIconId, show, editTask }) => {
 }
 
 export default IconsWindow
-

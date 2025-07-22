@@ -11,6 +11,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import { setNotification } from '../reducers/notiReducer'
 import ConfirmDialog from './ConfirmDialog'
+import { useTranslation } from 'react-i18next'
 
 const ProjectLabel = ({
 	project,
@@ -18,6 +19,7 @@ const ProjectLabel = ({
 	setIconId,
 	setProjectToAddTask,
 }) => {
+	const { t, i18n } = useTranslation()
 	const dispatch = useDispatch()
 	const [showFeatures, setShowFeatures] = useState(false)
 	const [isMouseDown, setIsMouseDown] = useState(false)
@@ -73,7 +75,9 @@ const ProjectLabel = ({
 		e.stopPropagation()
 		setIsOpen(false)
 		dispatch(deleteProject(project.id))
-		dispatch(setNotification(`Project ${project.name} deleted`, 2))
+		dispatch(
+			setNotification(`${t('Project')} ${project.name} ${t('deleted')}`, 2)
+		)
 	}
 	const projectFeatures = () => {
 		return (
@@ -94,7 +98,7 @@ const ProjectLabel = ({
 					<div className='text-orange-500 bg-orange-100 rounded-lg self-center'>
 						<EditIcon />
 					</div>
-					<p>Edit</p>
+					<p>{t('Edit')}</p>
 				</div>
 				<div
 					onClick={(e) => {
@@ -106,7 +110,7 @@ const ProjectLabel = ({
 					className='delete-category-btn flex w-30 h-12  rounded-xl gap-2 pl-2 transition duration-200 ease-out hover:bg-blue-200 items-center'
 				>
 					<DeleteOutlineIcon />
-					<div>Delete</div>
+					<div>{t('Delete')}</div>
 				</div>
 			</div>
 		)
@@ -166,7 +170,7 @@ const ProjectLabel = ({
 							<LibraryAddIcon fontSize='large' />
 						</button>
 						<p className='flex whitespace-nowrap left-[35px] top-14 absolute'>
-							No tasks created yet...
+							{t('No tasks created yet...')}
 						</p>
 					</div>
 				) : (
@@ -193,7 +197,7 @@ const ProjectLabel = ({
 			</div>
 			{project.tasks.length > 3 && (
 				<div className='absolute top-[170px] left-[20px] text-orange-500'>
-					+{project.tasks.length - 3} tasks
+					+{project.tasks.length - 3} {t('tasks')}
 				</div>
 			)}
 			<div className='flex flex-col bottom-17 absolute right-0 left-0 gap-2 mb-4'>
@@ -202,7 +206,7 @@ const ProjectLabel = ({
 				</div>
 				<div className='flex flex-row justify-between w-[90%] self-center'>
 					<div className='text-gray-400'>
-						{completedPercentage < 100 ? 'On Progress' : 'Completed'}{' '}
+						{completedPercentage < 100 ? t('On Progress') : t('Completed')}{' '}
 					</div>
 					<div className='text-gray-400'>
 						{completedTasks.length}/{project.tasks.length}
@@ -217,7 +221,9 @@ const ProjectLabel = ({
 					isOpen={isOpen}
 					onClose={handleClose}
 					onConfirm={handleDelete}
-					message={`Are you sure you want to delete Project "${project.name}"?`}
+					message={`${t('Are you sure you want to delete Project')} "${
+						project.name
+					}"?`}
 				/>
 			)}
 		</div>
