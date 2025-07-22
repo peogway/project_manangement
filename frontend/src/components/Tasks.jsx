@@ -153,7 +153,7 @@ const Tasks = ({ user }) => {
 						>
 							<div className='text-slate-800 min-w-[200px] w-[200px] p-2 whitespace-nowrap overflow-hidden text-ellipsis rounded-xl absolute top-[-10px]  left-[-7px]'>
 								{selectedProject === null
-									? 'All Projects'
+									? t('All Projects')
 									: selectedProject.name}
 							</div>
 							<div className='absolute left-50 top-[-3px]'>
@@ -201,7 +201,7 @@ const Tasks = ({ user }) => {
 						}`}
 						disabled={selectedProject === null}
 					>
-						+ Add New
+						{t('+ Add New')}
 					</button>
 					{/* Display language options */}
 					<LanguageDropDown
@@ -213,7 +213,7 @@ const Tasks = ({ user }) => {
 				</div>
 
 				<div className='ml-auto items-center mr-20 flex'>
-					<p className='font-semibold text-slate-700'>Sort</p>
+					<p className='font-semibold text-slate-700'>{t('Sort')}</p>
 					<div className='flex text-slate-700 justify-center items-center'>
 						<FilterAltIcon fontSize='small' />
 					</div>
@@ -258,7 +258,7 @@ const Tasks = ({ user }) => {
 					<input
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
-						placeholder='Search a task'
+						placeholder={t('Search a task')}
 						className='border-b-2 border-gray-200 pl-1 focus:outline-none'
 					/>
 				</div>
@@ -270,7 +270,7 @@ const Tasks = ({ user }) => {
 							}`}
 							onClick={() => setTaskStatus(null)}
 						>
-							<button className='font-semibold'>All</button>
+							<button className='font-semibold'>{t('All')}</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{sortedTasks.length}
 							</div>
@@ -282,7 +282,7 @@ const Tasks = ({ user }) => {
 							}`}
 							onClick={() => setTaskStatus(false)}
 						>
-							<button className='font-semibold'>On Going Tasks</button>
+							<button className='font-semibold'>{t('On Going Tasks')}</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{uncompletedTasks.length}
 							</div>
@@ -294,7 +294,7 @@ const Tasks = ({ user }) => {
 							}`}
 							onClick={() => setTaskStatus(true)}
 						>
-							<button className='font-semibold'>Completed Tasks</button>
+							<button className='font-semibold'>{t('Completed Tasks')}</button>
 							<div className='flex bg-gray-400 text-white w-5 h-5 justify-center items-center self-center ml-1'>
 								{completedTasks.length}
 							</div>
@@ -307,7 +307,7 @@ const Tasks = ({ user }) => {
 									<div className=' mr-2'>
 										<img src={noMatch} />
 									</div>
-									<p>No tasks available</p>
+									<p>{t('No tasks available')}</p>
 								</div>
 							</div>
 						)}

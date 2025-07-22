@@ -131,22 +131,38 @@ const Projects = ({ user }) => {
 		}
 	}
 
+	const isVietnamese = i18n.language === 'vn'
+	const isFinnish = i18n.language === 'fi'
+
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Contents */}
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
 				{/* Heading */}
 				<div className='flex flex-row justify-between mb-7 mt-10'>
-					{/* My Projects title and Add button  */}
+					{/* Title, Add button, Langauge Dropdown  */}
 					<div className='flex justify-between items-center w-[350px] ml-10'>
 						{/* Title */}
 						<div className='flex flex-col ml-5'>
-							<h1 className='font-semibold text-2xl'>
-								<span className='text-orange-500'>My </span>
-								Projects
-							</h1>
+							{isVietnamese && (
+								<h1 className='font-semibold text-2xl'>
+									<span className='text-orange-500'>{t('Projects')} </span>
+									{t('my')}
+								</h1>
+							)}
+							{isFinnish && (
+								<h1 className='font-semibold text-2xl'>
+									<span className='text-orange-500'>{t('My projects')}</span>
+								</h1>
+							)}
+							{!isVietnamese && !isFinnish && (
+								<h1 className='font-semibold text-2xl'>
+									<span className='text-orange-500'>My </span>
+									Projects
+								</h1>
+							)}
 							<p className='ml-3 text-gray-400'>
-								{sortedProjects.length} Projects
+								{sortedProjects.length} {t('Projects')}
 							</p>
 						</div>
 
@@ -155,7 +171,7 @@ const Projects = ({ user }) => {
 							onClick={() => setShowAddProject(true)}
 							className='w-25 h-7 mr-10 bg-orange-500 select-none rounded-lg text-white'
 						>
-							+ Add New
+							{t('+ Add New')}
 						</button>
 
 						{/* Display language options */}
@@ -171,7 +187,7 @@ const Projects = ({ user }) => {
 					<div className='flex items-center'>
 						{/* Sort */}
 						<div className='ml-auto  flex mr-20'>
-							<p className='font-semibold text-gray-400'>Sort</p>
+							<p className='font-semibold text-gray-400'>{t('Sort')}</p>
 							<div className='text-gray-400 mr-6'>
 								<FilterAltIcon fontSize='small' />
 							</div>
@@ -197,7 +213,7 @@ const Projects = ({ user }) => {
 						</div>
 						<input
 							{...search}
-							placeholder='Search a project'
+							placeholder={t('Search a project')}
 							className='border-b-2 border-gray-200 pl-1 pr-1 focus:outline-none'
 						/>
 					</div>
@@ -212,7 +228,7 @@ const Projects = ({ user }) => {
 									{isFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}
 								</div>
 								<p className='font-semibold text-gray-600 text-center pr-1'>
-									Filter
+									{t('Filter')}
 								</p>
 							</div>
 							<div className='mr-3 relative'>
@@ -228,7 +244,7 @@ const Projects = ({ user }) => {
 										<DropDown
 											options={categoryNames}
 											onSelect={handleSelectCategory}
-											description='Choose categories'
+											description={t('Choose categories')}
 											value={true}
 											width='auto'
 										/>
@@ -273,7 +289,7 @@ const Projects = ({ user }) => {
 						<div className=' mr-2'>
 							<img src={noMatch} />
 						</div>
-						<p>No match projects</p>
+						<p>{t('No match projects')}</p>
 					</div>
 				)}
 				{/* Projects to display */}
@@ -287,11 +303,11 @@ const Projects = ({ user }) => {
 								<CubePlus />
 							</div>
 							<h1 className='text-slate-600 font-semibold text-lg my-1 mt-3 select-none relative z-2'>
-								No projects yet...
+								{t('No projects yet...')}
 							</h1>
 							<p className='text-slate-400 flex l items-center justify-center p-1 text-center pt-1'>
-								Please click button above <br />
-								to add your first project.
+								{t('Please click button above')} <br />
+								{t('to add your first project.')}
 							</p>
 						</div>
 					)}
@@ -321,11 +337,11 @@ const Projects = ({ user }) => {
 			{/* Sidebar */}
 			<div className='  bg-white rounded-xl flex flex-col items-center h-[96%] right-0 fixed w-[210px] '>
 				<h1 className='font-semibold text-xl mt-6 text-slate-800'>
-					Projects Completed
+					{t('Projects Completed')}
 				</h1>
 				<CircularChart percent={completionPercentage} />
 				<div className='font-semibold mt-15 text-slate-700'>
-					{completedProjects.length} Completed
+					{completedProjects.length} {t('Completed')}
 				</div>
 				<div className='text-slate-500 mt-1 text-sm'>
 					{projects.reduce(
@@ -333,7 +349,7 @@ const Projects = ({ user }) => {
 							total + project.tasks.filter((task) => task.completed).length,
 						0
 					)}{' '}
-					Tasks Done
+					{t('Tasks Done')}
 				</div>
 				<div className='mt-7 overflow-auto flex flex-col gap-1 w-full ml-5 '>
 					{completedProjects.map((project) => (
@@ -358,7 +374,7 @@ const Projects = ({ user }) => {
 									{project.name}
 								</div>
 								<div className='text-slate-300 ml-2 '>
-									{project.tasks.length} tasks
+									{project.tasks.length} {t('tasks')}
 								</div>
 							</div>
 						</div>
@@ -367,7 +383,7 @@ const Projects = ({ user }) => {
 				{completedProjects.length === 0 && (
 					<div className='flex flex-1 flex-col  items-center mt-5'>
 						<p className='text-lg text-slate-400 flex items-center justify-center text-center'>
-							No projects <br /> completed yet
+							{t('No projects')} <br /> {t('completed yet')}
 						</p>
 						<img src={notFound} />
 					</div>

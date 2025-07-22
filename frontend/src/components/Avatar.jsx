@@ -8,8 +8,10 @@ import PersonIcon from '@mui/icons-material/Person'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const Avatar = ({ user, optionsPosRight }) => {
+	const { t, i18n } = useTranslation()
 	const [showOptions, setShowOptions] = useState(false)
 	const optionsRef = useRef(null)
 
@@ -91,7 +93,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 						<div className='items-center flex justify-center'>
 							<PersonIcon />
 						</div>
-						<span>Profile</span>
+						<span>{t('Profile')}</span>
 					</div>
 				</div>
 
@@ -106,7 +108,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 						<div className='items-center flex justify-center'>
 							<VpnKeyIcon />
 						</div>
-						<span>Account</span>
+						<span>{t('Account')}</span>
 					</div>
 				</div>
 
@@ -123,7 +125,7 @@ const Avatar = ({ user, optionsPosRight }) => {
 						<div className='items-center flex justify-center'>
 							<LogoutIcon />
 						</div>
-						<span>Sign Out</span>
+						<span>{t('Sign Out')}</span>
 					</div>
 				</div>
 			</div>

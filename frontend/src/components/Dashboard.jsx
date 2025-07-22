@@ -174,13 +174,13 @@ const Dashboard = ({ user, animate }) => {
 						<span className='font-bold text-[rgb(62,99,255)]'>
 							{payload[0]?.value}
 						</span>
-						<span className='text-black'> Tasks done</span>
+						<span className='text-black'>{t(' Tasks done')}</span>
 					</p>
 					<p className='flex gap-2'>
 						<span className='font-bold text-orange-500'>
 							{payload[1]?.value}
 						</span>
-						<span className='text-black'> Tasks created</span>
+						<span className='text-black'>{t(' Tasks created')}</span>
 					</p>
 				</div>
 			)
@@ -231,13 +231,13 @@ const Dashboard = ({ user, animate }) => {
 					<div className='flex flex-col ml-12 relative top-0 '>
 						<div className=''>
 							<span className='font-semibold text-slate-800 text-3xl '>
-								Hello
+								{t('Hello')}
 							</span>{' '}
 							<span className='text-xl font-semi-bold text-orange-500'>
-								{user.username ? user.username : 'User'}{' '}
+								{user.username ? user.username : t('User')}{' '}
 							</span>
 						</div>
-						<div className='text-slate-500 px-2 '> Welcom Back!</div>
+						<div className='text-slate-500 px-2 '> {t('Welcome Back!')}</div>
 					</div>
 
 					<div className='mt-3'>
@@ -276,14 +276,13 @@ const Dashboard = ({ user, animate }) => {
 									</div>
 									<input
 										{...search}
-										placeholder='Search...'
+										placeholder={t('Search...')}
 										className='focus:outline-none w-[400px]'
 										ref={searchRef}
 										onFocus={() => setIsFocused(true)}
 										onBlur={() => setIsFocused(false)}
 									/>
 								</div>
-								{/* Search window */}
 							</div>
 						</div>
 
@@ -300,6 +299,7 @@ const Dashboard = ({ user, animate }) => {
 						>
 							<SearchIcon />
 						</div>
+						{/* Search window */}
 						{isFocused && search.value.length > 0 && (
 							<div
 								className={`absolute flex flex-col top-12 right-[150%]  w-[500px] 
@@ -307,7 +307,7 @@ const Dashboard = ({ user, animate }) => {
 									isFocused ? 'dropdown-open' : 'dropdown-transition'
 								}`}
 							>
-								<span className='font-semibold ml-3'>Projects</span>
+								<span className='font-semibold ml-3'>{t('Projects')}</span>
 								{searchProjects.map((project) => (
 									<div
 										key={project.id}
@@ -335,11 +335,13 @@ const Dashboard = ({ user, animate }) => {
 										<div className=' mr-2'>
 											<img src={noMatch} />
 										</div>
-										<p>No projects match</p>
+										<p>{t('No projects match')}</p>
 									</div>
 								)}
 								<hr className='w-[80%] text-slate-400 mx-auto my-1 opacity-55 mt-4'></hr>
-								<span className='font-semibold pb-2 ml-3 mt-5'>Tasks</span>
+								<span className='font-semibold pb-2 ml-3 mt-5'>
+									{t('Tasks')}
+								</span>
 								{searchTasks.map((task) => (
 									<div
 										key={task.id}
@@ -369,7 +371,7 @@ const Dashboard = ({ user, animate }) => {
 										<div className=' mr-2'>
 											<img src={noMatch} />
 										</div>
-										<p>No tasks match</p>
+										<p>{t('No tasks match')}</p>
 									</div>
 								)}
 							</div>
@@ -394,7 +396,7 @@ const Dashboard = ({ user, animate }) => {
 					<div className='flex w-full justify-between items-center'>
 						<div className='flex flex-col items-start	ml-5'>
 							<div className='font-bold text-[20px]'>{projects.length}</div>
-							<div className='text-white text-[15px]'>Projects</div>
+							<div className='text-white text-[15px]'>{t('Projects')}</div>
 						</div>
 					</div>
 					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
@@ -419,7 +421,9 @@ const Dashboard = ({ user, animate }) => {
 							<div className='font-bold text-[20px]'>
 								{tasks.filter((task) => task.completed).length}
 							</div>
-							<div className='text-white text-[15px]'>Tasks Completed</div>
+							<div className='text-white text-[15px]'>
+								{t('Tasks Completed')}
+							</div>
 						</div>
 					</div>
 					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
@@ -438,7 +442,7 @@ const Dashboard = ({ user, animate }) => {
 					<div className='flex w-full ml-5 justify-between items-center'>
 						<div className='flex flex-col items-start'>
 							<div className='font-bold text-[20px]'>{categories.length}</div>
-							<div className='text-white text-[15px]'>Categories</div>
+							<div className='text-white text-[15px]'>{t('Categories')}</div>
 						</div>
 					</div>
 					<div className='bg-white mr-6 text-orange-500 rounded-full w-10 h-8 flex items-center justify-center'>
@@ -451,9 +455,9 @@ const Dashboard = ({ user, animate }) => {
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[250px]  h-[500px] box rounded-xl'>
 				<div className='flex w-full justify-between p-4'>
 					<p className='font-semibold text-slate-800 text-xl'>
-						Daily Performance
+						{t('Daily Performance')}
 					</p>
-					<p className='text-slate-600'>Last 7 days</p>
+					<p className='text-slate-600'>{t('Last 7 days')}</p>
 				</div>
 
 				{/* Legend for the barchart */}
@@ -468,7 +472,7 @@ const Dashboard = ({ user, animate }) => {
 								marginRight: '5px',
 							}}
 						></span>{' '}
-						<span className='text-slate-600'>Tasks Completed</span>
+						<span className='text-slate-600'>{t('Tasks Completed')}</span>
 					</div>
 					<div>
 						<span
@@ -480,9 +484,11 @@ const Dashboard = ({ user, animate }) => {
 								marginRight: '5px',
 							}}
 						></span>{' '}
-						<span className='text-slate-600'>Tasks Created</span>
+						<span className='text-slate-600'>{t('Tasks Created')}</span>
 					</div>
 				</div>
+
+				{/* Barchart */}
 				<div className='flex self-center justify-start items-center translate-x-[-20px] mt-8'>
 					<BarChart width={700} height={300} data={data} barGap={0}>
 						<XAxis dataKey='date' tick={{ fill: 'black' }} />
@@ -519,7 +525,9 @@ const Dashboard = ({ user, animate }) => {
 
 			{/* Recent Tasks */}
 			<div className='absolute p-5 bg-white flex flex-col right-[400px] left-[75px] top-[800px]  box rounded-xl pb-10'>
-				<div className='font-semibold text-slate-800 text-xl'>Recents Task</div>
+				<div className='font-semibold text-slate-800 text-xl'>
+					{t('Recent Tasks')}
+				</div>
 				<div className='mt-5 ml-2 p-2 flex flex-col gap-5 items-center select-none'>
 					{[...tasks].reverse().map((task, index) => {
 						const date1 = new Date(task.createAt)
@@ -534,18 +542,18 @@ const Dashboard = ({ user, animate }) => {
 						const displayInterval =
 							intervalInSeconds < 60
 								? `${Math.floor(intervalInSeconds)} ${
-										intervalInSeconds >= 2 ? 'seconds' : 'second'
+										intervalInSeconds >= 2 ? t('seconds') : t('second')
 								  }`
 								: intervalInMinutes < 60
 								? `${Math.floor(intervalInMinutes)} ${
-										intervalInMinutes >= 2 ? 'minutes' : 'minute'
+										intervalInMinutes >= 2 ? t('minutes') : t('minute')
 								  }`
 								: intervalInHours < 24
 								? `${Math.floor(intervalInHours)} ${
-										intervalInHours >= 2 ? 'hours' : 'hour'
+										intervalInHours >= 2 ? t('hours') : t('hour')
 								  }`
 								: `${Math.floor(intervalInDays)} ${
-										intervalInDays >= 2 ? 'days' : 'day'
+										intervalInDays >= 2 ? t('days') : t('day')
 								  }`
 
 						return (
@@ -591,15 +599,17 @@ const Dashboard = ({ user, animate }) => {
 
 									{/* Task Create At */}
 									<div className='flex flex-col  ml-10 w-[120px]'>
-										<p className='text-slate-400'>Created</p>
+										<p className='text-slate-400'>{t('Created')}</p>
 										<p className='text-blue-500 flex mt-2'>
-											{displayInterval} ago
+											{displayInterval} {t('ago')}
 										</p>
 									</div>
 
 									{/* Task Project */}
 									<div className='flex flex-col w-[150px]  max-w-[150px] ml-10'>
-										<p className='text-slate-400 ml-5 text-lg'>In Project</p>
+										<p className='text-slate-400 ml-5 text-lg'>
+											{t('In Project')}
+										</p>
 										<div className='text-blue-500  flex items-center pt-2'>
 											<span className='scale-60 relative top-[1px]'>
 												{getIconComponent(
@@ -620,8 +630,8 @@ const Dashboard = ({ user, animate }) => {
 
 									{/* Status */}
 									<div className='flex flex-col  ml-10'>
-										<p className='text-slate-400'>Status</p>
-										<p className='text-blue-500 pt-2'>{task.status}</p>
+										<p className='text-slate-400'>{t('Status')}</p>
+										<p className='text-blue-500 pt-2'>{t(task.status)}</p>
 									</div>
 								</div>
 							)
@@ -633,7 +643,7 @@ const Dashboard = ({ user, animate }) => {
 			{/* Overall Progress */}
 			<div className='absolute right-0 top-[130px] bg-white w-[320px] overflow-hidden  h-[300px] box rounded-2xl flex items-center justify-center'>
 				<div className='font-semibold text-slate-800 text-xl absolute z-50 top-7 right[100px]'>
-					Overall Progress
+					{t('Overall Progress')}
 				</div>
 
 				<WaterWave
@@ -654,14 +664,14 @@ const Dashboard = ({ user, animate }) => {
 					} px-4 pt-4 w-full `}
 				>
 					<div className='font-semibold text-slate-800 text-xl'>
-						Latest Projects
+						{t('Latest Projects')}
 					</div>
 					{projects.length > 0 && (
 						<div
 							className='bg-orange-400 select-none cursor-pointer text-white p-2 whitespace-nowrap rounded-xl '
 							onClick={() => setShowAddProject(true)}
 						>
-							+ Add New
+							{t('+ Add New')}
 						</div>
 					)}
 				</div>
@@ -699,7 +709,7 @@ const Dashboard = ({ user, animate }) => {
 										<div className='flex gap-1 text-slate-500 items-center justify-center'>
 											<FontAwesomeIcon icon={faBarsProgress} />
 
-											<p className='self-start'>Progress</p>
+											<p className='self-start'>{t('Progress')}</p>
 										</div>
 										<div className=''>
 											{project.tasks.filter((task) => task.completed).length}/
@@ -736,11 +746,11 @@ const Dashboard = ({ user, animate }) => {
 							<CubePlus />
 						</div>
 						<h1 className='text-slate-600 font-semibold text-lg'>
-							No projects yet...
+							{t('No projects yet...')}
 						</h1>
 						<p className='text-slate-400 flex l items-center justify-center p-1 text-center pt-1'>
-							Please click button above <br />
-							to add your first project.
+							{t('Please click button above')} <br />
+							{t('to add your first project.')}
 						</p>
 					</div>
 				)}

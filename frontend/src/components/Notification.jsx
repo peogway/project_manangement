@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import ErrorIcon from '@mui/icons-material/Error'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import CloseIcon from '@mui/icons-material/Close'
+import { useTranslation } from 'react-i18next'
 
 const Notification = ({ message, className, removeMessage }) => {
+	const { t, i18n } = useTranslation()
 	if (!message) {
 		return null
 	}
@@ -27,7 +29,7 @@ const Notification = ({ message, className, removeMessage }) => {
 			<div className='text-white'>
 				{className === 'error' ? <ErrorIcon /> : <TaskAltIcon />}
 			</div>
-			{message}
+			{t(message)}
 			<div
 				className='text-black cursor-pointer self-center ml-5'
 				onClick={removeMessage}

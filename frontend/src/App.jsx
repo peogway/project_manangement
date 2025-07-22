@@ -16,6 +16,7 @@ import StorageIcon from '@mui/icons-material/Storage'
 import LayersIcon from '@mui/icons-material/Layers'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import { isTokenExpired } from './services/login'
+import { useTranslation } from 'react-i18next'
 
 import {
 	BrowserRouter as Router,
@@ -40,6 +41,7 @@ const AnimatedRoute = ({ element }) => {
 }
 
 const App = () => {
+	const { t, i18n } = useTranslation()
 	const dispatch = useDispatch()
 	const location = useLocation()
 	const notification = useSelector((state) => state.notiReducer) // Notification state from Redux
@@ -120,7 +122,7 @@ const App = () => {
 										: 'bg-slate-200 text-slate-600'
 								} box`}
 							>
-								{isHovered}
+								{t(isHovered)}
 							</span>
 						)}
 					</Link>
@@ -144,7 +146,7 @@ const App = () => {
 										: 'bg-slate-200 text-slate-600'
 								} box`}
 							>
-								{isHovered}
+								{t(isHovered)}
 							</span>
 						)}
 					</Link>
@@ -168,7 +170,7 @@ const App = () => {
 										: 'bg-slate-200 text-slate-600'
 								} box`}
 							>
-								{isHovered}
+								{t(isHovered)}
 							</span>
 						)}
 					</Link>
@@ -192,7 +194,7 @@ const App = () => {
 										: 'bg-slate-200 text-slate-600'
 								} box`}
 							>
-								{isHovered}
+								{t(isHovered)}
 							</span>
 						)}
 					</Link>
@@ -209,7 +211,7 @@ const App = () => {
 							<span
 								className={`ml-1 absolute  rounded-xl p-2 top-[-5px] bg-orange-500 text-white whitespace-nowrap text-select-none `}
 							>
-								{isHovered}
+								{t(isHovered)}
 							</span>
 						)}
 					</div>

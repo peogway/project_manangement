@@ -24,6 +24,7 @@ import noMatch from '../assets/no-match-blue.png'
 import Avatar from './Avatar'
 
 const CategoryForm = ({ onClose, categories, projects }) => {
+	const { t, i18n } = useTranslation()
 	const formRef = useRef(null)
 	const [openProjectsDropDown, setOpenProjectsDropDown] = useState(false)
 	const { remove: rmTask, ...categoryName } = useField('text')
@@ -43,12 +44,12 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 	const handleAddCategory = (e) => {
 		e.preventDefault()
 		if (categoryName.value === '') {
-			dispatch(setError('Please enter a category name', 2))
+			dispatch(setError(`${t('Please enter a category name')}`, 2))
 			return
 		}
 
 		if (categories.some((category) => category.name === categoryName.value)) {
-			dispatch(setError('Categories must be unique', 2))
+			dispatch(setError(`${t('Categories must be unique')}`, 2))
 			return
 		}
 		if (
@@ -56,13 +57,16 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 			categoryName.value[0].toUpperCase() !== categoryName.value[0]
 		) {
 			dispatch(
-				setError('Require first uppercase character and minimum length of 5', 2)
+				setError(
+					`${t('Require first uppercase character and minimum length of 5')}`,
+					2
+				)
 			)
 			return
 		}
 
 		if (!/^[A-Za-z]$/.test(categoryName.value[0])) {
-			dispatch(setError('Require first non-special character', 2))
+			dispatch(setError(`${t('Require first non-special character')}`, 2))
 			return
 		}
 
@@ -73,10 +77,15 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 
 		try {
 			dispatch(createNewCategory(category))
-			dispatch(setNotification(`Category "${categoryName.value}" created`, 2))
+			dispatch(
+				setNotification(
+					`${t('Category')} "${categoryName.value}" ${t('created')}`,
+					2
+				)
+			)
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 2))
+			dispatch(setError(`${t('Something goes wrong')}`, 2))
 		}
 	}
 
@@ -121,7 +130,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 				className='flex flex-col items-center max-w-[600px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-semibold text-xl'>Add a new Category</h1>
+					<h1 className='font-semibold text-xl'>{t('Add a new Category')}</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
@@ -129,7 +138,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 
 				<div className='category-name w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Cateory Name
+						{t('Category Name')}
 					</label>
 					<br />
 					<div className='w-full border-1 border-gray-400 rounded-lg items-center mt-3 p-2 justify-center '>
@@ -139,14 +148,14 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 								if (e.key === 'Enter') handleAddCategory(e)
 							}}
 							className='text-gray-500  w-full  focus:outline-none'
-							placeholder='Type a name for the Category...'
+							placeholder={t('Type a name for the Category...')}
 						/>
 					</div>
 				</div>
 
 				<div className='task-priority w-[85%] flex flex-row items-center gap-5  mt-5'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Projects
+						{t('Projects')}
 					</label>
 
 					<div className=' mt-2 w-full'>
@@ -163,7 +172,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 						>
 							<div className='flex flex-row gap-2 items-center pl-3 pt-1 pb-1'>
 								<div className='text-gray-500 select-none'>
-									Select a project
+									{t('Select a project')}
 								</div>
 							</div>
 							<div className='text-gray-500'>
@@ -219,7 +228,7 @@ const CategoryForm = ({ onClose, categories, projects }) => {
 					onClick={handleAddCategory}
 					className='bg-orange-400 text-white select-none rounded-xl p-2 w-[85%]'
 				>
-					Add Category
+					{t('Add Category')}
 				</button>
 			</div>
 		</div>
@@ -279,16 +288,18 @@ const Categories = ({ user }) => {
 					<h1 className='font-semibold text-2xl text-slate-800'>
 						{t('Categories')}
 					</h1>
-					<p className='text-gray-500 ml-2'>{categories.length} categories</p>
+					<p className='text-gray-500 ml-2'>
+						{categories.length} {t('categories')}
+					</p>
 				</div>
 				<button
 					className='w-25 h-7 ml-6 bg-orange-400 rounded-lg select-none front text-white justify-center items-center'
 					onClick={() => setShowAddCategory(true)}
 				>
-					+ Add New
+					{t('+ Add New')}
 				</button>
 				<div className='ml-auto items-center mr-20 flex'>
-					<p className='font-semibold text-slate-700'>Sort</p>
+					<p className='font-semibold text-slate-700'>{t('Sort')}</p>
 					<div className='text-slate-700 flex items-center justify-center'>
 						<FilterAltIcon fontSize='small' />
 					</div>
@@ -320,7 +331,7 @@ const Categories = ({ user }) => {
 
 					<input
 						{...search}
-						placeholder='Search a category'
+						placeholder={t('Search a category')}
 						className='border-b-2 border-gray-200 pl-1  pr-1 focus:outline-none'
 					/>
 				</div>
@@ -336,7 +347,7 @@ const Categories = ({ user }) => {
 							<div className=' mr-2'>
 								<img src={noMatch} />
 							</div>
-							<p>No categories available</p>
+							<p>{t('No categories available')}</p>
 						</div>
 					)}
 					{categories.map((category) => (

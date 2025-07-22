@@ -8,6 +8,8 @@ import GridViewIcon from '@mui/icons-material/GridView'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
 
+import { useTranslation } from 'react-i18next'
+
 const EditProjectForm = ({
 	project,
 	categories,
@@ -18,6 +20,7 @@ const EditProjectForm = ({
 	setIconId,
 	projectUnique,
 }) => {
+	const { t, i18n } = useTranslation()
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 
@@ -50,11 +53,11 @@ const EditProjectForm = ({
 		setIconId(1)
 
 		if (prjName.value === '') {
-			dispatch(setError('Please enter a project name', 2))
+			dispatch(setError(`${t('Please enter a project name')}`, 2))
 			return
 		}
 		if (projectUnique(prjName.value) && prjName.value !== project.name) {
-			dispatch(setError('Project names must be unique', 2))
+			dispatch(setError(`${t('Project names must be unique')}`, 2))
 			return
 		}
 		if (
@@ -62,13 +65,16 @@ const EditProjectForm = ({
 			prjName.value[0].toUpperCase() !== prjName.value[0]
 		) {
 			dispatch(
-				setError('Require first uppercase character and minimum length of 5', 2)
+				setError(
+					`${t('Require first uppercase character and minimum length of 5')}`,
+					2
+				)
 			)
 			return
 		}
 
 		if (!/^[A-Za-z]$/.test(prjName.value[0])) {
-			dispatch(setError('Require first non-special character', 2))
+			dispatch(setError(`${t('Require first non-special character')}`, 2))
 			return
 		}
 		setProjectToEdit(null)
@@ -82,10 +88,12 @@ const EditProjectForm = ({
 
 		try {
 			dispatch(updateProject(prjToUpdate))
-			dispatch(setNotification(`Project "${prjName.value}" updated`, 2))
+			dispatch(
+				setNotification(`${t('Project')} "${prjName.value}" ${t('updated')}`, 2)
+			)
 			onClose()
 		} catch {
-			dispatch(setError('Something goes wrong', 2))
+			dispatch(setError(`${t('Something goes wrong')}`, 2))
 		}
 	}
 
@@ -131,7 +139,7 @@ const EditProjectForm = ({
 						<div className='text-orange-500 bg-orange-300 rounded-lg w-9 h-9 justify-center items-center flex border border-slate-50'>
 							<GridViewIcon />
 						</div>
-						<h1 className='font-semibold text-xl'>Edit Project</h1>
+						<h1 className='font-semibold text-xl'>{t('Edit Project')}</h1>
 					</div>
 					<div onClick={onClose} className='text-gray-500 mr-2'>
 						<CloseIcon fontSize='large' />
@@ -140,7 +148,7 @@ const EditProjectForm = ({
 
 				<div className='project-name w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Project Name
+						{t('Project Name')}
 					</label>
 					<div className=' w-full mt-2 flex flex-row justify-between '>
 						<div className='w-[80%] border-1 border-gray-400 rounded-lg items-center justify-center'>
@@ -149,7 +157,7 @@ const EditProjectForm = ({
 								onKeyDown={(e) => {
 									if (e.key === 'Enter') handleEditPrj(e)
 								}}
-								placeholder='Enter a name for the Project'
+								placeholder={t('Enter a name for the Project')}
 								className='text-gray-500 pl-3 pr-3 pt-1 focus:outline-none w-full'
 							/>
 						</div>
@@ -160,7 +168,7 @@ const EditProjectForm = ({
 				</div>
 				<div className='task-priority w-[85%] mt-7 flex flex-row items-center gap-5 '>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Categories
+						{t('Categories')}
 					</label>
 
 					<div className='w-[10%]'>
@@ -203,7 +211,7 @@ const EditProjectForm = ({
 					onClick={handleEditPrj}
 					className='bg-orange-400 text-white select-none rounded-xl p-2 w-[85%] '
 				>
-					Edit Project
+					{t('Edit Project')}
 				</button>
 			</div>
 		</div>

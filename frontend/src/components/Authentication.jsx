@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { setError, setNotification } from '../reducers/notiReducer'
+import { setError } from '../reducers/notiReducer'
 import { setUserFn } from '../reducers/userReducer'
 import loginService, { setToken } from '../services/login'
 import registerService from '../services/register'
@@ -14,6 +14,9 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
+import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+
 const Authentication = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
@@ -21,6 +24,9 @@ const Authentication = () => {
 	const [active, setActive] = useState(location.state?.active || false)
 	const [isVisible, setIsVisible] = useState(false)
 	const [isHover, setIsHover] = useState(false)
+	const { t, i18n } = useTranslation()
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 	useEffect(() => {
 		document.title = active ? 'Registration' : 'Login'
 	}, [active])
@@ -46,12 +52,12 @@ const Authentication = () => {
 			window.localStorage.setItem('loggedPrjMnUser', JSON.stringify(user))
 			setToken(user.token)
 			dispatch(setUserFn(user))
-			dispatch(setNotification('Login successfully', 2))
+			dispatch(('Login successfully', 2))
 			rmUsername()
 			setPassword('')
 			navigate('/dashboard')
 		} catch (exception) {
-			dispatch(setError('Wrong Credentials', 2))
+			dispatch(setError(`${t('Wrong Credentials')}`, 2))
 		}
 	}
 
@@ -60,7 +66,7 @@ const Authentication = () => {
 
 		try {
 			if (passwordRegis !== cfPasswordRegis) {
-				dispatch(setError('Password does not match', 2))
+				dispatch(setError(`${t('Password does not match')}`, 2))
 				return
 			}
 
@@ -70,7 +76,7 @@ const Authentication = () => {
 				password: passwordRegis,
 			})
 
-			dispatch(setNotification('Register successfully', 2))
+			dispatch(setNotification(`${t('Register successfully')}`, 2))
 			rmEmail()
 			rmUsernameRegis()
 			setPasswordRegis('')
@@ -83,7 +89,7 @@ const Authentication = () => {
 				return
 			}
 
-			dispatch(setError('Something went wrong', 2))
+			dispatch(setError(`${t('Something went wrong')}`, 2))
 		}
 	}
 
@@ -107,16 +113,16 @@ const Authentication = () => {
 				/>
 				{isHover && (
 					<div className='absolute top-full left-2 translate-y-2 min-w-30 w-auto text-center bg-slate-200 text-slate-600 rounded-lg'>
-						Back to Home
+						{t('Back to Home')}
 					</div>
 				)}
 			</div>
-			<div className={`container ${active ? 'active' : ''}`}>
+			<div className={`container  ${active ? 'active' : ''}`}>
 				<div className='form-box login'>
 					<form onSubmit={handleLogin}>
-						<h1 className='font-bold'>Login</h1>
+						<h1 className='font-bold'>{t('Login')}</h1>
 						<div className='input-box'>
-							<input {...username} placeholder='Username' />
+							<input {...username} placeholder={t('Username')} />
 							<i className='bx bxs-user'></i>
 						</div>
 						<div className='input-box'>
@@ -124,7 +130,7 @@ const Authentication = () => {
 								value={password}
 								type={isVisible ? 'text' : 'password'}
 								onChange={(e) => setPassword(e.target.value)}
-								placeholder='Password'
+								placeholder={t('Password')}
 								className='pr-20! self-start!'
 							/>
 							<i className='bx bxs-lock-alt relative'>
@@ -144,13 +150,13 @@ const Authentication = () => {
 						</div>
 						<div className='forgot-link '>
 							<a href='#' className='hover:text-blue-500!'>
-								Forgot Password?
+								{t('Forgot Password?')}
 							</a>
 						</div>
 						<button className='btn  hover:opacity-80!' type='submit'>
-							Login
+							{t('Login')}
 						</button>
-						<p>or login with social platforms</p>
+						<p>{t('or login with social platforms')}</p>
 						<div className='social-icons'>
 							<a
 								href='#'
@@ -182,13 +188,15 @@ const Authentication = () => {
 
 				<div className='form-box register' onSubmit={handleRegister}>
 					<form action='#'>
-						<h1 className='font-bold translate-y-[10px]!'>Registration</h1>
+						<h1 className='font-bold translate-y-[10px]!'>
+							{t('Registration')}
+						</h1>
 						<div className='input-box'>
-							<input {...usernameRegis} placeholder='Username' required />
+							<input {...usernameRegis} placeholder={t('Username')} required />
 							<i className='bx bxs-user'></i>
 						</div>
 						<div className='input-box'>
-							<input placeholder='Email' required {...email} />
+							<input placeholder={t('Email')} required {...email} />
 							<i className='bx bxs-envelope'></i>
 						</div>
 						<div className='input-box'>
@@ -196,7 +204,7 @@ const Authentication = () => {
 								type={isVisible ? 'text' : 'password'}
 								value={passwordRegis}
 								onChange={(e) => setPasswordRegis(e.target.value)}
-								placeholder='Password'
+								placeholder={t('Password')}
 								required
 								className='pr-20! self-start!'
 							/>
@@ -219,16 +227,18 @@ const Authentication = () => {
 								type={isVisible ? 'text' : 'password'}
 								value={cfPasswordRegis}
 								onChange={(e) => setCfPasswordRegis(e.target.value)}
-								placeholder='Re-type password'
+								placeholder={t('Re-type password')}
 								required
 								className='pr-20! self-start!'
 							/>
 							<i className='bx bxs-lock-alt'></i>
 						</div>
 						<button type='submit' className='btn hover:opacity-80!'>
-							Register
+							{t('Register')}
 						</button>
-						<p className='font-normal'>or register with social platforms</p>
+						<p className='font-normal'>
+							{t('or register with social platforms')}
+						</p>
 						<div className='social-icons'>
 							<a
 								href='#'
@@ -260,8 +270,8 @@ const Authentication = () => {
 
 				<div className='toggle-box'>
 					<div className='toggle-panel toggle-left'>
-						<h1 className='font-bold'>Hello, Welcome!</h1>
-						<p>Don't have an account?</p>
+						<h1 className='font-bold'>{t('Hello, Welcome!')}</h1>
+						<p>{t("Don't have an account?")}</p>
 						<button
 							className='btn register-btn hover:opacity-80!'
 							onClick={() => {
@@ -269,13 +279,13 @@ const Authentication = () => {
 								setIsVisible(false)
 							}}
 						>
-							Register
+							{t('Register')}
 						</button>
 					</div>
 
 					<div className='toggle-panel toggle-right'>
-						<h1 className='font-bold'>Welcome Back!</h1>
-						<p className='font-normal'>Already have an account?</p>
+						<h1 className='font-bold'>{t('Welcome Back!')}</h1>
+						<p className='font-normal'>{t('Already have an account?')}</p>
 						<button
 							className='btn login-btn hover:opacity-80!'
 							onClick={() => {
@@ -283,14 +293,22 @@ const Authentication = () => {
 								setIsVisible(false)
 							}}
 						>
-							Login
+							{t('Login')}
 						</button>
 					</div>
 				</div>
+			</div>
+			<div className='absolute top-5 left-0 '>
+				{/* Display language options */}
+				<LanguageDropDown
+					openLanguageDropDown={openLanguageDropDown}
+					setOpenLanguageDropDown={setOpenLanguageDropDown}
+					setChosenCard={setChosenCard}
+					chosenCard={chosenCard}
+				/>
 			</div>
 		</div>
 	)
 }
 
 export default Authentication
-

@@ -8,6 +8,8 @@ import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
 import { getIconComponent } from './AllIcons'
 
+import { useTranslation } from 'react-i18next'
+
 const TaskForm = ({
 	onClose,
 	selectedProject,
@@ -16,6 +18,7 @@ const TaskForm = ({
 	setIconId,
 	taskDuplicate,
 }) => {
+	const { t, i18n } = useTranslation()
 	const { remove: rmTask, ...task } = useField('text')
 	const [priority, setPriority] = useState('low')
 	const formRef = useRef(null)
@@ -44,7 +47,7 @@ const TaskForm = ({
 			return
 		}
 		if (task.value.length < 5) {
-			dispatch(setError('Require  minimum length of 5', 2))
+			dispatch(setError('Require minimum length of 5', 2))
 			return
 		}
 
@@ -66,7 +69,9 @@ const TaskForm = ({
 		}
 		try {
 			dispatch(createNewTask(taskToCreate))
-			dispatch(setNotification(`Task "${task.value}" created`, 2))
+			dispatch(
+				setNotification(`${t('Task')} "${task.value}" ${t('created')}`, 2)
+			)
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))
@@ -113,7 +118,7 @@ const TaskForm = ({
 				className='flex flex-col items-center max-w-[600px] w-[550px] rounded-2xl'
 			>
 				<div className='flex flex-row justify-between self-start w-full'>
-					<h1 className='font-semibold text-xl'>Add New Task</h1>
+					<h1 className='font-semibold text-xl'>{t('Add New Task')}</h1>
 					<div onClick={onClose} className='text-gray-500'>
 						<CloseIcon />
 					</div>
@@ -121,7 +126,7 @@ const TaskForm = ({
 
 				<div className='task-name  w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Task Name
+						{t('Task Name')}
 					</label>
 
 					<div className=' w-full mt-2 flex flex-row justify-between '>
@@ -131,8 +136,8 @@ const TaskForm = ({
 								onKeyDown={(e) => {
 									if (e.key === 'Enter') handleAddTask(e)
 								}}
-								placeholder='Enter Task Name...'
-								className='text-gray-500  w-full focus:outline-none'
+								placeholder={`${t('Enter Task Name')}...`}
+								className='text-gray-500  w-full focus:outline-none h-full'
 							/>
 						</div>
 
@@ -144,20 +149,22 @@ const TaskForm = ({
 
 				<div className='task-priority w-[85%] mt-7 '>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Task Priority
+						{t('Task Priority')}
 					</label>
 
 					<div className='mt-2'>
 						<Dropdown
 							options={priorities}
 							onSelect={setPriority}
-							description='Select Priority'
+							description={t('Select Priority')}
 							width='full'
 						/>
 					</div>
 				</div>
 				<div className='task-project w-full  self-start ml-7 mt-7 flex flex-row items-center mb-10'>
-					<label className='text-gray-500 w-auto font-semibold'>Project</label>
+					<label className='text-gray-500 w-auto font-semibold'>
+						{t('Project')}
+					</label>
 
 					<div className='flex-1 flex justify-center items-center '>
 						<div className=' flex flex-row gap-2 items-center rounded-2xl border-slate-400 border-1 pl-3 pt-1 pb-1 pr'>
@@ -178,7 +185,7 @@ const TaskForm = ({
 					onClick={handleAddTask}
 					className='bg-orange-400 select-none text-white rounded-xl p-2 w-[85%]'
 				>
-					Add Task
+					{t('Add Task')}
 				</button>
 			</div>
 		</div>

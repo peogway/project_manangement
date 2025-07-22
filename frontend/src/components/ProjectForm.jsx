@@ -7,6 +7,7 @@ import { setError, setNotification } from '../reducers/notiReducer'
 import GridViewIcon from '@mui/icons-material/GridView'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from './IconButton'
+import { useTranslation } from 'react-i18next'
 
 const ProjectForm = ({
 	categories,
@@ -16,6 +17,7 @@ const ProjectForm = ({
 	setIconId,
 	projectUnique,
 }) => {
+	const { t, i18n } = useTranslation()
 	const formRef = useRef(null)
 	const overlayRef = useRef(null)
 	const [resCates, setResCates] = useState([])
@@ -44,7 +46,7 @@ const ProjectForm = ({
 		}
 
 		if (projectUnique(prjName.value)) {
-			dispatch(setError('Project names must be unique', 2))
+			dispatch(setError('Project name must be unique', 2))
 			return
 		}
 		if (
@@ -68,7 +70,9 @@ const ProjectForm = ({
 		}
 		try {
 			dispatch(createNewProject(prjToCreate))
-			dispatch(setNotification(`Project "${prjName.value}" created`, 2))
+			dispatch(
+				setNotification(`${t('Project')} "${prjName.value}" ${t('created')}`, 2)
+			)
 			onClose()
 		} catch {
 			dispatch(setError('Something goes wrong', 2))
@@ -118,7 +122,7 @@ const ProjectForm = ({
 						<div className='text-orange-500 bg-orange-300 rounded-lg w-9 h-9 justify-center items-center flex border border-slate-50'>
 							<GridViewIcon />
 						</div>
-						<h1 className='font-semibold text-2xl'>New Project</h1>
+						<h1 className='font-semibold text-2xl'>{t('New Project')}</h1>
 					</div>
 					<div onClick={onClose} className='text-gray-500 mr-2'>
 						<CloseIcon fontSize='large' />
@@ -127,7 +131,7 @@ const ProjectForm = ({
 
 				<div className='project-name w-[85%] mt-7'>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Project Name
+						{t('Project Name')}
 					</label>
 					<div className=' w-full mt-2 flex flex-row justify-between '>
 						<div className='w-[80%] border-1 border-gray-400 rounded-lg items-center justify-center'>
@@ -136,7 +140,7 @@ const ProjectForm = ({
 								onKeyDown={(e) => {
 									if (e.key === 'Enter') handleAddPrj(e)
 								}}
-								placeholder='Enter a name for the Project'
+								placeholder={t('Enter a name for the Project')}
 								className='text-gray-500 pl-3 pr-3 pt-1 focus:outline-none w-full'
 							/>
 						</div>
@@ -148,14 +152,14 @@ const ProjectForm = ({
 
 				<div className='task-priority w-[85%] mt-7 flex flex-row items-center gap-5 '>
 					<label className='text-gray-500 ml-[-10px] font-semibold'>
-						Categories
+						{t('Categories')}
 					</label>
 
 					<div className=''>
 						<DropDown
 							options={categoryNames}
 							onSelect={handleSelectCategory}
-							description='Choose categories'
+							description={t('Choose categories')}
 							value={true}
 							width='[300px]'
 						/>
@@ -190,7 +194,7 @@ const ProjectForm = ({
 					onClick={handleAddPrj}
 					className='bg-orange-400 select-none text-white rounded-xl p-2 w-[85%] '
 				>
-					Add Project
+					{t('Add Project')}
 				</button>
 			</div>
 		</div>

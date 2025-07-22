@@ -9,9 +9,11 @@ import invisiblePng from '../assets/invisible.png'
 import { setError, setNotification } from '../reducers/notiReducer'
 import { isTokenExpired, getToken } from '../services/login'
 import { changePassword } from '../services/profile'
+import { useTranslation } from 'react-i18next'
 
 const Account = ({ user }) => {
 	const dispatch = useDispatch()
+	const { t, i18n } = useTranslation()
 	const [oldPw, setOldPw] = useState('')
 	const [newPw, setNewPw] = useState('')
 	const [retypeNewPw, setRetypeNewPw] = useState('')
@@ -34,19 +36,19 @@ const Account = ({ user }) => {
 			return
 		}
 		if (oldPw.length === 0 || newPw.length === 0 || retypeNewPw.length === 0) {
-			dispatch(setError('Fields must not be empty.', 2))
+			dispatch(setError(`${t('Fields must not be empty.')}`, 2))
 			return
 		}
 		if (newPw.length < 3) {
-			dispatch(setError('New password length must be at least 3.', 2))
+			dispatch(setError(`${t('New password length must be at least 3.')}`, 2))
 			return
 		}
 		if (!isMatch) {
-			dispatch(setError('Password confirmation does not match.', 2))
+			dispatch(setError(`${t('Password confirmation does not match.')}`, 2))
 			return
 		}
 		if (oldPw.length < 3) {
-			dispatch(setError('Old password does not match.', 2))
+			dispatch(setError(`${t('Old password does not match.')}`, 2))
 
 			return
 		}
@@ -54,15 +56,15 @@ const Account = ({ user }) => {
 		const res = await changePassword({ oldPassword: oldPw, newPassword: newPw })
 
 		if (res && res.error === 'Incorect old password') {
-			dispatch(setError('Incorect old password.', 2))
+			dispatch(setError(`${t('Incorect old password.')}`, 2))
 			return
 		}
 
 		try {
-			dispatch(setNotification('Password updated successfully.', 2))
+			dispatch(setNotification(`${t('Password updated successfully.')}`, 2))
 			onCancel()
 		} catch (error) {
-			dispatch(setError('Failed to update password.', 2))
+			dispatch(setError(`${t('Failed to update password.')}`, 2))
 		}
 	}
 	return (
@@ -91,7 +93,7 @@ const Account = ({ user }) => {
 
 							<div className='flex  relative w-full items-center justify-center text-center'>
 								<label className='font-bold w-[50%] text-end  text-xl text-slate-700'>
-									<p className='mr-20'>Current password</p>
+									<p className='mr-20'>{t('Current password')}</p>
 								</label>
 								<div className='flex flex-1'>
 									<div
@@ -103,7 +105,7 @@ const Account = ({ user }) => {
 									>
 										{oldPw.length === 0 && (
 											<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-												Can not be empty
+												{t('Can not be empty')}
 											</div>
 										)}
 										<input
@@ -114,7 +116,7 @@ const Account = ({ user }) => {
 											type={isVisible ? 'text' : 'password'}
 											value={oldPw}
 											onChange={(e) => setOldPw(e.target.value)}
-											placeholder='Enter old password'
+											placeholder={t('Enter old password')}
 										/>
 									</div>
 								</div>
@@ -122,7 +124,7 @@ const Account = ({ user }) => {
 
 							<div className='flex  relative w-full items-center justify-center text-center relative'>
 								<label className='font-bold w-[50%] text-end  text-xl text-slate-700'>
-									<p className='mr-20'>New password</p>
+									<p className='mr-20'>{t('New password')}</p>
 								</label>
 								<div className='flex flex-1'>
 									<div
@@ -134,7 +136,7 @@ const Account = ({ user }) => {
 									>
 										{newPw.length < 3 && (
 											<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-												Minium length of 3
+												{t('Minium length of 3')}
 											</div>
 										)}
 										<input
@@ -145,7 +147,7 @@ const Account = ({ user }) => {
 											type={isVisible ? 'text' : 'password'}
 											value={newPw}
 											onChange={(e) => setNewPw(e.target.value)}
-											placeholder='Enter new password'
+											placeholder={t('Enter new password')}
 										/>
 									</div>
 								</div>
@@ -153,7 +155,7 @@ const Account = ({ user }) => {
 
 							<div className='flex  relative w-full items-center justify-center text-center relative'>
 								<label className='font-bold w-[50%] text-end  text-xl text-slate-700 '>
-									<p className='mr-20'>Re-type new password</p>
+									<p className='mr-20'>{t('Re-type new password')}</p>
 								</label>
 								<div className='flex flex-1'>
 									<div
@@ -165,7 +167,7 @@ const Account = ({ user }) => {
 									>
 										{!isMatch && (
 											<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-												Does not match new password
+												{t('Does not match new password')}
 											</div>
 										)}
 										<input
@@ -176,7 +178,7 @@ const Account = ({ user }) => {
 											}}
 											value={retypeNewPw}
 											onChange={(e) => setRetypeNewPw(e.target.value)}
-											placeholder='Re-type new password'
+											placeholder={t('Re-type new password')}
 										/>
 									</div>
 								</div>
@@ -184,8 +186,8 @@ const Account = ({ user }) => {
 						</div>
 					) : (
 						<div className='flex  relative w-full items-center justify-center text-center overflow-hidden'>
-							<label className='font-bold w-[50%] text-end  text-xl text-slate-700  '>
-								<p className='mr-20'>Password</p>
+							<label className='font-bold w-[50%] text-end  text-xl text-slate-700'>
+								<p className='mr-20'>{t('Password')}</p>
 							</label>
 							<div className='text-lg flex-1 flex ml-20 text-slate-600'>
 								●●●●●●●●
@@ -200,13 +202,13 @@ const Account = ({ user }) => {
 								className='text-white w-16 text-center bg-orange-500 mr-4 p-2 rounded-xl semi-bold'
 								onClick={handleChangePassword}
 							>
-								Save
+								{t('Save')}
 							</div>
 							<div
 								className='text-slate-800 w-16 text-center bg-slate-300 rounded-xl p-2 semi-bold'
 								onClick={onCancel}
 							>
-								Cancel
+								{t('Cancel')}
 							</div>
 						</div>
 					)}

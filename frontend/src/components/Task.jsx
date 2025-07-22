@@ -10,8 +10,10 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { allIconsArray } from './AllIcons'
 
 import ConfirmDialog from './ConfirmDialog'
+import { useTranslation } from 'react-i18next'
 
 const Task = ({ ...props }) => {
+	const { t, i18n } = useTranslation()
 	const dispatch = useDispatch()
 	const [isChecked, setIsChecked] = useState(props.completed ? true : false)
 	const [showEditForm, setShowEditForm] = useState(false)
@@ -94,12 +96,12 @@ const Task = ({ ...props }) => {
 							<div className=' flex flex-row'>
 								{props.completed ? (
 									<div>
-										<PublishedWithChangesIcon /> Completed
+										<PublishedWithChangesIcon /> {t('Completed')}
 									</div>
 								) : (
 									<div>
 										<CachedIcon />
-										In Progress
+										{t('In Progress')}
 									</div>
 								)}
 							</div>
@@ -110,8 +112,10 @@ const Task = ({ ...props }) => {
 										priorityMap[props.priority]
 									} mr-1`}
 								></div>
-								{props.priority.charAt(0).toUpperCase() +
-									props.priority.slice(1)}
+								{t(
+									props.priority.charAt(0).toUpperCase() +
+										props.priority.slice(1)
+								)}
 							</div>
 						</div>
 						<div className='flex flex-row justify-between gap-3'>
@@ -140,7 +144,9 @@ const Task = ({ ...props }) => {
 					isOpen={isOpen}
 					onClose={handleClose}
 					onConfirm={handleDelete}
-					message={`Are you sure you want to delete Task "${props.name}"?`}
+					message={`${t('Are you sure you want to delete Task')} "${
+						props.name
+					}"?`}
 				/>
 			)}
 		</div>

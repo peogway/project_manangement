@@ -19,7 +19,10 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import PhoneDisplay from './PhoneDisplay'
 
+import { useTranslation } from 'react-i18next'
+
 const Profile = ({ user }) => {
+	const { t, i18n } = useTranslation()
 	const [imageCrop, setImageCrop] = useState(false) // to control the cropping dialog
 	const [src, setSrc] = useState(null) // source for the avatar image
 	const [pview, setPview] = useState(null) // cropped image preview
@@ -91,8 +94,7 @@ const Profile = ({ user }) => {
 		}
 		document.addEventListener('mousedown', handleClickOutside)
 
-		if (user.avatarUrl !== null)
-			setProfileImage(`${avatarUrl}`)
+		if (user.avatarUrl !== null) setProfileImage(`${avatarUrl}`)
 
 		// Cleanup the event listener on component unmount
 		return () => {
@@ -255,7 +257,7 @@ const Profile = ({ user }) => {
 						visible={imageCrop}
 						header={() => (
 							<p className='text-2xl font-semibold text-slat-800 pt-4 px-10 left-0 absolute top-0 '>
-								Update Profile Photo
+								{t('Update Profile Photo')}
 							</p>
 						)}
 						onHide={() => setImageCrop(false)}
@@ -275,7 +277,7 @@ const Profile = ({ user }) => {
 									src={src}
 									shadingColor={'#474649'}
 									backgroundColor={'#474649'}
-									label='Choose a photo'
+									label={t('Choose a photo')}
 									labelStyle={{
 										fontSize: '24px', // Adjust font size as needed
 										display: 'flex', // Use flex to center label
@@ -294,7 +296,7 @@ const Profile = ({ user }) => {
 							<div className='flex flex-col items-center mt-5 w-12 rounded-2xl'>
 								<Button
 									onClick={saveCropImage}
-									label='Save'
+									label={t('Save')}
 									icon='pi pi-external-link"'
 									className='flex justify-around w-12 mt-4 bg-orange-500 rounded-2xl text-white w-30 h-10 text-xl'
 								></Button>
@@ -314,7 +316,7 @@ const Profile = ({ user }) => {
 					{/* Name */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Name:
+							{t('Name')}:
 						</label>
 						{isEditting ? (
 							<div className='border-1 border-slate-500 max-w-[280px] flex flex-1 items-center ml-5 text-slate-600 rounded-lg relative'>
@@ -327,8 +329,8 @@ const Profile = ({ user }) => {
 										}
 									}}
 									onChange={(e) => setNameInput(e.target.value)}
-									className='focus:outline-none px-2'
-									placeholder='Enter your name'
+									className='focus:outline-none px-2 w-[100%]'
+									placeholder={t('Enter your name')}
 								/>
 							</div>
 						) : user.name ? (
@@ -343,7 +345,7 @@ const Profile = ({ user }) => {
 					{/* Username */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Username:
+							{t('Username')}:
 						</label>
 
 						<div className='flex flex-1 text-lg items-center ml-5 text-slate-600'>
@@ -354,7 +356,7 @@ const Profile = ({ user }) => {
 					{/* Email */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Email:
+							{t('Email')}:
 						</label>
 						{isEditting ? (
 							<div
@@ -366,12 +368,12 @@ const Profile = ({ user }) => {
 							>
 								{emailInput.length === 0 && (
 									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-										Email is required
+										{t('Email is required')}
 									</div>
 								)}
 								{!emailValid && (
 									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-										Invalid email
+										{t('Invalid email')}
 									</div>
 								)}
 								<input
@@ -383,8 +385,8 @@ const Profile = ({ user }) => {
 									type='text'
 									value={emailInput}
 									onChange={(e) => setEmailInput(e.target.value)}
-									className='focus:outline-none px-2'
-									placeholder='Enter your email'
+									className='focus:outline-none px-2 w-[100%]'
+									placeholder={t('Enter your email')}
 								/>
 							</div>
 						) : (
@@ -399,7 +401,7 @@ const Profile = ({ user }) => {
 					{/* Gender */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Gender:
+							{t('Gender')}:
 						</label>
 						{isEditting ? (
 							<div className='flex max-w-[330px] w-[330px]  justify-between items-center text-slate-600 relative'>
@@ -410,7 +412,9 @@ const Profile = ({ user }) => {
 										onChange={() => toggleCheckbox(0)}
 										className='text-orange-200 accent-orange-300 w-5 h-5'
 									/>
-									<label className='semi-bold text-slate-600'>Male</label>
+									<label className='semi-bold text-slate-600'>
+										{t('Male')}
+									</label>
 								</div>
 								<div className='flex gap-1 items-center'>
 									<input
@@ -419,7 +423,9 @@ const Profile = ({ user }) => {
 										onChange={() => toggleCheckbox(1)}
 										className='text-orange-200 accent-orange-300 w-5 h-5'
 									/>
-									<label className='semi-bold text-slate-600'>Female</label>
+									<label className='semi-bold text-slate-600'>
+										{t('Female')}
+									</label>
 								</div>
 								<div className='flex gap-1 items-center'>
 									<input
@@ -428,7 +434,9 @@ const Profile = ({ user }) => {
 										onChange={() => toggleCheckbox(2)}
 										className='text-orange-200 accent-orange-300 w-5 h-5'
 									/>
-									<label className='semi-bold text-slate-600'>Other</label>
+									<label className='semi-bold text-slate-600'>
+										{t('Other')}
+									</label>
 								</div>
 							</div>
 						) : (
@@ -437,7 +445,7 @@ const Profile = ({ user }) => {
 									<NotListedLocationIcon className='scale-130' />
 								) : (
 									<div className='flex text-lg flex-1 items-center text-slate-600'>
-										{user.gender}
+										{t(user.gender)}
 									</div>
 								)}
 							</div>
@@ -447,7 +455,7 @@ const Profile = ({ user }) => {
 					{/* Date of Birth */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Date of birth:
+							{t('Date of birth:')}
 						</label>
 						{isEditting ? (
 							<div className='flex max-w-[280px] flex-1 items-center ml-5 border-1 border-slate-500 rounded-lg text-slate-600'>
@@ -457,7 +465,7 @@ const Profile = ({ user }) => {
 											handleUpdateUser()
 										}
 									}}
-									className='focus:outline-none px-2'
+									className='focus:outline-none px-2 w-full'
 									type='date'
 									value={dob}
 									onChange={(e) => setDob(e.target.value)}
@@ -477,7 +485,7 @@ const Profile = ({ user }) => {
 					{/* Phone Number */}
 					<div className='flex w-full'>
 						<label className='font-bold w-60  text-xl text-slate-700 ml-30'>
-							Phone number:
+							{t('Phone number:')}
 						</label>
 						{isEditting ? (
 							<div
@@ -499,7 +507,7 @@ const Profile = ({ user }) => {
 										autoFormat={true}
 										disableDropdown={false}
 										localization={{}}
-										placeholder='Enter phone number'
+										placeholder={t('Enter phone number')}
 										inputProps={{
 											name: 'phone',
 											required: true,
@@ -514,7 +522,7 @@ const Profile = ({ user }) => {
 								</div>
 								{!phoneValid && (
 									<div className='absolute bottom-full left-0 text-red-700 text-sm'>
-										Invalid phone number
+										{t('Invalid phone number')}
 									</div>
 								)}
 							</div>
@@ -536,13 +544,13 @@ const Profile = ({ user }) => {
 								className='text-white bg-orange-500 mr-4 p-2 rounded-xl semi-bold'
 								onClick={handleUpdateUser}
 							>
-								Apply changes
+								{t('Apply changes')}
 							</div>
 							<div
 								className='text-slate-800 bg-slate-300 rounded-xl p-2 semi-bold'
 								onClick={onCancel}
 							>
-								Cancel
+								{t('Cancel')}
 							</div>
 						</div>
 					)}
