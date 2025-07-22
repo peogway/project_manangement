@@ -95,6 +95,7 @@ const Authentication = () => {
 
 	return (
 		<div className='body relative'>
+			{/* Back button */}
 			<div
 				className='absolute top-5 text-slate-500 left-2 scale-110'
 				onMouseEnter={() => setIsHover(true)}
@@ -117,7 +118,9 @@ const Authentication = () => {
 					</div>
 				)}
 			</div>
+			{/* Login and Register */}
 			<div className={`container  ${active ? 'active' : ''}`}>
+				{/* Login form */}
 				<div className='form-box login'>
 					<form onSubmit={handleLogin}>
 						<h1 className='font-bold'>{t('Login')}</h1>
@@ -186,6 +189,7 @@ const Authentication = () => {
 					</form>
 				</div>
 
+				{/* Register */}
 				<div className='form-box register' onSubmit={handleRegister}>
 					<form action='#'>
 						<h1 className='font-bold translate-y-[10px]!'>
@@ -268,6 +272,7 @@ const Authentication = () => {
 					</form>
 				</div>
 
+				{/* Toggle box */}
 				<div className='toggle-box'>
 					<div className='toggle-panel toggle-left'>
 						<h1 className='font-bold'>{t('Hello, Welcome!')}</h1>
@@ -298,8 +303,8 @@ const Authentication = () => {
 					</div>
 				</div>
 			</div>
+			{/* Display language options */}
 			<div className='absolute top-5 left-0 '>
-				{/* Display language options */}
 				<LanguageDropDown
 					openLanguageDropDown={openLanguageDropDown}
 					setOpenLanguageDropDown={setOpenLanguageDropDown}
