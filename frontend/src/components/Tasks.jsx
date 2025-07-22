@@ -197,9 +197,10 @@ const Tasks = ({ user }) => {
 					<button
 						onClick={toggleAddTask}
 						className={`w-25 h-7 ml-10 bg-orange-400 select-none rounded-lg text-white ${
-							selectedProject === null ? 'opacity-40' : ''
+							// selectedProject === null ? 'opacity-40' : ''
+							selectedProject === null ? '' : ''
 						}`}
-						disabled={selectedProject === null}
+						// disabled={selectedProject === null}
 					>
 						{t('+ Add New')}
 					</button>
