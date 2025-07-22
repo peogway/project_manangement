@@ -8,7 +8,10 @@
 		"lint": "eslint .",
 		"test": "cross-env  NODE_ENV=test node --test",
 		"start:test": "cross-env NODE_ENV=test node index.js",
-		"build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../frontend && npm run build && @powershell Copy-Item dist -Recurse ../backend",
+		"build:ui:powershell": "@powershell Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; cd ../frontend; npm run build; Copy-Item dist -Recurse ../backend",
+		"build:ui:ubuntu": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
+		"build:ui:mac": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
+		"build:ui:windows-cmd": "rmdir /s /q dist && cd ..\\frontend && npm run build && xcopy dist ..\\backend /E /I /Y",
 		"deploy": "fly deploy",
 		"deploy:full": "npm run build:ui && npm run deploy",
 		"logs:prod": "fly logs"
