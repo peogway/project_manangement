@@ -205,12 +205,14 @@ const Tasks = ({ user }) => {
 						{t('+ Add New')}
 					</button>
 					{/* Display language options */}
-					<LanguageDropDown
-						openLanguageDropDown={openLanguageDropDown}
-						setOpenLanguageDropDown={setOpenLanguageDropDown}
-						setChosenCard={setChosenCard}
-						chosenCard={chosenCard}
-					/>
+					<div className='absolute top-[50%] translate-y-[-50%] left-[45%]'>
+						<LanguageDropDown
+							openLanguageDropDown={openLanguageDropDown}
+							setOpenLanguageDropDown={setOpenLanguageDropDown}
+							setChosenCard={setChosenCard}
+							chosenCard={chosenCard}
+						/>
+					</div>
 				</div>
 
 				<div className='ml-auto items-center mr-20 flex'>

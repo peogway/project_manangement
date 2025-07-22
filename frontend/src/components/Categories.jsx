@@ -311,12 +311,14 @@ const Categories = ({ user }) => {
 				</div>
 
 				{/* Display language options */}
-				<LanguageDropDown
-					openLanguageDropDown={openLanguageDropDown}
-					setOpenLanguageDropDown={setOpenLanguageDropDown}
-					setChosenCard={setChosenCard}
-					chosenCard={chosenCard}
-				/>
+				<div className='absolute top-[50%] translate-y-[-50%] left-[35%]'>
+					<LanguageDropDown
+						openLanguageDropDown={openLanguageDropDown}
+						setOpenLanguageDropDown={setOpenLanguageDropDown}
+						setChosenCard={setChosenCard}
+						chosenCard={chosenCard}
+					/>
+				</div>
 
 				<div className='mr-20'>
 					<Avatar user={user} />

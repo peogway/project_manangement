@@ -180,12 +180,14 @@ const Projects = ({ user }) => {
 						</button>
 
 						{/* Display language options */}
-						<LanguageDropDown
-							openLanguageDropDown={openLanguageDropDown}
-							setOpenLanguageDropDown={setOpenLanguageDropDown}
-							setChosenCard={setChosenCard}
-							chosenCard={chosenCard}
-						/>
+						<div className='absolute left-[35%]'>
+							<LanguageDropDown
+								openLanguageDropDown={openLanguageDropDown}
+								setOpenLanguageDropDown={setOpenLanguageDropDown}
+								setChosenCard={setChosenCard}
+								chosenCard={chosenCard}
+							/>
+						</div>
 					</div>
 
 					{/* Sort and Avatar */}

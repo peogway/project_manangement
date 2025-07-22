@@ -241,7 +241,7 @@ const Dashboard = ({ user, animate }) => {
 						<div className='text-slate-500 px-2 '> {t('Welcome Back!')}</div>
 					</div>
 
-					<div className='mt-3'>
+					<div className='absolute top-[50%] translate-y-[-50%] left-[30%]'>
 						{/* Display language options */}
 						<LanguageDropDown
 							openLanguageDropDown={openLanguageDropDown}

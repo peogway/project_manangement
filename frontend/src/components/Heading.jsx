@@ -34,7 +34,7 @@ const Heading = ({ name, user }) => {
 				</div>
 
 				{/* Display language options */}
-				<div className='mt-10'>
+				<div className='absolute top-[50%] translate-y-[-50%] left-[35%]'>
 					<LanguageDropDown
 						openLanguageDropDown={openLanguageDropDown}
 						setOpenLanguageDropDown={setOpenLanguageDropDown}
