@@ -6,30 +6,17 @@ import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
-import LanguageDropDown, { getCard } from './LanguageDropDown'
 
 import Navbar from './Navbar'
 
 import fontPicture from '../assets/font-page-pic.png'
 
 const Home = ({ user }) => {
-	const [chosenCard, setChosenCard] = useState(getCard)
-	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 	useEffect(() => {
 		document.title = 'Project Management'
 	}, [])
 	return (
 		<div className='poppins'>
-			{/* Language Dropdown */}
-			<div className='absolute top-5 left-0 '>
-				{/* Display language options */}
-				<LanguageDropDown
-					openLanguageDropDown={openLanguageDropDown}
-					setOpenLanguageDropDown={setOpenLanguageDropDown}
-					setChosenCard={setChosenCard}
-					chosenCard={chosenCard}
-				/>
-			</div>
 			<Navbar user={user} displayButtons={true} />
 			<CTASection />
 			<Features />
