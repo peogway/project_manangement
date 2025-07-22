@@ -1,8 +1,12 @@
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import LanguageDropDown, { getCard } from './LanguageDropDown'
+import { useState } from 'react'
 
 const Navbar = ({ user, displayButtons }) => {
+	const [chosenCard, setChosenCard] = useState(getCard)
+	const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false)
 	const Logo = () => {
 		const { t, i18n } = useTranslation()
 		const navigate = useNavigate()
@@ -63,8 +67,18 @@ const Navbar = ({ user, displayButtons }) => {
 		)
 	}
 	return (
-		<nav className='flex m-7 p-2 select-none max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col  '>
+		<nav className='flex relative m-7 p-2 select-none max-sm:mt-9 mx-8 items-center justify-between max-sm:flex-col  '>
 			<Logo />
+			{/* Language Dropdown */}
+			<div className='absolute top-[50%] translate-y-[-50%] left-[35%]'>
+				{/* Display language options */}
+				<LanguageDropDown
+					openLanguageDropDown={openLanguageDropDown}
+					setOpenLanguageDropDown={setOpenLanguageDropDown}
+					setChosenCard={setChosenCard}
+					chosenCard={chosenCard}
+				/>
+			</div>
 			{displayButtons && <Buttons user={user} />}
 		</nav>
 	)
