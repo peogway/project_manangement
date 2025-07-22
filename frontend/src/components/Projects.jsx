@@ -134,6 +134,11 @@ const Projects = ({ user }) => {
 	const isVietnamese = i18n.language === 'vn'
 	const isFinnish = i18n.language === 'fi'
 
+	const taskDuplicate = (name) =>
+		projectToAddTask.tasks.some(
+			(task) => task.name.toLowerCase() === name.toLowerCase()
+		)
+
 	return (
 		<div className='z-999 flex flex-row h-screen flex-1 overflow-auto left-[60px] max-w-[calc(100vw-60px)]  relative'>
 			{/* Contents */}
@@ -440,6 +445,7 @@ const Projects = ({ user }) => {
 					setIconId={setIconId}
 					iconId={iconId}
 					setShowIconsMenu={setShowIconsMenu}
+					taskDuplicate={taskDuplicate}
 				/>
 			)}
 		</div>
