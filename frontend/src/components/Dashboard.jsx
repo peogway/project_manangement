@@ -313,7 +313,7 @@ const Dashboard = ({ user, animate }) => {
 									<div
 										key={project.id}
 										className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
-										onClick={() =>
+										onMouseDown={() =>
 											navigate('/tasks', { state: { project: project } })
 										}
 									>
@@ -347,7 +347,7 @@ const Dashboard = ({ user, animate }) => {
 									<div
 										key={task.id}
 										className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
-										onClick={() =>
+										onMouseDown={() =>
 											navigate('/tasks', {
 												state: { project: task.project },
 											})
