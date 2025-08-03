@@ -349,7 +349,13 @@ const Dashboard = ({ user, animate }) => {
 										className='px-4 py-3 flex gap-2 hover:bg-orange-200 rounded-xl transition ease-out duration-200'
 										onMouseDown={() =>
 											navigate('/tasks', {
-												state: { project: task.project },
+												state: {
+													project: projects.filter(
+														(project) => project.id === task.project.id
+													)[0],
+													search: task.name,
+													taskStatus: null,
+												},
 											})
 										}
 									>
