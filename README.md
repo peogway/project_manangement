@@ -1,6 +1,6 @@
 # Project Manangement Application
 
-- [Watch Demo Video](https://your-video-link.com)
+- [Watch Demo Video](https://youtu.be/qc2q3VYmWDQ)
 - [Live Application](https://project-management-application.fly.dev/)
 
 A project management web app built with React, Express, and MongoDB. Users can create and categorize projects, manage tasks with priorities, sort by name, time, or priority, view recent completions, and track overall progress.
