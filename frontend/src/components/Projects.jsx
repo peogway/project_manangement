@@ -144,7 +144,7 @@ const Projects = ({ user }) => {
 			{/* Contents */}
 			<div className='flex flex-col w-[calc(100%-210px)] overflow-auto'>
 				{/* Heading */}
-				<div className='flex flex-row justify-between mb-7 mt-10'>
+				<div className='relative flex flex-row justify-between mb-7 mt-10'>
 					{/* Title, Add button, Langauge Dropdown  */}
 					<div className='flex justify-between items-center w-[350px] ml-10'>
 						{/* Title */}
