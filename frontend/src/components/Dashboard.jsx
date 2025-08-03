@@ -243,7 +243,6 @@ const Dashboard = ({ user, animate }) => {
 
 					{/* Display language options */}
 					<div className='absolute top-[50%] translate-y-[-50%] left-[30%]'>
-						{/* Display language options */}
 						<LanguageDropDown
 							openLanguageDropDown={openLanguageDropDown}
 							setOpenLanguageDropDown={setOpenLanguageDropDown}
