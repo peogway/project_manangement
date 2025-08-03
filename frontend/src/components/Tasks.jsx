@@ -29,7 +29,11 @@ const Tasks = ({ user }) => {
 	)
 
 	const [taskStatus, setTaskStatus] = useState(
-		location.state?.taskStatus ? location.state?.taskStatus : false
+		location.state?.taskStatus === null
+			? null
+			: location.state?.taskStatus
+			? true
+			: false
 	)
 	const [sortValue, setSortValue] = useState('newest')
 	const [showAddTask, setShowAddTask] = useState(false)
@@ -59,7 +63,11 @@ const Tasks = ({ user }) => {
 	useEffect(
 		() =>
 			setTaskStatus(
-				location.state?.taskStatus ? location.state?.taskStatus : false
+				location.state?.taskStatus === null
+					? null
+					: location.state?.taskStatus
+					? true
+					: false
 			),
 		[selectedProject]
 	)
